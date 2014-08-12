@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  content: MyText
+  up: 1
+  down: 1
+
+two:
+  user_id: 
+  content: MyText
+  up: 1
+  down: 1

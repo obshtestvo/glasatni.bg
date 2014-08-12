@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Theme:</strong>
+  <%= @proposal.theme %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @proposal.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @proposal.content %>
+</p>
+
+<p>
+  <strong>Up:</strong>
+  <%= @proposal.up %>
+</p>
+
+<p>
+  <strong>Down:</strong>
+  <%= @proposal.down %>
+</p>
+
+<%= link_to 'Edit', edit_proposal_path(@proposal) %> |
+<%= link_to 'Back', proposals_path %>
