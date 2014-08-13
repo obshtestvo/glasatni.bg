@@ -11,9 +11,14 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
-gem 'spring',        group: :development
-
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'rails_12factor', group: :production
 ruby "2.1.1"
+
+group :development do
+  gem 'quiet_assets'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'spring'
+end
