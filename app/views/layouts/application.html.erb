@@ -1,17 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Promeni</title>
+  <title>Промени</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<div class="container">
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <%= link_to "Промени", root_path, :class => "navbar-brand" %>
+    </div>
+
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <% if current_user %>
+      <p class="navbar-text navbar-right">Здравей, <%= link_to current_user.name, user_path(current_user) %> <a href="#" class="navbar-link"></a></p>
+
+      <form class="navbar-form navbar-right">
+        <%= link_to "Изход", destroy_user_session_path, :method => :delete, :class => "btn btn-success" %>
+      </form>
+    </ul>
+    <% else %>
+      <%= form_for(:user, :url => session_path(:user), :html => { :class => "navbar-form navbar-right" }) do |f| %>
+        <div class="form-group">
+          <%= f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "email" %>
+        </div>
+        <div class="form-group">
+          <%= f.password_field :password, :class => "form-control", :placeholder => "password" %>
+        </div>
+        <%= f.submit "Вход", :class => "btn btn-success" %>
+        <%= link_to "Регистрирай се", new_registration_path(:user), :class => "btn btn-info" %>
+      <% end %>
+    <% end %>
+      
+    </div>
+  </nav>
+
+  <% if notice %>
+    <div class="alert alert-success alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <%= notice %>
+    </div>
+  <% elsif alert %>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <%= alert %>
+    </div>
+  <% end %>
 
 <%= yield %>
 
+<hr />
+
+<p class="text-center"><small>Тук може да се сложат връзки и/или информация. Изработено от <%= link_to "Общество.бг", "http://obshtestvo.bg" %> </small></p>
+
+</div>
 </body>
 </html>
