@@ -9,5 +9,7 @@ Rails.application.routes.draw do
 
   resources :themes
 
+  get "about" => "application#about"
+
   root "themes#index"
 end
