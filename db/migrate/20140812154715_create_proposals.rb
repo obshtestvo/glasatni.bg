@@ -5,8 +5,8 @@ class CreateProposals < ActiveRecord::Migration
       t.references :user, index: true
       t.string :title
       t.text :content
-      t.integer :up
-      t.integer :down
+      t.integer :up, default: 0
+      t.integer :down, default: 0
 
       t.timestamps
     end
