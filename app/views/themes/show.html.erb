@@ -1,14 +1,28 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @theme.name %></h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @theme.name %>
-</p>
+<%= simple_format @theme.info %>
 
-<p>
-  <strong>Info:</strong>
-  <%= @theme.info %>
-</p>
+<h3>Предложения</h3>
 
-<%= link_to 'Edit', edit_theme_path(@theme) %> |
-<%= link_to 'Back', themes_path %>
+<div class="list-group">
+<% @theme.proposals.each do |p| %>
+  <%= link_to p.title, proposal_path(p), class: "list-group-item" %>
+<% end.empty? and begin %>
+  <li><i>Няма направени предложения.</i></li>
+<% end %>
+</div>
+
+<h3>Направи предложение</h3>
+
+<%= form_for(:proposal, url: "/proposals", method: "post") do |f| %>
+
+  <%= f.hidden_field :theme_id, value: @theme.id %>
+  <div class="form-group">
+    <%= f.text_field :title, placeholder: "Заглавие", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.text_area :content, rows: 10, placeholder: "Опишете подробно вашата идея.", class: "form-control" %>
+  </div>
+  <%= f.submit "Предложи", class: "btn btn-success" %>
+<% end %>
+
