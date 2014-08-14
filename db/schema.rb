@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20140812161729) do
   end
 
   create_table "comments", force: true do |t|
+    t.integer  "proposal_id"
     t.integer  "user_id"
     t.text     "content"
     t.integer  "up"
