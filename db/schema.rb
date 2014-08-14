@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20140812161729) do
 
   create_table "proposals", force: true do |t|
     t.integer  "theme_id"
+    t.integer  "user_id"
     t.string   "title"
     t.text     "content"
     t.integer  "up"
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 20140812161729) do
   end
 
   add_index "proposals", ["theme_id"], name: "index_proposals_on_theme_id", using: :btree
+  add_index "proposals", ["user_id"], name: "index_proposals_on_user_id", using: :btree
 
   create_table "themes", force: true do |t|
     t.string   "name"
