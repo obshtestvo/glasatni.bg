@@ -1,8 +1,45 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= @proposal.title %> <small><%= @proposal.theme.name %></small></h1>
-<%= @proposal.rating %> точки | потребител: <%= link_to @proposal.user.name, user_path(@proposal.user) %>
+<%= @proposal.rating %> точки |
+потребител: <%= link_to @proposal.user.name, user_path(@proposal.user) %> |
+<%= link_to 'Edit', edit_proposal_path(@proposal) %>
+
+<br />
 
 <%= raw @proposal.content %>
 
-<%= link_to 'Edit', edit_proposal_path(@proposal) %>
+<hr />
+
+<h3>Коментари</h3>
+
+<div class="row">
+  <div class="col-md-8">
+    <div id="warning" class="bs-callout bs-callout-danger" style="display:none">
+    <h4>Само да ти кажем някои неща...</h4>
+    Опитай се да бъдеш максимално изчерпателен(на). Всякакви расистки, хомофобски, сексистки, шовинистки коментари ще бъдат изтривани, както и коментари приканващи към насилие над хора или животни.
+    Коментарите трябва да са с минимална дължина от 100 символа.
+  </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <textarea id="comment-box" name="" rows="8" cols="40" class="form-control" placeholder="Напиши своя коментар тук."></textarea>
+  </div>
+  <div class="col-md-4">
+    <%= button_tag "Коментирай", class: "btn btn-success", id: "send-button", disabled: "disabled" %>
+    <span id="symbolsBox">Остават ти 100 символа.</span>
+  </div>
+</div>
+
+<hr />
+
+<ul id="comment-list" class="media-list">
+<% @proposal.comments.each do |c| %>
+  <div class="panel panel-default">
+    <div class="panel-heading"><%= c.user.name %></div>
+    <div class="panel-body">
+      <%= c.content %>
+    </div>
+  </div>
+<% end %>
+</ul>
