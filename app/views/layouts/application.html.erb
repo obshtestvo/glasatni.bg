@@ -21,7 +21,7 @@
         <%= link_to "Изход", destroy_user_session_path, :method => :delete, :class => "btn btn-success" %>
       </form>
 
-      <p class="navbar-text navbar-right">Здравей, <%= link_to current_user.name, user_path(current_user) %> <a href="#" class="navbar-link"></a></p>
+      <p class="navbar-text navbar-right">Здравей, <%= link_to current_user.name, user_path(current_user), id: "username" %> <a href="#" class="navbar-link"></a></p>
     </ul>
     <% else %>
       <%= form_for(:user, :url => session_path(:user), :html => { :class => "navbar-form navbar-right" }) do |f| %>
@@ -50,7 +50,13 @@
     </div>
   <% end %>
 
-<%= yield %>
+  <div class="row">
+    <div class="col-md-10">
+      <%= yield %>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
 
 <hr />
 
