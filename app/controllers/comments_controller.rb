@@ -38,6 +38,53 @@ class CommentsController < ApplicationController
     end
   end
 
+  def vote
+
+    direction = comment_params[:vote]
+    comment = Comment.find(comment_params[:id])
+
+    voting = Voting.find_or_initialize_by({
+      user: current_user,
+      votable: comment
+    })
+
+    # voting is initialized
+    if voting.value.nil?
+
+      voting.value = Voting.values[direction.to_sym]
+      voting.save
+
+      direction == "up" ? comment.up += 1 : comment.down += 1
+      comment.save
+
+    # voting is already created and user REMOVED its vote
+    elsif voting.value == Voting.values[direction.to_sym]
+
+      voting.destroy
+
+      direction == "up" ? comment.up -= 1 : comment.down -= 1
+      comment.save
+
+    # voting is already created and user CHANGED its vote
+    elsif voting.value != Voting.values[direction.to_sym]
+
+      voting.value = Voting.values[direction.to_sym]
+      voting.save
+
+      if direction == "up"
+        comment.up += 1;
+        comment.down -= 1
+      else
+        comment.up -= 1;
+        comment.down += 1
+      end
+      comment.save
+
+    end
+
+    render json: { up: comment.up, down: comment.down }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_comment
@@ -46,7 +93,7 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:theme_id, :proposal_id, :title, :content, :up, :down)
+      params.require(:comment).permit(:id, :theme_id, :proposal_id, :title, :content, :up, :down, :vote)
     end
 
 end
