@@ -33,13 +33,51 @@
 
 <hr />
 
-<ul id="comment-list" class="media-list">
 <% @proposal.comments.each do |c| %>
-  <div class="panel panel-default">
-    <div class="panel-heading"><%= c.user.name %></div>
-    <div class="panel-body">
-      <%= c.content %>
+
+  <div class="row">
+    <div class="col-md-1">
+      <center>
+      <div class="btn-group-vertical">
+        <%= button_tag class: "btn btn-default btn-sm vote-button", disabled: !user_signed_in?, id: "#{c.id}-up", "data-placement" => "right", "data-toggle" => "tooltip", title: "Добра аргументация" do %>
+          <i class="fa fa-arrow-up"></i>
+        <% end %>
+        <%= button_tag class: "btn btn-default btn-sm vote-button", disabled: !user_signed_in?, id: "#{c.id}-down", "data-placement" => "right", "data-toggle" => "tooltip", title: "Лоша аргументация" do %>
+          <i class="fa fa-arrow-down"></i>
+        <% end %>
+      </div>
+
+      <p class="text-muted"><%= c.rating %></p>
+
+      </center>
+    </div>
+    <div class="col-md-11">
+      <%= simple_format c.content %>
+      <p class="text-right">
+      <%= link_to user_path(c.user), class: "btn btn-default btn-sm" do %>
+        <%= c.user.name %>
+      <% end %>
+      </p>
     </div>
   </div>
+
+  <%= "<hr />".html_safe unless c == @proposal.comments.last %>
+
 <% end %>
-</ul>
+
+<div class="modal fade" id="whoops-box">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Опа!</h4>
+      </div>
+      <div class="modal-body">
+        <p>Изглежда в момента гласуването на работи! Моля да ни извините!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">От мен да мине.</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
