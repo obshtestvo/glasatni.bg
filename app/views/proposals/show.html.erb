@@ -54,18 +54,15 @@
 
 <hr />
 
-<% @proposal.comments.each do |c| %>
+<% voted_on = Voting.where(user: current_user).pluck(:votable_id, :value) %>
+
+<% @proposal.comments.order(:created_at).each do |c| %>
 
   <div class="row">
     <div class="col-md-1">
       <center>
       <div class="btn-group-vertical">
-        <%= button_tag class: "btn btn-default btn-sm vote-button", disabled: !user_signed_in?, id: "#{c.id}-up", "data-placement" => "right", "data-toggle" => "tooltip", title: "Добра аргументация" do %>
-          <i class="fa fa-arrow-up"></i>
-        <% end %>
-        <%= button_tag class: "btn btn-default btn-sm vote-button", disabled: !user_signed_in?, id: "#{c.id}-down", "data-placement" => "right", "data-toggle" => "tooltip", title: "Лоша аргументация" do %>
-          <i class="fa fa-arrow-down"></i>
-        <% end %>
+        <%= parse_buttons c, voted_on, :comment %>
       </div>
 
       <p class="text-muted"><%= c.rating %></p>
