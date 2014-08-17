@@ -56,12 +56,16 @@ var ready = function() {
     $otherBtn.prop("disabled", true);
 
     $.post("/comments/vote", { comment: { vote: vote, id: comment_id } }, function(res) {
-
-      // change ratings
+      var $rating = $btn.parent().siblings("p");
+      var cssClass = vote === "up" ? "btn-success" : "btn-danger";
+      var otherCssClass = vote === "down" ? "btn-success" : "btn-danger";
 
       // change classes of button
-      $btn.toggleClass("btn-default").toggleClass("btn-warning");
-      $otherBtn.removeClass("btn-warning").addClass("btn-default");
+      $btn.toggleClass("btn-default").toggleClass(cssClass);
+      $otherBtn.removeClass(otherCssClass).addClass("btn-default");
+
+      // change ratings
+      $rating.text(res)
 
     }).fail(function(res) {
 
@@ -71,7 +75,6 @@ var ready = function() {
     }).always(function(res) {
 
       // change btns back to enabled.
-
       $btn.prop("disabled", false);
       $otherBtn.prop("disabled", false);
 

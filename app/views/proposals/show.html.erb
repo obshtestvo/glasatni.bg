@@ -1,16 +1,18 @@
-<h1>
-      <div class="btn-group-vertical">
-        <%= button_tag class: "btn btn-default btn-sm vote-button", disabled: !user_signed_in?, id: "#{@proposal.id}-up", "data-placement" => "right", "data-toggle" => "tooltip", title: "Добра аргументация" do %>
-          <i class="fa fa-arrow-up"></i>
-        <% end %>
-        <%= button_tag class: "btn btn-default btn-sm vote-button", disabled: !user_signed_in?, id: "#{@proposal.id}-down", "data-placement" => "right", "data-toggle" => "tooltip", title: "Лоша аргументация" do %>
-          <i class="fa fa-arrow-down"></i>
-        <% end %>
-      </div>
-  <%= @proposal.title %> <small><%= @proposal.theme.name %></small></h1>
-  <%= @proposal.rating %> точки |
-  потребител: <%= link_to @proposal.user.name, user_path(@proposal.user) %> |
-  <%= link_to 'Edit', edit_proposal_path(@proposal) %>
+<% voted_on = Voting.where(user: current_user).pluck(:votable_id, :value) %>
+
+<div class="row">
+  <div class="col-md-1">
+    <center>
+    <%= parse_buttons @proposal, voted_on, :proposal %>
+    <p class="text-muted"><%= @proposal.rating %></p>
+    </center>
+  </div>
+  <div class="col-md-11">
+    <%= @proposal.title %> <small><%= @proposal.theme.name %></small>
+    потребител: <%= link_to @proposal.user.name, user_path(@proposal.user) %> |
+    <%= link_to 'Edit', edit_proposal_path(@proposal) %>
+  </div>
+</div>
 
 <br />
 
@@ -54,19 +56,13 @@
 
 <hr />
 
-<% voted_on = Voting.where(user: current_user).pluck(:votable_id, :value) %>
-
 <% @proposal.comments.order(:created_at).each do |c| %>
 
   <div class="row">
     <div class="col-md-1">
       <center>
-      <div class="btn-group-vertical">
-        <%= parse_buttons c, voted_on, :comment %>
-      </div>
-
-      <p class="text-muted"><%= c.rating %></p>
-
+      <%= parse_buttons c, voted_on, :comment %>
+      <p class="text-muted rating"><%= c.rating %></p>
       </center>
     </div>
     <div class="col-md-11">
@@ -96,6 +92,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">От мен да мине.</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+    </div>
+  </div>
+</div>
