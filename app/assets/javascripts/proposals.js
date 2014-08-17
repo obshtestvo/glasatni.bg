@@ -56,7 +56,6 @@ var ready = function() {
     $otherBtn.prop("disabled", true);
 
     $.post("/comments/vote", { comment: { vote: vote, id: comment_id } }, function(res) {
-      console.log(res);
 
       // change ratings
 

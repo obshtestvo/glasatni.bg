@@ -55,17 +55,15 @@ class CommentsController < ApplicationController
       voting.save
 
       direction == "up" ? comment.up += 1 : comment.down += 1
-      comment.save
 
-    # voting is already created and user REMOVED its vote
+    # voting is already created and user REMOVED her/his vote
     elsif voting.value == Voting.values[direction.to_sym]
 
       voting.destroy
 
       direction == "up" ? comment.up -= 1 : comment.down -= 1
-      comment.save
 
-    # voting is already created and user CHANGED its vote
+    # voting is already created and user CHANGED her/his vote
     elsif voting.value != Voting.values[direction.to_sym]
 
       voting.value = Voting.values[direction.to_sym]
@@ -78,9 +76,10 @@ class CommentsController < ApplicationController
         comment.up -= 1;
         comment.down += 1
       end
-      comment.save
 
     end
+
+    comment.save
 
     render json: { up: comment.up, down: comment.down }
   end

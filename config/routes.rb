@@ -11,7 +11,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :proposals
+  resources :proposals do
+    collection do
+      post 'vote'
+    end
+  end
 
   resources :themes
 
