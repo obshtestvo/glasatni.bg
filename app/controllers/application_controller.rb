@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   def about
   end
 
+  def admin
+    @comments = Comment.all
+  end
+
   protected
 
     def configure_permitted_parameters

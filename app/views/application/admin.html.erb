@@ -1,0 +1,14 @@
+<h1>Администраторски панел</h1>
+
+<h3>Последни коментари</h3>
+
+<table class="table">
+  <% @comments.each do |c| %>
+    <tr>
+      <td>
+        <%= c.rating %><br />
+      </td>
+      <td><%= simple_format c.content %></td>
+    </tr>
+  <% end %>
+</table>

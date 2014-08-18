@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get "admin" => "application#admin"
+
   resources :themes
 
   get "about" => "application#about"
