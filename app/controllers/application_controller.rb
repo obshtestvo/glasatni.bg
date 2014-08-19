@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
 
   def admin
     @comments = Comment.all
+
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
   end
 
   protected

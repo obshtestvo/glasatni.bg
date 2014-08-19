@@ -15,6 +15,7 @@ gem 'bootstrap-sass'
 gem "font-awesome-rails"
 gem 'devise'
 gem 'rails_12factor', group: :production
+gem 'cancancan', '~> 1.9'
 ruby "2.1.1"
 
 group :development do
