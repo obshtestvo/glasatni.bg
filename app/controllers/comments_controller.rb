@@ -40,54 +40,6 @@ class CommentsController < ApplicationController
 
   def vote
 
-    direction = comment_params[:vote]
-    comment = Comment.find(comment_params[:id])
-    author = comment.user
-
-    voting = Voting.find_or_initialize_by({
-      user: current_user,
-      votable: comment
-    })
-
-    # voting is initialized
-    if voting.value.nil?
-
-      voting.value = Voting.values[direction.to_sym]
-      voting.save
-
-      direction == "up" ? comment.up += 1 : comment.down += 1
-      author.reputation += direction == "up" ? 1 : -1
-
-    # voting is already created and user REMOVED her/his vote
-    elsif voting.value == Voting.values[direction.to_sym]
-
-      voting.destroy
-
-      direction == "up" ? comment.up -= 1 : comment.down -= 1
-      author.reputation += direction == "up" ? -1 : 1
-
-    # voting is already created and user CHANGED her/his vote
-    elsif voting.value != Voting.values[direction.to_sym]
-
-      voting.value = Voting.values[direction.to_sym]
-      voting.save
-
-      if direction == "up"
-        comment.up += 1;
-        comment.down -= 1
-      else
-        comment.up -= 1;
-        comment.down += 1
-      end
-
-      author.reputation += direction == "up" ? 2 : -2
-
-    end
-
-    comment.save
-    author.save
-
-    render json: (comment.up - comment.down)
   end
 
   private

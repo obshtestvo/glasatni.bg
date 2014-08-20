@@ -9,6 +9,65 @@ class ApplicationController < ActionController::Base
 
   def admin
     @comments = Comment.all
+  end
+
+  def vote
+
+    direction = params[:vote]
+
+    if params[:votable] == "comment"
+      votable = Comment.find(params[:id])
+    else
+      votable = Proposal.find(params[:id])
+    end
+
+    author = votable.user
+
+    voting = Voting.find_or_initialize_by({
+      user: current_user,
+      votable: votable
+    })
+
+    # voting is initialized
+    if voting.value.nil?
+
+      voting.value = Voting.values[direction.to_sym]
+      voting.save
+
+      direction == "up" ? votable.up += 1 : votable.down += 1
+      author.reputation += direction == "up" ? 1 : -1
+
+    # voting is already created and user REMOVED her/his vote
+    elsif voting.value == Voting.values[direction.to_sym]
+
+      voting.destroy
+
+      direction == "up" ? votable.up -= 1 : votable.down -= 1
+      author.reputation += direction == "up" ? -1 : 1
+
+    # voting is already created and user CHANGED her/his vote
+    elsif voting.value != Voting.values[direction.to_sym]
+
+      voting.value = Voting.values[direction.to_sym]
+      voting.save
+
+      if direction == "up"
+        votable.up += 1;
+        votable.down -= 1
+      else
+        votable.up -= 1;
+        votable.down += 1
+      end
+
+      author.reputation += direction == "up" ? 2 : -2
+
+    end
+
+    votable.hotness = votable.up - votable.down
+    votable.save
+    author.save
+
+    render json: votable.rating
 
   end
 

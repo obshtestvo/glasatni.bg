@@ -51,11 +51,12 @@ var ready = function() {
     var $otherBtn = $btn.siblings(".btn");
     var comment_id = $btn.attr("id").split("-")[0];
     var vote = $btn.attr("id").split("-")[1];
+    var votable = $btn.attr("class").match("comment") === null ? "proposal" : "comment";
 
     $btn.prop("disabled", true);
     $otherBtn.prop("disabled", true);
 
-    $.post("/comments/vote", { comment: { vote: vote, id: comment_id } }, function(res) {
+    $.post("/vote", { vote: vote, id: comment_id, votable: votable }, function(res) {
       var $rating = $btn.parent().siblings("p");
       var cssClass = vote === "up" ? "btn-success" : "btn-danger";
       var otherCssClass = vote === "down" ? "btn-success" : "btn-danger";
@@ -67,12 +68,12 @@ var ready = function() {
       // change ratings
       $rating.text(res)
 
-    }).fail(function(res) {
+    }).fail(function() {
 
       // display 'something went wrong.'
       $("#whoops-box").modal("show")
 
-    }).always(function(res) {
+    }).always(function() {
 
       // change btns back to enabled.
       $btn.prop("disabled", false);

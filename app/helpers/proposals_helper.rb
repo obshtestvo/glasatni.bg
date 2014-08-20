@@ -5,6 +5,16 @@ module ProposalsHelper
     classes = "btn btn-default btn-sm vote-button"
     idx = voted_on.index { |v| v[0] == c.id }
 
+    if type == :comment
+      classes += " comment"
+      title_msg_up = "Добра аргументация"
+      title_msg_down = "Лоша аргументация"
+    else
+      classes += " proposal"
+      title_msg_up = "Добра идея"
+      title_msg_down = "Лоша идея"
+    end
+
     # classes remains the same
     if idx.nil?
 
@@ -22,16 +32,6 @@ module ProposalsHelper
       classes_up = classes
       classes_down = classes.gsub("btn-default", "btn-danger")
 
-    end
-
-    if type == :comment
-      classes += " comment"
-      title_msg_up = "Добра аргументация"
-      title_msg_down = "Лоша аргументация"
-    else
-      classes += " proposal"
-      title_msg_up = "Добра идея"
-      title_msg_down = "Лоша идея"
     end
 
     fin = '<div class="btn-group-vertical">'.html_safe

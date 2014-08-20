@@ -5,19 +5,12 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, :only => [:show]
 
-  resources :comments do
-    collection do
-      post 'vote'
-    end
-  end
+  resources :comments
 
-  resources :proposals do
-    collection do
-      post 'vote'
-    end
-  end
+  resources :proposals
 
   get "admin" => "application#admin"
+  post "vote" => "application#vote"
 
   resources :themes
 
