@@ -7,6 +7,7 @@ class CreateProposals < ActiveRecord::Migration
       t.text :content
       t.integer :up, default: 0
       t.integer :down, default: 0
+      t.integer :hotness, default: 0
 
       t.timestamps
     end

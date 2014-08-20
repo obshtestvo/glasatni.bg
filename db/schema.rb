@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140812161729) do
     t.text     "content"
     t.integer  "up",          default: 0
     t.integer  "down",        default: 0
+    t.integer  "hotness",     default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -52,6 +53,7 @@ ActiveRecord::Schema.define(version: 20140812161729) do
     t.text     "content"
     t.integer  "up",         default: 0
     t.integer  "down",       default: 0
+    t.integer  "hotness",    default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
