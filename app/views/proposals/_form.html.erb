@@ -12,11 +12,16 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.text_field :title, class: "form-control" %>
+    <%= f.select :theme_id, options_for_select(Theme.pluck(:name, :id)), { :include_blank => false }, :class => "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.text_field :title, placeholder: "Заглавие", class: "form-control" %>
   </div>
   <div class="form-group">
-    <%= f.text_area :content, class: "form-control", rows: 20 %>
+    <%= f.text_area :content, rows: 20, placeholder: "Опишете подробно вашата идея.", class: "form-control" %>
   </div>
-    <%= f.submit "Редактирай", class: "btn btn-success" %>
+  <%= f.submit "Предложи", class: "btn btn-success" %>
 
 <% end %>
+

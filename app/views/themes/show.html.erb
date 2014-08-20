@@ -1,28 +1,53 @@
-<h1><%= @theme.name %></h1>
+<% voted_on = Voting.where(user: current_user).pluck(:votable_id, :value) %>
+
+
+<div class="page-header">
+  <h1><%= @theme.name %></h1>
+</div>
 
 <%= simple_format @theme.info %>
 
-<h3>Предложения</h3>
+<% if user_signed_in? %>
+  <br />
+  <%= link_to "Направи предложение", new_proposal_path, class: "btn btn-success pull-right" %>
 
-<div class="list-group">
+<% else %>
+
+  <div id="not-registered" class="bs-callout bs-callout-danger">
+    <h4>Само регистрирани потребители могат да правят предложения.</h4>
+    Регистрирането ти позволява също да гласуваш и оставяш коментари. Можеш да се регистрираш <%= link_to "от тук", new_registration_path(:user) %>.
+  </div>
+
+<% end %>
+
+<br />
+<h2>Предложения</h2>
+<br />
+
 <% @theme.proposals.each do |p| %>
-  <%= link_to p.title, proposal_path(p), class: "list-group-item" %>
+  <div class="row">
+    <div class="col-md-1">
+      <%= parse_buttons p, voted_on, :proposal %>
+    </div>
+    <div class="col-md-11">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"> <%= link_to p.title, proposal_path(p) %>
+          <small>
+           | <%= p.rating %> точки |
+          <%= p.comments.count %> коментара |
+          автор: <%= link_to p.user.name, user_path(p.user) %>
+          </small>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= truncate p.content, length: 300 %>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end.empty? and begin %>
   <li><i>Няма направени предложения.</i></li>
 <% end %>
-</div>
 
-<h3>Направи предложение</h3>
-
-<%= form_for(:proposal, url: "/proposals", method: "post") do |f| %>
-
-  <%= f.hidden_field :theme_id, value: @theme.id %>
-  <div class="form-group">
-    <%= f.text_field :title, placeholder: "Заглавие", class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.text_area :content, rows: 10, placeholder: "Опишете подробно вашата идея.", class: "form-control" %>
-  </div>
-  <%= f.submit "Предложи", class: "btn btn-success" %>
-<% end %>
 

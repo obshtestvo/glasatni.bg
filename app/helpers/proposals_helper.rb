@@ -5,9 +5,6 @@ module ProposalsHelper
     classes = "btn btn-default btn-sm vote-button"
     idx = voted_on.index { |v| v[0] == c.id }
 
-    p c.id
-    p voted_on
-
     # classes remains the same
     if idx.nil?
 

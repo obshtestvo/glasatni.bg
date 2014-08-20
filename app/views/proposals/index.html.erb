@@ -1,33 +1,31 @@
-<h1>Listing proposals</h1>
+<% voted_on = Voting.where(user: current_user).pluck(:votable_id, :value) %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Theme</th>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Up</th>
-      <th>Down</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<h1>Всички предложения</h1>
 
-  <tbody>
-    <% @proposals.each do |proposal| %>
-      <tr>
-        <td><%= proposal.theme %></td>
-        <td><%= proposal.title %></td>
-        <td><%= proposal.content %></td>
-        <td><%= proposal.up %></td>
-        <td><%= proposal.down %></td>
-        <td><%= link_to 'Show', proposal %></td>
-        <td><%= link_to 'Edit', edit_proposal_path(proposal) %></td>
-        <td><%= link_to 'Destroy', proposal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @proposals.each do |p| %>
+  <div class="row">
+    <div class="col-md-1">
+      <%= parse_buttons p, voted_on, :proposal %>
+    </div>
+    <div class="col-md-11">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"> <%= link_to p.title, proposal_path(p) %>
+          <small>
+           | <%= p.rating %> точки |
+          <%= p.comments.count %> коментара |
+          автор: <%= link_to p.user.name, user_path(p.user) %>
+          </small>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= truncate p.content, length: 300 %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end.empty? and begin %>
+  <li><i>Няма направени предложения.</i></li>
+<% end %>
 
-<br>
 
-<%= link_to 'New Proposal', new_proposal_path %>

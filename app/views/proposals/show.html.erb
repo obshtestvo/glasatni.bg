@@ -13,10 +13,10 @@
     <h1><%= @proposal.title %> </h1>
     <%= link_to @proposal.theme.name, theme_path(@proposal.theme), class: "btn btn-success btn-sm pull-left" %>
     <div class="btn-group pull-right">
-      <%= link_to edit_proposal_path(@proposal), class: "btn btn-default btn-sm" do %>
+      <%= link_to edit_proposal_path(@proposal), class: "btn btn-default btn-sm #{'disabled' if !user_signed_in?}" do %>
         <i class="fa fa-pencil"></i>
       <% end %>
-      <%= link_to @proposal, method: :delete, data: { confirm: 'Are you sure you want to delete this page?' }, class: "btn btn-default btn-sm btn-danger" do %>
+      <%= link_to @proposal, method: :delete, data: { confirm: 'Сигурен ли си, че искаш да изтриеш това предложение?' }, class: "btn btn-default btn-sm btn-danger #{'disabled' if !user_signed_in?}" do %>
         <i class="fa fa-times"></i>
       <% end %>
     </div>
