@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <div class="container">
     <h1>Здравейте!</h1>
-    <p>„Променѝ“ е онлайн платформа, на която се правят и обсъждат предложения на теми от гражданският сектор. Темите с по-голяма подкрепа ще бъдат промотирани пред компетентни лица.</p>
+    <p>„Гласа.ни“ е онлайн платформа, на която се правят и обсъждат предложения на теми от гражданският сектор. Темите с по-голяма подкрепа ще бъдат промотирани пред компетентни лица.</p>
     <p>
     <%= link_to "Разбери още »", about_path, class: "btn btn-success btn-lg" %>
   </div>
@@ -21,6 +21,33 @@
 
 <br />
 <br />
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Последни предложения</h3>
+      </div>
+        <ul class="list-group">
+          <% Proposal.latest(10).each do |p| %>
+            <li class="list-group-item"><%= link_to p.title, proposal_path(p) %></li>
+          <% end %>
+        </ul>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Популярни предложения</h3>
+      </div>
+      <ul class="list-group">
+        <% Proposal.hottest(10).each do |p| %>
+          <li class="list-group-item"><%= link_to p.title, proposal_path(p) %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-6">

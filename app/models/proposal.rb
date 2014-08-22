@@ -7,4 +7,12 @@ class Proposal < ActiveRecord::Base
     self.up - self.down
   end
 
+  def self.latest n
+    Proposal.order(created_at: :asc).limit(n)
+  end
+
+  def self.hottest n
+    Proposal.order(hotness: :desc).limit(n)
+  end
+
 end
