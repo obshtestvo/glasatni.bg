@@ -42,6 +42,7 @@ module ProposalsHelper
      '<i class="fa fa-arrow-down"></i>'.html_safe
     end
     fin += '</div>'.html_safe
+
     fin
   end
 

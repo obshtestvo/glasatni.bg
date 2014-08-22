@@ -30,15 +30,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    @comment = Comment.find(params[:id])
     @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to comment_url, notice: 'comment was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  def vote
-
+    render json: "destroyed"
   end
 
   private
@@ -49,7 +43,7 @@ class CommentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
-      params.require(:comment).permit(:id, :theme_id, :proposal_id, :title, :content, :vote)
+      params.require(:comment).permit(:id, :theme_id, :proposal_id, :title, :content)
     end
 
 end

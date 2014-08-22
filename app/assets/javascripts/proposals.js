@@ -2,10 +2,14 @@ var ready = function() {
 
   var $sendButton = $("#send-button");
   var $commentBox = $("#comment-box");
-  var $commentList = $("#comment-list");
   var $warning = $("#warning");
   var $symbolsBox = $("#symbolsBox");
   var $voteButtons = $(".vote-button");
+
+  // render comments
+  //$.ajax("/comments", function(comments) {
+  //}).fail(function() {
+  //});
 
   $commentBox.on("focus", function() {
     $warning.slideDown();
@@ -13,19 +17,34 @@ var ready = function() {
 
   $sendButton.on("click", function() {
     var $btn = $(this);
+    var $noComments = $("#no-comments");
     var content = $commentBox.val();
     var username = $("a#username").text();
     var proposal_id = window.location.pathname.match(/\d+$/)[0];
+    var $commentsList = $("#comments-list");
 
     $btn.prop("disabled", true);
 
     // post a comment and resieve the html for the comment
-    $.post("/comments", { comment: { content: content, proposal_id: proposal_id } }, function(comment_msg) {
+    $.post("/comments", { comment: { content: content, proposal_id: proposal_id } }, function(commentHtml) {
+      var $newComment;
+
       $commentBox.val("");
       $btn.prop("disabled", false);
 
-      //FIXME
-      //$commentList.prepend("<li>0 | " + username + " | " + content + "</li>");
+      $noComments.hide();
+      $commentsList.prepend(commentHtml);
+
+      $newComment = $commentsList.children().first();
+
+      // reinstantiate vote-buttons click fn
+      $(".vote-button").on("click", voteButtonsClickFn);
+      $('html, body').animate({ scrollTop: $newComment.offset().top }, 'slow');
+
+    }).fail(function(msg) {
+
+      // TODO custom message
+      $("#whoops-box").modal("show");
 
     });
   });
@@ -44,10 +63,9 @@ var ready = function() {
 
   });
 
-  // this handles votings for comments (and proposals??)
-
-  $voteButtons.on("click", function() {
-    var $btn = $(this);
+  // this handles votings for comments
+  var voteButtonsClickFn = function(res) {
+    var $btn = $(res.currentTarget);
     var $otherBtn = $btn.siblings(".btn");
     var comment_id = $btn.attr("id").split("-")[0];
     var vote = $btn.attr("id").split("-")[1];
@@ -71,7 +89,7 @@ var ready = function() {
     }).fail(function() {
 
       // display 'something went wrong.'
-      $("#whoops-box").modal("show")
+      $("#whoops-box").modal("show");
 
     }).always(function() {
 
@@ -81,7 +99,9 @@ var ready = function() {
 
     });
 
-  });
+  };
+
+  $voteButtons.on("click", voteButtonsClickFn);
 
   $voteButtons.tooltip();
 

@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :proposal
-  has_many :votings, as: :votable
+  has_many :votings, as: :votable, dependent: :destroy
 
   def rating
     self.up - self.down
