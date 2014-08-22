@@ -67,33 +67,19 @@
 
 <hr />
 
-<% @proposal.comments.order(:created_at).each do |c| %>
+<div id="comments-list">
+  <% @proposal.comments.order(:created_at).each do |c| %>
 
-  <div class="row">
-    <div class="col-md-1">
-      <center>
-      <%= parse_buttons c, voted_on, :comment %>
-      <p class="text-muted rating"><%= c.rating %></p>
-      </center>
+    <% @comment = c %>
+    <%= render "comments/show", voted_on: voted_on, with_hr: c != @proposal.comments.last %>
+
+  <% end.empty? and begin %>
+    <div id="no-comments" class="bs-callout bs-callout-info">
+      <h4>Все още няма коментари!</h4>
+      Бързо напиши един, за да изпревариш останалите!
     </div>
-    <div class="col-md-11">
-      <%= simple_format c.content %>
-      <p class="text-right">
-      <%= link_to user_path(c.user), class: "btn btn-default btn-sm" do %>
-        <%= c.user.name %>
-      <% end %>
-      </p>
-    </div>
-  </div>
-
-  <%= "<hr />".html_safe unless c == @proposal.comments.last %>
-
-<% end.empty? and begin %>
-  <div class="bs-callout bs-callout-info">
-    <h4>Все още няма коментари!</h4>
-    Бързо напиши един, за да изпревариш останалите!
-  </div>
-<% end %>
+  <% end %>
+</div>
 
 <div class="modal fade" id="whoops-box">
   <div class="modal-dialog">

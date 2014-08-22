@@ -1,9 +1,8 @@
 class CommentsController < ApplicationController
 
   def index
-    @comments = Comment.where(proposal_id: comment_params[:proposal_id])
-    #TODO hide stuff
-    render json: @comments
+    @comments = Comment.all
+    render :layout => false
   end
 
   def create
@@ -12,7 +11,7 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
-      render json: { status: :created }
+      render partial: "comments/show", locals: { voted_on: [], with_hr: true }
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
