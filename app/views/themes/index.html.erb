@@ -49,31 +49,3 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Последни коментари</h3>
-      </div>
-        <ul class="list-group">
-          <% Comment.latest(10).each do |c| %>
-            <li class="list-group-item"><%= simple_format c.content %></li>
-          <% end %>
-        </ul>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Популярни коментари</h3>
-      </div>
-      <ul class="list-group">
-        <% Comment.hottest(10).each do |c| %>
-          <li class="list-group-item"><%= simple_format c.content %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</div>
-
-
