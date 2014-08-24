@@ -22,14 +22,14 @@
 <br />
 <br />
 
-<div class="row">
+<div class="row" ng-controller="ProposalController">
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Последни предложения</h3>
       </div>
-      <ul ng-controller="ProposalController" class="list-group">
-        <li ng-repeat="contact in contacts" class="list-group-item">{{ contact }}</li>
+      <ul class="list-group">
+        <li ng-repeat="proposal in proposals" class="list-group-item">{{ proposal.title }}</li>
       </ul>
     </div>
   </div>
@@ -38,8 +38,8 @@
       <div class="panel-heading">
         <h3 class="panel-title">Популярни предложения</h3>
       </div>
-      <ul ng-controller="ProposalController" class="list-group">
-        <li ng-repeat="contact in contacts" class="list-group-item">{{ contact }}</li>
+      <ul class="list-group">
+        <li ng-repeat="proposal in proposals" class="list-group-item">{{ proposal.title }}</li>
       </ul>
     </div>
   </div>

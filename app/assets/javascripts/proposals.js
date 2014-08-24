@@ -1,7 +1,12 @@
-promeni.controller('ProposalController', ['$scope', function($scope) {
-  $scope.contacts = ["test test test", "more tests"];
+promeni.factory('Proposal', function($resource) {
+  return $resource('api/v1/proposals/:id');
+});
+
+promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope, Proposal) {
+
+  Proposal.query(function(data) {
+    $scope.proposals = data;
+  });
+
 }]);
 
-$(document).on('ready page:load', function() {
-  angular.bootstrap('body', ['promeni'])
-})
