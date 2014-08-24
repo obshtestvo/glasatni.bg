@@ -5,7 +5,6 @@ gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 
-
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
@@ -16,6 +15,7 @@ gem "font-awesome-rails"
 gem 'devise'
 gem 'rails_12factor', group: :production
 gem 'cancancan', '~> 1.9'
+gem 'angularjs-rails'
 ruby "2.1.1"
 
 group :development do
