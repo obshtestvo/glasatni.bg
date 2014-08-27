@@ -1,5 +1,5 @@
 promeni.factory('Proposal', function($resource) {
-  return $resource('api/v1/proposals/:id');
+  return $resource('/api/v1/proposals/:id');
 });
 
 promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope, Proposal) {
@@ -9,4 +9,5 @@ promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope,
   });
 
 }]);
+
 
