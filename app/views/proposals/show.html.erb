@@ -67,18 +67,41 @@
 
 <hr />
 
-<div id="comments-list">
-  <% @proposal.comments.order(:created_at).each do |c| %>
+<div ng-controller="CommentController">
 
-    <% @comment = c %>
-    <%= render "comments/show", voted_on: voted_on, with_hr: c != @proposal.comments.last %>
+  <div id="no-comments" class="bs-callout bs-callout-info" ng-show="comments.length == 0">
+    <h4>Все още няма коментари!</h4>
+    Бързо напиши един, за да изпревариш останалите!
+  </div>
 
-  <% end.empty? and begin %>
-    <div id="no-comments" class="bs-callout bs-callout-info">
-      <h4>Все още няма коментари!</h4>
-      Бързо напиши един, за да изпревариш останалите!
+  <div id="comments-list">
+    <div ng-repeat="comment in comments">
+
+      <div class="row">
+        <div class="col-md-1">
+          <center>
+            <div class="btn-group-vertical">
+              <button class="btn btn-sm" ng-click="vote(comment.id, 0)" ng-class="{true: 'btn-success', false: 'btn-default'}[comment.voted == 0]">
+                <i class="fa fa-arrow-up"></i>
+              </button>
+              <button class="btn btn-sm" ng-click="vote(comment.id, 1)" ng-class="{true: 'btn-danger', false: 'btn-default'}[comment.voted == 1]">
+                <i class="fa fa-arrow-down"></i>
+              </button>
+            </div>
+            <p class="text-muted rating">{{ comment.rating }}</p>
+          <div class="btn-group">
+          </div>
+          </center>
+        </div>
+        <div class="col-md-11">
+          <p>{{ comment.content }}</p>
+          <p class="text-right"><a href="{{ comment.user_profile_url }}" class="btn btn-default btn-sm">{{ comment.username }}</a></p>
+        </div>
+      </div>
+
     </div>
-  <% end %>
+  </div>
+
 </div>
 
 <div class="modal fade" id="whoops-box">
