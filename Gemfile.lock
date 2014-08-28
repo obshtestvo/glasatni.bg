@@ -27,6 +27,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    angular_rails_csrf (1.0.1)
+      rails (>= 3, < 5)
     angularjs-rails (1.2.22)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
@@ -143,6 +145,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  angular_rails_csrf
   angularjs-rails
   better_errors
   binding_of_caller

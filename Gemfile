@@ -16,6 +16,7 @@ gem 'devise'
 gem 'rails_12factor', group: :production
 gem 'cancancan', '~> 1.9'
 gem 'angularjs-rails'
+gem 'angular_rails_csrf'
 ruby "2.1.1"
 
 group :development do
