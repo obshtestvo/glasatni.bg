@@ -8,6 +8,7 @@ json.array! @comments do |c|
   json.content c.content
   json.created_at c.created_at
   json.updated_at c.updated_at
+  json.proposal_id c.proposal_id
   json.username c.user.name
   json.user_profile_url url_for(c.user)
   json.rating c.rating

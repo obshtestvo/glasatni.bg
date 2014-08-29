@@ -35,24 +35,26 @@
 
 <hr />
 
+<div ng-controller="CommentController">
+
 <h3>Коментари</h3>
 
 <% if user_signed_in? %>
 
-  <div id="warning" class="bs-callout bs-callout-danger" style="display:none">
+  <div id="warning-box" class="bs-callout bs-callout-danger" style="display:none">
     <h4>Само да ти кажем някои неща...</h4>
     Опитай се да бъдеш максимално изчерпателен(на). Всякакви расистки, хомофобски, сексистки, шовинистки коментари ще бъдат изтривани, както и коментари приканващи към насилие над хора или животни.
     Коментарите трябва да са с минимална дължина от 100 символа.
   </div>
 
-  <textarea id="comment-box" name="" rows="8" cols="40" class="form-control" placeholder="Напиши своя коментар тук."></textarea>
+  <textarea id="comment-box" name="" rows="8" cols="40" class="form-control" ng-model="newComment.content" ng-focus="showWarning()" placeholder="Напиши своя коментар тук."></textarea>
   <br />
   <div class="row">
     <div class="col-md-1">
-      <%= button_tag "Коментирай", class: "btn btn-success", id: "send-button", disabled: "disabled" %>
+      <button class="btn btn-success" ng-disabled="newComment.content.length < 100" ng-click="createNewComment()">Коментирай</button>
     </div>
     <div class="col-md-4">
-      <p id="symbolsBox" class="text-muted text-right">Остават ти 100 символа.</p>
+      <p id="symbolsBox" class="text-muted text-right" ng-hide="newComment.content.length >= 100">Остават ти {{ 100 - newComment.content.length }} символа.</p>
     </div>
   </div>
 
@@ -67,42 +69,45 @@
 
 <hr />
 
-<div ng-controller="CommentController">
-
-  <div id="no-comments" class="bs-callout bs-callout-info" ng-show="comments.length == 0">
-    <h4>Все още няма коментари!</h4>
-    Бързо напиши един, за да изпревариш останалите!
-  </div>
-
-  <div id="comments-list">
-    <div ng-repeat="comment in comments">
-
-      <div class="row">
-        <div class="col-md-1">
-          <center>
-            <div class="btn-group-vertical">
-              <button class="btn btn-sm" ng-click="vote(comment.id, 0)" ng-class="{true: 'btn-success', false: 'btn-default'}[comment.voted == 0]">
-                <i class="fa fa-arrow-up"></i>
-              </button>
-              <button class="btn btn-sm" ng-click="vote(comment.id, 1)" ng-class="{true: 'btn-danger', false: 'btn-default'}[comment.voted == 1]">
-                <i class="fa fa-arrow-down"></i>
-              </button>
-            </div>
-            <p class="text-muted rating">{{ comment.rating }}</p>
-          <div class="btn-group">
-          </div>
-          </center>
-        </div>
-        <div class="col-md-11">
-          <p>{{ comment.content }}</p>
-          <p class="text-right"><a href="{{ comment.user_profile_url }}" class="btn btn-default btn-sm">{{ comment.username }}</a></p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
+<div id="no-comments" class="bs-callout bs-callout-info" ng-show="comments.length == 0">
+  <h4>Все още няма коментари!</h4>
+  Бързо напиши един, за да изпревариш останалите!
 </div>
+
+<div id="comments-list">
+  <div ng-repeat="comment in comments">
+
+    <div class="row">
+      <div class="col-md-1">
+        <center>
+          <div class="btn-group-vertical">
+            <button class="btn btn-sm" ng-click="vote(comment.id, 0)" ng-class="{true: 'btn-success', false: 'btn-default'}[comment.voted == 0]">
+              <i class="fa fa-arrow-up"></i>
+            </button>
+            <button class="btn btn-sm" ng-click="vote(comment.id, 1)" ng-class="{true: 'btn-danger', false: 'btn-default'}[comment.voted == 1]">
+              <i class="fa fa-arrow-down"></i>
+            </button>
+          </div>
+
+          <p class="text-muted rating">{{ comment.rating }}</p>
+
+
+        </center>
+      </div>
+      <div class="col-md-11">
+        <p>{{ comment.content }}</p>
+        <p class="text-right">
+        <button class="btn btn-default btn-xs" ng-click="destroyComment(comment, $index)">
+          <i class="fa fa-cog"></i>
+        </button>
+        <a href="{{ comment.user_profile_url }}" class="btn btn-default btn-sm">{{ comment.username }}</a></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end of ng-controller -->
 
 <div class="modal fade" id="whoops-box">
   <div class="modal-dialog">

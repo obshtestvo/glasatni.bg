@@ -6,11 +6,11 @@ promeni.factory('Comment', function($resource) {
 
 promeni.controller('CommentController', ['$scope', 'Comment', function($scope, Comment) {
 
-  Comment.query(function(comments) {
+  $scope.proposal_id = window.location.pathname.match(/\d+$/)[0];
+
+  Comment.query({ proposal_id: $scope.proposal_id }, function(comments) {
     $scope.comments = comments;
   });
-
-  $scope.proposal_id = window.location.pathname.match(/\d+$/)[0];
 
   $scope.vote = function(id, value) {
     var direction = value === 0 ? "up": "down";
@@ -20,10 +20,30 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
     Comment.vote({ id: id, vote: direction, votable: "comment" }).$promise.then(function(data) {
 
       comment.rating = data.rating;
-      comment.voted = value;
+      comment.voted = comment.voted === value ? -1 : value;
 
     });;
 
+  }
+
+  $scope.createNewComment = function() {
+    Comment.save({ proposal_id: $scope.proposal_id, content: $scope.newComment.content }).$promise.then(function(newComment) {
+      $scope.comments.unshift(newComment);
+      $("#warning-box").slideUp();
+      $("#comment-box").val("");
+    });
+  }
+
+  $scope.newComment = { content: "" };
+
+  $scope.showWarning = function() {
+    $("#warning-box").slideDown();
+  }
+
+  $scope.destroyComment = function(comment, idx) {
+    comment.$delete({ id: comment.id }, function(data) {
+      $scope.comments.splice(idx, 1);
+    });
   }
 
 }]);
