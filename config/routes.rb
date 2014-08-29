@@ -7,20 +7,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :badges
-
   devise_for :users
   resources :users, :only => [:show]
 
-  resources :comments
-
+  resources :badges
+  resources :themes
   resources :proposals
 
-  get "admin" => "application#admin"
   post "vote" => "application#vote"
 
-  resources :themes
-
+  get "admin" => "application#admin"
   get "about" => "application#about"
 
   root "themes#index"
