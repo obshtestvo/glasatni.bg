@@ -15,8 +15,6 @@ Rails.application.routes.draw do
   resources :proposals
 
   post "vote" => "application#vote"
-
-  get "admin" => "application#admin"
   get "about" => "application#about"
 
   root "themes#index"

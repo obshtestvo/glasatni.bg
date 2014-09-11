@@ -7,10 +7,6 @@ class ApplicationController < ActionController::Base
   def about
   end
 
-  def admin
-    @comments = Comment.all
-  end
-
   def vote
 
     direction = params[:vote]
