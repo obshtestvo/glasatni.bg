@@ -10,6 +10,7 @@ json.array! @comments do |c|
   json.updated_at c.updated_at
   json.proposal_id c.proposal_id
   json.username c.user.name
+  json.moderator c.user.role === 1
   json.user_profile_url url_for(c.user)
   json.rating c.rating
 
