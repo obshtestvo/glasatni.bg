@@ -4,8 +4,8 @@ promeni.factory('Proposal', function($resource) {
 
 promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope, Proposal) {
 
-  Proposal.query(function(data) {
-    $scope.proposals = data;
+  Proposal.query(function(proposals) {
+    $scope.proposals = proposals;
   });
 
 }]);
