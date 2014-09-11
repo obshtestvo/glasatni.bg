@@ -4,7 +4,7 @@ module Api
       respond_to :json
 
       def index
-        respond_with Proposal.all
+        @proposals = Proposal.all
       end
 
     end
