@@ -91,18 +91,21 @@
 
           <p class="text-muted rating">{{ comment.rating }}</p>
 
+          <button class="btn btn-default btn-xs" ng-click="destroyComment(comment, $index)">
+            <i class="fa fa-cog"></i>
+          </button>
 
         </center>
       </div>
       <div class="col-md-11">
         <p>{{ comment.content }}</p>
         <p class="text-right">
-        <button class="btn btn-default btn-xs" ng-click="destroyComment(comment, $index)">
-          <i class="fa fa-cog"></i>
-        </button>
-        <a href="{{ comment.user_profile_url }}" class="btn btn-default btn-sm">{{ comment.username }}</a></p>
+        <a href="{{ comment.user_profile_url }}" class="btn btn-default btn-sm">{{ comment.username }}<br>
+          <i class="fa fa-gavel" ng-show="comment.moderator"></i></a></p>
       </div>
     </div>
+
+    <hr ng-hide="$last"/>
 
   </div>
 </div>

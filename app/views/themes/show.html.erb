@@ -24,30 +24,27 @@
 <h2>Предложения</h2>
 <br />
 
-<% @theme.proposals.each do |p| %>
-  <div class="row">
+
+<div ng-controller="ProposalController">
+  <div class="row" ng-repeat="proposal in proposals">
     <div class="col-md-1">
-      <%= parse_buttons p, voted_on, :proposal %>
+
     </div>
     <div class="col-md-11">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title"> <%= link_to p.title, proposal_path(p) %>
+          <h3 class="panel-title"><a href="/proposals/{{proposal.id}}">{{ proposal.title }}</a>
           <small>
-           | <%= p.rating %> точки |
-          <%= p.comments.count %> коментара |
-          автор: <%= link_to p.user.name, user_path(p.user) %>
+            | {{ proposal.rating }} точки |
+            {{ proposal.comments }} коментара |
+            автор: {{ proposal.username }}
           </small>
           </h3>
         </div>
         <div class="panel-body">
-          <%= truncate p.content, length: 300 %>
+          {{ proposal.content }}
         </div>
       </div>
     </div>
   </div>
-<% end.empty? and begin %>
-  <li><i>Няма направени предложения.</i></li>
-<% end %>
-
-
+</div>
