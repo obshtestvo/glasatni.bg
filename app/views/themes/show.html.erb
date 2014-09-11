@@ -9,7 +9,7 @@
 
 <% if user_signed_in? %>
   <br />
-  <%= link_to "Направи предложение", new_proposal_path, class: "btn btn-success pull-right" %>
+  <%= link_to "Направи предложение", new_proposal_path, class: "btn btn-success" %>
 
 <% else %>
 
@@ -20,12 +20,26 @@
 
 <% end %>
 
-<br />
-<h2>Предложения</h2>
-<br />
-
-
 <div ng-controller="ProposalController">
+  <div class="row">
+    <div class="col-md-9">
+      <h2>Предложения</h2>
+    </div>
+    <div class="col-md-3">
+      <div class="dropdown order">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+          {{ order }}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="" ng-show="order != 'newest'" ng-click="order='newest'">Най-нови</a></li>
+          <li><a href="" ng-show="order != 'oldest'" ng-click="order='oldest'">Най-стари</a></li>
+          <li><a href="" ng-show="order != 'relevance'" ng-click="order='relevance'">Релевантност</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <div class="row" ng-repeat="proposal in proposals">
     <div class="col-md-1">
 

@@ -4,8 +4,12 @@ promeni.factory('Proposal', function($resource) {
 
 promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope, Proposal) {
 
-  Proposal.query(function(proposals) {
-    $scope.proposals = proposals;
+  $scope.order = "relevance";
+
+  $scope.$watch("order", function(newValue, oldValue) {
+    Proposal.query({ order: $scope.order }, function(proposals) {
+      $scope.proposals = proposals;
+    });
   });
 
 }]);
