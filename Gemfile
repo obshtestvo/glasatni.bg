@@ -18,6 +18,7 @@ gem 'cancancan', '~> 1.9'
 gem 'angularjs-rails'
 gem 'angular_rails_csrf'
 gem 'activeadmin', github: 'activeadmin'
+gem 'omniauth-facebook'
 ruby "2.1.1"
 
 group :development do

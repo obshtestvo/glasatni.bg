@@ -116,6 +116,8 @@ ActiveRecord::Schema.define(version: 20140911192855) do
     t.string   "name"
     t.integer  "role",                   default: 0
     t.integer  "reputation",             default: 0
+    t.string   "provider"
+    t.string   "uid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
