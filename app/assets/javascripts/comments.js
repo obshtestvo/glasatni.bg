@@ -6,10 +6,14 @@ promeni.factory('Comment', function($resource) {
 
 promeni.controller('CommentController', ['$scope', 'Comment', function($scope, Comment) {
 
+  $scope.order = "newest";
+
   $scope.proposal_id = window.location.pathname.match(/\d+$/)[0];
 
-  Comment.query({ proposal_id: $scope.proposal_id }, function(comments) {
-    $scope.comments = comments;
+  $scope.$watch("order", function(newValue, oldValue) {
+    Comment.query({ proposal_id: $scope.proposal_id, order: $scope.order }, function(comments) {
+      $scope.comments = comments;
+    });
   });
 
   $scope.vote = function(id, value) {

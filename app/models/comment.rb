@@ -1,4 +1,5 @@
 class Comment < ActiveRecord::Base
+  include Orderable
 
   belongs_to :user
   belongs_to :proposal, counter_cache: true

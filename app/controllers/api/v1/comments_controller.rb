@@ -4,17 +4,17 @@ module Api
       respond_to :json
 
       def index
-
         proposal_id = comment_params[:proposal_id]
+        order = comment_params[:order].present? ? comment_params[:order] : "relevance"
 
         per_page = comment_params[:per_page] || 5
         page = comment_params[:page] || 0
 
-        query = Comment.includes(:user).limit(per_page).offset(page).order(:created_at)
+        query = Comment.includes(:user).limit(per_page).offset(page)
         query = query.where(proposal_id: proposal_id) unless proposal_id.blank?
+        query = query.custom_order order
 
         @comments = query
-
       end
 
       def show
@@ -45,7 +45,7 @@ module Api
       private
 
       def comment_params
-        params.slice(:id, :proposal_id, :per_page, :page, :content)
+        params.slice(:id, :proposal_id, :per_page, :page, :content, :order)
       end
 
     end

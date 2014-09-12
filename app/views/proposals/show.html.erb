@@ -67,7 +67,19 @@
 
 <% end %>
 
-<hr />
+<br />
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+    {{ order | translateOrder }}
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="" ng-show="order != 'newest'" ng-click="order='newest'">Най-нови</a></li>
+    <li><a href="" ng-show="order != 'oldest'" ng-click="order='oldest'">Най-стари</a></li>
+    <li><a href="" ng-show="order != 'relevance'" ng-click="order='relevance'">Релевантност</a></li>
+  </ul>
+</div>
+<br />
 
 <div id="no-comments" class="bs-callout bs-callout-info" ng-show="comments.length == 0">
   <h4>Все още няма коментари!</h4>
