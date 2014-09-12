@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
 
   belongs_to :user
-  belongs_to :proposal
+  belongs_to :proposal, counter_cache: true
   has_many :votings, as: :votable, dependent: :destroy
 
   def rating

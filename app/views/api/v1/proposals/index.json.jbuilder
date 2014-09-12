@@ -7,6 +7,7 @@ json.array! @proposals do |p|
   json.up p.up
   json.down p.down
   json.hotness p.hotness
+  json.comments_count p.comments_count
   json.created_at p.created_at
   json.updated_at p.updated_at
 end
