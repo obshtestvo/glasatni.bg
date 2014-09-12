@@ -8,6 +8,7 @@ module Api
 
         query = Proposal.all
         query = query.custom_order(order) if order.present?
+        query = query.includes(:user)
 
         @proposals = query
       end
@@ -16,7 +17,6 @@ module Api
       def proposals_params
         params.slice(:order)
       end
-
     end
   end
 end
