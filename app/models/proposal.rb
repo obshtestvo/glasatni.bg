@@ -1,4 +1,6 @@
 class Proposal < ActiveRecord::Base
+  include Orderable
+
   belongs_to :theme
   belongs_to :user
   has_many :comments, dependent: :destroy
@@ -14,20 +16,6 @@ class Proposal < ActiveRecord::Base
 
   def self.hottest n
     Proposal.order(hotness: :desc).limit(n)
-  end
-
-  def self.custom_order order
-
-    case order
-    when 'newest'         then by = { created_at: :asc }
-    when 'oldest'         then by = { created_at: :desc }
-    when 'relevance'      then by = { hotness: :desc }
-    when 'most-comments'  then by = { comments_count: :desc }
-    when 'least-comments' then by = { comments_count: :asc }
-    else raise 'Unknown order param passed.'
-    end
-
-    order(by)
   end
 
 end
