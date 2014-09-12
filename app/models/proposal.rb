@@ -19,9 +19,11 @@ class Proposal < ActiveRecord::Base
   def self.custom_order order
 
     case order
-    when 'newest'    then by = { created_at: :asc }
-    when 'oldest'    then by = { created_at: :desc }
-    when 'relevance' then by = { hotness: :asc }
+    when 'newest'         then by = { created_at: :asc }
+    when 'oldest'         then by = { created_at: :desc }
+    when 'relevance'      then by = { hotness: :desc }
+    when 'most-comments'  then by = { comments_count: :desc }
+    when 'least-comments' then by = { comments_count: :asc }
     else raise 'Unknown order param passed.'
     end
 
