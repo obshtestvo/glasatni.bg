@@ -14,16 +14,4 @@ promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope,
 
 }]);
 
-promeni.filter('translateOrder', function () {
-  "use strict";
-  return function (string) {
-    var translations = {
-      "newest": "Най-нови",
-      "oldest": "Най-стари",
-      "relevance": "Релевантност",
-      "most-comments": "Най-коментирани",
-      "least-comments": "Най-некоментирани",
-    }
-    return translations[string];
-  };
-});
+
