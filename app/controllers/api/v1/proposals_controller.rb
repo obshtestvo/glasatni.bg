@@ -4,7 +4,17 @@ module Api
       respond_to :json
 
       def index
-        @proposals = Proposal.all
+        order = proposals_params[:order]
+
+        query = Proposal.all
+        query = query.custom_order(order) if order.present?
+
+        @proposals = query
+      end
+
+      private
+      def proposals_params
+        params.slice(:order)
       end
 
     end

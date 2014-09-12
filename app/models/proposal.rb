@@ -16,4 +16,16 @@ class Proposal < ActiveRecord::Base
     Proposal.order(hotness: :desc).limit(n)
   end
 
+  def self.custom_order order
+
+    case order
+    when 'newest'    then by = { created_at: :asc }
+    when 'oldest'    then by = { created_at: :desc }
+    when 'relevance' then by = { hotness: :asc }
+    else raise 'Unknown order param passed.'
+    end
+
+    order(by)
+  end
+
 end
