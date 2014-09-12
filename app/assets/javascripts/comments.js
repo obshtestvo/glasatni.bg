@@ -6,7 +6,7 @@ promeni.factory('Comment', function($resource) {
 
 promeni.controller('CommentController', ['$scope', 'Comment', function($scope, Comment) {
 
-  $scope.order = "newest";
+  $scope.order = "relevance";
 
   $scope.proposal_id = window.location.pathname.match(/\d+$/)[0];
 
