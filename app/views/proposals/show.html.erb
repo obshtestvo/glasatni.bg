@@ -27,11 +27,21 @@
 
 <%= simple_format @proposal.content %>
 
-<p class="text-right">
-<%= link_to user_path(@proposal.user), class: "btn btn-default btn-sm" do %>
-  <%= @proposal.user.name %>
-<% end %>
-</p>
+<div class="row">
+  <div class="col-md-8">
+    <div
+      class="fb-like"
+      data-share="true"
+      data-width="450"
+      data-show-faces="true">
+    </div>
+  </div>
+  <div class="col-md-4">
+    <%= link_to user_path(@proposal.user), class: "btn btn-default btn-sm pull-right" do %>
+      <%= @proposal.user.name %>
+    <% end %>
+  </div>
+</div>
 
 <hr />
 
