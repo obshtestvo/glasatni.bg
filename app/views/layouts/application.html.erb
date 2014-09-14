@@ -23,7 +23,10 @@
       <p class="navbar-text navbar-right">Здравей, <%= link_to current_user.name, user_path(current_user), id: "username" %> (<%= current_user.reputation %>)</p>
     <% else %>
       <div class="pull-right">
-        <%= link_to "Вход", new_session_path(:user), :class => "btn btn-success navbar-btn" %>
+        <%= link_to user_omniauth_authorize_path(:facebook), :class => "btn btn-success navbar-btn" do %>
+          Вход с Фейсбук
+        <% end %>
+        <%= link_to "Вход с електронна поща", new_session_path(:user), :class => "btn btn-success navbar-btn" %>
         <%= link_to "Регистрирай се", new_registration_path(:user), :class => "btn btn-info navbar-btn" %>
       </div>
     <% end %>
