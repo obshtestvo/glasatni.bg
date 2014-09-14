@@ -20,6 +20,8 @@ gem 'angularjs-rails'
 gem 'angular_rails_csrf'
 gem 'activeadmin', github: 'activeadmin'
 gem 'omniauth-facebook'
+gem 'will_paginate'
+gem 'angular-ui-bootstrap-rails'
 ruby "2.1.1"
 
 group :development do

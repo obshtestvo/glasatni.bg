@@ -3,7 +3,7 @@ $(document).on('ready page:load', function() {
   angular.bootstrap('body', ['promeni'])
 })
 
-var promeni = angular.module('promeni', ['ngResource']);
+var promeni = angular.module('promeni', ['ngResource', 'ui.bootstrap']);
 
 promeni.filter('translateOrder', function () {
   "use strict";
