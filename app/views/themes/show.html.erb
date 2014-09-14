@@ -53,7 +53,7 @@
           <small>
             | {{ proposal.hotness }} точки |
             {{ proposal.comments_count }} коментара |
-            автор: {{ proposal.username }}
+            автор: <a href="/users/{{ proposal.user_id }}">{{ proposal.username }}</a>
           </small>
           </h3>
         </div>
