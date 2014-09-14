@@ -13,6 +13,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'bootstrap-sass'
 gem "font-awesome-rails"
 gem 'devise'
+gem 'devise-i18n'
 gem 'rails_12factor', group: :production
 gem 'cancancan', '~> 1.9'
 gem 'angularjs-rails'
