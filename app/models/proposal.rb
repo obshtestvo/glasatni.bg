@@ -6,6 +6,8 @@ class Proposal < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :votings, as: :votable, dependent: :destroy
 
+  self.per_page = 3
+
   def rating
     self.up - self.down
   end

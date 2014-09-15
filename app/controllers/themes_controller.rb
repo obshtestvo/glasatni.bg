@@ -10,6 +10,7 @@ class ThemesController < ApplicationController
   # GET /themes/1
   # GET /themes/1.json
   def show
+    @proposals_count = @theme.proposals.count
   end
 
   # GET /themes/new

@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :proposals
+      resources :themes, only: [] do
+        get "proposals_count"
+      end
       resources :comments
     end
   end

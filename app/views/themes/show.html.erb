@@ -20,12 +20,9 @@
 
 <% end %>
 
-<div ng-controller="ProposalController">
+<div ng-controller="ProposalController" ng-init="themeId=<%= @theme.id %>">
   <div class="row">
-    <div class="col-md-9">
-      <h2>Предложения</h2>
-    </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
       <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" data-disabled="true" data-toggle="dropdown">
           {{ order | translateOrder }}
@@ -40,8 +37,12 @@
         </ul>
       </div>
     </div>
+    <div class="col-md-10">
+      <pagination ng-model="currentPage" total-items="totalItems" items-per-page="<%= Proposal.per_page %>" max-size="5" class="pull-right" boundary-links="true"
+      rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
+    </div>
   </div>
-
+  <br />
   <div class="row" ng-repeat="proposal in proposals">
     <div class="col-md-1">
 

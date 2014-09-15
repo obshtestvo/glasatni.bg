@@ -4,18 +4,20 @@ module Api
       respond_to :json
 
       def index
-        order = proposals_params[:order]
+        order = proposal_params[:order]
+        theme_id = proposal_params[:theme_id]
 
         query = Proposal.all
+        query = query.where(theme_id: theme_id) if theme_id.present?
         query = query.custom_order(order) if order.present?
         query = query.includes(:user)
 
-        @proposals = query
+        @proposals = query.page(proposal_params[:page])
       end
 
       private
-      def proposals_params
-        params.slice(:order)
+      def proposal_params
+        params.slice(:order, :page, :theme_id)
       end
     end
   end
