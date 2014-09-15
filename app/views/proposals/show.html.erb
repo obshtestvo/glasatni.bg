@@ -78,16 +78,25 @@
 <% end %>
 
 <br />
-<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-    {{ order | translateOrder }}
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu">
-    <li><a href="" ng-show="order != 'newest'" ng-click="order='newest'">Най-нови</a></li>
-    <li><a href="" ng-show="order != 'oldest'" ng-click="order='oldest'">Най-стари</a></li>
-    <li><a href="" ng-show="order != 'relevance'" ng-click="order='relevance'">Релевантност</a></li>
-  </ul>
+<div class="row">
+  <div class="col-md-2">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" data-disabled="true" data-toggle="dropdown">
+        {{ order | translateOrder }}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="" ng-show="order != 'newest'" ng-click="order='newest'">Най-нови</a></li>
+        <li><a href="" ng-show="order != 'oldest'" ng-click="order='oldest'">Най-стари</a></li>
+        <li><a href="" ng-show="order != 'relevance'" ng-click="order='relevance'">Релевантност</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-10">
+    <pagination ng-model="currentPage" total-items="<%= @proposal.comments_count %>" items-per-page="<%= Comment.per_page %>" max-size="5"
+    class="pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
+    last-text="Последна"></pagination>
+  </div>
 </div>
 <br />
 

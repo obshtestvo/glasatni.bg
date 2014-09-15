@@ -7,14 +7,11 @@ module Api
         proposal_id = comment_params[:proposal_id]
         order = comment_params[:order].present? ? comment_params[:order] : "relevance"
 
-        per_page = comment_params[:per_page] || 5
-        page = comment_params[:page] || 0
-
-        query = Comment.includes(:user).limit(per_page).offset(page)
+        query = Comment.includes(:user)
         query = query.where(proposal_id: proposal_id) unless proposal_id.blank?
         query = query.custom_order order
 
-        @comments = query
+        @comments = query.page(comment_params[:page])
       end
 
       def show

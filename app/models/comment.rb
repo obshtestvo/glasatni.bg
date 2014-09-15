@@ -5,6 +5,8 @@ class Comment < ActiveRecord::Base
   belongs_to :proposal, counter_cache: true
   has_many :votings, as: :votable, dependent: :destroy
 
+  self.per_page = 3
+
   def rating
     self.up - self.down
   end

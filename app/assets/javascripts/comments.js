@@ -8,30 +8,27 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
 
   $scope.order = "relevance";
 
-  $scope.proposal_id = window.location.pathname.match(/\d+$/)[0];
+  $scope.proposalId = window.location.pathname.match(/\d+$/)[0];
 
-  $scope.$watch("order", function(newValue, oldValue) {
-    Comment.query({ proposal_id: $scope.proposal_id, order: $scope.order }, function(comments) {
+  // if filters change - fetch and assign result
+  $scope.$watchCollection("[order, currentPage]", function(newValue, oldValue) {
+    Comment.query({ proposal_id: $scope.proposalId, order: $scope.order, page: $scope.currentPage }, function(comments) {
       $scope.comments = comments;
     });
   });
 
   $scope.vote = function(id, value) {
     var direction = value === 0 ? "up": "down";
-
     var comment = $scope.comments.filter(function(c) { return c.id === id })[0];
 
     Comment.vote({ id: id, vote: direction, votable: "comment" }).$promise.then(function(data) {
-
       comment.rating = data.rating;
       comment.voted = comment.voted === value ? -1 : value;
-
     });;
-
   }
 
   $scope.createNewComment = function() {
-    Comment.save({ proposal_id: $scope.proposal_id, content: $scope.newComment.content }).$promise.then(function(newComment) {
+    Comment.save({ proposal_id: $scope.proposalId, content: $scope.newComment.content }).$promise.then(function(newComment) {
       $scope.comments.unshift(newComment);
       $("#warning-box").slideUp();
       $("#comment-box").val("");
