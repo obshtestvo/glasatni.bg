@@ -1,7 +1,7 @@
 class Proposal < ActiveRecord::Base
   include Orderable
 
-  belongs_to :theme
+  belongs_to :theme, counter_cache: true
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :votings, as: :votable, dependent: :destroy
