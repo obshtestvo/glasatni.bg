@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :proposals
   has_many :comments
+  has_many :votings
   has_many :flags
 
   enum role: [:registered, :moderator, :admin]
