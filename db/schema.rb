@@ -81,15 +81,15 @@ ActiveRecord::Schema.define(version: 20140916110937) do
 
   create_table "flags", force: true do |t|
     t.integer  "user_id"
-    t.integer  "votable_id"
-    t.string   "votable_type"
+    t.integer  "flaggable_id"
+    t.string   "flaggable_type"
     t.integer  "reason"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "flags", ["flaggable_id", "flaggable_type"], name: "index_flags_on_flaggable_id_and_flaggable_type", using: :btree
   add_index "flags", ["user_id"], name: "index_flags_on_user_id", using: :btree
-  add_index "flags", ["votable_id", "votable_type"], name: "index_flags_on_votable_id_and_votable_type", using: :btree
 
   create_table "proposals", force: true do |t|
     t.integer  "theme_id"
