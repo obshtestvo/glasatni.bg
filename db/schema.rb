@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911192855) do
+ActiveRecord::Schema.define(version: 20140916110937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,18 @@ ActiveRecord::Schema.define(version: 20140911192855) do
   end
 
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "flags", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.integer  "reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "flags", ["user_id"], name: "index_flags_on_user_id", using: :btree
+  add_index "flags", ["votable_id", "votable_type"], name: "index_flags_on_votable_id_and_votable_type", using: :btree
 
   create_table "proposals", force: true do |t|
     t.integer  "theme_id"

@@ -4,6 +4,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :proposal, counter_cache: true
   has_many :votings, as: :votable, dependent: :destroy
+  has_many :flags, as: :flaggable, dependent: :destroy
 
   self.per_page = 3
 
