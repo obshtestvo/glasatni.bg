@@ -122,17 +122,30 @@
 
           <p class="text-muted rating">{{ comment.rating }}</p>
 
-          <button class="btn btn-default btn-xs" ng-click="destroyComment(comment, $index)">
-            <i class="fa fa-cog"></i>
-          </button>
-
         </center>
       </div>
       <div class="col-md-11">
         <p>{{ comment.content }}</p>
-        <p class="text-right">
-        <a href="{{ comment.user_profile_url }}" class="btn btn-default btn-sm">{{ comment.username }}<br>
-          <i class="fa fa-gavel" ng-show="comment.moderator"></i></a></p>
+        <div class="row">
+          <div class="col-md-10">
+            <div class="dropdown">
+              <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-disabled="true" data-toggle="dropdown">
+                Докладвай
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">СПАМ</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Език на омразата</a></li>
+              </ul>
+            </div>
+            <button class="btn btn-default btn-xs" ng-click="destroyComment(comment, $index)">Изтрий</button>
+          </div>
+          <div class="col-md-2">
+            <a href="{{ comment.user_profile_url }}" class="btn btn-default btn-xs pull-right">{{ comment.username }}<br>
+              <i class="fa fa-gavel" ng-show="comment.moderator"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
