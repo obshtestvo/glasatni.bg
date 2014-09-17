@@ -7,6 +7,7 @@ promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope,
 
   // if filters change - fetch and assign result
   $scope.$watchCollection("[order, currentPage]", function(newValue, oldValue) {
+    if(newValue === oldValue) return;
     Proposal.query({ theme_id: $scope.themeId, order: $scope.order, page: $scope.currentPage }, function(proposals) {
       $scope.proposals = proposals;
     });
