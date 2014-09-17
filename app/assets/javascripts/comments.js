@@ -17,11 +17,10 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
     });
   });
 
-  $scope.vote = function(id, value) {
+  $scope.vote = function(comment, value) {
     var direction = value === 0 ? "up": "down";
-    var comment = $scope.comments.filter(function(c) { return c.id === id })[0];
 
-    Comment.vote({ id: id, vote: direction, votable: "comment" }).$promise.then(function(data) {
+    Comment.vote({ id: comment.id, vote: direction, votable: "comment" }).$promise.then(function(data) {
       comment.rating = data.rating;
       comment.voted = comment.voted === value ? -1 : value;
     });;

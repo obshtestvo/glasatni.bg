@@ -112,10 +112,10 @@
       <div class="col-md-1">
         <center>
           <div class="btn-group-vertical">
-            <button class="btn btn-sm" ng-click="vote(comment.id, 0)" ng-class="{true: 'btn-success', false: 'btn-default'}[comment.voted == 0]">
+            <button class="btn btn-sm" ng-click="vote(comment, 0)" ng-class="{true: 'btn-success', false: 'btn-default'}[comment.voted == 0]">
               <i class="fa fa-arrow-up"></i>
             </button>
-            <button class="btn btn-sm" ng-click="vote(comment.id, 1)" ng-class="{true: 'btn-danger', false: 'btn-default'}[comment.voted == 1]">
+            <button class="btn btn-sm" ng-click="vote(comment, 1)" ng-class="{true: 'btn-danger', false: 'btn-default'}[comment.voted == 1]">
               <i class="fa fa-arrow-down"></i>
             </button>
           </div>
