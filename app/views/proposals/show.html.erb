@@ -126,6 +126,7 @@
       </div>
       <div class="col-md-11">
         <p>{{ comment.content }}</p>
+        <alert ng-repeat="alert in comment.alerts" type="{{alert.type}}" close="closeAlert(comment, $index)">{{alert.msg}}</alert>
         <div class="row">
           <div class="col-md-10">
             <div class="dropdown">
@@ -134,8 +135,8 @@
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">СПАМ</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Език на омразата</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'spam')">СПАМ</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'hatespeech')">Език на омразата</a></li>
               </ul>
             </div>
             <button class="btn btn-default btn-xs" ng-click="destroyComment(comment, $index)">Изтрий</button>

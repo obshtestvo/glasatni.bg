@@ -67,16 +67,36 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def flag
+    if application_params[:flaggable] == "comment"
+      flaggable = Comment.find(application_params[:id])
+    else
+      flaggable = Proposal.find(application_params[:id])
+    end
+
+    flag = Flag.find_or_initialize_by({
+      user: current_user,
+      flaggable: flaggable
+    })
+    flag.update(reason: Flag.reasons[application_params[:reason]])
+
+    render json: { success: true }
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :alert => exception.message
   end
 
   protected
 
-    def configure_permitted_parameters
-      devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password, :password_confirmation, :remember_me) }
-      devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :name, :email, :password, :remember_me) }
-      devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :password_confirmation, :current_password) }
-    end
+  def application_params
+    params.slice(:id, :flaggable, :reason)
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name, :email, :password, :password_confirmation, :remember_me) }
+    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :name, :email, :password, :remember_me) }
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:name, :email, :password, :password_confirmation, :current_password) }
+  end
 
 end

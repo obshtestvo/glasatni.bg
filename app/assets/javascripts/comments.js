@@ -1,6 +1,7 @@
 promeni.factory('Comment', function($resource) {
   return $resource('/api/v1/comments/:id', null, {
-    'vote': { method: "POST", url: "/vote" }
+    'vote': { method: "POST", url: "/vote" },
+    'flag': { method: "POST", url: "/flag"}
   });
 });
 
@@ -44,6 +45,18 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
     comment.$delete({ id: comment.id }, function(data) {
       $scope.comments.splice(idx, 1);
     });
+  }
+
+  $scope.flag = function(comment, reason) {
+    Comment.flag({ id: comment.id, reason: reason, flaggable: "comment" }).$promise.then(function(data) {
+      comment.alerts = [{
+        type: "success", msg: "Вие докладвахте този коментар."
+      }];
+    });
+  }
+
+  $scope.closeAlert = function(comment, idx) {
+    comment.alerts = [];
   }
 
 }]);

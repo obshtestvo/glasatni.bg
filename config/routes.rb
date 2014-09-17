@@ -5,11 +5,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :proposals
-      resources :comments do
-        member do
-          get "flag"
-        end
-      end
+      resources :comments
     end
   end
 
@@ -21,6 +17,7 @@ Rails.application.routes.draw do
   resources :themes
   resources :proposals
 
+  post "flag" => "application#flag"
   post "vote" => "application#vote"
   get "about" => "application#about"
 
