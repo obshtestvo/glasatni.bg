@@ -2,7 +2,7 @@ promeni.factory('Proposal', function($resource) {
   return $resource('/api/v1/proposals/:id');
 });
 
-promeni.controller('ProposalController', ['$scope', '$http', 'Proposal', function($scope, $http, Proposal) {
+promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope, Proposal) {
   $scope.order = "relevance";
 
   // if filters change - fetch and assign result
