@@ -20,6 +20,17 @@
         <i class="fa fa-times"></i>
       <% end %>
     </div>
+
+    <div class="dropdown pull-right">
+      <button class="btn btn-default btn-sm dropdown-toggle proposal-report" type="button" id="dropdownMenu1" data-disabled="true" data-toggle="dropdown">
+        Докладвай
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'spam')">СПАМ</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'hatespeech')">Език на омразата</a></li>
+      </ul>
+    </div>
   </div>
 </div>
 
