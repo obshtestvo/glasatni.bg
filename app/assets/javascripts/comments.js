@@ -55,7 +55,7 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
     });
   }
 
-  $scope.closeAlert = function(comment, idx) {
+  $scope.closeAlert = function(comment) {
     comment.alerts = [];
   }
 

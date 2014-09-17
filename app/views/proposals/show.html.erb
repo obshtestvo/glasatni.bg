@@ -137,7 +137,7 @@
       </div>
       <div class="col-md-11">
         <p>{{ comment.content }}</p>
-        <alert ng-repeat="alert in comment.alerts" type="{{alert.type}}" close="closeAlert(comment, $index)">{{alert.msg}}</alert>
+        <alert ng-repeat="alert in comment.alerts" type="{{alert.type}}" close="closeAlert(comment)">{{alert.msg}}</alert>
         <div class="row">
           <div class="col-md-10">
             <div class="dropdown">
