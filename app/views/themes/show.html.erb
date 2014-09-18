@@ -67,3 +67,7 @@
     </div>
   </div>
 </div>
+
+<pagination ng-model="currentPage" total-items="<%= @theme.proposals_count %>" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right" boundary-links="true"
+rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
+
