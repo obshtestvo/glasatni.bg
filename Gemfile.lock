@@ -209,7 +209,6 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
-    will_paginate (3.0.7)
 
 PLATFORMS
   ruby
@@ -228,6 +227,7 @@ DEPENDENCIES
   font-awesome-rails
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   omniauth-facebook
   pg
   quiet_assets
@@ -238,4 +238,3 @@ DEPENDENCIES
   spring
   turbolinks
   uglifier (>= 1.3.0)
-  will_paginate

@@ -7,7 +7,7 @@ class Proposal < ActiveRecord::Base
   has_many :votings, as: :votable, dependent: :destroy
   has_many :flags, as: :flaggable, dependent: :destroy
 
-  self.per_page = 3
+  paginates_per 3
 
   def rating
     self.up - self.down

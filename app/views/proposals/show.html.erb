@@ -111,7 +111,7 @@
     </div>
   </div>
   <div class="col-md-10">
-    <pagination ng-model="currentPage" total-items="proposal.comments_count" items-per-page="<%= Comment.per_page %>" max-size="5"
+    <pagination ng-model="currentPage" total-items="proposal.comments_count" items-per-page="<%= Comment.default_per_page %>" max-size="5"
     class="pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
     last-text="Последна"></pagination>
   </div>
@@ -173,7 +173,7 @@
   </div>
 </div>
 
-<pagination ng-model="currentPage" total-items="proposal.comments_count" items-per-page="<%= Comment.per_page %>" max-size="5"
+<pagination ng-model="currentPage" total-items="proposal.comments_count" items-per-page="<%= Comment.default_per_page %>" max-size="5"
 class="pagination-sm pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
 last-text="Последна"></pagination>
 
