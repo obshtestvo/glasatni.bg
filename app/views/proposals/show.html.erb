@@ -1,24 +1,30 @@
-<% voted_on = Voting.where(user: current_user).pluck(:votable_id, :value) %>
+<div ng-controller="ProposalController" ng-init="getProposal()">
 
 <div class="row">
   <div class="col-md-1">
     <br />
     <br />
     <center>
-    <%= parse_buttons @proposal, voted_on, :proposal %>
-    <p class="text-muted"><%= @proposal.rating %></p>
+    <div class="btn-group-vertical">
+      <button class="btn btn-sm" ng-click="vote(proposal, 0)" ng-class="{true: 'btn-success', false: 'btn-default'}[proposal.voted == 0]">
+        <i class="fa fa-arrow-up"></i>
+      </button>
+      <button class="btn btn-sm" ng-click="vote(proposal, 1)" ng-class="{true: 'btn-danger', false: 'btn-default'}[proposal.voted == 1]">
+        <i class="fa fa-arrow-down"></i>
+      </button>
+    </div>
+
+    <p class="text-muted">{{ proposal.hotness }}</p>
     </center>
   </div>
   <div class="col-md-11">
-    <h1><%= @proposal.title %> </h1>
-    <%= link_to @proposal.theme.name, theme_path(@proposal.theme), class: "btn btn-success btn-sm pull-left" %>
+    <h1>{{ proposal.title }}</h1>
+    <a class="btn btn-success btn-sm pull-left" href="/themes/{{ proposal.theme_id }}">{{ proposal.theme_name }}</a>
     <div class="btn-group pull-right">
-      <%= link_to edit_proposal_path(@proposal), class: "btn btn-default btn-sm #{'disabled' if !user_signed_in?}" do %>
-        <i class="fa fa-pencil"></i>
-      <% end %>
-      <%= link_to @proposal, method: :delete, data: { confirm: 'Сигурен ли си, че искаш да изтриеш това предложение?' }, class: "btn btn-default btn-sm btn-danger #{'disabled' if !user_signed_in?}" do %>
+      <a class="btn btn-default btn-sm" href="/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil"></i></a>
+      <a class="btn btn-default btn-sm btn-danger" data-confirm="Сигурен ли си, че искаш да изтриеш това предложение?" data-method="delete" href="/proposals/{{ proposal.id }}" rel="nofollow">
         <i class="fa fa-times"></i>
-      <% end %>
+      </a>
     </div>
 
     <div class="dropdown pull-right">
@@ -27,16 +33,18 @@
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'spam')">СПАМ</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'hatespeech')">Език на омразата</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(proposal, 'spam')">СПАМ</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(proposal, 'hatespeech')">Език на омразата</a></li>
       </ul>
     </div>
   </div>
 </div>
 
 <br />
+    <div class="clearfix"></div>
+    <alert ng-repeat="alert in proposal.alerts" type="{{alert.type}}" close="closeAlert(proposal)">{{alert.msg}}</alert>
 
-<%= simple_format @proposal.content %>
+{{ proposal.content }}
 
 <div class="row">
   <div class="col-md-8">
@@ -48,11 +56,10 @@
     </div>
   </div>
   <div class="col-md-4">
-    <%= link_to user_path(@proposal.user), class: "btn btn-default btn-sm pull-right" do %>
-      <%= @proposal.user.name %>
-    <% end %>
+    <a href="/users/{{proposal.user_id}}" class="btn btn-default btn-sm pull-right">{{ proposal.username }}</a>
   </div>
 </div>
+
 
 <hr />
 
@@ -104,7 +111,7 @@
     </div>
   </div>
   <div class="col-md-10">
-    <pagination ng-model="currentPage" total-items="<%= @proposal.comments_count %>" items-per-page="<%= Comment.per_page %>" max-size="5"
+    <pagination ng-model="currentPage" total-items="proposal.comments_count" items-per-page="<%= Comment.per_page %>" max-size="5"
     class="pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
     last-text="Последна"></pagination>
   </div>
@@ -166,11 +173,11 @@
   </div>
 </div>
 
-<pagination ng-model="currentPage" total-items="<%= @proposal.comments_count %>" items-per-page="<%= Comment.per_page %>" max-size="5"
+<pagination ng-model="currentPage" total-items="proposal.comments_count" items-per-page="<%= Comment.per_page %>" max-size="5"
 class="pagination-sm pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
 last-text="Последна"></pagination>
 
-</div><!-- end of ng-controller -->
+</div><!-- end of Comment controller -->
 
 <div class="modal fade" id="whoops-box">
   <div class="modal-dialog">
@@ -188,3 +195,5 @@ last-text="Последна"></pagination>
     </div>
   </div>
 </div>
+
+</div> <!-- end of Proposal controller -->

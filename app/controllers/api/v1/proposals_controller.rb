@@ -15,9 +15,13 @@ module Api
         @proposals = query.page(proposal_params[:page])
       end
 
+      def show
+        @proposal = Proposal.find(proposal_params[:id])
+      end
+
       private
       def proposal_params
-        params.slice(:order, :page, :theme_id)
+        params.slice(:id, :order, :page, :theme_id)
       end
     end
   end

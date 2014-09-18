@@ -10,6 +10,8 @@
 <% if user_signed_in? %>
   <br />
   <%= link_to "Направи предложение", new_proposal_path, class: "btn btn-success" %>
+  <br />
+  <br />
 
 <% else %>
 
@@ -20,7 +22,7 @@
 
 <% end %>
 
-<div ng-controller="ProposalController" ng-init="themeId=<%= @theme.id %>">
+<div ng-controller="ProposalController" ng-init="themeId=<%= @theme.id %>; queryProposals()">
   <div class="row">
     <div class="col-md-2">
       <div class="dropdown">
