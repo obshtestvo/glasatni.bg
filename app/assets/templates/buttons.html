@@ -1,0 +1,10 @@
+<div class="btn-group-vertical">
+  <button class="btn btn-sm" ng-click="vote(votable, 0)" ng-class="{true: 'btn-success', false: 'btn-default'}[votable.voted == 0]">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+  <button class="btn btn-sm" ng-click="vote(votable, 1)" ng-class="{true: 'btn-danger', false: 'btn-default'}[votable.voted == 1]">
+    <i class="fa fa-arrow-down"></i>
+  </button>
+</div>
+<p class="text-muted rating">{{ votable.hotness }}</p>
+

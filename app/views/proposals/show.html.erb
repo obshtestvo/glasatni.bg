@@ -5,16 +5,7 @@
     <br />
     <br />
     <center>
-    <div class="btn-group-vertical">
-      <button class="btn btn-sm" ng-click="vote(proposal, 0)" ng-class="{true: 'btn-success', false: 'btn-default'}[proposal.voted == 0]">
-        <i class="fa fa-arrow-up"></i>
-      </button>
-      <button class="btn btn-sm" ng-click="vote(proposal, 1)" ng-class="{true: 'btn-danger', false: 'btn-default'}[proposal.voted == 1]">
-        <i class="fa fa-arrow-down"></i>
-      </button>
-    </div>
-
-    <p class="text-muted">{{ proposal.hotness }}</p>
+      <voting-buttons votable="proposal" votable-type="'proposal'"></voting-buttons>
     </center>
   </div>
   <div class="col-md-11">
@@ -129,16 +120,7 @@
     <div class="row">
       <div class="col-md-1">
         <center>
-          <div class="btn-group-vertical">
-            <button class="btn btn-sm" ng-click="vote(comment, 0)" ng-class="{true: 'btn-success', false: 'btn-default'}[comment.voted == 0]">
-              <i class="fa fa-arrow-up"></i>
-            </button>
-            <button class="btn btn-sm" ng-click="vote(comment, 1)" ng-class="{true: 'btn-danger', false: 'btn-default'}[comment.voted == 1]">
-              <i class="fa fa-arrow-down"></i>
-            </button>
-          </div>
-
-          <p class="text-muted rating">{{ comment.rating }}</p>
+          <voting-buttons votable="comment" votable-type="'comment'"></voting-buttons>
 
         </center>
       </div>

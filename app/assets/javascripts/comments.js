@@ -18,15 +18,6 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
     });
   });
 
-  $scope.vote = function(comment, value) {
-    var direction = value === 0 ? "up": "down";
-
-    Comment.vote({ id: comment.id, vote: direction, votable: "comment" }).$promise.then(function(data) {
-      comment.rating = data.rating;
-      comment.voted = comment.voted === value ? -1 : value;
-    });;
-  }
-
   $scope.createNewComment = function() {
     Comment.save({ proposal_id: $scope.proposalId, content: $scope.newComment.content }).$promise.then(function(newComment) {
       $scope.comments.unshift(newComment);

@@ -30,15 +30,6 @@ promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope,
     });
   }
 
-  $scope.vote = function(proposal, value) {
-    var direction = value === 0 ? "up": "down";
-
-    Proposal.vote({ id: proposal.id, vote: direction, votable: "proposal" }).$promise.then(function(data) {
-      proposal.hotness = data.rating;
-      proposal.voted = proposal.voted === value ? -1 : value;
-    });;
-  }
-
   $scope.closeAlert = function(comment) {
     comment.alerts = [];
   }
