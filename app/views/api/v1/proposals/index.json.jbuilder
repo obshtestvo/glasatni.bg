@@ -1,7 +1,9 @@
 votings = Voting.where(user: current_user, votable: @proposals).pluck(:votable_id, :value).to_h
+
 json.array! @proposals do |p|
   json.id p.id
   json.theme_id p.theme_id
+  json.theme_name p.theme.name
   json.user_id p.user_id
   json.username p.user.name
   json.title p.title

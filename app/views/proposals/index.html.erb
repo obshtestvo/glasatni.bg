@@ -1,31 +1,51 @@
-<% voted_on = Voting.where(user: current_user).pluck(:votable_id, :value) %>
-
-<h1>Всички предложения</h1>
-
-<% @proposals.each do |p| %>
+<div ng-controller="ProposalController" ng-init="queryProposals();">
   <div class="row">
+    <div class="col-md-2">
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-disabled="true" data-toggle="dropdown">
+          {{ order | translateOrder }}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="" ng-show="order != 'newest'" ng-click="order='newest'">Най-нови</a></li>
+          <li><a href="" ng-show="order != 'oldest'" ng-click="order='oldest'">Най-стари</a></li>
+          <li><a href="" ng-show="order != 'relevance'" ng-click="order='relevance'">Релевантност</a></li>
+          <li><a href="" ng-show="order != 'most-comments'" ng-click="order='most-comments'">Най-коментирани</a></li>
+          <li><a href="" ng-show="order != 'least-comments'" ng-click="order='least-comments'">Най-некоментирани</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <pagination ng-model="currentPage" total-items="<%= Proposal.count %>" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pull-right" boundary-links="true"
+      rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
+    </div>
+  </div>
+  <br />
+  <div class="row" ng-repeat="proposal in proposals">
     <div class="col-md-1">
-      <%= parse_buttons p, voted_on, :proposal %>
+      <center>
+        <voting-buttons votable="proposal" votable-type="'proposal'"></voting-buttons>
+      </center>
     </div>
     <div class="col-md-11">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title"> <%= link_to p.title, proposal_path(p) %>
+          <h3 class="panel-title"><a href="/proposals/{{proposal.id}}">{{ proposal.title }}</a>
           <small>
-           | <%= p.rating %> точки |
-          <%= p.comments.count %> коментара |
-          автор: <%= link_to p.user.name, user_path(p.user) %>
+            в <a href="/themes/{{ proposal.theme_id }}">{{ proposal.theme_name }}</a> |
+            {{ proposal.comments_count }} коментара |
+            автор: <a href="/users/{{ proposal.user_id }}">{{ proposal.username }}</a>
           </small>
           </h3>
         </div>
         <div class="panel-body">
-          <%= truncate p.content, length: 300 %>
+          {{ proposal.content }}
         </div>
       </div>
     </div>
   </div>
-<% end.empty? and begin %>
-  <li><i>Няма направени предложения.</i></li>
-<% end %>
+</div>
 
+<pagination ng-model="currentPage" total-items="<%= Proposal.count %>" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right" boundary-links="true"
+rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
 

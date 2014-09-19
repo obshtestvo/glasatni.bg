@@ -10,7 +10,7 @@ module Api
         query = Proposal.all
         query = query.where(theme_id: theme_id) if theme_id.present?
         query = query.custom_order(order) if order.present?
-        query = query.includes(:user)
+        query = query.includes(:user).includes(:theme)
 
         @proposals = query.page(proposal_params[:page])
       end

@@ -8,7 +8,6 @@ promeni.factory('Proposal', function($resource) {
 
 promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope, Proposal) {
   $scope.order = "relevance";
-  $scope.proposalId = window.location.pathname.match(/\d+$/)[0];
 
   $scope.queryProposals = function() {
     Proposal.query({ theme_id: $scope.themeId, order: $scope.order, page: $scope.currentPage }, function(proposals) {

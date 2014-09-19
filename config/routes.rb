@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     end
   end
 
-  #devise_for :users#, controllers: {omniauth_callbacks: "omniauth_callbacks"}
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :users, :only => [:show]
 
@@ -21,5 +20,5 @@ Rails.application.routes.draw do
   post "vote" => "application#vote"
   get "about" => "application#about"
 
-  root "themes#index"
+  root "proposals#index"
 end
