@@ -55,6 +55,9 @@ ul.pagination {
 
 div.dropdown {
   display: inline;
+  &.open {
+    display: block;
+  }
 }
 
 .proposal-report {

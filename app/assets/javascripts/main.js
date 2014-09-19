@@ -12,8 +12,8 @@ promeni.filter('translateOrder', function () {
       "newest": "Най-нови",
       "oldest": "Най-стари",
       "relevance": "Релевантност",
-      "most-comments": "Най-коментирани",
-      "least-comments": "Най-некоментирани",
+      "most-comments": "Коментирани",
+      "least-comments": "Некоментирани",
     }
     return translations[string];
   };
