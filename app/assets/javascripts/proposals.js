@@ -1,18 +1,28 @@
 promeni.factory('Proposal', function($resource) {
   return $resource('/api/v1/proposals/:id', null, {
     'vote': { method: "POST", url: "/vote" },
-    'flag': { method: "POST", url: "/flag"}
+    'flag': { method: "POST", url: "/flag" }
   });
-
 });
 
-promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope, Proposal) {
+promeni.controller('ProposalController', ['$scope', 'Proposal', 'Theme', function($scope, Proposal, Theme) {
   $scope.order = "relevance";
+  $scope.currentTheme = { id: "all", name: "Всички теми" };
+
+  $scope.queryThemes = function() {
+    Theme.query({}, function(themes) {
+      $scope.themes = [$scope.currentTheme].concat(themes);
+    });
+  }
 
   $scope.queryProposals = function() {
-    Proposal.query({ theme_id: $scope.themeId, order: $scope.order, page: $scope.currentPage }, function(proposals) {
+    Proposal.query({ theme_id: $scope.currentTheme.id, order: $scope.order, page: $scope.currentPage }, function(proposals) {
       $scope.proposals = proposals;
     });
+  }
+
+  $scope.setCurrentTheme = function(theme) {
+    $scope.currentTheme = theme;
   }
 
   $scope.getProposal = function() {
@@ -35,7 +45,7 @@ promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope,
   }
 
   // if filters change - fetch and assign result
-  $scope.$watchCollection("[order, currentPage]", function(newValue, oldValue) {
+  $scope.$watchCollection("[order, currentTheme, currentPage]", function(newValue, oldValue) {
     if(newValue === oldValue) return;
     $scope.queryProposals();
   });

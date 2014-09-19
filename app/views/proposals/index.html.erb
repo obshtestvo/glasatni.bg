@@ -1,4 +1,4 @@
-<div ng-controller="ProposalController" ng-init="queryProposals();">
+<div ng-controller="ProposalController" ng-init="queryProposals();queryThemes()">
   <div class="row">
     <div class="col-md-2">
       <div class="dropdown">
@@ -10,12 +10,23 @@
           <li><a href="" ng-show="order != 'newest'" ng-click="order='newest'">Най-нови</a></li>
           <li><a href="" ng-show="order != 'oldest'" ng-click="order='oldest'">Най-стари</a></li>
           <li><a href="" ng-show="order != 'relevance'" ng-click="order='relevance'">Релевантност</a></li>
-          <li><a href="" ng-show="order != 'most-comments'" ng-click="order='most-comments'">Най-коментирани</a></li>
-          <li><a href="" ng-show="order != 'least-comments'" ng-click="order='least-comments'">Най-некоментирани</a></li>
+          <li><a href="" ng-show="order != 'most-comments'" ng-click="order='most-comments'">Коментирани</a></li>
+          <li><a href="" ng-show="order != 'least-comments'" ng-click="order='least-comments'">Некоментирани</a></li>
         </ul>
       </div>
     </div>
-    <div class="col-md-10">
+    <div class="col-md-2">
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-disabled="true" data-toggle="dropdown">
+          {{ currentTheme.name }}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <li ng-repeat="theme in themes"><a href="" ng-show="theme.id != currentTheme.id" ng-click="setCurrentTheme(theme)">{{ theme.name }}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-8">
       <pagination ng-model="currentPage" total-items="<%= Proposal.count %>" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pull-right" boundary-links="true"
       rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
     </div>
