@@ -1,4 +1,5 @@
 json.id @proposal.id
+json.type "proposal"
 json.title @proposal.title
 json.content @proposal.content
 json.theme_id @proposal.theme_id
