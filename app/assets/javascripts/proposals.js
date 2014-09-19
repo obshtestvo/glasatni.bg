@@ -16,7 +16,8 @@ promeni.controller('ProposalController', ['$scope', 'Proposal', function($scope,
   }
 
   $scope.getProposal = function() {
-    Proposal.get({ id: $scope.proposalId }, function(proposal) {
+    var proposalId = window.location.pathname.match(/\d+$/)[0];
+    Proposal.get({ id: proposalId }, function(proposal) {
       $scope.proposal = proposal;
     });
   }
