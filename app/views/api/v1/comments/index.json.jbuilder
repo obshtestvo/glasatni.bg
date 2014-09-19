@@ -12,7 +12,7 @@ json.array! @comments do |c|
   json.username c.user.name
   json.moderator c.user.role === 1
   json.user_profile_url url_for(c.user)
-  json.rating c.rating
+  json.hotness c.hotness
 
   idx = ids.index(c.id)
 

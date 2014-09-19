@@ -6,4 +6,4 @@ json.proposal_id @comment.proposal_id
 json.username @comment.user.name
 json.moderator @comment.user.role === 1
 json.user_profile_url url_for(@comment.user)
-json.rating @comment.rating
+json.hotness @comment.hotness

@@ -8,10 +8,6 @@ class Comment < ActiveRecord::Base
 
   paginates_per 3
 
-  def rating
-    self.up - self.down
-  end
-
   def self.latest n
     Comment.order(created_at: :asc).limit(n)
   end

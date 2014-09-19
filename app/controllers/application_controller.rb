@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
     votable.save
     author.save
 
-    render json: { rating: votable.rating }
+    render json: { hotness: votable.hotness }
 
   end
 
