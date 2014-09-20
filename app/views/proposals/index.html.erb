@@ -1,4 +1,4 @@
-<div ng-controller="ProposalController" ng-init="queryProposals();queryThemes()">
+<div ng-controller="ProposalController" ng-init="queryProposals();queryThemes();proposalsCount=<%= Proposal.count %>">
   <div class="row">
     <div class="col-md-2">
       <div class="dropdown">
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="col-md-8">
-      <pagination ng-model="currentPage" total-items="<%= Proposal.count %>" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pull-right" boundary-links="true"
+      <pagination ng-model="currentPage" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pull-right" boundary-links="true"
       rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
     </div>
   </div>
@@ -57,6 +57,6 @@
   </div>
 </div>
 
-<pagination ng-model="currentPage" total-items="<%= Proposal.count %>" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right" boundary-links="true"
+<pagination ng-model="currentPage" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right" boundary-links="true"
 rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
 

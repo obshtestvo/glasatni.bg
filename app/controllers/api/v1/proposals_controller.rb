@@ -19,6 +19,16 @@ module Api
         @proposal = Proposal.find(proposal_params[:id])
       end
 
+      def count
+        theme_id = proposal_params[:theme_id]
+        if theme_id == "all" or theme_id.blank?
+          count = Proposal.count
+        else
+          count = Proposal.where(theme_id: theme_id).count
+        end
+        render json: count
+      end
+
       private
       def proposal_params
         params.slice(:id, :order, :page, :theme_id)

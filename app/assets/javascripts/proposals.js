@@ -5,7 +5,7 @@ promeni.factory('Proposal', function($resource) {
   });
 });
 
-promeni.controller('ProposalController', ['$scope', 'Proposal', 'Theme', function($scope, Proposal, Theme) {
+promeni.controller('ProposalController', ['$scope', '$http', 'Proposal', 'Theme', function($scope, $http, Proposal, Theme) {
   $scope.order = "relevance";
   $scope.currentTheme = { id: "all", name: "Всички теми" };
 
@@ -19,8 +19,10 @@ promeni.controller('ProposalController', ['$scope', 'Proposal', 'Theme', functio
     Proposal.query({ theme_id: $scope.currentTheme.id, order: $scope.order, page: $scope.currentPage }, function(proposals) {
       $scope.proposals = proposals;
     });
+    $http({ url: "/api/v1/proposals/count", params: { theme_id: $scope.currentTheme.id }}).success(function(count) {
+      $scope.proposalsCount = count;
+    });
   }
-
 
   $scope.getProposal = function() {
     var proposalId = window.location.pathname.match(/\d+$/)[0];
