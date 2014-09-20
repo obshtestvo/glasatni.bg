@@ -8,11 +8,14 @@ class ApplicationController < ActionController::Base
   end
 
   def vote
-    klass = application_params[:votable].titleize.constantize
+    klass_str = application_params[:votable]
 
-    if user_signed_in?
+    if not klass_str.in? ["comment", "proposal"]
+      render nothing: true, status: :unprocessable_entity
+    elsif user_signed_in?
       direction = params[:vote]
 
+      klass = application_params[:votable].titleize.constantize
       votable = klass.find(application_params[:id])
       author = votable.user
 
