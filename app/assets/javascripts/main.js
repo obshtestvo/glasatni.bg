@@ -36,7 +36,7 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
           votable.voted = votable.voted === value ? -1 : value;
         }
         var failure = function(response) {
-          if (response.status === 422) {
+          if (response.statusText == "Unauthorized") {
             scope.$root.$modalMessages = {
               title: "Чакай малко!",
               body: "Само регистрирани потребители могат да гласуват.",

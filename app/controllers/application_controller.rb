@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
 
       render json: { hotness: votable.hotness }
     else
-      render json: { error: "Unauthorized" }, status: :unprocessable_entity
+      render nothing: true, status: :unauthorized
     end
 
   end
