@@ -8,6 +8,7 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif user.registered?
+      can :vote, [Proposal, Comment]
     else
       can :read, :all
     end

@@ -31,15 +31,31 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
       scope.vote = function(votable, value) {
         var direction = value === 0 ? "up": "down";
         var params = { id: votable.id, vote: direction, votable: scope.votableType };
-        var cb = function(data) {
-          votable.hotness = data.hotness;
+        var success = function(response) {
+          votable.hotness = response.hotness;
           votable.voted = votable.voted === value ? -1 : value;
+        }
+        var failure = function(response) {
+          if (response.status === 422) {
+            scope.$root.$modalMessages = {
+              title: "Чакай малко!",
+              body: "Само регистрирани потребители могат да гласуват.",
+              button: "Ясно, разбрах."
+            }
+          } else {
+            scope.$root.$modalMessages = {
+              title: "Опа!",
+              body: "Изглежда, че гласуването не работи по някаква причина. Моля да ни извините!",
+              button: "От мен да мине."
+            }
+          }
+          angular.element("#whoops-box").modal();
         }
 
         if (scope.votableType === "proposal") {
-          Proposal.vote(params, cb)
+          Proposal.vote(params, success, failure);
         }else {
-          Comment.vote(params, cb)
+          Comment.vote(params, success, failure);
         }
       }
 
