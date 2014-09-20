@@ -22,7 +22,7 @@
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <li ng-repeat="theme in themes"><a href="" ng-show="theme.id != currentTheme.id" ng-click="setCurrentTheme(theme)">{{ theme.name }}</a></li>
+          <li ng-repeat="theme in themes"><a href="" ng-show="theme.id != currentTheme.id" ng-click="$parent.currentTheme=theme">{{ theme.name }}</a></li>
         </ul>
       </div>
     </div>

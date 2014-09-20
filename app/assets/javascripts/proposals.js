@@ -21,9 +21,6 @@ promeni.controller('ProposalController', ['$scope', 'Proposal', 'Theme', functio
     });
   }
 
-  $scope.setCurrentTheme = function(theme) {
-    $scope.currentTheme = theme;
-  }
 
   $scope.getProposal = function() {
     var proposalId = window.location.pathname.match(/\d+$/)[0];
