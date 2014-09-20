@@ -1,4 +1,6 @@
-<h1><%= @user.name %></h1>
+<h1><%= @user.name %> <%= user_role_label @user %></h1>
+
+<i>Регистриран <%= pretty_date @user.created_at %>.</i>
 
 <h2>Последни коментари</h2>
 <h2>Баджове</h2>
