@@ -8,15 +8,12 @@ class ApplicationController < ActionController::Base
   end
 
   def vote
-    if can? :vote, current_user
+    klass = application_params[:votable].titleize.constantize
+
+    if user_signed_in?
       direction = params[:vote]
 
-      if params[:votable] == "comment"
-        votable = Comment.find(params[:id])
-      else
-        votable = Proposal.find(params[:id])
-      end
-
+      votable = klass.find(application_params[:id])
       author = votable.user
 
       voting = Voting.find_or_initialize_by({
@@ -93,7 +90,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def application_params
-    params.slice(:id, :flaggable, :reason)
+    params.slice(:id, :votable, :flaggable, :reason)
   end
 
   def configure_permitted_parameters
