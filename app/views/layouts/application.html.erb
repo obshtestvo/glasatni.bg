@@ -67,5 +67,24 @@
 <p class="text-center text-muted"><small>Тук може да се сложат връзки и/или информация. Изработено от <%= link_to "Общество.бг", "http://obshtestvo.bg" %> </small></p>
 
 </div>
+
+<div class="modal fade" id="whoops-box">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">{{ $root.$modalMessages.title }}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{ $root.$modalMessages.body }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">{{ $root.$modalMessages.button }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </body>
 </html>
