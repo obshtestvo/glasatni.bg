@@ -1,7 +1,31 @@
 <h1><%= @user.name %> <%= user_role_label @user %></h1>
 
-<i>Регистриран <%= pretty_date @user.created_at %>.</i>
+<i>Потребителят е регистриран <%= pretty_date @user.created_at %>.</i>
 
-<h2>Последни коментари</h2>
-<h2>Баджове</h2>
-<h2>Последни </h2>
+<br />
+<br />
+<div class="row">
+  <div class="col-md-6" ng-controller="ProposalController" ng-init="queryProposals({user: <%= @user.id %>})">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Последни предложения</h3>
+      </div>
+      <ul class="list-group">
+        <li ng-repeat="proposal in proposals" class="list-group-item">
+          <a href="/proposals/{{proposal.id}}">{{ proposal.title }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-6" ng-controller="CommentController" ng-init="queryComments()">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Популярни коментари</h3>
+      </div>
+      <ul class="list-group">
+        <li ng-repeat="comment in comments" class="list-group-item">{{ comment.content }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+

@@ -9,14 +9,24 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
 
   $scope.order = "relevance";
 
+  $scope.params = {
+    order: "relevance",
+    page: 1
+  }
+
   $scope.proposalId = window.location.pathname.match(/\d+$/)[0];
 
   // if filters change - fetch and assign result
   $scope.$watchCollection("[order, currentPage]", function(newValue, oldValue) {
-    Comment.query({ proposal_id: $scope.proposalId, order: $scope.order, page: $scope.currentPage }, function(comments) {
+    if (newValue === oldValue) return;
+    $scope.queryComments({ proposal_id: $scope.proposalId, order: $scope.order, page: $scope.currentPage });
+  });
+
+  $scope.queryComments = function(params) {
+    Comment.query(params, function(comments) {
       $scope.comments = comments;
     });
-  });
+  }
 
   $scope.createNewComment = function() {
     Comment.save({ proposal_id: $scope.proposalId, content: $scope.newComment.content }).$promise.then(function(newComment) {
