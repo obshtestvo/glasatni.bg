@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   post "flag" => "application#flag"
   post "vote" => "application#vote"
   get "about" => "application#about"
+  get "rank/:rank" => "application#rank"
 
   root "proposals#index"
 end

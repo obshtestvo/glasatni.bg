@@ -1,4 +1,16 @@
 module UsersHelper
+
+  def translate_rank rank
+    case rank
+    when "observer"     then "Наблюдател"
+    when "speaker"      then "Говорител"
+    when "orator"       then "Оратор"
+    when "enthusiast"   then "Ентусиаст"
+    when "activist"     then "Активист"
+    when "policy_maker" then "Полиси мейкър"
+    end
+  end
+
   def user_role_label user
     translation, klass = case user.role
     when "registered" then ["регистриран", "label-primary"]
@@ -28,22 +40,21 @@ module UsersHelper
 
   def comments_rank user
     html = case user.comments_rank
-    when "observer" then "<i class='fa fa-binoculars fa-2x'></i>"
-    when "speaker"  then "<i class='fa fa-bullhorn fa-2x'></i>"
-    when "orator"   then "<i class='fa fa-microphone fa-2x'></i>"
+    when "observer" then "<a href='/rank/observer' class='btn btn-lg btn-primary'><i class='fa fa-binoculars fa-lg'></i> Наблюдател</a>"
+    when "speaker"  then "<a href='/rank/speaker' class='btn btn-lg btn-warning'><i class='fa fa-bullhorn fa-lg'></i> Говорител</a>"
+    when "orator"   then "<a href='/rank/orator' class='btn btn-lg btn-danger'><i class='fa fa-microphone fa-lg'></i> Оратор</a>"
     end
     html.html_safe
   end
 
   def proposals_rank user
     html = case user.proposals_rank
-    when "enthusiast"     then "<i class='fa fa-eye fa-2x'></i>"
-    when "activist"       then "<i class='fa fa-gavel fa-2x'></i>"
-    when "policy_maker"   then "<i class='fa fa-institution fa-2x'></i>"
+    when "enthusiast"     then "<a href='/rank/enthusiast' class='btn btn-lg btn-primary'><i class='fa fa-eye fa-lg'></i> Ентусиаст</a>"
+    when "activist"       then "<a href='/rank/activist' class='btn btn-lg btn-warning'><i class='fa fa-gavel fa-lg'></i> Активист</a>"
+    when "policy_maker"   then "<a href='/rank/policy_maker' class='btn btn-lg btn-danger'><i class='fa fa-institution fa-lg'></i> Полиси мейкър</a>"
     end
     html.html_safe
   end
-
 
 end
 

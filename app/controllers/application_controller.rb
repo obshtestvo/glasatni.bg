@@ -7,6 +7,17 @@ class ApplicationController < ActionController::Base
   def about
   end
 
+  def rank
+    @rank = application_params[:rank]
+    if @rank.in? User.comments_ranks.keys
+      @users = User.where(comments_rank: User.comments_ranks[@rank])
+    elsif @rank.in? User.proposals_ranks.keys
+      @users = User.where(proposals_rank: User.proposals_ranks[@rank])
+    else
+      render nothing: true, status: :unprocessable_entity
+    end
+  end
+
   def vote
     klass_str = application_params[:votable]
 
@@ -93,7 +104,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def application_params
-    params.slice(:id, :votable, :flaggable, :reason)
+    params.slice(:id, :votable, :flaggable, :reason, :rank)
   end
 
   def configure_permitted_parameters

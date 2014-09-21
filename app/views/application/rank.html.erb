@@ -1,0 +1,26 @@
+<h1>Ранг: <%= translate_rank @rank %> <span class="label label-success"><%= @users.count %></span></h1>
+
+<br />
+<p>Рангът се дава на потребител, който има ... коментара...</p>
+<br />
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Потребителско име</th>
+      <th>Репутация</th>
+      <th>Ранг за коментари</th>
+      <th>Ранг за предложения</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |u| %>
+    <tr>
+      <td><%= link_to u.name, user_path(u) %></td>
+      <td><%= u.reputation %></td>
+      <td><%= translate_rank u.comments_rank %></td>
+      <td><%= translate_rank u.proposals_rank %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
