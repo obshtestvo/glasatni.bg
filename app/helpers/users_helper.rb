@@ -26,5 +26,24 @@ module UsersHelper
     end
   end
 
+  def comments_rank user
+    html = case user.comments_rank
+    when "observer" then "<i class='fa fa-binoculars fa-2x'></i>"
+    when "speaker"  then "<i class='fa fa-bullhorn fa-2x'></i>"
+    when "orator"   then "<i class='fa fa-microphone fa-2x'></i>"
+    end
+    html.html_safe
+  end
+
+  def proposals_rank user
+    html = case user.proposals_rank
+    when "enthusiast"     then "<i class='fa fa-eye fa-2x'></i>"
+    when "activist"       then "<i class='fa fa-gavel fa-2x'></i>"
+    when "policy_maker"   then "<i class='fa fa-institution fa-2x'></i>"
+    end
+    html.html_safe
+  end
+
+
 end
 

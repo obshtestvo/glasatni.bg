@@ -1,6 +1,10 @@
 <h1><%= @user.name %> <%= user_role_label @user %></h1>
 
 <i>Потребителят е регистриран <%= pretty_date @user.created_at %>.</i>
+<h4>Рангове</h4>
+
+<%= comments_rank @user %>
+<%= proposals_rank @user %>
 
 <br />
 <br />

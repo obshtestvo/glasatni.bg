@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :flags
 
   enum role: [:registered, :moderator, :admin]
+  enum comments_rank: [:observer, :speaker, :orator]
+  enum proposals_rank: [:enthusiast, :activist, :policy_maker]
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

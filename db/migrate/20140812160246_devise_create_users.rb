@@ -33,6 +33,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :name
       t.integer :role, :default => 0
       t.integer :reputation, :default => 0
+      t.integer :comments_rank, :default => 0
+      t.integer :proposals_rank, :default => 0
       t.string :provider
       t.string :uid
 
