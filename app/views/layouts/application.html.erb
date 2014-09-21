@@ -18,14 +18,20 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <% if user_signed_in? %>
       <form class="navbar-form navbar-right">
-        <%= link_to "Изход", destroy_user_session_path, :method => :delete, :class => "btn btn-success" %>
+        <%= link_to destroy_user_session_path, :method => :delete, :class => "btn btn-success" do %>
+          <i class="fa fa-sign-out fa-lg"></i> &nbsp;Изход
+        <% end %>
       </form>
 
       <p class="navbar-text navbar-right">Здравей, <%= link_to current_user.name, user_path(current_user), id: "username" %> (<%= current_user.reputation %>)</p>
     <% else %>
       <div class="pull-right">
-        <%= link_to "Вход", new_session_path(:user), :class => "btn btn-success navbar-btn" %>
-        <%= link_to "Регистрирай се", new_registration_path(:user), :class => "btn btn-info navbar-btn" %>
+        <%= link_to new_session_path(:user), :class => "btn btn-success navbar-btn" do %>
+          <i class="fa fa-sign-in fa-lg"></i> &nbsp;Вход
+        <% end %>
+        <%= link_to new_registration_path(:user), :class => "btn btn-info navbar-btn" do %>
+          <i class="fa fa-plug fa-lg"></i> &nbsp;Регистрирай се
+        <% end %>
       </div>
     <% end %>
     </div>
