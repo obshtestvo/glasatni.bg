@@ -20,10 +20,14 @@
   <div class="col-md-6" ng-controller="CommentController" ng-init="queryComments()">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Популярни коментари</h3>
+        <h3 class="panel-title">Последни коментари</h3>
       </div>
       <ul class="list-group">
-        <li ng-repeat="comment in comments" class="list-group-item">{{ comment.content }}</li>
+        <li ng-repeat="comment in comments" class="list-group-item">
+          <p>{{ comment.content }}</p>
+          <p class="text-muted">{{ comment.created_at }} | в <a href="/proposals/{{ comment.proposal.id }}">{{ comment.proposal.title }}</a></p>
+          <div class="clearfix"></div>
+        </li>
       </ul>
     </div>
   </div>

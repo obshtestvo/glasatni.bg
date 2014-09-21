@@ -7,7 +7,7 @@ module Api
         proposal_id = comment_params[:proposal_id]
         order = comment_params[:order].present? ? comment_params[:order] : "relevance"
 
-        query = Comment.includes(:user)
+        query = Comment.includes(:user).includes(:proposal)
         query = query.where(proposal_id: proposal_id) unless proposal_id.blank?
         query = query.custom_order order
 

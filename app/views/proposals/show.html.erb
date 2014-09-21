@@ -142,7 +142,7 @@
             <button class="btn btn-default btn-xs" ng-click="destroyComment(comment, $index)">Изтрий</button>
           </div>
           <div class="col-md-2">
-            <a href="{{ comment.user_profile_url }}" class="btn btn-default btn-xs pull-right">{{ comment.username }}<br>
+            <a href="{{ comment.user_profile_url }}" class="btn btn-default btn-xs pull-right">{{ comment.user.name }}<br>
               <i class="fa fa-gavel" ng-show="comment.moderator"></i>
             </a>
           </div>

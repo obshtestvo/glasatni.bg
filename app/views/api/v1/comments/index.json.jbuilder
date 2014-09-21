@@ -8,8 +8,8 @@ json.array! @comments do |c|
   json.content c.content
   json.created_at c.created_at
   json.updated_at c.updated_at
-  json.proposal_id c.proposal_id
-  json.username c.user.name
+  json.proposal c.proposal, :id, :title
+  json.user c.user, :id, :name, :role
   json.moderator c.user.role === 1
   json.user_profile_url url_for(c.user)
   json.hotness c.hotness
