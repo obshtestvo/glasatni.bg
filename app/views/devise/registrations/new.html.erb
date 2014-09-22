@@ -21,6 +21,15 @@
         <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Повтори паролата", class: "form-control" %>
       </div>
 
+      <div class="form-group">
+        <%= f.text_area :bio, autocomplete: "off", placeholder: "Ако искате напишете нещо за себе си.", class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :subscribed, "Абонирай се за нашият бюлетин" %>
+        <%= f.check_box :subscribed %>
+      </div>
+
       <%= f.submit "Хайде!", class: "btn btn-success" %>
     <% end %>
   </div>

@@ -35,6 +35,10 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer :reputation, :default => 0
       t.integer :comments_rank, :default => 0
       t.integer :proposals_rank, :default => 0
+      t.text :bio
+      t.boolean :subscribed, null: false, default: false
+
+      # oauth
       t.string :provider
       t.string :uid
 
