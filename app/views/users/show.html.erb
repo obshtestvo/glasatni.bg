@@ -2,6 +2,10 @@
 
 <p class="text-muted"><i>Потребителят е регистриран <%= pretty_date @user.created_at %>.</i></p>
 
+<h4>Кратка информация за потребителя</h4>
+
+<%= simple_format @user.bio %>
+
 <h4>Рангове</h4>
 
 <%= comments_rank @user %>
