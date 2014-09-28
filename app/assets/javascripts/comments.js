@@ -32,7 +32,7 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
     Comment.save({ proposal_id: $scope.proposalId, content: $scope.newComment.content }).$promise.then(function(newComment) {
       $scope.comments.unshift(newComment);
       $("#warning-box").slideUp();
-      $("#comment-box").val("");
+      $scope.newComment = { content: "" };
     });
   }
 
