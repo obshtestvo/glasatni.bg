@@ -9,11 +9,11 @@
 <body>
 <div id="fb-root"></div>
 
-<div class="container">
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="navbar-header">
-      <%= link_to "Гласа.ни", root_path, :class => "navbar-brand" %>
-    </div>
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <%= link_to root_path, :class => "navbar-brand" do %>
+      <%= image_tag "logo.png" %>
+    <% end %>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <% if user_signed_in? %>
@@ -38,7 +38,10 @@
       </div>
     <% end %>
     </div>
-  </nav>
+  </div>
+</nav>
+
+<div class="container">
 
   <% if notice %>
     <div class="alert alert-success alert-dismissible" role="alert">
