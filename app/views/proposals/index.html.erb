@@ -1,17 +1,22 @@
 <div ng-controller="ProposalController" ng-init="queryProposals();queryThemes();proposalsCount=<%= Proposal.count %>">
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" data-disabled="true" data-toggle="dropdown">
-          {{ order | translateOrder }}
+          <i class="fa fa-calendar fa-lg" ng-show="order == 'newest'"></i>
+          <i class="fa fa-calendar-o fa-lg" ng-show="order == 'oldest'"></i>
+          <i class="fa fa-trophy fa-lg" ng-show="order == 'relevance'"></i>
+          <i class="fa fa-comments fa-lg" ng-show="order == 'most-comments'"></i>
+          <i class="fa fa-comments-o fa-lg" ng-show="order == 'least-comments'"></i>
+          &nbsp; {{ order | translateOrder }}
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-          <li><a href="" ng-show="order != 'newest'" ng-click="order='newest'">Най-нови</a></li>
-          <li><a href="" ng-show="order != 'oldest'" ng-click="order='oldest'">Най-стари</a></li>
-          <li><a href="" ng-show="order != 'relevance'" ng-click="order='relevance'">Релевантност</a></li>
-          <li><a href="" ng-show="order != 'most-comments'" ng-click="order='most-comments'">Коментирани</a></li>
-          <li><a href="" ng-show="order != 'least-comments'" ng-click="order='least-comments'">Некоментирани</a></li>
+          <li><a href="" ng-show="order != 'newest'" ng-click="order='newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
+          <li><a href="" ng-show="order != 'oldest'" ng-click="order='oldest'"><i class="fa fa-calendar-o fa-lg"></i>&nbsp; Най-стари</a></li>
+          <li><a href="" ng-show="order != 'relevance'" ng-click="order='relevance'"><i class="fa fa-trophy fa-lg"></i>&nbsp; Релевантност</a></li>
+          <li><a href="" ng-show="order != 'most-comments'" ng-click="order='most-comments'"><i class="fa fa-comments fa-lg"></i>&nbsp; Коментирани</a></li>
+          <li><a href="" ng-show="order != 'least-comments'" ng-click="order='least-comments'"><i class="fa fa-comments-o fa-lg"></i>&nbsp; Некоментирани</a></li>
         </ul>
       </div>
     </div>
@@ -26,7 +31,7 @@
         </ul>
       </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-7">
       <pagination ng-model="currentPage" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pull-right" boundary-links="true"
       rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
     </div>

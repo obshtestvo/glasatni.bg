@@ -24,8 +24,8 @@
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(proposal, 'spam')">СПАМ</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(proposal, 'hatespeech')">Език на омразата</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(proposal, 'spam')"><i class="fa fa-keyboard-o fa-lg"></i>&nbsp; СПАМ</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(proposal, 'hatespeech')"><i class="fa fa-users fa-lg"></i>&nbsp; Език на омразата</a></li>
       </ul>
     </div>
   </div>
@@ -50,7 +50,6 @@
     <a href="/users/{{proposal.user_id}}" class="btn btn-default btn-sm pull-right">{{ proposal.username }}</a>
   </div>
 </div>
-
 
 <hr />
 
@@ -91,7 +90,10 @@
   <div class="col-md-2">
     <div class="dropdown">
       <button class="btn btn-default dropdown-toggle" type="button" data-disabled="true" data-toggle="dropdown">
-        <i class="fa fa-calendar fa-lg" ng-show="order == 'newest'"></i><i class="fa fa-calendar-o fa-lg" ng-show="order == 'oldest'"></i><i class="fa fa-list-ol fa-lg" ng-show="order == 'relevance'"></i>&nbsp; {{ order | translateOrder }}
+        <i class="fa fa-calendar fa-lg" ng-show="order == 'newest'"></i>
+        <i class="fa fa-calendar-o fa-lg" ng-show="order == 'oldest'"></i>
+        <i class="fa fa-list-ol fa-lg" ng-show="order == 'relevance'"></i>
+        &nbsp; {{ order | translateOrder }}
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
