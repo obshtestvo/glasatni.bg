@@ -24,16 +24,4 @@ class User < ActiveRecord::Base
     end
   end
 
-  def isAdmin?
-    self.role == "admin"
-  end
-
-  def isRegistered?
-    self.role == "registered"
-  end
-
-  def isModerator?
-    self.role == "moderator"
-  end
-
 end
