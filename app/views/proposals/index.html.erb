@@ -55,6 +55,12 @@
       </div>
     </div>
   </div>
+  <div class="row" ng-hide="proposals.length">
+    <div class="alert alert-danger" role="alert">
+      Няма намерени предложения по зададените критерии.
+    </div>
+  </div>
+
 </div>
 
 <pagination ng-model="currentPage" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right" boundary-links="true"
