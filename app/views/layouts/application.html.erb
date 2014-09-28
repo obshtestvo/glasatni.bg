@@ -19,7 +19,7 @@
     <% if user_signed_in? %>
       <form class="navbar-form navbar-right">
         <%= link_to edit_user_registration_path, :class => "btn btn-info" do %>
-          <i class="fa fa-cog fa-lg"></i> &nbsp;Настройки
+          <i class="fa fa-wrench fa-lg"></i> &nbsp;Настройки
         <% end %>
         <%= link_to destroy_user_session_path, :method => :delete, :class => "btn btn-success" do %>
           <i class="fa fa-sign-out fa-lg"></i> &nbsp;Изход
@@ -61,7 +61,11 @@
     </div>
     <div class="col-md-3">
       <% if user_signed_in? %>
-        <%= link_to "Направи предложение", new_proposal_path, class: "btn btn-success" %>
+        <center>
+        <%= link_to new_proposal_path, class: "btn btn-success" do %>
+          <i class="fa fa-pencil fa-lg"></i> &nbsp;Направи предложение
+        <% end %>
+        <center>
       <% else %>
         <div id="not-registered" class="bs-callout bs-callout-danger">
           <h4>Само регистрирани потребители могат да правят предложения.</h4>

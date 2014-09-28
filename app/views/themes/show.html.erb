@@ -8,7 +8,10 @@
 
 <% if user_signed_in? %>
   <br />
-  <%= link_to "Направи предложение", new_proposal_path, class: "btn btn-success" %>
+  <%= link_to new_proposal_path, class: "btn btn-success" do %>
+    <i class="fa fa-pencil fa-lg"></i> &nbsp;Направи предложение
+  <% end %>
+  <br />
   <br />
 
 <% else %>

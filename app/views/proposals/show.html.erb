@@ -12,15 +12,15 @@
     <h1>{{ proposal.title }}</h1>
     <a class="btn btn-success btn-sm pull-left" href="/themes/{{ proposal.theme_id }}">{{ proposal.theme_name }}</a>
     <div class="btn-group pull-right">
-      <a class="btn btn-default btn-sm" href="/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil"></i></a>
+      <a class="btn btn-default btn-sm" href="/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil fa-lg"></i>&nbsp; Редактирай</a>
       <a class="btn btn-default btn-sm btn-danger" data-confirm="Сигурен ли си, че искаш да изтриеш това предложение?" data-method="delete" href="/proposals/{{ proposal.id }}" rel="nofollow">
-        <i class="fa fa-times"></i>
+        <i class="fa fa-times fa-lg"></i>&nbsp; Изтрий
       </a>
     </div>
 
     <div class="dropdown pull-right">
       <button class="btn btn-default btn-sm dropdown-toggle proposal-report" type="button" id="dropdownMenu1" data-disabled="true" data-toggle="dropdown">
-        Докладвай
+        <i class="fa fa-bullhorn fa-lg"></i>&nbsp; Докладвай
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -70,7 +70,7 @@
   <br />
   <div class="row">
     <div class="col-md-1">
-      <button class="btn btn-success" ng-disabled="newComment.content.length < 100" ng-click="createNewComment()">Коментирай</button>
+      <button class="btn btn-success" ng-disabled="newComment.content.length < 100" ng-click="createNewComment()"><i class="fa fa-comment fa-lg"></i>&nbsp; Коментирай</button>
     </div>
     <div class="col-md-4">
       <p id="symbolsBox" class="text-muted text-right" ng-hide="newComment.content.length >= 100">Остават ти {{ 100 - newComment.content.length }} символа.</p>
@@ -91,13 +91,13 @@
   <div class="col-md-2">
     <div class="dropdown">
       <button class="btn btn-default dropdown-toggle" type="button" data-disabled="true" data-toggle="dropdown">
-        {{ order | translateOrder }}
+        <i class="fa fa-calendar fa-lg" ng-show="order == 'newest'"></i><i class="fa fa-calendar-o fa-lg" ng-show="order == 'oldest'"></i><i class="fa fa-list-ol fa-lg" ng-show="order == 'relevance'"></i>&nbsp; {{ order | translateOrder }}
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a href="" ng-show="order != 'newest'" ng-click="order='newest'">Най-нови</a></li>
-        <li><a href="" ng-show="order != 'oldest'" ng-click="order='oldest'">Най-стари</a></li>
-        <li><a href="" ng-show="order != 'relevance'" ng-click="order='relevance'">Релевантност</a></li>
+        <li><a href="" ng-show="order != 'newest'" ng-click="order='newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
+        <li><a href="" ng-show="order != 'oldest'" ng-click="order='oldest'"><i class="fa fa-calendar-o fa-lg"></i>&nbsp; Най-стари</a></li>
+        <li><a href="" ng-show="order != 'relevance'" ng-click="order='relevance'"><i class="fa fa-list-ol fa-lg"></i>&nbsp; Релевантност</a></li>
       </ul>
     </div>
   </div>
