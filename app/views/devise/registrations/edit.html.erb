@@ -34,11 +34,15 @@
         <%= f.label :subscribed, "Абониран(а) за нашият бюлетин?" %>
       </div>
 
-      <hr />
-      <div class="form-group">
-        <p class="text-muted"><i>За да промениш настройките, трябва да въведеш сегашната си парола.</i></p>
-        <%= f.password_field :current_password, autocomplete: "off", placeholder: "Сегашна парола", class: "form-control" %>
-      </div>
+      <% if resource.provider == nil %>
+
+        <hr />
+        <div class="form-group">
+          <p class="text-muted"><i>За да промениш настройките, трябва да въведеш сегашната си парола.</i></p>
+          <%= f.password_field :current_password, autocomplete: "off", placeholder: "Сегашна парола", class: "form-control" %>
+        </div>
+
+      <% end %>
 
       <%= f.submit "Промени!", class: "btn btn-success" %>
       <%= link_to "Върни ме.", :back, class: "btn btn-default" %>
