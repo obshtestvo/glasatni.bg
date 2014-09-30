@@ -13,6 +13,10 @@ ActiveAdmin.register Proposal do
   #   permitted << :other if resource.something?
   #   permitted
   # end
-
+  index do
+    column :title
+    column :content
+    actions
+  end
 
 end
