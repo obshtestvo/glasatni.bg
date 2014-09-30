@@ -17,4 +17,7 @@ rvm use 2.1.1
 gem install bundler
 cd /vagrant/
 bundle
+bin/rake db:create
+bin/rake db:migrate
+bin/rake db:seed
 bin/rake s
