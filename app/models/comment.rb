@@ -3,6 +3,10 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :proposal, counter_cache: true
+
+  belongs_to :commentable, polymorphic: true
+
+  has_many :comments, as: :commentable, dependent: :destroy
   has_many :votings, as: :votable, dependent: :destroy
   has_many :flags, as: :flaggable, dependent: :destroy
 
@@ -17,6 +21,10 @@ class Comment < ActiveRecord::Base
 
   def self.hottest n
     Comment.order(hotness: :desc).limit(n)
+  end
+
+  def self.find_by_parent(parent)
+    where(:commentable_id => parent.id, :commentable_type => parent.class.name)
   end
 
   private

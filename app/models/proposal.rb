@@ -3,7 +3,7 @@ class Proposal < ActiveRecord::Base
 
   belongs_to :theme, counter_cache: true
   belongs_to :user
-  has_many :comments, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
   has_many :votings, as: :votable, dependent: :destroy
   has_many :flags, as: :flaggable, dependent: :destroy
 

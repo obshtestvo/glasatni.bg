@@ -11,7 +11,9 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
 
   $scope.params = {
     order: "relevance",
-    page: 1
+    page: 1,
+    commentable_type: "proposal",
+    commentable_id: window.location.pathname.match(/\d+$/)[0]
   }
 
   $scope.proposalId = window.location.pathname.match(/\d+$/)[0];
@@ -19,17 +21,17 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
   // if filters change - fetch and assign result
   $scope.$watchCollection("[order, currentPage]", function(newValue, oldValue) {
     if (newValue === oldValue) return;
-    $scope.queryComments({ proposal_id: $scope.proposalId, order: $scope.order, page: $scope.currentPage });
+    $scope.queryComments({ commentable_id: $scope.proposalId, commentable_type: "proposal", order: $scope.order, page: $scope.currentPage });
   });
 
-  $scope.queryComments = function(params) {
-    Comment.query(params, function(comments) {
+  $scope.queryComments = function() {
+    Comment.query($scope.params, function(comments) {
       $scope.comments = comments;
     });
   }
 
   $scope.createNewComment = function() {
-    Comment.save({ proposal_id: $scope.proposalId, content: $scope.newComment.content }).$promise.then(function(newComment) {
+    Comment.save({ commentable_id: $scope.proposalId, commentable_type: "proposal", content: $scope.newComment.content }).$promise.then(function(newComment) {
       $scope.comments.unshift(newComment);
       $("#warning-box").slideUp();
       $scope.newComment = { content: "" };

@@ -67,12 +67,13 @@ ActiveRecord::Schema.define(version: 20140928223330) do
   end
 
   create_table "comments", force: true do |t|
-    t.integer  "proposal_id"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
     t.integer  "user_id"
     t.text     "content"
-    t.integer  "up",          default: 0
-    t.integer  "down",        default: 0
-    t.integer  "hotness",     default: 0
+    t.integer  "up",               default: 0
+    t.integer  "down",             default: 0
+    t.integer  "hotness",          default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

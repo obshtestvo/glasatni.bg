@@ -4,11 +4,17 @@ module Api
       respond_to :json
 
       def index
-        proposal_id = comment_params[:proposal_id]
+        commentable_type = comment_params[:content]
+        if commentable_type == "comment"
+          commentable = Comment.find(comment_params[:commentable_id])
+        else
+          commentable = Proposal.find(comment_params[:commentable_id])
+        end
+
         order = comment_params[:order].present? ? comment_params[:order] : "relevance"
 
         query = Comment.includes(:user).includes(:proposal)
-        query = query.where(proposal_id: proposal_id) unless proposal_id.blank?
+        query = query.find_by_parent(commentable) unless commentable_type.blank?
         query = query.custom_order order
 
         @comments = query.page(comment_params[:page])
@@ -19,10 +25,15 @@ module Api
       end
 
       def create
-        proposal_id = comment_params[:proposal_id]
+        if comment_params[:commentable_type] == "comment"
+          commentable = Comment.find(comment_params[:commentable_id])
+        else
+          commentable = Proposal.find(comment_params[:commentable_id])
+        end
+
         content = comment_params[:content]
 
-        @comment = Comment.new(proposal_id: proposal_id, user: current_user, content: content)
+        @comment = Comment.new(commentable: commentable, user: current_user, content: content)
 
         if @comment.save
           render :show
@@ -42,7 +53,7 @@ module Api
       private
 
       def comment_params
-        params.slice(:id, :proposal_id, :per_page, :page, :content, :order)
+        params.slice(:id, :commentable_id, :commentable_type, :per_page, :page, :content, :order)
       end
 
     end
