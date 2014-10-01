@@ -7,8 +7,7 @@ can can - да настроя кой какво може да прави
 stage - up and running
 seeds - themes and some proposals
 markdown
-
-add themes to admin panel
+nested comments
 
 # желателни:
 
