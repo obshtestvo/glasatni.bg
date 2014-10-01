@@ -19,7 +19,7 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
   $scope.proposalId = window.location.pathname.match(/\d+$/)[0];
 
   // if filters change - fetch and assign result
-  $scope.$watchCollection("[order, currentPage]", function(newValue, oldValue) {
+  $scope.$watchCollection("[params.order, currentPage]", function(newValue, oldValue) {
     if (newValue === oldValue) return;
     $scope.queryComments({ commentable_id: $scope.proposalId, commentable_type: "proposal", order: $scope.order, page: $scope.currentPage });
   });
