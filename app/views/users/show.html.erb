@@ -5,7 +5,11 @@
 
 <h4>Кратка информация за потребителя</h4>
 
-<%= simple_format @user.bio %>
+<% if @user.bio != nil %>
+  <%= simple_format @user.bio %>
+<% else %>
+  <p class="text-muted"><i>Този потребител не е написал нищо за себе си.</i></p>
+<% end %>
 
 <h4>Този потребител е:</h4>
 
