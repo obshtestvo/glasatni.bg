@@ -5,7 +5,6 @@ ActiveAdmin.register_page "Dashboard" do
   content title: proc{ I18n.t("active_admin.dashboard") } do
 
     columns do
-
       column do
         panel "Последни коментари" do
           table_for Comment.order('created_at desc').limit(10) do
@@ -13,11 +12,13 @@ ActiveAdmin.register_page "Dashboard" do
           end
         end
       end
+    end
 
+    columns do
       column do
         panel "Последни предложения" do
           table_for Proposal.order('created_at desc').limit(10).each do |proposal|
-            column(:title)    { |proposal| proposal.title }
+            column(:title)    { |proposal| link_to proposal.title, proposal_path(proposal) }
           end
         end
       end
