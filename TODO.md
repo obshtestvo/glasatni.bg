@@ -1,16 +1,21 @@
 # задължителни:
 
-FB likes - май не работят в момента
-fb страница и app - да направя social box в страничната лента
-бюлетин
-can can - да настроя кой какво може да прави
-stage - up and running
-seeds - themes and some proposals
-markdown
-nested comments
+- FB likes - май не работят в момента
+- fb страница и app - да направя social box в страничната лента
+- бюлетин
+- can can - да настроя кой какво може да прави
+- stage - up and running
+- seeds - comments
+- markdown
+- nested comments
+- мета тема да напиша
+- списък с рангове
+- да пренапиша изречението за символите
+- да се премести ограничението от коментари на предложения
+- да може да се дават права на потребители в админ панела
 
 # желателни:
 
-edit comments
-по-добра система за коменатри.. йерархия
-one page app
+- edit comments
+- one page app
+- notifications
