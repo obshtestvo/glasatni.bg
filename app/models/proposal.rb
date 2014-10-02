@@ -12,14 +12,6 @@ class Proposal < ActiveRecord::Base
 
   paginates_per 3
 
-  def self.latest n
-    Proposal.order(created_at: :asc).limit(n)
-  end
-
-  def self.hottest n
-    Proposal.order(hotness: :desc).limit(n)
-  end
-
   private
   def update_user_rank
     user = self.user

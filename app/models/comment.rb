@@ -15,14 +15,6 @@ class Comment < ActiveRecord::Base
 
   paginates_per 3
 
-  def self.latest n
-    Comment.order(created_at: :asc).limit(n)
-  end
-
-  def self.hottest n
-    Comment.order(hotness: :desc).limit(n)
-  end
-
   def self.find_by_parent(parent)
     where(:commentable_id => parent.id, :commentable_type => parent.class.name)
   end
