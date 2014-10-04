@@ -4,7 +4,7 @@ module Api
       respond_to :json
 
       def index
-        commentable_type = comment_params[:content]
+        commentable_type = comment_params[:commentable_type]
         if commentable_type == "comment"
           commentable = Comment.find(comment_params[:commentable_id])
         else

@@ -44,9 +44,21 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
     $("#warning-box").slideDown();
   }
 
+  $scope.showNestedComments = function(comment) {
+    Comment.query({ commentable_id: comment.id, commentable_type: "comment", page: 1, order: "relevance" }, function(comments) {
+      comment.comments = comments;
+    })
+  }
+
   $scope.destroyComment = function(comment, idx) {
     comment.$delete({ id: comment.id }, function(data) {
       $scope.comments.splice(idx, 1);
+    });
+  }
+
+  $scope.replyToComment = function(comment, idx) {
+    Comment.save({ commentable_id: comment.id, commentable_type: "comment", content: comment.newComment }).$promise.then(function(newComment) {
+      console.log(newComment);
     });
   }
 
@@ -61,6 +73,9 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
   $scope.closeAlert = function(comment) {
     comment.alerts = [];
   }
+
+  // init
+  $scope.queryComments();
 
 }]);
 

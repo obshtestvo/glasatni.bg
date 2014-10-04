@@ -53,7 +53,7 @@
 
 <hr />
 
-<div ng-controller="CommentController" ng-init="queryComments()">
+<div ng-controller="CommentController">
 
 <h3>Коментари</h3>
 
@@ -130,6 +130,7 @@
         <alert ng-repeat="alert in comment.alerts" type="{{alert.type}}" close="closeAlert(comment)">{{alert.msg}}</alert>
         <div class="row">
           <div class="col-md-10">
+            <button class="btn btn-default btn-xs" ng-click="showReplyCommentBox(comment, $index)">Отговори</button>
             <div class="dropdown">
               <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-disabled="true" data-toggle="dropdown">
                 Докладвай
@@ -141,11 +142,25 @@
               </ul>
             </div>
             <button class="btn btn-default btn-xs" ng-click="destroyComment(comment, $index)">Изтрий</button>
+            <button class="btn btn-default btn-xs" ng-click="showNestedComments(comment, $index)">Покажи</button>
           </div>
           <div class="col-md-2">
             <a href="{{ comment.user_profile_url }}" class="btn btn-default btn-xs pull-right">{{ comment.user.name }}<br>
               <i class="fa fa-gavel" ng-show="comment.moderator"></i>
             </a>
+          </div>
+        </div>
+        <br />
+        <div class="row" ng-repeat="nc in comment.comments">
+          {{ nc.content }}
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <textarea name="" id="" class="form-control" rows="3" cols="68" ng-model="comment.newComment"></textarea>
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-success btn-xs" ng-click="replyToComment(comment, $index)">Отговори</button>
+            <button class="btn btn-default btn-xs" ng-click="cancelComment(comment, $index)">Махни</button>
           </div>
         </div>
       </div>
