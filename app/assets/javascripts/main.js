@@ -64,23 +64,3 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
   };
 }]);
 
-promeni.directive('commentSection', function() {
-  return {
-    restrict: 'E',
-    scope: {
-      comment: "=",
-    },
-    templateUrl: "/assets/comment.html"
-  }
-});
-
-promeni.directive('commentActions', function() {
-  return {
-    restrict: 'E',
-    scope: {
-      comment: "=",
-    },
-    templateUrl: "/assets/comment_actions.html"
-  }
-});
-
