@@ -1,0 +1,13 @@
+<div class="dropdown">
+  <button class="btn btn-link btn-xs" ng-hide="comment.showReplyBox == true" ng-click="comment.showReplyBox=true">Добави коментар</button>
+  <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-disabled="true" data-toggle="dropdown">
+    Докладвай
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'spam')">СПАМ</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'hatespeech')">Език на омразата</a></li>
+  </ul>
+</div>
+<button class="btn btn-default btn-xs" ng-click="destroyComment(comment, $index)">Изтрий</button>
+<button class="btn btn-default btn-xs" ng-click="showNestedComments(comment)">Покажи</button>

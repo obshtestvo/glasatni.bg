@@ -73,3 +73,14 @@ promeni.directive('commentSection', function() {
     templateUrl: "/assets/comment.html"
   }
 });
+
+promeni.directive('commentActions', function() {
+  return {
+    restrict: 'E',
+    scope: {
+      comment: "=",
+    },
+    templateUrl: "/assets/comment_actions.html"
+  }
+});
+

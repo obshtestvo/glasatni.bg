@@ -9,19 +9,7 @@
     <alert ng-repeat="alert in comment.alerts" type="{{alert.type}}" close="closeAlert(comment)">{{alert.msg}}</alert>
     <div class="row">
       <div class="col-md-10">
-        <div class="dropdown">
-          <button class="btn btn-link btn-xs" ng-hide="comment.showReplyBox == true" ng-click="comment.showReplyBox=true">Добави коментар</button>
-          <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-disabled="true" data-toggle="dropdown">
-            Докладвай
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'spam')">СПАМ</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'hatespeech')">Език на омразата</a></li>
-          </ul>
-        </div>
-        <button class="btn btn-default btn-xs" ng-click="destroyComment(comment, $index)">Изтрий</button>
-        <button class="btn btn-default btn-xs" ng-click="showNestedComments(comment)">Покажи</button>
+        <comment-actions comment="comment"></comment-actions>
       </div>
       <div class="col-md-2">
         <a href="{{ comment.user_profile_url }}" class="btn btn-default btn-xs pull-right">{{ comment.user.name }}<br>
