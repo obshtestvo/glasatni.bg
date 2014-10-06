@@ -13,9 +13,17 @@
 - да пренапиша изречението за символите
 - да се премести ограничението от коментари на предложения
 - да може да се дават права на потребители в админ панела
+- complex hotness rating
+- admin panel не update-ва
+- cleanup
+- settings.yml в readme
+- шрифтовете
+- comment counter cache
 
 # желателни:
 
 - edit comments
 - one page app
 - notifications
+- документация на API
+- времето да се update-ва автоматично
