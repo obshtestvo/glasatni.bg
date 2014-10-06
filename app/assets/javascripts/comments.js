@@ -50,12 +50,6 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
     })
   }
 
-  $scope.destroyComment = function(comment, idx) {
-    comment.$delete({ id: comment.id }, function(data) {
-      $scope.comments.splice(idx, 1);
-    });
-  }
-
   $scope.replyToComment = function(comment) {
     Comment.save({ commentable_id: comment.id, commentable_type: "comment", content: comment.newComment }).$promise.then(function(newComment) {
       comment.comments.unshift(newComment);
@@ -67,18 +61,6 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
   $scope.cancelComment = function(comment) {
     comment.newComment = "";
     comment.showReplyBox = false;
-  }
-
-  $scope.flag = function(comment, reason) {
-    Comment.flag({ id: comment.id, reason: reason, flaggable: "comment" }).$promise.then(function(data) {
-      comment.alerts = [{
-        type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
-      }];
-    });
-  }
-
-  $scope.closeAlert = function(comment) {
-    comment.alerts = [];
   }
 
   // init
@@ -96,13 +78,33 @@ promeni.directive('commentSection', function() {
   }
 });
 
-promeni.directive('commentActions', function() {
+promeni.directive('commentActions', ['Comment', function(Comment) {
   return {
     restrict: 'E',
     scope: {
       comment: "=",
     },
+    link: function(scope) {
+
+      scope.flag = function(reason) {
+        Comment.flag({ id: scope.comment.id, reason: reason, flaggable: "comment" }).$promise.then(function(data) {
+          scope.comment.alerts = [{
+            type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
+          }];
+        });
+      }
+
+      scope.closeAlert = function() {
+        scope.comment.alerts = [];
+      }
+
+      scope.destroyComment = function(idx) {
+        scope.comment.$delete({ id: scope.comment.id }, function(data) {
+          scope.$parent.$parent.comments.splice(idx, 1);
+        });
+      }
+    },
     templateUrl: "/assets/comment_actions.html"
   }
-});
+}]);
 
