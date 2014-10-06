@@ -26,14 +26,14 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
       votable: "=",
       votableType: "="
     },
-    link: function (scope, element) {
+    link: function (scope) {
 
-      scope.vote = function(votable, value) {
+      scope.vote = function(value) {
         var direction = value === 0 ? "up": "down";
-        var params = { id: votable.id, vote: direction, votable: scope.votableType };
+        var params = { id: scope.votable.id, vote: direction, votable: scope.votableType };
         var success = function(response) {
-          votable.hotness = response.hotness;
-          votable.voted = votable.voted === value ? -1 : value;
+          scope.votable.hotness = response.hotness;
+          scope.votable.voted = scope.votable.voted === value ? -1 : value;
         }
         var failure = function(response) {
           if (response.statusText == "Unauthorized") {
