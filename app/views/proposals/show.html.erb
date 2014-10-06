@@ -116,60 +116,11 @@
   Бързо напиши един, за да изпревариш останалите!
 </div>
 
+
 <div id="comments-list">
   <div ng-repeat="comment in comments">
 
-    <div class="row">
-      <div class="col-md-1">
-        <center>
-          <voting-buttons votable="comment" votable-type="'comment'"></voting-buttons>
-        </center>
-      </div>
-      <div class="col-md-11">
-        <p>{{ comment.content }}</p>
-        <alert ng-repeat="alert in comment.alerts" type="{{alert.type}}" close="closeAlert(comment)">{{alert.msg}}</alert>
-        <div class="row">
-          <div class="col-md-10">
-            <div class="dropdown">
-              <button class="btn btn-link btn-xs" ng-hide="comment.showReplyBox == true" ng-click="comment.showReplyBox=true">Добави коментар</button>
-              <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-disabled="true" data-toggle="dropdown">
-                Докладвай
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'spam')">СПАМ</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'hatespeech')">Език на омразата</a></li>
-              </ul>
-            </div>
-            <button class="btn btn-default btn-xs" ng-click="destroyComment(comment, $index)">Изтрий</button>
-            <button class="btn btn-default btn-xs" ng-click="showNestedComments(comment)">Покажи</button>
-          </div>
-          <div class="col-md-2">
-            <a href="{{ comment.user_profile_url }}" class="btn btn-default btn-xs pull-right">{{ comment.user.name }}<br>
-              <i class="fa fa-gavel" ng-show="comment.moderator"></i>
-            </a>
-          </div>
-        </div>
-        <br />
-        <table class="table table-hover">
-          <tr ng-repeat="nc in comment.comments">
-            <td>
-              {{ nc.content }} <small><a href="/users/{{nc.user.id}}">{{ nc.user.name }}</a> <i>({{nc.time_ago}})</i></small><br />
-              <small>докладвай</small>
-            </td>
-          </tr>
-        </table>
-        <div class="row" ng-show="comment.showReplyBox">
-          <div class="col-md-6">
-            <textarea name="" id="" class="form-control" rows="3" cols="68" ng-model="comment.newComment"></textarea>
-          </div>
-          <div class="col-md-6">
-            <button class="btn btn-success btn-xs" ng-click="replyToComment(comment, $index)">Отговори</button>
-            <button class="btn btn-default btn-xs" ng-click="cancelComment(comment, $index)">Махни</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <comment-section comment="comment"></comment-section>
 
     <hr ng-hide="$last"/>
 

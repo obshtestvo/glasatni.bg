@@ -63,3 +63,13 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
     templateUrl: '/assets/buttons.html'
   };
 }]);
+
+promeni.directive('commentSection', function() {
+  return {
+    restrict: 'E',
+    scope: {
+      comment: "=",
+    },
+    templateUrl: "/assets/comment.html"
+  }
+});
