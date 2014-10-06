@@ -16,8 +16,9 @@ module Api
         query = Comment.includes(:user).includes(:proposal)
         query = query.find_by_parent(commentable) unless commentable_type.blank?
         query = query.custom_order order
+        query = query.page(comment_params[:page]) if comment_params[:page]
 
-        @comments = query.page(comment_params[:page])
+        @comments = query
       end
 
       def show

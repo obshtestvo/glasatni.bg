@@ -7,6 +7,7 @@ json.array! @comments do |c|
   json.id c.id
   json.content c.content
   json.created_at c.created_at
+  json.time_ago pretty_date(c.created_at)
   json.updated_at c.updated_at
   json.commentable c.commentable.id
   json.user c.user, :id, :name, :role

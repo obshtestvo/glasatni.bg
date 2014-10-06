@@ -16,6 +16,8 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
     commentable_id: window.location.pathname.match(/\d+$/)[0]
   }
 
+  $scope.newComment = { content: "" };
+
   $scope.proposalId = window.location.pathname.match(/\d+$/)[0];
 
   // if filters change - fetch and assign result
@@ -38,14 +40,12 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
     });
   }
 
-  $scope.newComment = { content: "" };
-
   $scope.showWarning = function() {
     $("#warning-box").slideDown();
   }
 
   $scope.showNestedComments = function(comment) {
-    Comment.query({ commentable_id: comment.id, commentable_type: "comment", page: 1, order: "relevance" }, function(comments) {
+    Comment.query({ commentable_id: comment.id, commentable_type: "comment", order: "relevance" }, function(comments) {
       comment.comments = comments;
     })
   }
@@ -56,10 +56,17 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
     });
   }
 
-  $scope.replyToComment = function(comment, idx) {
+  $scope.replyToComment = function(comment) {
     Comment.save({ commentable_id: comment.id, commentable_type: "comment", content: comment.newComment }).$promise.then(function(newComment) {
-      console.log(newComment);
+      comment.comments.unshift(newComment);
+      comment.newComment = "";
+      comment.showReplyBox = false;
     });
+  }
+
+  $scope.cancelComment = function(comment) {
+    comment.newComment = "";
+    comment.showReplyBox = false;
   }
 
   $scope.flag = function(comment, reason) {
