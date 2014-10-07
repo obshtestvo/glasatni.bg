@@ -18,8 +18,11 @@
       </div>
     </div>
     <br />
-    <table class="table table-hover">
+    <table class="table table-hover" ng-show="comment.comments">
       <tr ng-repeat="nc in comment.comments">
+        <td>
+          <voting-buttons votable="nc" votable-type="'comment'" button-size="'btn-xs'"></voting-buttons>
+        </td>
         <td>
           {{ nc.content }}
         </td>

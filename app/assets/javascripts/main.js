@@ -24,7 +24,11 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
     restrict: 'E',
     scope: {
       votable: "=",
-      votableType: "="
+      votableType: "=",
+      buttonSize: "=?"
+    },
+    controller: function($scope) {
+      $scope.buttonSize = $scope.buttonSize || 'btn-sm';
     },
     link: function (scope) {
 
