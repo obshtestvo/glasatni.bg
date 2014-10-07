@@ -44,39 +44,36 @@ promeni.controller('CommentController', ['$scope', 'Comment', function($scope, C
     $("#warning-box").slideDown();
   }
 
-  $scope.showNestedComments = function(comment) {
-    Comment.query({ commentable_id: comment.id, commentable_type: "comment", order: "relevance" }, function(comments) {
-      comment.comments = comments;
-    })
-  }
-
-  $scope.replyToComment = function(comment) {
-    Comment.save({ commentable_id: comment.id, commentable_type: "comment", content: comment.newComment }).$promise.then(function(newComment) {
-      comment.comments.unshift(newComment);
-      comment.newComment = "";
-      comment.showReplyBox = false;
-    });
-  }
-
-  $scope.cancelComment = function(comment) {
-    comment.newComment = "";
-    comment.showReplyBox = false;
-  }
-
   // init
   $scope.queryComments();
 
 }]);
 
-promeni.directive('commentSection', function() {
+promeni.directive('commentSection', ["Comment", function(Comment) {
   return {
     restrict: 'E',
     scope: {
       comment: "=",
     },
+    link: function(scope) {
+
+      scope.cancelNewNestedComment = function() {
+        scope.comment.reply = "";
+        scope.comment.showReplyBox = false;
+      }
+
+      scope.replyToComment = function() {
+        Comment.save({ commentable_id: scope.comment.id, commentable_type: "comment", content: scope.comment.reply }).$promise.then(function(reply) {
+          scope.comment.comments.unshift(reply);
+          scope.comment.reply = "";
+          scope.comment.showReplyBox = false;
+        });
+      }
+
+    },
     templateUrl: "/assets/comment.html"
   }
-});
+}]);
 
 promeni.directive('commentActions', ['Comment', function(Comment) {
   return {
@@ -103,6 +100,13 @@ promeni.directive('commentActions', ['Comment', function(Comment) {
           scope.$parent.$parent.comments.splice(idx, 1);
         });
       }
+
+      scope.showNestedComments = function() {
+        Comment.query({ commentable_id: scope.comment.id, commentable_type: "comment", order: "relevance" }, function(comments) {
+          scope.comment.comments = comments;
+        });
+      }
+
     },
     templateUrl: "/assets/comment_actions.html"
   }

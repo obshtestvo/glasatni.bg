@@ -18,6 +18,23 @@
       </div>
     </div>
     <br />
+    <table class="table table-hover">
+      <tr ng-repeat="nc in comment.comments">
+        <td>
+          {{ nc.content }}
+        </td>
+      </tr>
+    </table>
+    <div class="row" ng-show="comment.showReplyBox">
+      <div class="col-md-11">
+        <textarea name="test" id="test" class="form-control" rows="2" ng-model="comment.reply"></textarea>
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-success btn-sm" ng-click="replyToComment()">Прати</button>
+        <button class="btn btn-link btn-sm" ng-click="cancelNewNestedComment()">Махни</button>
+      </div>
+    </div>
+    <br />
   </div>
 </div>
 
