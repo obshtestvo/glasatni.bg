@@ -18,7 +18,6 @@
 - cleanup
 - settings.yml в readme
 - шрифтовете
-- comment counter cache
 - style all devise views
 - банери
 
