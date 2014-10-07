@@ -60,7 +60,7 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
       }
 
     },
-    templateUrl: '/assets/buttons.html'
+    templateUrl: '/assets/voting_buttons.html'
   };
 }]);
 
