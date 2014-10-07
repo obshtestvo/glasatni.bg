@@ -19,6 +19,8 @@
 - settings.yml в readme
 - шрифтовете
 - comment counter cache
+- style all devise views
+- банери
 
 # желателни:
 
@@ -27,3 +29,4 @@
 - notifications
 - документация на API
 - времето да се update-ва автоматично
+- да се пипне дизайна
