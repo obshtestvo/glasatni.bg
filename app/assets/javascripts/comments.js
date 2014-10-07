@@ -64,7 +64,7 @@ promeni.directive('commentSection', ["Comment", function(Comment) {
 
       scope.replyToComment = function() {
         Comment.save({ commentable_id: scope.comment.id, commentable_type: "comment", content: scope.comment.reply }).$promise.then(function(reply) {
-          scope.comment.comments.unshift(reply);
+          scope.comment.comments.push(reply);
           scope.comment.reply = "";
           scope.comment.showReplyBox = false;
         });
