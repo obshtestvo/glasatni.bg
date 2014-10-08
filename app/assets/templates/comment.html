@@ -8,6 +8,7 @@
   <div class="col-md-11">
     <p>{{ comment.content }}</p>
     <alert ng-repeat="alert in comment.alerts" type="{{alert.type}}" close="closeAlert(comment)">{{alert.msg}}</alert>
+
     <div class="row">
       <div class="col-md-10">
         <comment-actions comment="comment"></comment-actions>
@@ -18,8 +19,18 @@
         </a>
       </div>
     </div>
+
     <br />
-    <table class="table table-hover" ng-show="comment.comments">
+    <div class="row" ng-show="comment.showReplyBox">
+      <textarea name="test" id="test" class="form-control" rows="2" ng-model="comment.reply"></textarea>
+      <br />
+      <button class="btn btn-success btn-xs" ng-click="replyToComment()">Прати</button>
+      <button class="btn btn-link btn-xs" ng-click="cancelNewNestedComment()">Махни</button>
+    </div>
+
+    <br />
+
+    <table class="table table-hover">
       <tr ng-repeat="nc in comment.comments">
         <td>
           <voting-buttons votable="nc" votable-type="'comment'" button-size="'btn-xs'"></voting-buttons>
@@ -28,17 +39,12 @@
           {{ nc.content }}
         </td>
       </tr>
+      <tr ng-show="comment.comments.length == 0">
+        <td colspan="2">
+          <i>Няма налични коментари</i>
+        </td>
+      </tr>
     </table>
-    <div class="row" ng-show="comment.showReplyBox">
-      <div class="col-md-11">
-        <textarea name="test" id="test" class="form-control" rows="2" ng-model="comment.reply"></textarea>
-      </div>
-      <div class="col-md-1">
-        <button class="btn btn-success btn-sm" ng-click="replyToComment()">Прати</button>
-        <button class="btn btn-link btn-sm" ng-click="cancelNewNestedComment()">Махни</button>
-      </div>
-    </div>
-    <br />
   </div>
 </div>
 
