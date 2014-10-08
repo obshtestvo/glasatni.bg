@@ -36,7 +36,10 @@
           <voting-buttons votable="nc" votable-type="'comment'" button-size="'btn-xs'"></voting-buttons>
         </td>
         <td>
+          <p class="text-muted"><a href="{{ nc.user_profile_url }}">{{ nc.user.name }}</a></p>
           {{ nc.content }}
+          <br />
+          <comment-actions comment="nc" nested="true"></comment-actions>
         </td>
       </tr>
       <tr ng-show="comment.comments.length == 0">

@@ -80,6 +80,10 @@ promeni.directive('commentActions', ['Comment', function(Comment) {
     restrict: 'E',
     scope: {
       comment: "=",
+      nested: "=?"
+    },
+    controller: function($scope) {
+      $scope.nested = $scope.nested || false;
     },
     link: function(scope) {
 
