@@ -17,7 +17,6 @@
 - admin panel не update-ва
 - cleanup
 - settings.yml в readme
-- шрифтовете
 - style all devise views
 - банери
 
