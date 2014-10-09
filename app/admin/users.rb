@@ -1,6 +1,8 @@
 ActiveAdmin.register User do
   permit_params :name, :role, :bio
 
+  config.per_page = 20
+
   index do
     column(:name) { |u| link_to u.name, user_path(u) }
     column(:role)
