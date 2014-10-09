@@ -14,7 +14,6 @@
 - да се премести ограничението от коментари на предложения
 - да може да се дават права на потребители в админ панела
 - complex hotness rating
-- admin panel не update-ва
 - cleanup
 - settings.yml в readme
 - style all devise views
