@@ -1,4 +1,15 @@
 <div ng-controller="ProposalController" ng-init="queryProposals();queryThemes();proposalsCount=<%= Proposal.count %>">
+
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs" role="tablist">
+        <li ng-repeat="theme in themes" ng-class="{active: theme.id == currentTheme.id}"><a href="" ng-click="$parent.currentTheme=theme">{{ theme.name }}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <br />
+
   <div class="row">
     <div class="col-md-3">
       <div class="dropdown">
@@ -20,18 +31,7 @@
         </ul>
       </div>
     </div>
-    <div class="col-md-2">
-      <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" data-disabled="true" data-toggle="dropdown">
-          {{ currentTheme.name }}
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-          <li ng-repeat="theme in themes"><a href="" ng-show="theme.id != currentTheme.id" ng-click="$parent.currentTheme=theme">{{ theme.name }}</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="col-md-7">
+    <div class="col-md-9">
       <pagination ng-model="currentPage" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pull-right" boundary-links="true"
       rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
     </div>
