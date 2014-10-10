@@ -22,7 +22,8 @@ Rails.application.routes.draw do
   post "flag" => "application#flag"
   post "vote" => "application#vote"
   get "about" => "application#about"
-  get "rank/:rank" => "application#rank"
+  get "rank/:rank" => "application#rank",
+    constraints: { rank: /observer|speaker|orator|enthusiast|activist|policy_maker/ }
 
   root "proposals#index"
 end
