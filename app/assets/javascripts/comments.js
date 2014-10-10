@@ -64,10 +64,17 @@ promeni.directive('commentSection', ["Comment", function(Comment) {
 
       scope.replyToComment = function() {
         Comment.save({ commentable_id: scope.comment.id, commentable_type: "comment", content: scope.comment.reply }).$promise.then(function(reply) {
-          scope.comment.comments.unshift(reply);
+          Comment.query({ commentable_id: scope.comment.id, commentable_type: "comment", order: "relevance" }).$promise.then(function(comments) {
+            scope.comment.comments = comments;
+          });
+
           scope.comment.reply = "";
           scope.comment.showReplyBox = false;
         });
+      }
+
+      scope.closeAlert = function(comment) {
+        comment.alerts = [];
       }
 
     },
@@ -93,10 +100,6 @@ promeni.directive('commentActions', ['Comment', function(Comment) {
             type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
           }];
         });
-      }
-
-      scope.closeAlert = function() {
-        scope.comment.alerts = [];
       }
 
       scope.destroyComment = function(idx) {

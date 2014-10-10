@@ -7,7 +7,7 @@
   </div>
   <div class="col-md-11">
     <p>{{ comment.content }}</p>
-    <alert ng-repeat="alert in comment.alerts" type="{{alert.type}}" close="closeAlert(comment)">{{alert.msg}}</alert>
+    <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="closeAlert(comment)">{{alert.msg}}</alert>
 
     <div class="row">
       <div class="col-md-10">
@@ -38,7 +38,7 @@
         <td>
           <p class="text-muted"><a href="{{ nc.user_profile_url }}">{{ nc.user.name }}</a></p>
           {{ nc.content }}
-          <br />
+          <alert ng-repeat="alert in nc.alerts" type="{{ alert.type }}" close="closeAlert(nc)">{{alert.msg}}</alert>
           <comment-actions comment="nc" nested="true"></comment-actions>
         </td>
       </tr>
