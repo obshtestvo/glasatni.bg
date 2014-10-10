@@ -1,7 +1,0 @@
-<% voted_on = Voting.where(user: current_user).pluck(:votable_id, :value) %>
-
-<% @comments.each do |c| %>
-
-  <% @comment = c %>
-  <%= render "show", { voted_on: voted_on, with_hr: c != @comments.last } %>
-<% end %>
