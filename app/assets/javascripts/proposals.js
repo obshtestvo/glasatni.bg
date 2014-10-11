@@ -16,8 +16,8 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', 'Pr
     });
   }
 
-  $scope.queryProposals = function() {
-    Proposal.query({ theme_id: $scope.currentTheme.id, order: $scope.order, page: $scope.currentPage }, function(proposals) {
+  $scope.queryProposals = function(params) {
+    Proposal.query(params, function(proposals) {
       $scope.proposals = proposals;
     });
     $http({ url: "/api/v1/proposals/count", params: { theme_id: $scope.theme }}).success(function(count) {
@@ -44,11 +44,7 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', 'Pr
     comment.alerts = [];
   }
 
-  // if filters change - fetch and assign result
-  $scope.$watchCollection("[order, theme, currentPage]", function(newValue, oldValue) {
-    if(newValue === oldValue) return;
-    $scope.queryProposals();
-  });
+  $scope.queryProposals({ theme_id: $scope.theme, order: $scope.order, page: $scope.currentPage });
 
 }]);
 
