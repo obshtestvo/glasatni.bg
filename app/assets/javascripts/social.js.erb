@@ -19,8 +19,7 @@ var restroreFBRoot = function() {
 var loadFBSDK = function() {
   window.fbAsyncInit = function() {
     FB.init({
-      // Not a security concern. It is easier this way.
-      appId      : <%= Settings[:FACEBOOK_APP_ID] %>,
+      appId      : <%= ENV["facebook_app_id"] %>,
       xfbml      : true,
       version    : 'v2.1'
     });
@@ -53,7 +52,7 @@ var bindFBEvents = function() {
 }
 
 var init = function() {
-  loadFBSDK()
+  loadFBSDK();
   if (!fbEventsBound) {
     bindFBEvents();
   }

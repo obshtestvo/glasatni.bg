@@ -15,7 +15,9 @@
 /log/*.log
 /tmp
 
-config/settings.yml
 public/system
 
 .vagrant/
+
+# Ignore application configuration
+/config/application.yml

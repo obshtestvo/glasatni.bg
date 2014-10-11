@@ -4,8 +4,6 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 
-Settings = YAML.load(File.read(File.expand_path('config/settings.yml'))).symbolize_keys
-
 module Promeni
   class Application < Rails::Application
     config.time_zone = 'Sofia'

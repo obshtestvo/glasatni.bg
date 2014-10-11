@@ -24,6 +24,7 @@ gem 'omniauth-facebook'
 gem 'kaminari'
 gem 'angular-ui-bootstrap-rails'
 gem "paperclip", "~> 4.2"
+gem "figaro"
 ruby "2.1.1"
 
 group :development do
