@@ -8,16 +8,16 @@ var promeni = angular.module('promeni', ['ngResource', 'ngRoute', 'ui.bootstrap'
 promeni.config(function($routeProvider) {
   $routeProvider.when("/", {
     controller: "ProposalController",
-    templateUrl: "/assets/themes_tabs.html"
+    templateUrl: "/assets/proposals.html"
   }).when("/:theme", {
     controller: "ProposalController",
-    templateUrl: "/assets/themes_tabs.html"
+    templateUrl: "/assets/proposals.html"
   }).when("/:theme/:order", {
     controller: "ProposalController",
-    templateUrl: "/assets/themes_tabs.html"
+    templateUrl: "/assets/proposals.html"
   }).when("/:theme/:order/:page", {
     controller: "ProposalController",
-    templateUrl: "/assets/themes_tabs.html"
+    templateUrl: "/assets/proposals.html"
   }).otherwise({
     redirectTo: "/"
   });
