@@ -5,6 +5,24 @@ $(document).on('ready page:load', function() {
 
 var promeni = angular.module('promeni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
+promeni.config(function($routeProvider) {
+  $routeProvider.when("/", {
+    controller: "ProposalController",
+    templateUrl: "/assets/themes_tabs.html"
+  }).when("/:theme", {
+    controller: "ProposalController",
+    templateUrl: "/assets/themes_tabs.html"
+  }).when("/:theme/:order", {
+    controller: "ProposalController",
+    templateUrl: "/assets/themes_tabs.html"
+  }).when("/:theme/:order/:page", {
+    controller: "ProposalController",
+    templateUrl: "/assets/themes_tabs.html"
+  }).otherwise({
+    redirectTo: "/"
+  });
+});
+
 promeni.filter('translateOrder', function () {
   "use strict";
   return function (string) {

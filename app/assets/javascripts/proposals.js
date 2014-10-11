@@ -5,9 +5,10 @@ promeni.factory('Proposal', function($resource) {
   });
 });
 
-promeni.controller('ProposalController', ['$scope', '$http', 'Proposal', 'Theme', function($scope, $http, Proposal, Theme) {
-  $scope.order = "relevance";
-  $scope.currentTheme = { id: "all", name: "Всички теми" };
+promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', 'Proposal', function($scope, $http, $routeParams, Proposal) {
+  $scope.theme = $routeParams.theme || "all";
+  $scope.order = $routeParams.order || "relevance";
+  $scope.page = $routeParams.page || 1;
 
   $scope.queryThemes = function() {
     Theme.query({}, function(themes) {
@@ -19,7 +20,7 @@ promeni.controller('ProposalController', ['$scope', '$http', 'Proposal', 'Theme'
     Proposal.query({ theme_id: $scope.currentTheme.id, order: $scope.order, page: $scope.currentPage }, function(proposals) {
       $scope.proposals = proposals;
     });
-    $http({ url: "/api/v1/proposals/count", params: { theme_id: $scope.currentTheme.id }}).success(function(count) {
+    $http({ url: "/api/v1/proposals/count", params: { theme_id: $scope.theme }}).success(function(count) {
       $scope.proposalsCount = count;
     });
   }
@@ -44,7 +45,7 @@ promeni.controller('ProposalController', ['$scope', '$http', 'Proposal', 'Theme'
   }
 
   // if filters change - fetch and assign result
-  $scope.$watchCollection("[order, currentTheme, currentPage]", function(newValue, oldValue) {
+  $scope.$watchCollection("[order, theme, currentPage]", function(newValue, oldValue) {
     if(newValue === oldValue) return;
     $scope.queryProposals();
   });

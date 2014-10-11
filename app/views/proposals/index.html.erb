@@ -1,12 +1,6 @@
 <div ng-controller="ProposalController" ng-init="queryProposals();queryThemes();proposalsCount=<%= Proposal.count %>">
 
-  <div class="row">
-    <div class="col-md-12">
-      <ul class="nav nav-tabs" role="tablist">
-        <li ng-repeat="theme in themes" ng-class="{active: theme.id == currentTheme.id}"><a href="" ng-click="$parent.currentTheme=theme">{{ theme.name }}</a></li>
-      </ul>
-    </div>
-  </div>
+  <ng-view></ng-view>
 
   <br />
 
