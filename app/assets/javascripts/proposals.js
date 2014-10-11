@@ -44,7 +44,9 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', 'Pr
     comment.alerts = [];
   }
 
-  $scope.queryProposals({ theme_id: $scope.theme, order: $scope.order, page: $scope.currentPage });
+  if (window.location.pathname == "/") {
+    $scope.queryProposals({ theme_name: $scope.theme, order: $scope.order, page: $scope.currentPage });
+  }
 
 }]);
 

@@ -5,11 +5,13 @@ module Api
 
       def index
         order = proposal_params[:order]
-        theme_id = proposal_params[:theme_id]
+        theme_name = proposal_params[:theme_name]
         user_id = proposal_params[:user_id]
 
         query = Proposal.all
-        query = query.where(theme_id: theme_id) if theme_id.present? and theme_id != "all"
+        if theme_name.present? and theme_name != "all"
+          query = query.joins(:theme).where(themes: { name: Theme.en_names[theme_name.to_sym] })
+        end
         query = query.where(user_id: user_id) if user_id.present?
         query = query.custom_order(order) if order.present?
         query = query.includes(:user).includes(:theme)
@@ -33,7 +35,7 @@ module Api
 
       private
       def proposal_params
-        params.slice(:id, :order, :page, :theme_id, :user_id)
+        params.slice(:id, :order, :page, :theme_name, :user_id)
       end
     end
   end
