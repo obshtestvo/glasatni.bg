@@ -4,11 +4,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      resources :proposals, only: [:index, :show] do
-        collection do
-          get "count"
-        end
-      end
+      resources :proposals, only: [:index, :show]
       resources :comments, only: [:index, :create, :destroy]
       resources :themes, only: [:index]
     end

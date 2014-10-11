@@ -1,6 +1,6 @@
 votings = Voting.where(user: current_user, votable: @proposals).pluck(:votable_id, :value).to_h
 
-json.array! @proposals do |p|
+json.proposals @proposals do |p|
   json.id p.id
   json.theme_id p.theme_id
   json.theme_name p.theme.name
@@ -18,3 +18,6 @@ json.array! @proposals do |p|
   json.created_at p.created_at
   json.updated_at p.updated_at
 end
+
+json.proposals_count @beforePaged.count
+
