@@ -6,10 +6,10 @@ promeni.factory('Proposal', function($resource) {
   });
 });
 
-promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', 'Proposal', function($scope, $http, $routeParams, Proposal) {
+promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$location', 'Proposal', function($scope, $http, $routeParams, $location, Proposal) {
   $scope.theme = $routeParams.theme || "all";
   $scope.order = $routeParams.order || "relevance";
-  $scope.page = $routeParams.page || 1;
+  $scope.currentPage = $routeParams.page || 1;
 
   $scope.queryProposals = function(params) {
     Proposal.query(params, function(data) {
@@ -35,6 +35,11 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', 'Pr
 
   $scope.closeAlert = function(comment) {
     comment.alerts = [];
+  }
+
+  $scope.pageChanged = function() {
+    $scope.queryProposals({ theme_name: $scope.theme, order: $scope.order, page: $scope.currentPage });
+    $location.search('page', $scope.currentPage);
   }
 
   if (window.location.pathname == "/") {
