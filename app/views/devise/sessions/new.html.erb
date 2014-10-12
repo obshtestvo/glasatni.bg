@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-4 col-md-offset-2">
+  <div class="col-md-4 col-md-offset-4">
 
     <h2>Вход с електронна поща</h2>
 
@@ -20,13 +20,14 @@
     <% end %>
 
     <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+      <br />
       <%= link_to "Забравена парола?", new_password_path(resource_name) %><br />
     <% end -%>
 
   </div>
-  <div class="col-md-4">
-    <%= link_to user_omniauth_authorize_path(:facebook), :class => "btn btn-primary btn-lg navbar-btn" do %>
-       <i class="fa fa-facebook fa-lg"></i>&nbsp;&nbsp;&nbsp; Вход с Facebook
-    <% end %>
-  </div>
 </div>
+
+
+
+
+
