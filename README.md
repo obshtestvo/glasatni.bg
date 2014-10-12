@@ -7,7 +7,7 @@
 ## Инсталация
 
 1. Клонирайте си хранилището и влезте в папката.
-2. Създайте си config/application.yml файл. Може да използвате примерния в config/application.yml.example.
+2. Създайте си `config/application.yml` файл. Може да използвате примерния в `config/application.yml.example`.
 3. `vagrant up`
 4. `vagrant ssh` и настройте postgres
 5. Сайтът трябва да е достъпен на `localhost:4567`
