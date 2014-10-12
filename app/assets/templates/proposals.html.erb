@@ -1,12 +1,12 @@
 <div class="row">
   <div class="col-md-12">
     <ul class="nav nav-tabs" role="tablist">
-      <li ng-class="{active: theme=='all'}"><a href="/#/all/{{ order }}/{{ page }}">Всички теми</a></li>
-      <li ng-class="{active: theme=='volunteering'}"><a href="/#/volunteering/{{ order }}/{{ page }}">Доброволчество</a></li>
-      <li ng-class="{active: theme=='ngo'}"><a href="#/ngo/{{ order }}/{{ page }}">НПО</a></li>
-      <li ng-class="{active: theme=='participation'}"><a href="#/participation/{{ order }}/{{ page }}">Гражданско участие</a></li>
-      <li ng-class="{active: theme=='education'}"><a href="#/education/{{ order }}/{{ page }}">Гражданско образование</a></li>
-      <li ng-class="{active: theme=='meta'}"><a href="#/meta/{{ order }}/{{ page }}">Мета-тема</a></li>
+      <li ng-class="{active: theme=='all'}"><a href="/#/all/{{ order }}/{{ currentPage }}">Всички теми</a></li>
+      <li ng-class="{active: theme=='volunteering'}"><a href="/#/volunteering/{{ order }}/{{ currentPage }}">Доброволчество</a></li>
+      <li ng-class="{active: theme=='ngo'}"><a href="#/ngo/{{ order }}/{{ currentPage }}">НПО</a></li>
+      <li ng-class="{active: theme=='participation'}"><a href="#/participation/{{ order }}/{{ currentPage }}">Гражданско участие</a></li>
+      <li ng-class="{active: theme=='education'}"><a href="#/education/{{ order }}/{{ currentPage }}">Гражданско образование</a></li>
+      <li ng-class="{active: theme=='meta'}"><a href="#/meta/{{ order }}/{{ currentPage }}">Мета-тема</a></li>
     </ul>
   </div>
 </div>
@@ -26,11 +26,11 @@
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a href="/#/{{ theme }}/newest/{{ page }}" ng-show="order != 'newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
-        <li><a href="/#/{{ theme }}/oldest/{{ page }}" ng-show="order != 'oldest'"><i class="fa fa-calendar-o fa-lg"></i>&nbsp; Най-стари</a></li>
-        <li><a href="/#/{{ theme }}/relevance/{{ page }}" ng-show="order != 'relevance'"><i class="fa fa-trophy fa-lg"></i>&nbsp; Релевантност</a></li>
-        <li><a href="/#/{{ theme }}/most-comments/{{ page }}" ng-show="order != 'most-comments'"><i class="fa fa-comments fa-lg"></i>&nbsp; Коментирани</a></li>
-        <li><a href="/#/{{ theme }}/least-comments/{{ page }}" ng-show="order != 'least-comments'"><i class="fa fa-comments-o fa-lg"></i>&nbsp; Некоментирани</a></li>
+        <li><a href="/#/{{ theme }}/newest/{{ curentPage }}" ng-show="order != 'newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
+        <li><a href="/#/{{ theme }}/oldest/{{ currentPage }}" ng-show="order != 'oldest'"><i class="fa fa-calendar-o fa-lg"></i>&nbsp; Най-стари</a></li>
+        <li><a href="/#/{{ theme }}/relevance/{{ currentPage }}" ng-show="order != 'relevance'"><i class="fa fa-trophy fa-lg"></i>&nbsp; Релевантност</a></li>
+        <li><a href="/#/{{ theme }}/most-comments/{{ currentPage }}" ng-show="order != 'most-comments'"><i class="fa fa-comments fa-lg"></i>&nbsp; Коментирани</a></li>
+        <li><a href="/#/{{ theme }}/least-comments/{{ currentPage }}" ng-show="order != 'least-comments'"><i class="fa fa-comments-o fa-lg"></i>&nbsp; Некоментирани</a></li>
       </ul>
     </div>
   </div>
