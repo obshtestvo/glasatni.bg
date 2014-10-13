@@ -70,9 +70,21 @@
 </section>
 
 <div class="container">
-  <%= link_to root_path, :class => "navbar-brand" do %>
-    <%= image_tag "logo.png" %>
-  <% end %>
+  <div class="row">
+    <div class="col-md-9">
+      <%= link_to root_path, :class => "navbar-brand" do %>
+        <%= image_tag "logo.png" %>
+      <% end %>
+    </div>
+    <div class="col-md-3">
+      <br />
+      <% if user_signed_in? %>
+        <%= link_to new_proposal_path, class: "btn btn-success pull-right" do %>
+          <i class="fa fa-plus-square"></i> &nbsp;Направи предложение
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <br />
@@ -95,18 +107,7 @@
       <%= yield %>
     </div>
     <div class="col-md-3">
-      <% if user_signed_in? %>
-        <center>
-        <%= link_to new_proposal_path, class: "btn btn-success" do %>
-          <i class="fa fa-pencil fa-lg"></i> &nbsp;Направи предложение
-        <% end %>
-        <center>
-      <% else %>
-        <div id="not-registered" class="bs-callout bs-callout-danger">
-          <h4>Само регистрирани потребители могат да правят предложения.</h4>
-          Регистрирането ти позволява също да гласуваш и оставяш коментари. Можеш да се регистрираш <%= link_to "от тук", new_registration_path(:user) %>.
-        </div>
-      <% end %>
+      <!-- logoes -->
     </div>
   </div>
 
