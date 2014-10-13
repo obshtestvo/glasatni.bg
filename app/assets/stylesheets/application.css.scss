@@ -19,7 +19,24 @@
 @import "font-awesome";
 
 @import "fonts";
+@import "colors";
 
 body {
   font-family: "obshtestvobg", "Myriad Pro", "Verdana", sans-serif;
+}
+
+section#topnav {
+  background: $blue;
+  a.btn-link {
+    padding: 5px;
+    color: white;
+    &:hover {
+      background: $blue;
+      background-color: $blue;
+      text-decoration: underline;
+    }
+  }
+  .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background: green;
+  }
 }

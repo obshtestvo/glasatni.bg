@@ -9,13 +9,8 @@
 <body>
 <div id="fb-root"></div>
 
-<nav class="navbar navbar-default" role="navigation">
+<section id="topnav">
   <div class="container">
-    <%= link_to root_path, :class => "navbar-brand" do %>
-      <%= image_tag "logo.png" %>
-    <% end %>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <% if user_signed_in? %>
       <form class="navbar-form navbar-right">
         <%= link_to edit_user_registration_path, :class => "btn btn-info" do %>
@@ -25,34 +20,36 @@
           <i class="fa fa-sign-out fa-lg"></i> &nbsp;Изход
         <% end %>
       </form>
-
       <p class="navbar-text navbar-right">Здравей, <%= link_to current_user.name, user_path(current_user), id: "username" %> (<%= current_user.reputation %>)</p>
     <% else %>
-      <div class="pull-right">
-        <div class="dropdown">
-          <%= button_tag :class => "btn btn-success navbar-btn dropdown-toggle", "data-toggle" => "dropdown", "data-disabled" => true do %>
-            <i class="fa fa-sign-in fa-lg"></i> &nbsp;Влез
-            <span class="caret"></span>
-          <% end %>
-          <ul class="dropdown-menu" role="menu">
+
+      <ul class="nav navbar-nav navbar-right">
+        <!-- login dropdown -->
+        <li class="dropdown">
+          <a href="#" class="btn btn-link dropdown-toggle" data-target="login-menu" data-toggle="dropdown" data-disabled=true>
+            <i class="fa fa-sign-in"></i>&nbsp; Влез <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu login-menu" role="menu">
+            <li class="dropdown-header">Радвам се да те видя отново.</li>
             <li>
-            <%= link_to new_session_path(:user) do %>
-              <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
-            <% end %>
+              <%= link_to new_session_path(:user) do %>
+                <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
+              <% end %>
             </li>
             <li>
-            <%= link_to user_omniauth_authorize_path(:facebook) do %>
-              <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
-            <% end %>
+              <%= link_to user_omniauth_authorize_path(:facebook) do %>
+                <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
+              <% end %>
             </li>
           </ul>
-        </div>
-        <div class="dropdown">
-          <%= button_tag :class => "btn btn-info navbar-btn dropdown-toggle", "data-toggle" => "dropdown", "data-disabled" => true do %>
-            <i class="fa fa-plug fa-lg"></i> &nbsp;Регистрирай се
-            <span class="caret"></span>
-          <% end %>
-          <ul class="dropdown-menu">
+        </li>
+        <!-- register dropdown -->
+        <li class="dropdown">
+          <a href="#" class="btn btn-link dropdown-toggle" data-target="register-menu" data-toggle="dropdown" data-disabled=true>
+            <i class="fa fa-plug"></i> &nbsp; Регистрирай се <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu register-menu">
+            <li class="dropdown-header">Радвам се да се запознаем.<br />Можеш да се регистрираш с:</li>
             <li>
             <%= link_to new_registration_path(:user) do %>
               <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
@@ -64,13 +61,21 @@
             <% end %>
             </li>
           </ul>
-        </div>
-      </div>
-    <% end %>
-    </div>
-  </div>
-</nav>
+        </li>
+      </ul>
 
+    <% end %>
+    <div class="clearfix"></div>
+  </div>
+</section>
+
+<div class="container">
+  <%= link_to root_path, :class => "navbar-brand" do %>
+    <%= image_tag "logo.png" %>
+  <% end %>
+</div>
+
+<br />
 <div class="container">
 
   <% if notice %>
