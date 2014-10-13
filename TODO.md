@@ -6,7 +6,6 @@
 - can can - да настроя кой какво може да прави
 - stage - up and running
 - seeds - comments
-- markdown
 - nested comments
 - мета тема да напиша
 - списък с рангове
@@ -15,6 +14,10 @@
 - complex hotness rating
 - style all devise views
 - банери
+- fix back button
+- config mailer
+- login dropdown
+- N comments -> link to comment section
 
 # желателни:
 
@@ -24,3 +27,4 @@
 - документация на API
 - времето да се update-ва автоматично
 - да се пипне дизайна
+- markdown
