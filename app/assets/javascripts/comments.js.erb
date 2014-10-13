@@ -1,3 +1,6 @@
+//= depend_on_asset comment.html
+//= depend_on_asset comment_actions.html
+
 promeni.factory('Comment', ['$resource', function($resource) {
   return $resource('/api/v1/comments/:id', null, {
     'vote': { method: "POST", url: "/vote" },
@@ -78,7 +81,7 @@ promeni.directive('commentSection', ["Comment", function(Comment) {
       }
 
     },
-    templateUrl: "/assets/comment.html"
+    templateUrl: "<%= asset_path('comment.html') %>"
   }
 }]);
 
@@ -115,7 +118,7 @@ promeni.directive('commentActions', ['Comment', function(Comment) {
       }
 
     },
-    templateUrl: "/assets/comment_actions.html"
+    templateUrl: "<%= asset_path('comment_actions.html') %>"
   }
 }]);
 

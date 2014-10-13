@@ -1,3 +1,6 @@
+//= depend_on_asset proposals.html
+//= depend_on_asset voting_buttons.html
+
 // make angular work nice with turbolinks
 $(document).on('ready page:load', function() {
   angular.bootstrap('body', ['promeni'])
@@ -8,15 +11,15 @@ var promeni = angular.module('promeni', ['ngResource', 'ngRoute', 'ui.bootstrap'
 promeni.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when("/", {
     controller: "ProposalController",
-    templateUrl: "/assets/proposals.html",
+    templateUrl: "<%= asset_path('proposals.html') %>",
     reloadOnSearch: false
   }).when("/:theme", {
     controller: "ProposalController",
-    templateUrl: "/assets/proposals.html",
+    templateUrl: "<%= asset_path('proposals.html') %>",
     reloadOnSearch: false
   }).when("/:theme/:order", {
     controller: "ProposalController",
-    templateUrl: "/assets/proposals.html",
+    templateUrl: "<%= asset_path('proposals.html') %>",
     reloadOnSearch: false
   }).otherwise({
     redirectTo: "/"
@@ -82,7 +85,7 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
       }
 
     },
-    templateUrl: '/assets/voting_buttons.html'
+    templateUrl: '<%= asset_path('voting_buttons.html') %>'
   };
 }]);
 
