@@ -12,15 +12,15 @@
 <section id="topnav">
   <div class="container">
     <% if user_signed_in? %>
-      <form class="navbar-form navbar-right">
-        <%= link_to edit_user_registration_path, :class => "btn btn-info" do %>
-          <i class="fa fa-wrench fa-lg"></i> &nbsp;Настройки
+      <div class="pull-right">
+        Здравей, <%= link_to current_user.name, user_path(current_user), id: "username" %> (<%= current_user.reputation %>) |
+        <%= link_to edit_user_registration_path, :class => "btn btn-link" do %>
+          <i class="fa fa-wrench"></i> &nbsp;Настройки
         <% end %>
-        <%= link_to destroy_user_session_path, :method => :delete, :class => "btn btn-success" do %>
-          <i class="fa fa-sign-out fa-lg"></i> &nbsp;Изход
+        <%= link_to destroy_user_session_path, :method => :delete, :class => "btn btn-link" do %>
+          <i class="fa fa-sign-out"></i> &nbsp;Изход
         <% end %>
-      </form>
-      <p class="navbar-text navbar-right">Здравей, <%= link_to current_user.name, user_path(current_user), id: "username" %> (<%= current_user.reputation %>)</p>
+      </div>
     <% else %>
 
       <ul class="nav navbar-nav navbar-right">

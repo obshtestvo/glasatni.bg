@@ -26,17 +26,18 @@ body {
 }
 
 section#topnav {
-  background: $blue;
+  color: white;
+  background: $green;
   a.btn-link {
     padding: 5px;
     color: white;
     &:hover {
-      background: $blue;
-      background-color: $blue;
+      background: $green;
+      background-color: $green;
       text-decoration: underline;
     }
   }
-  .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-    background: green;
+  a#username {
+    color: yellow;
   }
 }
