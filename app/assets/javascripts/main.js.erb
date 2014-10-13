@@ -3,7 +3,7 @@
 
 // make angular work nice with turbolinks
 $(document).on('ready page:load', function() {
-  angular.bootstrap('body', ['promeni'])
+  angular.bootstrap('body', ['promeni']);
 })
 
 var promeni = angular.module('promeni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
@@ -26,7 +26,7 @@ promeni.config(['$routeProvider', function($routeProvider) {
   });
 }]);
 
-promeni.filter('translateOrder', function () {
+promeni.filter('translateOrder', [function () {
   "use strict";
   return function (string) {
     var translations = {
@@ -38,7 +38,7 @@ promeni.filter('translateOrder', function () {
     }
     return translations[string];
   };
-});
+}]);
 
 promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Comment) {
   return {
@@ -48,9 +48,9 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
       votableType: "=",
       buttonSize: "=?"
     },
-    controller: function($scope) {
+    controller: ['$scope', function($scope) {
       $scope.buttonSize = $scope.buttonSize || 'btn-sm';
-    },
+    }],
     link: function (scope) {
 
       scope.vote = function(value) {
