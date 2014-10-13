@@ -1,9 +1,9 @@
-promeni.factory('Comment', function($resource) {
+promeni.factory('Comment', ['$resource', function($resource) {
   return $resource('/api/v1/comments/:id', null, {
     'vote': { method: "POST", url: "/vote" },
     'flag': { method: "POST", url: "/flag"}
   });
-});
+}]);
 
 promeni.controller('CommentController', ['$scope', 'Comment', function($scope, Comment) {
 

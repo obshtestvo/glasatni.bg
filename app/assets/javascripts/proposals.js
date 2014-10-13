@@ -1,10 +1,10 @@
-promeni.factory('Proposal', function($resource) {
+promeni.factory('Proposal', ["$resource", function($resource) {
   return $resource('/api/v1/proposals/:id', null, {
     'query': { method:'GET', isArray: false },
     'vote': { method: "POST", url: "/vote" },
     'flag': { method: "POST", url: "/flag" }
   });
-});
+}]);
 
 promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$location', 'Proposal', function($scope, $http, $routeParams, $location, Proposal) {
   $scope.theme = $routeParams.theme || "all";

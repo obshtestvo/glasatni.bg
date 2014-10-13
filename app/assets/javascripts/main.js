@@ -5,7 +5,7 @@ $(document).on('ready page:load', function() {
 
 var promeni = angular.module('promeni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
-promeni.config(function($routeProvider) {
+promeni.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when("/", {
     controller: "ProposalController",
     templateUrl: "/assets/proposals.html",
@@ -21,7 +21,7 @@ promeni.config(function($routeProvider) {
   }).otherwise({
     redirectTo: "/"
   });
-});
+}]);
 
 promeni.filter('translateOrder', function () {
   "use strict";
