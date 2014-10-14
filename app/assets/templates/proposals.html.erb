@@ -71,6 +71,6 @@
   </div>
 </div>
 
-<pagination ng-model="currentPage" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right" boundary-links="true"
+<pagination ng-model="currentPage" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right" boundary-links="true"
 rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
 
