@@ -19,7 +19,7 @@ var restroreFBRoot = function() {
 var loadFBSDK = function() {
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : 11234,
+      appId      : 1487893938139352,
       xfbml      : true,
       version    : 'v2.1'
     });
