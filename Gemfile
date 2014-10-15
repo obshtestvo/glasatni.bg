@@ -12,7 +12,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'bootstrap-sass'
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 gem 'devise'
 gem 'devise-i18n'
 gem 'rails_12factor', group: :production
@@ -23,9 +23,9 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'omniauth-facebook'
 gem 'kaminari'
 gem 'angular-ui-bootstrap-rails'
-gem "paperclip", "~> 4.2"
-gem "figaro"
-ruby "2.1.1"
+gem 'paperclip', '~> 4.2'
+gem 'figaro'
+ruby '2.1.1'
 
 group :development do
   gem 'quiet_assets'
