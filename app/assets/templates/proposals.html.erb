@@ -74,3 +74,6 @@
 <pagination ng-model="currentPage" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right" boundary-links="true"
 rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
 
+<div class="clearfix"></div>
+<br />
+<p class="text-muted pull-right">Показани са {{ proposals.length }} от {{ proposalsCount }} предложения.</p>
