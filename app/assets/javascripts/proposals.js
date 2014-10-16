@@ -6,10 +6,10 @@ promeni.factory('Proposal', ["$resource", function($resource) {
   });
 }]);
 
-promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$location', 'Proposal', function($scope, $http, $routeParams, $location, Proposal) {
-  $scope.theme = $routeParams.theme || "all";
-  $scope.order = $routeParams.order || "relevance";
-  $scope.currentPage = $routeParams.page || 1;
+promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$location', 'Proposal', 'action',
+                   function($scope, $http, $routeParams, $location, Proposal, action) {
+
+  // index
 
   $scope.queryProposals = function(params) {
     Proposal.query(params, function(data) {
@@ -18,12 +18,12 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$l
     });
   }
 
-  $scope.getProposal = function() {
-    var proposalId = window.location.pathname.match(/\d+$/)[0];
-    Proposal.get({ id: proposalId }, function(proposal) {
-      $scope.proposal = proposal;
-    });
+  $scope.pageChanged = function() {
+    $scope.queryProposals({ theme_name: $scope.theme, order: $scope.order, page: $scope.currentPage });
+    $location.search('page', $scope.currentPage);
   }
+
+  // show
 
   $scope.flag = function(proposal, reason) {
     Proposal.flag({ id: proposal.id, reason: reason, flaggable: "proposal" }).$promise.then(function(data) {
@@ -37,13 +37,19 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$l
     comment.alerts = [];
   }
 
-  $scope.pageChanged = function() {
-    $scope.queryProposals({ theme_name: $scope.theme, order: $scope.order, page: $scope.currentPage });
-    $location.search('page', $scope.currentPage);
-  }
+  if (action === "index") {
 
-  if (window.location.pathname == "/") {
+    $scope.theme = $routeParams.theme || "all";
+    $scope.order = $routeParams.order || "relevance";
+    $scope.currentPage = $routeParams.page || 1;
     $scope.queryProposals({ theme_name: $scope.theme, order: $scope.order, page: $scope.currentPage });
+
+  } else if (action === "show") {
+
+    Proposal.get({ id: $routeParams.id }, function(proposal) {
+      $scope.proposal = proposal;
+    });
+
   }
 
 }]);
