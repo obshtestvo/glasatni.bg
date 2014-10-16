@@ -1,29 +1,43 @@
-<%= form_for(@proposal) do |f| %>
-  <% if @proposal.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@proposal.errors.count, "error") %> prohibited this proposal from being saved:</h2>
+<div ng-controller="ProposalController">
 
-      <ul>
-      <% @proposal.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= form_for(@proposal) do |f| %>
+    <% if @proposal.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@proposal.errors.count, "error") %> prohibited this proposal from being saved:</h2>
+
+        <ul>
+        <% @proposal.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.select :theme_id, options_for_select(Theme.pluck(:name, :id)), { :include_blank => false }, :class => "form-control" %>
     </div>
+
+    <div class="form-group">
+      <%= f.text_field :title, placeholder: "Заглавие", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.text_area :content, rows: 10, placeholder: "Опишете подробно вашата идея.", class: "form-control", "ng-model" => "proposal.content" %>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Преглед
+      </div>
+      <div class="panel-body">
+        <markdown content="proposal.content"></markdown>
+      </div>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-success">
+      <i class="fa fa-pencil fa-lg"></i>&nbsp; Направи предложение
+    </button>
+
   <% end %>
 
-  <div class="form-group">
-    <%= f.select :theme_id, options_for_select(Theme.pluck(:name, :id)), { :include_blank => false }, :class => "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.text_field :title, placeholder: "Заглавие", class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.text_area :content, rows: 20, placeholder: "Опишете подробно вашата идея.", class: "form-control" %>
-  </div>
-  <button type="submit" class="btn btn-success">
-    <i class="fa fa-pencil fa-lg"></i>&nbsp; Направи предложение
-  </button>
-
-<% end %>
-
+</div>

@@ -89,3 +89,19 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
   };
 }]);
 
+promeni.directive('markdown', ['$interpolate', function($interpolate) {
+  var converter = new Showdown.converter();
+
+  return {
+    restrict: 'E',
+    scope: {
+      content: "="
+    },
+    link: function(scope, element, attrs) {
+      scope.$watch('content', function(newValue, oldValue) {
+        if (newValue === oldValue) return;
+        element.html(converter.makeHtml(scope.content));
+      })
+    }
+  }
+}]);

@@ -33,10 +33,10 @@
 </div>
 
 <br />
-    <div class="clearfix"></div>
-    <alert ng-repeat="alert in proposal.alerts" type="{{alert.type}}" close="closeAlert(proposal)">{{alert.msg}}</alert>
+<div class="clearfix"></div>
+<alert ng-repeat="alert in proposal.alerts" type="{{alert.type}}" close="closeAlert(proposal)">{{alert.msg}}</alert>
 
-{{ proposal.content }}
+<markdown content="proposal.content"></markdown>
 
 <div class="row">
   <div class="col-md-8">
