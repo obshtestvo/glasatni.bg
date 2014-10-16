@@ -1,11 +1,10 @@
 # задължителни:
 
 - FB likes - май не работят в момента
-- fb страница и app - да направя social box в страничната лента
+- fb страница - cover, текст и картинка.
 - бюлетин
 - can can - да настроя кой какво може да прави
-- stage - up and running
-- seeds - comments
+- seeds - comments + better formating
 - nested comments
 - мета тема да напиша
 - списък с рангове
@@ -16,8 +15,10 @@
 - банери
 - fix back button
 - config mailer
+- bower
 - login dropdown
 - N comments -> link to comment section
+- proposals - one page app
 
 # желателни:
 
@@ -27,4 +28,4 @@
 - документация на API
 - времето да се update-ва автоматично
 - да се пипне дизайна
-- markdown
+- markdown for comments
