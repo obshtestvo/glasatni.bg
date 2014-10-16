@@ -98,6 +98,10 @@ promeni.directive('markdown', ['$interpolate', function($interpolate) {
       content: "="
     },
     link: function(scope, element, attrs) {
+      if (typeof scope.content !== "undefined") {
+        element.html(converter.makeHtml(scope.content));
+      }
+
       scope.$watch('content', function(newValue, oldValue) {
         if (newValue === oldValue) return;
         element.html(converter.makeHtml(scope.content));
