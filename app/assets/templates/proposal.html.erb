@@ -52,3 +52,84 @@
 
 <hr />
 
+<div ng-controller="CommentController">
+
+<h3>Коментари</h3>
+
+<div ng-show="logged_in">
+
+  <div id="warning-box" class="bs-callout bs-callout-danger" style="display:none">
+    <h4>Само да ти кажем някои неща...</h4>
+    Опитай се да бъдеш максимално изчерпателен(на). Всякакви расистки, хомофобски, сексистки, шовинистки коментари ще бъдат изтривани, както и коментари приканващи към насилие над хора или животни.
+    Коментарите трябва да са с минимална дължина от 100 символа.
+  </div>
+
+  <textarea id="comment-box" name="" rows="8" cols="40" class="form-control" ng-model="newComment.content" ng-focus="showWarning()" placeholder="Напиши своя коментар тук."></textarea>
+  <br />
+  <div class="row">
+    <div class="col-md-1">
+      <button class="btn btn-success" ng-disabled="newComment.content.length < 100" ng-click="createNewComment()"><i class="fa fa-comment fa-lg"></i>&nbsp; Коментирай</button>
+    </div>
+    <div class="col-md-4">
+      <p id="symbolsBox" class="text-muted text-right" ng-hide="newComment.content.length >= 100">Остават ти {{ 100 - newComment.content.length }} символа.</p>
+    </div>
+  </div>
+
+</div>
+<div ng-hide="logged_in">
+
+  <div id="not-registered" class="bs-callout bs-callout-danger">
+    <h4>Само регистрирани потребители могат да оставят коментари.</h4>
+    Регистрирането ти позволява също да гласуваш, да даваш предложения и да разбереш какъв интерес имат те сред другите участници от сайта. Бъди активен!
+  </div>
+
+</div>
+
+<br />
+<div class="row">
+  <div class="col-md-2">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" data-disabled="true" data-toggle="dropdown">
+        <i class="fa fa-calendar fa-lg" ng-show="params.order == 'newest'"></i>
+        <i class="fa fa-calendar-o fa-lg" ng-show="params.order == 'oldest'"></i>
+        <i class="fa fa-list-ol fa-lg" ng-show="params.order == 'relevance'"></i>
+        &nbsp; {{ params.order | translateOrder }}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="" ng-show="params.order != 'newest'" ng-click="params.order='newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
+        <li><a href="" ng-show="params.order != 'oldest'" ng-click="params.order='oldest'"><i class="fa fa-calendar-o fa-lg"></i>&nbsp; Най-стари</a></li>
+        <li><a href="" ng-show="params.order != 'relevance'" ng-click="params.order='relevance'"><i class="fa fa-list-ol fa-lg"></i>&nbsp; Релевантност</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-10">
+    <pagination ng-model="currentPage" total-items="proposal.comments_count" items-per-page="<%= Comment.default_per_page %>" max-size="5"
+    class="pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
+    last-text="Последна"></pagination>
+  </div>
+</div>
+<br />
+
+<div id="no-comments" class="bs-callout bs-callout-info" ng-show="comments.length == 0">
+  <h4>Все още няма коментари!</h4>
+  Бързо напиши един, за да изпревариш останалите!
+</div>
+
+
+<div id="comments-list">
+  <div ng-repeat="comment in comments">
+
+    <comment-section comment="comment"></comment-section>
+
+    <hr ng-hide="$last"/>
+
+  </div>
+</div>
+
+<pagination ng-model="currentPage" total-items="proposal.comments_count" items-per-page="<%= Comment.default_per_page %>" max-size="5"
+class="pagination-sm pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
+last-text="Последна"></pagination>
+
+</div><!-- end of Comment controller -->
+

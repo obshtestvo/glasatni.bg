@@ -50,6 +50,8 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$l
       $scope.proposal = proposal;
     });
 
+    $scope.logged_in = $("#logged_in").length !== 0 ? true : false;
+
   }
 
 }]);

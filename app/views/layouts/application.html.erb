@@ -9,6 +9,10 @@
 <body>
 <div id="fb-root"></div>
 
+<% if user_signed_in? %>
+  <div style="display:none;" id="logged_in"></div>
+<% end %>
+
 <section id="topnav">
   <div class="container">
     <% if user_signed_in? %>
