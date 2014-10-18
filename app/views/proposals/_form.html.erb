@@ -1,4 +1,3 @@
-<div ng-controller="ProposalController">
 
   <%= form_for(@proposal) do |f| %>
     <% if @proposal.errors.any? %>
@@ -20,8 +19,10 @@
     <div class="form-group">
       <%= f.text_field :title, placeholder: "Заглавие", class: "form-control" %>
     </div>
+
+
     <div class="form-group">
-      <%= f.text_area :content, rows: 10, placeholder: "Опишете подробно вашата идея.", class: "form-control", "ng-model" => "proposal.content" %>
+      <%= f.text_area :content, rows: 10, placeholder: "Опишете подробно вашата идея.", class: "form-control" %>
     </div>
 
     <div class="panel panel-default">
@@ -39,5 +40,3 @@
     </button>
 
   <% end %>
-
-</div>

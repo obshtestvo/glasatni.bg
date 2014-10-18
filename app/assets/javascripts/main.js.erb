@@ -22,7 +22,7 @@ promeni.config(['$routeProvider', function($routeProvider) {
   }).when("/proposals/:id/edit", {
     controller: "ProposalController",
     templateUrl: "<%= asset_path('proposal_form.html') %>",
-    resolve: { action: function() { return "show" } }
+    resolve: { action: function() { return "edit" } }
   }).when("/:theme", {
     controller: "ProposalController",
     templateUrl: "<%= asset_path('proposals.html') %>",

@@ -1,6 +1,7 @@
 module Api
   module V1
     class ProposalsController < ApplicationController
+      before_action :set_proposal, only: [:show, :edit, :update, :destroy]
       respond_to :json
 
       def index
@@ -24,9 +25,24 @@ module Api
         @proposal = Proposal.find(proposal_params[:id])
       end
 
+      def create
+      end
+
+      def update
+        if @proposal.update(proposal_params)
+          render :show
+        else
+          render json: @proposal.errors, status: :unprocessable_entity
+        end
+      end
+
       private
+      def set_proposal
+        @proposal = Proposal.find(params[:id])
+      end
+
       def proposal_params
-        params.slice(:id, :order, :page, :theme_name, :user_id)
+        params.permit(:id, :order, :page, :theme_name, :user_id, :title, :content, :theme_id)
       end
     end
   end

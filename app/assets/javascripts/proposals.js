@@ -1,5 +1,6 @@
 promeni.factory('Proposal', ["$resource", function($resource) {
   return $resource('/api/v1/proposals/:id', null, {
+    'update': { method: 'PUT' },
     'query': { method:'GET', isArray: false },
     'vote': { method: "POST", url: "/vote" },
     'flag': { method: "POST", url: "/flag" }
@@ -37,6 +38,23 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$l
     comment.alerts = [];
   }
 
+  // edit
+
+  $scope.submitProposal = function(proposal) {
+
+    var method;
+    if (action == 'edit') {
+      method = Proposal.update;
+    } else {
+      method == Proposal.save;
+    }
+
+    method({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme_id }).$promise.then(function(proposal) {
+      $scope.proposal = proposal;
+      $location.path("/proposals/" + proposal.id);
+    });
+  }
+
   if (action === "index") {
 
     $scope.theme = $routeParams.theme || "all";
@@ -44,7 +62,7 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$l
     $scope.currentPage = $routeParams.page || 1;
     $scope.queryProposals({ theme_name: $scope.theme, order: $scope.order, page: $scope.currentPage });
 
-  } else if (action === "show") {
+  } else if (action === "show" || action == "edit") {
 
     Proposal.get({ id: $routeParams.id }, function(proposal) {
       $scope.proposal = proposal;
