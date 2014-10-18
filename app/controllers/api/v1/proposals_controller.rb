@@ -26,6 +26,14 @@ module Api
       end
 
       def create
+        @proposal = Proposal.new(proposal_params)
+        @proposal.user = current_user
+
+        if @proposal.save
+          render :show
+        else
+          render json: @proposal.errors, status: :unprocessable_entity
+        end
       end
 
       def update

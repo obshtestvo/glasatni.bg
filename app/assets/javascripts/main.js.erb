@@ -15,6 +15,10 @@ promeni.config(['$routeProvider', function($routeProvider) {
     templateUrl: "<%= asset_path('proposals.html') %>",
     resolve: { action: function() { return "index" } },
     reloadOnSearch: false
+  }).when("/proposals/new", {
+    controller: "ProposalController",
+    templateUrl: "<%= asset_path('proposal_form.html') %>",
+    resolve: { action: function() { return "create" } }
   }).when("/proposals/:id", {
     controller: "ProposalController",
     templateUrl: "<%= asset_path('proposal.html') %>",

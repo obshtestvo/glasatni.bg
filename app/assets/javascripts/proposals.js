@@ -46,11 +46,10 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$l
     if (action == 'edit') {
       method = Proposal.update;
     } else {
-      method == Proposal.save;
+      method = Proposal.save;
     }
 
     method({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme_id }).$promise.then(function(proposal) {
-      $scope.proposal = proposal;
       $location.path("/proposals/" + proposal.id);
     });
   }
@@ -69,6 +68,14 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$l
     });
 
     $scope.logged_in = $("#logged_in").length !== 0 ? true : false;
+
+  } else if (action === "create") {
+
+    $scope.proposal = {
+      title: "",
+      conetnt: "",
+      theme_id: 1
+    }
 
   }
 
