@@ -68,10 +68,7 @@
   <br />
   <div class="row">
     <div class="col-md-1">
-      <button class="btn btn-success" ng-disabled="newComment.content.length < 100" ng-click="createNewComment()"><i class="fa fa-comment fa-lg"></i>&nbsp; Коментирай</button>
-    </div>
-    <div class="col-md-4">
-      <p id="symbolsBox" class="text-muted text-right" ng-hide="newComment.content.length >= 100">Остават ти {{ 100 - newComment.content.length }} символа.</p>
+      <button class="btn btn-success" ng-disabled="newComment.content == ''" ng-click="createNewComment()"><i class="fa fa-comment fa-lg"></i>&nbsp; Коментирай</button>
     </div>
   </div>
 
