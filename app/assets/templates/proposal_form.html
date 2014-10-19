@@ -18,9 +18,12 @@
   <textarea class="form-control" id="proposal_content" name="proposal[content]" placeholder="Опишете подробно вашата идея." rows="10" ng-model="proposal.content"></textarea>
 </div>
 
+<div class="clearfix"></div>
+
 <div class="panel panel-default">
-  <div class="panel-heading">
-    Преглед
+  <div class="panel-heading clearfix">
+    <div class="pull-left">Преглед</div>
+    <div class="pull-right">символи: {{ proposal.content.length }} | думи: {{ proposal.content | countWords }}</div>
   </div>
   <div class="panel-body">
     <markdown content="proposal.content" class="ng-isolate-scope"></markdown>

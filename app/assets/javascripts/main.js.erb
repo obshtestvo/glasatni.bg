@@ -50,6 +50,16 @@ promeni.filter('translateOrder', [function () {
   };
 }]);
 
+promeni.filter('countWords', [function() {
+  "use strict";
+  return function(string) {
+    if (typeof string === "undefined" || string === "") {
+      return 0;
+    }
+    return string.split(/\s+/).length;
+  };
+}]);
+
 promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Comment) {
   return {
     restrict: 'E',
