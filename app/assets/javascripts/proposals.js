@@ -7,10 +7,23 @@ promeni.factory('Proposal', ["$resource", function($resource) {
   });
 }]);
 
-promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$location', 'Proposal', 'action',
-                   function($scope, $http, $routeParams, $location, Proposal, action) {
+promeni.service('ProposalService', ["$routeParams", "Proposal", function($routeParams, Proposal) {
 
-  // index
+  this.get = function() {
+    return Proposal.get({ id: $routeParams.id });
+  };
+
+  this.update = function(proposal) {
+    return Proposal.update({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme_id });
+  }
+
+  this.save = function(proposal) {
+    return Proposal.save({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme_id });
+  }
+
+}]);
+
+promeni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "Proposal", function($scope, $routeParams, $location, Proposal) {
 
   $scope.queryProposals = function(params) {
     Proposal.query(params, function(data) {
@@ -24,7 +37,19 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$l
     $location.search('page', $scope.currentPage);
   }
 
-  // show
+  $scope.theme = $routeParams.theme || "all";
+  $scope.order = $routeParams.order || "relevance";
+  $scope.currentPage = $routeParams.page || 1;
+
+  $scope.queryProposals({ theme_name: $scope.theme, order: $scope.order, page: $scope.currentPage });
+
+}]);
+
+promeni.controller("ProposalShowController", ["$scope", "ProposalService", "Proposal", function($scope, ProposalService, Proposal) {
+
+  $scope.proposal = ProposalService.get();
+
+  $scope.logged_in = $("#logged_in").length !== 0 ? true : false;
 
   $scope.flag = function(proposal, reason) {
     Proposal.flag({ id: proposal.id, reason: reason, flaggable: "proposal" }).$promise.then(function(data) {
@@ -38,47 +63,33 @@ promeni.controller('ProposalController', ['$scope', '$http', '$routeParams', '$l
     comment.alerts = [];
   }
 
-  // edit
+}]);
+
+promeni.controller("ProposalEditController", ["$scope", "$location", "ProposalService", function($scope, $location, ProposalService) {
+
+  $scope.proposal = ProposalService.get();
 
   $scope.submitProposal = function(proposal) {
-
-    var method;
-    if (action == 'edit') {
-      method = Proposal.update;
-    } else {
-      method = Proposal.save;
-    }
-
-    method({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme_id }).$promise.then(function(proposal) {
+    ProposalService.update(proposal).$promise.then(function(proposal) {
       $location.path("/proposals/" + proposal.id);
     });
   }
 
-  if (action === "index") {
+}]);
 
-    $scope.theme = $routeParams.theme || "all";
-    $scope.order = $routeParams.order || "relevance";
-    $scope.currentPage = $routeParams.page || 1;
-    $scope.queryProposals({ theme_name: $scope.theme, order: $scope.order, page: $scope.currentPage });
+promeni.controller("ProposalCreateController", ["$scope", "$location", "ProposalService", function($scope, $location, ProposalService) {
 
-  } else if (action === "show" || action == "edit") {
+  $scope.proposal = {
+    title: "",
+    conetnt: "",
+    theme_id: 1
+  }
 
-    Proposal.get({ id: $routeParams.id }, function(proposal) {
-      $scope.proposal = proposal;
+  $scope.submitProposal = function(proposal) {
+    ProposalService.save(proposal).$promise.then(function(proposal) {
+      $location.path("/proposals/" + proposal.id);
     });
-
-    $scope.logged_in = $("#logged_in").length !== 0 ? true : false;
-
-  } else if (action === "create") {
-
-    $scope.proposal = {
-      title: "",
-      conetnt: "",
-      theme_id: 1
-    }
-
   }
 
 }]);
-
 

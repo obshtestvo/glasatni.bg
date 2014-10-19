@@ -11,31 +11,25 @@ var promeni = angular.module('promeni', ['ngResource', 'ngRoute', 'ui.bootstrap'
 
 promeni.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when("/", {
-    controller: "ProposalController",
+    controller: "ProposalIndexController",
     templateUrl: "<%= asset_path('proposals.html') %>",
-    resolve: { action: function() { return "index" } },
     reloadOnSearch: false
   }).when("/proposals/new", {
-    controller: "ProposalController",
-    templateUrl: "<%= asset_path('proposal_form.html') %>",
-    resolve: { action: function() { return "create" } }
+    controller: "ProposalCreateController",
+    templateUrl: "<%= asset_path('proposal_form.html') %>"
   }).when("/proposals/:id", {
-    controller: "ProposalController",
+    controller: "ProposalShowController",
     templateUrl: "<%= asset_path('proposal.html') %>",
-    resolve: { action: function() { return "show" } }
   }).when("/proposals/:id/edit", {
-    controller: "ProposalController",
+    controller: "ProposalEditController",
     templateUrl: "<%= asset_path('proposal_form.html') %>",
-    resolve: { action: function() { return "edit" } }
   }).when("/:theme", {
-    controller: "ProposalController",
+    controller: "ProposalIndexController",
     templateUrl: "<%= asset_path('proposals.html') %>",
-    resolve: { action: function() { return "index" } },
     reloadOnSearch: false
   }).when("/:theme/:order", {
-    controller: "ProposalController",
+    controller: "ProposalIndexController",
     templateUrl: "<%= asset_path('proposals.html') %>",
-    resolve: { action: function() { return "index" } },
     reloadOnSearch: false
   }).otherwise({
     redirectTo: "/"
