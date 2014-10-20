@@ -68,6 +68,7 @@ promeni.controller("ProposalShowController", ["$scope", "ProposalService", "Prop
 promeni.controller("ProposalEditController", ["$scope", "$location", "ProposalService", function($scope, $location, ProposalService) {
 
   $scope.proposal = ProposalService.get();
+  $scope.showFormatting = false;
 
   $scope.submitProposal = function(proposal) {
     ProposalService.update(proposal).$promise.then(function(proposal) {
@@ -78,6 +79,8 @@ promeni.controller("ProposalEditController", ["$scope", "$location", "ProposalSe
 }]);
 
 promeni.controller("ProposalCreateController", ["$scope", "$location", "ProposalService", function($scope, $location, ProposalService) {
+
+  $scope.showFormatting = false;
 
   $scope.proposal = {
     title: "",

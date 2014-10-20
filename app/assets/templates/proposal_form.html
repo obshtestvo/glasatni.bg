@@ -18,12 +18,135 @@
   <textarea class="form-control" id="proposal_content" name="proposal[content]" placeholder="Опишете подробно вашата идея." rows="10" ng-model="proposal.content"></textarea>
 </div>
 
-<div class="clearfix"></div>
+<div class="row" ng-show="showFormatting">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Текст</th>
+            <th>Как изглежда</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>*наклонен*</td>
+            <td><i>наклонен</i></td>
+          </tr>
+          <tr>
+            <td>**удебелен**</td>
+            <td><strong>удебелен</strong></td>
+          </tr>
+          <tr>
+            <td># заглавие</td>
+            <td><h1>Заглавие</h1></td>
+          </tr>
+          <tr>
+            <td>## заглавие</td>
+            <td><h2>Заглавие</h2></td>
+          </tr>
+          <tr>
+            <td>### заглавие</td>
+            <td><h3>Заглавие</h3></td>
+          </tr>
+          <tr>
+            <td>#### заглавие</td>
+            <td><h4>Заглавие</h4></td>
+          </tr>
+          <tr>
+            <td>##### заглавие</td>
+            <td><h5>Заглавие</h5></td>
+          </tr>
+          <tr>
+            <td>&gt; цитат</td>
+            <td><blockquote>цитат</blockquote></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Текст</th>
+            <th>Как изглежда</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              * първи елемент<br />
+              * втори елемент<br />
+              * трети елемент<br />
+              * четвърти елемент<br />
+            </td>
+            <td>
+              <ul>
+                <li>първи елемент</li>
+                <li>втори елемент</li>
+                <li>трети елемент</li>
+                <li>четвърти елемент</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>`inline code`</td>
+            <td><code>inline code</code></td>
+          </tr>
+          <tr>
+            <td>
+```<br />
+if multiline_code<br />
+&nbsp;&nbsp;return true;<br />
+```
+            </td>
+            <td>
+<pre><code>if multiline_code
+  return true;
+</code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              [Google]<br /><br />
+
+              [Google]: http://google.com/
+            </td>
+            <td><a href="http://google.com">Google</a></td>
+          </tr>
+          <tr>
+            <td>
+              [Google](http://google.com/)
+            </td>
+            <td><a href="http://google.com">Google</a></td>
+          </tr>
+          <tr>
+            <td>
+              първи параграф<br /><br />
+
+              втори параграф
+            </td>
+            <td>
+              <p>първи параграф</p>
+              <p>втори параграф</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 
 <div class="panel panel-default">
   <div class="panel-heading clearfix">
     <div class="pull-left">Преглед</div>
-    <div class="pull-right">символи: {{ proposal.content.length }} | думи: {{ proposal.content | countWords }}</div>
+    <div class="pull-right">
+      <a href="" ng-hide="showFormatting" ng-click="showFormatting=!showFormatting">покажи форматирането</a>
+      <a href="" ng-show="showFormatting" ng-click="showFormatting=!showFormatting">скрий форматирането</a> |
+      символи: {{ proposal.content.length }} | думи: {{ proposal.content | countWords }}</div>
   </div>
   <div class="panel-body">
     <markdown content="proposal.content" class="ng-isolate-scope"></markdown>
