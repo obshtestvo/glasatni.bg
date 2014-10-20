@@ -18,7 +18,7 @@ ActiveAdmin.register_page "Dashboard" do
       column do
         panel "Последни предложения" do
           table_for Proposal.order('created_at desc').limit(10).each do |proposal|
-            column(:title)    { |proposal| link_to proposal.title, proposal_path(proposal) }
+            column(:title)    { |proposal| link_to proposal.title, "/#/proposal/#{proposal.id}" }
           end
         end
       end
