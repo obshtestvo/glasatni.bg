@@ -7,7 +7,7 @@ promeni.factory('Proposal', ["$resource", function($resource) {
   });
 }]);
 
-promeni.service('ProposalService', ["$routeParams", "Proposal", function($routeParams, Proposal) {
+promeni.service('proposalService', ["$routeParams", "Proposal", function($routeParams, Proposal) {
 
   this.get = function() {
     return Proposal.get({ id: $routeParams.id });
@@ -45,9 +45,9 @@ promeni.controller("ProposalIndexController", ["$scope", "$routeParams", "$locat
 
 }]);
 
-promeni.controller("ProposalShowController", ["$scope", "ProposalService", "Proposal", function($scope, ProposalService, Proposal) {
+promeni.controller("ProposalShowController", ["$scope", "proposalService", "Proposal", function($scope, proposalService, Proposal) {
 
-  $scope.proposal = ProposalService.get();
+  $scope.proposal = proposalService.get();
 
   $scope.logged_in = $("#logged_in").length !== 0 ? true : false;
 
@@ -65,20 +65,20 @@ promeni.controller("ProposalShowController", ["$scope", "ProposalService", "Prop
 
 }]);
 
-promeni.controller("ProposalEditController", ["$scope", "$location", "ProposalService", function($scope, $location, ProposalService) {
+promeni.controller("ProposalEditController", ["$scope", "$location", "proposalService", function($scope, $location, proposalService) {
 
-  $scope.proposal = ProposalService.get();
+  $scope.proposal = proposalService.get();
   $scope.showFormatting = false;
 
   $scope.submitProposal = function(proposal) {
-    ProposalService.update(proposal).$promise.then(function(proposal) {
+    proposalService.update(proposal).$promise.then(function(proposal) {
       $location.path("/proposals/" + proposal.id);
     });
   }
 
 }]);
 
-promeni.controller("ProposalCreateController", ["$scope", "$location", "ProposalService", function($scope, $location, ProposalService) {
+promeni.controller("ProposalCreateController", ["$scope", "$location", "proposalService", function($scope, $location, proposalService) {
 
   $scope.showFormatting = false;
 
@@ -89,7 +89,7 @@ promeni.controller("ProposalCreateController", ["$scope", "$location", "Proposal
   }
 
   $scope.submitProposal = function(proposal) {
-    ProposalService.save(proposal).$promise.then(function(proposal) {
+    proposalService.save(proposal).$promise.then(function(proposal) {
       $location.path("/proposals/" + proposal.id);
     });
   }
