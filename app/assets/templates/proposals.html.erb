@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <ul class="nav nav-tabs" role="tablist">
       <li ng-class="{active: theme=='all'}"><a href="/#/all/{{ order }}">Всички теми &nbsp;<span class="label label-primary" ng-show="theme=='all'">{{ proposalsCount }}</span></a></li>
-      <li ng-class="{active: theme=='volunteering'}"><a href="/#/volunteering">Доброволчество &nbsp;<span class="label label-primary" ng-show="theme=='volunteering'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: theme=='volunteering'}"><a href="/#/volunteering/{{ order }}">Доброволчество &nbsp;<span class="label label-primary" ng-show="theme=='volunteering'">{{ proposalsCount }}</span></a></li>
       <li ng-class="{active: theme=='ngo'}"><a href="#/ngo/{{ order }}">НПО &nbsp;<span class="label label-primary" ng-show="theme=='ngo'">{{ proposalsCount }}</span></a></li>
       <li ng-class="{active: theme=='participation'}"><a href="#/participation/{{ order }}">Гражданско участие &nbsp;<span class="label label-primary" ng-show="theme=='participation'">{{ proposalsCount }}</span></a></li>
       <li ng-class="{active: theme=='education'}"><a href="#/education/{{ order }}">Гражданско образование &nbsp;<span class="label label-primary" ng-show="theme=='education'">{{ proposalsCount }}</span></a></li>
