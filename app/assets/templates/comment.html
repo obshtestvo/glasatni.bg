@@ -30,24 +30,33 @@
 
     <br />
 
-    <table class="table table-hover">
-      <tr ng-repeat="nc in comment.comments">
-        <td>
+    <div ng-repeat="nc in comment.comments">
+
+      <div class="row">
+        <div class="col-md-1">
           <voting-buttons votable="nc" votable-type="'comment'" button-size="'btn-xs'"></voting-buttons>
-        </td>
-        <td>
-          <p class="text-muted"><a href="{{ nc.user_profile_url }}">{{ nc.user.name }}</a></p>
-          {{ nc.content }}
+        </div>
+        <div class="col-md-11">
+          <p>{{ nc.content }}</p>
           <alert ng-repeat="alert in nc.alerts" type="{{ alert.type }}" close="closeAlert(nc)">{{alert.msg}}</alert>
-          <comment-actions comment="nc" nested="true"></comment-actions>
-        </td>
-      </tr>
-      <tr ng-show="comment.comments.length == 0">
-        <td colspan="2">
-          <i>Няма налични коментари</i>
-        </td>
-      </tr>
-    </table>
+
+          <div class="row">
+            <div class="col-md-10">
+              <comment-actions comment="nc"></comment-actions>
+            </div>
+            <div class="col-md-2">
+              <a href="{{ nc.user_profile_url }}" class="btn btn-default btn-xs pull-right">{{ nc.user.name }}<br>
+                <i class="fa fa-gavel" ng-show="nc.moderator"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr ng-hide="$last"/>
+
+    </div>
+
   </div>
 </div>
 
