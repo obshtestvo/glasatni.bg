@@ -23,7 +23,10 @@ promeni.service('proposalService', ["$routeParams", "Proposal", function($routeP
 
 }]);
 
-promeni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "Proposal", function($scope, $routeParams, $location, Proposal) {
+var ProposalIndexController = promeni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "Proposal", "data", function($scope, $routeParams, $location, Proposal, data) {
+
+  $scope.proposals = data.proposals;
+  $scope.proposalsCount = data.proposals_count;
 
   $scope.queryProposals = function(params) {
     Proposal.query(params, function(data) {
@@ -41,9 +44,13 @@ promeni.controller("ProposalIndexController", ["$scope", "$routeParams", "$locat
   $scope.order = $routeParams.order || "relevance";
   $scope.currentPage = $routeParams.page || 1;
 
-  $scope.queryProposals({ theme_name: $scope.theme, order: $scope.order, page: $scope.currentPage });
-
 }]);
+
+ProposalIndexController.loadProposals = ["$route", "Proposal", function($route, Proposal) {
+  return Proposal.query({ theme_name: $route.current.params.theme, order: $route.current.params.order }).$promise.then(function(data) {
+    return data;
+  });
+}];
 
 promeni.controller("ProposalShowController", ["$scope", "proposalService", "Proposal", function($scope, proposalService, Proposal) {
 
