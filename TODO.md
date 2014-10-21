@@ -6,24 +6,22 @@
 - can can - да настроя кой какво може да прави
 - seeds - comments + better formating
 - nested comments
-- мета тема да напиша
 - списък с рангове
+- markdown list of formatting options page
 - да пренапиша изречението за символите
 - да се премести ограничението от коментари на предложения
 - complex hotness rating
 - style all devise views
-- банери
+- style mails
 - fix back button
 - config mailer
 - bower
-- login dropdown
 - N comments -> link to comment section
-- proposals - one page app
 
 # желателни:
 
+- login dropdown
 - edit comments
-- one page app
 - notifications
 - документация на API
 - времето да се update-ва автоматично
