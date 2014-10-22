@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :proposals
       resources :comments, only: [:index, :create, :destroy]
-      resources :themes, only: [:index]
+      resources :themes, only: [:index, :show]
     end
   end
 

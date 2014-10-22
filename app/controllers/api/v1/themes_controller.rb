@@ -7,6 +7,10 @@ module Api
         @themes = Theme.all
       end
 
+      def show
+        @theme = Theme.find(params[:id])
+      end
+
     end
   end
 end

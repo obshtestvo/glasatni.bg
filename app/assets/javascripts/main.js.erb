@@ -20,6 +20,9 @@ promeni.config(['$routeProvider', function($routeProvider) {
   }).when("/proposals/new", {
     controller: "ProposalCreateController",
     templateUrl: "<%= asset_path('proposal_form.html') %>"
+  }).when("/themes/:id", {
+    controller: "ThemeController",
+    templateUrl: "<%= asset_path('theme.html') %>"
   }).when("/proposals/:id", {
     controller: "ProposalShowController",
     templateUrl: "<%= asset_path('proposal.html') %>"
@@ -50,6 +53,20 @@ promeni.filter('translateOrder', [function () {
       "least-comments": "Некоментирани",
     }
     return translations[string];
+  };
+}]);
+
+promeni.filter('translateTheme', [function () {
+  "use strict";
+  return function (value) {
+    var translations = {
+      "education": "Гражданско образование",
+      "volunteering": "Доброволчество",
+      "meta": "Мета тема",
+      "ngo": "НПО",
+      "participation": "Гражданско участие",
+    }
+    return Object.keys(translations).filter(function(key) { return translations[key] === value })[0];
   };
 }]);
 
