@@ -15,6 +15,9 @@
 
 <section id="topnav">
   <div class="container">
+    <div class="pull-left">
+      <%= link_to "Дудъл", doodle_path, class: "btn btn-link" %>
+    </div>
     <% if user_signed_in? %>
       <div class="pull-right">
         Здравей, <%= link_to current_user.name, user_path(current_user), id: "username" %> (<%= current_user.reputation %>) |
