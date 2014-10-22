@@ -14,11 +14,15 @@ Rails.application.routes.draw do
   resources :users, :only => [:show]
   resources :themes
 
+  resources :proposals, :only => [:index]
+
   post "flag" => "application#flag"
   post "vote" => "application#vote"
   get "about" => "application#about"
+  get "doodle" => "application#doodle"
+
   get "rank/:rank" => "application#rank",
     constraints: { rank: /observer|speaker|orator|enthusiast|activist|policy_maker/ }
 
-  root "proposals#index"
+  root "application#handle_redirects"
 end
