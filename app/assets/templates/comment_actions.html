@@ -1,7 +1,7 @@
 <div class="dropdown">
-  <button class="btn btn-default btn-xs" ng-hide="comment.showReplyBox == true || nested" ng-click="comment.showReplyBox=true">Добави коментар</button>
-  <button class="btn btn-default btn-xs" ng-click="destroyComment(comment)">Изтрий</button>
-  <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-disabled="true" data-toggle="dropdown">
+  <button class="btn btn-link btn-xs" ng-hide="comment.showReplyBox == true || nested" ng-click="comment.showReplyBox=true">Добави коментар</button>
+  <button class="btn btn-link btn-xs" ng-click="destroyComment(comment)">Изтрий</button>
+  <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-disabled="true" data-toggle="dropdown">
     Докладвай
     <span class="caret"></span>
   </button>
@@ -10,4 +10,4 @@
     <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag('hatespeech')">Език на омразата</a></li>
   </ul>
 </div>
-<button class="btn btn-default btn-xs" ng-hide="nested" ng-click="showNestedComments()">Покажи {{ comment.comments_count }} коментара</button>
+<button class="btn btn-link btn-xs" ng-hide="nested" ng-click="showNestedComments()">Покажи {{ comment.comments_count }} коментара</button>
