@@ -26,10 +26,6 @@ promeni.config(['$routeProvider', function($routeProvider) {
   }).when("/proposals/:id/edit", {
     controller: "ProposalEditController",
     templateUrl: "<%= asset_path('proposal_form.html') %>",
-  }).when("/:theme", {
-    controller: "ProposalIndexController",
-    templateUrl: "<%= asset_path('proposals.html') %>",
-    reloadOnSearch: false
   }).when("/:theme/:order", {
     controller: "ProposalIndexController",
     templateUrl: "<%= asset_path('proposals.html') %>",
