@@ -2,11 +2,6 @@
 //= depend_on_asset proposal.html
 //= depend_on_asset voting_buttons.html
 
-// make angular work nice with turbolinks
-$(document).on('ready page:load', function() {
-  angular.bootstrap('body', ['promeni']);
-});
-
 var promeni = angular.module('promeni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
 promeni.config(['$routeProvider', function($routeProvider) {
