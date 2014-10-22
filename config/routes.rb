@@ -24,5 +24,5 @@ Rails.application.routes.draw do
   get "rank/:rank" => "application#rank",
     constraints: { rank: /observer|speaker|orator|enthusiast|activist|policy_maker/ }
 
-  root "application#handle_redirects"
+  root "proposals#index"
 end

@@ -6,14 +6,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  def handle_redirects
-    if user_signed_in?
-      redirect_to proposals_path
-    else
-      redirect_to doodle_path
-    end
-  end
-
   def about
   end
 
