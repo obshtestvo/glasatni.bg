@@ -6,7 +6,7 @@
     </center>
   </div>
   <div class="col-md-11">
-    <p>{{ comment.content }}</p>
+    <markdown content="comment.content"></markdown>
     <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="closeAlert(comment)">{{alert.msg}}</alert>
 
     <div class="row">
@@ -37,7 +37,7 @@
           <voting-buttons votable="nc" votable-type="'comment'" button-size="'btn-xs'"></voting-buttons>
         </div>
         <div class="col-md-11">
-          <p>{{ nc.content }}</p>
+          <markdown content="nc.content"></markdown>
           <alert ng-repeat="alert in nc.alerts" type="{{ alert.type }}" close="closeAlert(nc)">{{alert.msg}}</alert>
 
           <div class="row">
