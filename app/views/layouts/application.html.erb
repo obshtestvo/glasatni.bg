@@ -20,7 +20,7 @@
     </div>
     <% if user_signed_in? %>
       <div class="pull-right">
-        Здравей, <%= link_to current_user.name, user_path(current_user), id: "username" %> (<%= current_user.reputation %>) |
+        Здравей, <%= link_to current_user.name, "/#/users/#{current_user.id}", id: "username" %> (<%= current_user.reputation %>) |
         <%= link_to edit_user_registration_path, :class => "btn btn-link" do %>
           <i class="fa fa-wrench"></i> &nbsp;Настройки
         <% end %>

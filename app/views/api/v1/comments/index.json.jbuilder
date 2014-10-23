@@ -3,7 +3,7 @@ votings = Voting.where(votable: @comments, user: current_user).pluck("votable_id
 ids = votings.to_h.keys
 values = votings.to_h.values
 
-json.array! @comments do |c|
+json.comments @comments do |c|
   json.id c.id
   json.content c.content
   json.created_at c.created_at
@@ -23,3 +23,5 @@ json.array! @comments do |c|
   end
 
 end
+
+json.comments_count @beforePaged.count

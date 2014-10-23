@@ -5,20 +5,24 @@ module Api
 
       def index
         commentable_type = comment_params[:commentable_type]
+        user_id = comment_params[:user_id]
+
         if commentable_type == "comment"
           commentable = Comment.find(comment_params[:commentable_id])
-        else
+        elsif commentable_type == "proposal"
           commentable = Proposal.find(comment_params[:commentable_id])
-        end
+        else
 
+        end
         order = comment_params[:order].present? ? comment_params[:order] : "relevance"
 
         query = Comment.includes(:user).includes(:proposal)
+        query = query.where(user_id: user_id) if user_id.present?
         query = query.find_by_parent(commentable) unless commentable_type.blank?
         query = query.custom_order order
-        query = query.page(comment_params[:page]) if comment_params[:page]
 
-        @comments = query
+        @beforePaged = query
+        @comments = query.page(comment_params[:page])
       end
 
       def show
@@ -54,7 +58,7 @@ module Api
       private
 
       def comment_params
-        params.slice(:id, :commentable_id, :commentable_type, :per_page, :page, :content, :order)
+        params.slice(:id, :commentable_id, :commentable_type, :per_page, :page, :content, :order, :user_id)
       end
 
     end
