@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :proposals
       resources :comments, only: [:index, :create, :destroy]
       resources :themes, only: [:index, :show]
+      resources :users, only: [:show]
     end
   end
 

@@ -15,6 +15,9 @@ promeni.config(['$routeProvider', function($routeProvider) {
   }).when("/proposals/new", {
     controller: "ProposalCreateController",
     templateUrl: "<%= asset_path('proposal_form.html') %>"
+  }).when("/users/:id", {
+    controller: "UserController",
+    templateUrl: "<%= asset_path('user.html') %>"
   }).when("/themes/:id", {
     controller: "ThemeController",
     templateUrl: "<%= asset_path('theme.html') %>"

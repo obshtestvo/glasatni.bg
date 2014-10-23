@@ -1,0 +1,2 @@
+json.name @user.name
+
