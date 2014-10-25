@@ -80,7 +80,8 @@ promeni.controller("ProposalEditController", ["$scope", "$location", "proposalSe
 
   $scope.proposal = proposalService.get();
   $scope.showFormatting = false;
-  $scope.title = "Редактирай предложението.";
+  $scope.title = "Редактирай предложението";
+  $scope.icon = "fa-pencil";
 
   $scope.submitProposal = function(proposal) {
     proposalService.update(proposal).$promise.then(function(proposal) {
@@ -94,6 +95,7 @@ promeni.controller("ProposalCreateController", ["$scope", "$location", "proposal
 
   $scope.showFormatting = false;
   $scope.title = "Направи предложение";
+  $scope.icon = "fa-plus-square";
 
   $scope.proposal = {
     title: "",
