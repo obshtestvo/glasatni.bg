@@ -46,15 +46,24 @@ var ProposalIndexController = promeni.controller("ProposalIndexController", ["$s
 
 }]);
 
-ProposalIndexController.loadProposals = ["$route", "Proposal", function($route, Proposal) {
+ProposalIndexController.loadProposals = ["$route", "Proposal", "Comment", function($route, Proposal, Comment) {
   return Proposal.query({ theme_name: $route.current.params.theme, order: $route.current.params.order }).$promise.then(function(data) {
     return data;
   });
 }];
 
-promeni.controller("ProposalShowController", ["$scope", "proposalService", "Proposal", function($scope, proposalService, Proposal) {
+promeni.controller("ProposalShowController", ["$scope", "proposalService", "Proposal", "CommentService", function($scope, proposalService, Proposal, CommentService) {
 
-  $scope.proposal = proposalService.get();
+  proposalService.get().$promise.then(function(proposal) {
+    $scope.proposal = proposal;
+    $scope.commentsParams = {
+      order: "relevance",
+      commentable_id: proposal.id,
+      commentable_type: "proposal",
+      page: 1
+    }
+    getCommentsData();
+  });
 
   $scope.logged_in = $("#logged_in").length !== 0 ? true : false;
 
@@ -66,9 +75,27 @@ promeni.controller("ProposalShowController", ["$scope", "proposalService", "Prop
     });
   }
 
+  $scope.newComment = { content: "" };
+
+  $scope.showWarning = function() {
+    $("#warning-box").slideDown();
+  }
+
   $scope.closeAlert = function(comment) {
     comment.alerts = [];
   }
+
+  var getCommentsData = function() {
+    CommentService.queryByProposal($scope.commentsParams).$promise.then(function(data) {
+      $scope.comments = data.comments;
+      $scope.commentsCount = data.comments_count;
+    });
+  }
+
+  $scope.$watchCollection("[commentsParams.order, commentsParams.page]", function(newValue, oldValue) {
+    if (newValue === oldValue) return;
+    getCommentsData();
+  });
 
 }]);
 

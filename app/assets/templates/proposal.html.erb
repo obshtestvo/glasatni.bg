@@ -52,8 +52,6 @@
 
 <hr />
 
-<div ng-controller="CommentController">
-
 <h3>Коментари</h3>
 
 <div ng-show="logged_in">
@@ -61,7 +59,6 @@
   <div id="warning-box" class="bs-callout bs-callout-danger" style="display:none">
     <h4>Само да ти кажем някои неща...</h4>
     Опитай се да бъдеш максимално изчерпателен(на). Всякакви расистки, хомофобски, сексистки, шовинистки коментари ще бъдат изтривани, както и коментари приканващи към насилие над хора или животни.
-    Коментарите трябва да са с минимална дължина от 100 символа.
   </div>
 
   <textarea id="comment-box" name="" rows="8" cols="40" class="form-control" ng-model="newComment.content" ng-focus="showWarning()" placeholder="Напиши своя коментар тук."></textarea>
@@ -87,21 +84,21 @@
   <div class="col-md-2">
     <div class="dropdown">
       <button class="btn btn-default dropdown-toggle" type="button" data-disabled="true" data-toggle="dropdown">
-        <i class="fa fa-calendar fa-lg" ng-show="params.order == 'newest'"></i>
-        <i class="fa fa-calendar-o fa-lg" ng-show="params.order == 'oldest'"></i>
-        <i class="fa fa-trophy fa-lg" ng-show="params.order == 'relevance'"></i>
-        &nbsp; {{ params.order | translateOrder }}
+        <i class="fa fa-calendar fa-lg" ng-show="commentsParams.order == 'newest'"></i>
+        <i class="fa fa-calendar-o fa-lg" ng-show="commentsParams.order == 'oldest'"></i>
+        <i class="fa fa-trophy fa-lg" ng-show="commentsParams.order == 'relevance'"></i>
+        &nbsp; {{ commentsParams.order | translateOrder }}
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a href="" ng-show="params.order != 'newest'" ng-click="params.order='newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
-        <li><a href="" ng-show="params.order != 'oldest'" ng-click="params.order='oldest'"><i class="fa fa-calendar-o fa-lg"></i>&nbsp; Най-стари</a></li>
-        <li><a href="" ng-show="params.order != 'relevance'" ng-click="params.order='relevance'"><i class="fa fa-trophy fa-lg"></i>&nbsp; Най-подкрепени</a></li>
+        <li><a href="" ng-show="commentsParams.order != 'newest'" ng-click="commentsParams.order='newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
+        <li><a href="" ng-show="commentsParams.order != 'oldest'" ng-click="commentsParams.order='oldest'"><i class="fa fa-calendar-o fa-lg"></i>&nbsp; Най-стари</a></li>
+        <li><a href="" ng-show="commentsParams.order != 'relevance'" ng-click="commentsParams.order='relevance'"><i class="fa fa-trophy fa-lg"></i>&nbsp; Най-подкрепени</a></li>
       </ul>
     </div>
   </div>
   <div class="col-md-10">
-    <pagination ng-model="currentPage" total-items="proposal.comments_count" items-per-page="<%= Comment.default_per_page %>" max-size="5"
+    <pagination ng-model="commentsParams.page" total-items="commentsCount" items-per-page="<%= Comment.default_per_page %>" max-size="5"
     class="pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
     last-text="Последна"></pagination>
   </div>
@@ -113,7 +110,6 @@
   Бързо напиши един, за да изпревариш останалите!
 </div>
 
-
 <div id="comments-list">
   <div ng-repeat="comment in comments">
 
@@ -124,9 +120,7 @@
   </div>
 </div>
 
-<pagination ng-model="currentPage" total-items="proposal.comments_count" items-per-page="<%= Comment.default_per_page %>" max-size="5"
+<pagination ng-model="commentsParams.page" total-items="commentsCount" items-per-page="<%= Comment.default_per_page %>" max-size="5"
 class="pagination-sm pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
 last-text="Последна"></pagination>
-
-</div><!-- end of Comment controller -->
 
