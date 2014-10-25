@@ -21,6 +21,10 @@ promeni.service('proposalService', ["$routeParams", "Proposal", function($routeP
     return Proposal.save({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme_id });
   }
 
+  this.flag = function(params) {
+    return Proposal.flag(params);
+  }
+
 }]);
 
 var ProposalIndexController = promeni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "Proposal", "data", function($scope, $routeParams, $location, Proposal, data) {
@@ -52,7 +56,7 @@ ProposalIndexController.loadProposals = ["$route", "Proposal", "Comment", functi
   });
 }];
 
-promeni.controller("ProposalShowController", ["$scope", "proposalService", "Proposal", "CommentService", function($scope, proposalService, Proposal, CommentService) {
+promeni.controller("ProposalShowController", ["$scope", "proposalService", "Proposal", "commentService", function($scope, proposalService, Proposal, commentService) {
 
   proposalService.get().$promise.then(function(proposal) {
     $scope.proposal = proposal;
@@ -66,7 +70,7 @@ promeni.controller("ProposalShowController", ["$scope", "proposalService", "Prop
   });
 
   $scope.flag = function(proposal, reason) {
-    Proposal.flag({ id: proposal.id, reason: reason, flaggable: "proposal" }).$promise.then(function(data) {
+    proposalService.flag({ id: proposal.id, reason: reason, flaggable: "proposal" }).$promise.then(function(data) {
       proposal.alerts = [{
         type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
       }];
@@ -78,7 +82,7 @@ promeni.controller("ProposalShowController", ["$scope", "proposalService", "Prop
   }
 
   var getCommentsData = function() {
-    CommentService.queryByProposal($scope.commentsParams).$promise.then(function(data) {
+    commentService.queryByProposal($scope.commentsParams).$promise.then(function(data) {
       $scope.comments = data.comments;
       $scope.commentsCount = data.comments_count;
     });

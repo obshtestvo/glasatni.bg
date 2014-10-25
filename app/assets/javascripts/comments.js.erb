@@ -9,7 +9,7 @@ promeni.factory('Comment', ['$resource', function($resource) {
   });
 }]);
 
-promeni.service("CommentService", ["Comment", function(Comment) {
+promeni.service("commentService", ["Comment", function(Comment) {
 
   this.queryByProposal = function(params) {
     return Comment.query(params);
@@ -54,7 +54,7 @@ promeni.directive('commentSection', ["Comment", function(Comment) {
   }
 }]);
 
-promeni.directive("commentBox", ["CommentService", function(CommentService) {
+promeni.directive("commentBox", ["commentService", function(commentService) {
   return {
     restrict: "E",
     templateUrl: "<%= asset_path('comment_box.html') %>",
@@ -78,7 +78,7 @@ promeni.directive("commentBox", ["CommentService", function(CommentService) {
           commentable_type: "proposal",
           content: scope.newComment.content
         };
-        CommentService.save(params).$promise.then(function(comment) {
+        commentService.save(params).$promise.then(function(comment) {
           scope.comments.unshift(comment);
 
           $("#warning-box").slideUp();
