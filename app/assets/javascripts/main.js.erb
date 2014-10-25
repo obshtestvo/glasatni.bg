@@ -127,7 +127,7 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
   };
 }]);
 
-promeni.directive('markdown', ['$interpolate', function($interpolate) {
+promeni.directive('markdown', [function() {
   var converter = new Showdown.converter();
 
   return {
