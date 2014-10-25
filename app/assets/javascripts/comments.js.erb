@@ -9,9 +9,11 @@ promeni.factory('Comment', ['$resource', function($resource) {
   });
 }]);
 
-promeni.service("commentService", ["Comment", function(Comment) {
+promeni.service("commentService", ["$routeParams", "Comment", function($routeParams, Comment) {
 
   this.queryByProposal = function(params) {
+    params.commentable_type = "proposal";
+    params.commentable_id = $routeParams.id
     return Comment.query(params);
   }
 
@@ -51,6 +53,38 @@ promeni.directive('commentSection', ["Comment", function(Comment) {
 
     },
     templateUrl: "<%= asset_path('comment.html') %>"
+  }
+}]);
+
+promeni.directive('commentsSection', ["commentService", function(commentService) {
+  return {
+    restrict: "E",
+    templateUrl: "<%= asset_path('comments.html') %>",
+    scope: {
+      comments: "="
+    },
+    link: function(scope, element) {
+
+      var getCommentsData = function() {
+        commentService.queryByProposal(scope.params).$promise.then(function(data) {
+          scope.comments = data.comments;
+          scope.commentsCount = data.comments_count;
+        });
+      }
+
+      scope.params = {
+        order: "relevance",
+        page: 1
+      }
+
+      getCommentsData();
+
+      scope.$watchCollection("[params.order, params.page]", function(newValue, oldValue) {
+        if (newValue === oldValue) return;
+        getCommentsData();
+      });
+
+    }
   }
 }]);
 

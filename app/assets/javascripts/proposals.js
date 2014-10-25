@@ -21,8 +21,8 @@ promeni.service('proposalService', ["$routeParams", "Proposal", function($routeP
     return Proposal.save({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme_id });
   }
 
-  this.flag = function(params) {
-    return Proposal.flag(params);
+  this.flag = function(proposal, reason) {
+    return Proposal.flag({ id: proposal.id, reason: reason, flaggable: "proposal" });
   }
 
 }]);
@@ -60,17 +60,10 @@ promeni.controller("ProposalShowController", ["$scope", "proposalService", "Prop
 
   proposalService.get().$promise.then(function(proposal) {
     $scope.proposal = proposal;
-    $scope.commentsParams = {
-      order: "relevance",
-      commentable_id: proposal.id,
-      commentable_type: "proposal",
-      page: 1
-    }
-    getCommentsData();
   });
 
   $scope.flag = function(proposal, reason) {
-    proposalService.flag({ id: proposal.id, reason: reason, flaggable: "proposal" }).$promise.then(function(data) {
+    proposalService.flag(proposal, reason).$promise.then(function(data) {
       proposal.alerts = [{
         type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
       }];
@@ -80,18 +73,6 @@ promeni.controller("ProposalShowController", ["$scope", "proposalService", "Prop
   $scope.closeAlert = function(comment) {
     comment.alerts = [];
   }
-
-  var getCommentsData = function() {
-    commentService.queryByProposal($scope.commentsParams).$promise.then(function(data) {
-      $scope.comments = data.comments;
-      $scope.commentsCount = data.comments_count;
-    });
-  }
-
-  $scope.$watchCollection("[commentsParams.order, commentsParams.page]", function(newValue, oldValue) {
-    if (newValue === oldValue) return;
-    getCommentsData();
-  });
 
 }]);
 

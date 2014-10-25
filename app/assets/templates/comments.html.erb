@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-md-2">
+    <div class="dropdown">
+      <button class="btn btn-default dropdown-toggle" type="button" data-disabled="true" data-toggle="dropdown">
+        <i class="fa fa-calendar fa-lg" ng-show="params.order == 'newest'"></i>
+        <i class="fa fa-calendar-o fa-lg" ng-show="params.order == 'oldest'"></i>
+        <i class="fa fa-trophy fa-lg" ng-show="params.order == 'relevance'"></i>
+        &nbsp; {{ params.order | translateOrder }}
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="" ng-show="params.order != 'newest'" ng-click="params.order='newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
+        <li><a href="" ng-show="params.order != 'oldest'" ng-click="params.order='oldest'"><i class="fa fa-calendar-o fa-lg"></i>&nbsp; Най-стари</a></li>
+        <li><a href="" ng-show="params.order != 'relevance'" ng-click="params.order='relevance'"><i class="fa fa-trophy fa-lg"></i>&nbsp; Най-подкрепени</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-10">
+    <pagination ng-model="params.page" total-items="commentsCount" items-per-page="<%= Comment.default_per_page %>" max-size="5"
+    class="pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
+    last-text="Последна"></pagination>
+  </div>
+</div>
+<br />
+
+<div id="no-comments" class="bs-callout bs-callout-info" ng-show="comments.length == 0">
+  <h4>Все още няма коментари!</h4>
+  Бързо напиши един, за да изпревариш останалите!
+</div>
+
+<div id="comments-list">
+  <div ng-repeat="comment in comments">
+
+    <comment-section comment="comment"></comment-section>
+
+    <hr ng-hide="$last"/>
+
+  </div>
+</div>
+
+<pagination ng-model="params.page" total-items="commentsCount" items-per-page="<%= Comment.default_per_page %>" max-size="5"
+class="pagination-sm pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
+last-text="Последна"></pagination>
