@@ -65,20 +65,12 @@ promeni.controller("ProposalShowController", ["$scope", "proposalService", "Prop
     getCommentsData();
   });
 
-  $scope.logged_in = $("#logged_in").length !== 0 ? true : false;
-
   $scope.flag = function(proposal, reason) {
     Proposal.flag({ id: proposal.id, reason: reason, flaggable: "proposal" }).$promise.then(function(data) {
       proposal.alerts = [{
         type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
       }];
     });
-  }
-
-  $scope.newComment = { content: "" };
-
-  $scope.showWarning = function() {
-    $("#warning-box").slideDown();
   }
 
   $scope.closeAlert = function(comment) {

@@ -15,6 +15,10 @@ promeni.service("CommentService", ["Comment", function(Comment) {
     return Comment.query(params);
   }
 
+  this.save = function(params) {
+    return Comment.save(params)
+  }
+
 }]);
 
 promeni.directive('commentSection', ["Comment", function(Comment) {
@@ -47,6 +51,41 @@ promeni.directive('commentSection', ["Comment", function(Comment) {
 
     },
     templateUrl: "<%= asset_path('comment.html') %>"
+  }
+}]);
+
+promeni.directive("commentBox", ["CommentService", function(CommentService) {
+  return {
+    restrict: "E",
+    templateUrl: "<%= asset_path('comment_box.html') %>",
+    scope: {
+      proposal: "=",
+      comments: "="
+    },
+    link: function(scope, element) {
+
+      scope.logged_in = $("#logged_in").length !== 0 ? true : false;
+
+      scope.showWarning = function() {
+        $("#warning-box").slideDown();
+      }
+
+      scope.newComment = { content: "" };
+
+      scope.createNewComment = function() {
+        var params = {
+          commentable_id: scope.proposal.id,
+          commentable_type: "proposal",
+          content: scope.newComment.content
+        };
+        CommentService.save(params).$promise.then(function(comment) {
+          scope.comments.unshift(comment);
+
+          $("#warning-box").slideUp();
+          scope.newComment = { content: "" };
+        });
+      }
+    }
   }
 }]);
 
