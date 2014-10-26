@@ -13,7 +13,6 @@
 - complex hotness rating
 - style all devise views
 - style mails
-- fix back button
 - config mailer
 - bower
 - N comments -> link to comment section

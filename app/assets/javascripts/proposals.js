@@ -27,21 +27,13 @@ promeni.service('proposalService', ["$routeParams", "Proposal", function($routeP
 
 }]);
 
-var ProposalIndexController = promeni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "Proposal", "data", function($scope, $routeParams, $location, Proposal, data) {
+var ProposalIndexController = promeni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "data", function($scope, $routeParams, $location, data) {
 
   $scope.proposals = data.proposals;
   $scope.proposalsCount = data.proposals_count;
 
-  $scope.queryProposals = function(params) {
-    Proposal.query(params, function(data) {
-      $scope.proposals = data.proposals;
-      $scope.proposalsCount = data.proposals_count;
-    });
-  }
-
   $scope.pageChanged = function() {
-    $scope.queryProposals({ theme_name: $scope.theme, order: $scope.order, page: $scope.currentPage });
-    $location.search('page', $scope.currentPage);
+    $location.path("/" + $scope.theme + "/" + $scope.order + "/" + $scope.currentPage);
   }
 
   $scope.theme = $routeParams.theme || "all";
@@ -51,7 +43,12 @@ var ProposalIndexController = promeni.controller("ProposalIndexController", ["$s
 }]);
 
 ProposalIndexController.loadProposals = ["$route", "Proposal", "Comment", function($route, Proposal, Comment) {
-  return Proposal.query({ theme_name: $route.current.params.theme, order: $route.current.params.order }).$promise.then(function(data) {
+  var params = {
+    theme_name: $route.current.params.theme,
+    order: $route.current.params.order,
+    page: $route.current.params.page
+  };
+  return Proposal.query(params).$promise.then(function(data) {
     return data;
   });
 }];

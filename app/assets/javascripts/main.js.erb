@@ -8,7 +8,6 @@ promeni.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when("/", {
     controller: "ProposalIndexController",
     templateUrl: "<%= asset_path('proposals.html') %>",
-    reloadOnSearch: false,
     resolve: {
       data: ProposalIndexController.loadProposals
     }
@@ -30,7 +29,12 @@ promeni.config(['$routeProvider', function($routeProvider) {
   }).when("/:theme/:order", {
     controller: "ProposalIndexController",
     templateUrl: "<%= asset_path('proposals.html') %>",
-    reloadOnSearch: false,
+    resolve: {
+      data: ProposalIndexController.loadProposals
+    }
+  }).when("/:theme/:order/:page", {
+    controller: "ProposalIndexController",
+    templateUrl: "<%= asset_path('proposals.html') %>",
     resolve: {
       data: ProposalIndexController.loadProposals
     }
