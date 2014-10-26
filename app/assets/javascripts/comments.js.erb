@@ -13,12 +13,17 @@ promeni.service("commentService", ["$routeParams", "Comment", function($routePar
 
   this.queryByProposal = function(params) {
     params.commentable_type = "proposal";
-    params.commentable_id = $routeParams.id
+    params.commentable_id = $routeParams.id;
+
     return Comment.query(params);
   }
 
   this.save = function(params) {
     return Comment.save(params)
+  }
+
+  this.flag = function(comment, reason) {
+    return Comment.flag({ flaggable_id: comment.id, reason: reason, flaggable_type: "comment" });
   }
 
 }]);
@@ -123,7 +128,7 @@ promeni.directive("commentBox", ["commentService", function(commentService) {
   }
 }]);
 
-promeni.directive('commentActions', ['Comment', function(Comment) {
+promeni.directive('commentActions', ['commentService', function(commentService) {
   return {
     restrict: 'E',
     scope: {
@@ -135,9 +140,9 @@ promeni.directive('commentActions', ['Comment', function(Comment) {
     }],
     link: function(scope) {
 
-      scope.flag = function(reason) {
-        Comment.flag({ id: scope.comment.id, reason: reason, flaggable: "comment" }).$promise.then(function(data) {
-          scope.comment.alerts = [{
+      scope.flag = function(comment, reason) {
+        commentService.flag(comment, reason).$promise.then(function(data) {
+          comment.alerts = [{
             type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
           }];
         });

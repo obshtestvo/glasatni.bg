@@ -88,8 +88,8 @@ class ApplicationController < ActionController::Base
   end
 
   def flag
-    if application_params[:flaggable] == "comment"
-      flaggable = Comment.find(application_params[:id])
+    if application_params[:flaggable_type] == "comment"
+      flaggable = Comment.find(application_params[:flaggable_id])
     else
       flaggable = Proposal.find(application_params[:id])
     end
@@ -110,7 +110,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def application_params
-    params.slice(:id, :votable, :flaggable, :reason, :rank)
+    params.permit(:id, :votable, :flaggable_type, :flaggable_id, :reason, :rank)
   end
 
   def configure_permitted_parameters

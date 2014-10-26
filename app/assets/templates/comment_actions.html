@@ -6,8 +6,8 @@
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag('spam')">СПАМ</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag('hatespeech')">Език на омразата</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'spam')">СПАМ</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'hatespeech')">Език на омразата</a></li>
   </ul>
 </div>
 <button class="btn btn-link btn-xs" ng-hide="nested" ng-click="showNestedComments()">Покажи {{ comment.comments_count }} коментара</button>
