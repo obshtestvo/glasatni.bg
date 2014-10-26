@@ -96,7 +96,7 @@ promeni.directive("commentBox", ["commentService", function(commentService) {
       proposal: "=",
       comments: "="
     },
-    link: function(scope, element) {
+    link: function(scope) {
 
       scope.logged_in = $("#logged_in").length !== 0 ? true : false;
 

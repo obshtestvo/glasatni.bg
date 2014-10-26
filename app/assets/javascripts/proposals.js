@@ -13,6 +13,10 @@ promeni.service('proposalService', ["$routeParams", "Proposal", function($routeP
     return Proposal.get({ id: $routeParams.id });
   };
 
+  this.query = function(params) {
+    return Proposal.query(params);
+  }
+
   this.update = function(proposal) {
     return Proposal.update({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme_id });
   }
@@ -42,18 +46,18 @@ var ProposalIndexController = promeni.controller("ProposalIndexController", ["$s
 
 }]);
 
-ProposalIndexController.loadProposals = ["$route", "Proposal", "Comment", function($route, Proposal, Comment) {
+ProposalIndexController.loadProposals = ["$route", "proposalService", function($route, proposalService) {
   var params = {
     theme_name: $route.current.params.theme,
     order: $route.current.params.order,
     page: $route.current.params.page
   };
-  return Proposal.query(params).$promise.then(function(data) {
+  return proposalService.query(params).$promise.then(function(data) {
     return data;
   });
 }];
 
-promeni.controller("ProposalShowController", ["$scope", "proposalService", "Proposal", "commentService", function($scope, proposalService, Proposal, commentService) {
+promeni.controller("ProposalShowController", ["$scope", "proposalService", function($scope, proposalService) {
 
   proposalService.get().$promise.then(function(proposal) {
     $scope.proposal = proposal;
