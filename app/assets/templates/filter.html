@@ -1,0 +1,13 @@
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" data-disabled="true" data-toggle="dropdown">
+    <i class="fa fa-calendar fa-lg" ng-show="order == 'newest'"></i>
+    <i class="fa fa-calendar-o fa-lg" ng-show="order == 'oldest'"></i>
+    <i class="fa fa-trophy fa-lg" ng-show="order == 'relevance'"></i>
+    <i class="fa fa-comments fa-lg" ng-show="order == 'most-comments'"></i>
+    <i class="fa fa-comments-o fa-lg" ng-show="order == 'least-comments'"></i>
+    &nbsp; {{ order | translateOrder }}
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" ng-transclude>
+  </ul>
+</div>

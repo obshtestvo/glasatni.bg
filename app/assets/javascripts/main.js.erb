@@ -117,7 +117,7 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
 
         if (scope.votableType === "proposal") {
           Proposal.vote(params, success, failure);
-        }else {
+        } else {
           Comment.vote(params, success, failure);
         }
       }
@@ -144,6 +144,17 @@ promeni.directive('markdown', [function() {
         if (newValue === oldValue) return;
         element.html(converter.makeHtml(scope.content));
       })
+    }
+  }
+}]);
+
+promeni.directive("filter", [function() {
+  return {
+    restrict: "E",
+    templateUrl: "<%= asset_path('filter.html') %>",
+    transclude: true,
+    scope: {
+      order: "=",
     }
   }
 }]);
