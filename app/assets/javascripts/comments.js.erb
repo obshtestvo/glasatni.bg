@@ -11,6 +11,16 @@ promeni.factory('Comment', ['$resource', function($resource) {
 
 promeni.service("commentService", ["$routeParams", "Comment", function($routeParams, Comment) {
 
+  this.query = function(params) {
+    return Comment.query(params);
+  }
+
+  this.queryByComment = function(params) {
+    params.commentable_type = "comment";
+
+    return Comment.query(params);
+  }
+
   this.queryByProposal = function(params) {
     params.commentable_type = "proposal";
     params.commentable_id = $routeParams.id;
@@ -26,9 +36,13 @@ promeni.service("commentService", ["$routeParams", "Comment", function($routePar
     return Comment.flag({ flaggable_id: comment.id, reason: reason, flaggable_type: "comment" });
   }
 
+  this.vote = function(params) {
+    return Comment.vote(params);
+  }
+
 }]);
 
-promeni.directive('commentSection', ["Comment", function(Comment) {
+promeni.directive('commentSection', ["commentService", function(commentService) {
   return {
     restrict: 'E',
     scope: {
@@ -42,9 +56,10 @@ promeni.directive('commentSection', ["Comment", function(Comment) {
       }
 
       scope.replyToComment = function() {
-        Comment.save({ commentable_id: scope.comment.id, commentable_type: "comment", content: scope.comment.reply }).$promise.then(function(reply) {
-          Comment.query({ commentable_id: scope.comment.id, commentable_type: "comment", order: "relevance" }).$promise.then(function(comments) {
-            scope.comment.comments = comments;
+        commentService.save({ commentable_id: scope.comment.id, commentable_type: "comment", content: scope.comment.reply }).$promise.then(function(reply) {
+          commentService.query({ commentable_id: scope.comment.id, commentable_type: "comment", order: "relevance" }).$promise.then(function(data) {
+            scope.comment.comments = data.comments;
+            scope.comment.showReplyBox = true;
           });
 
           scope.comment.reply = "";
@@ -131,6 +146,7 @@ promeni.directive("commentBox", ["commentService", function(commentService) {
 promeni.directive('commentActions', ['commentService', function(commentService) {
   return {
     restrict: 'E',
+    templateUrl: "<%= asset_path('comment_actions.html') %>",
     scope: {
       comment: "=",
       nested: "=?"
@@ -154,14 +170,13 @@ promeni.directive('commentActions', ['commentService', function(commentService) 
         });
       }
 
-      scope.showNestedComments = function() {
-        Comment.query({ commentable_id: scope.comment.id, commentable_type: "comment", order: "relevance" }, function(comments) {
-          scope.comment.comments = comments;
+      scope.showNestedComments = function(comment) {
+        commentService.queryByComment({ commentable_id: comment.id, order: "newest" }).$promise.then(function(data) {
+          comment.comments = data.comments;
         });
       }
 
-    },
-    templateUrl: "<%= asset_path('comment_actions.html') %>"
+    }
   }
 }]);
 
