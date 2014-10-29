@@ -25,3 +25,4 @@ json.comments @comments do |c|
 end
 
 json.comments_count @beforePaged.count
+json.page @page

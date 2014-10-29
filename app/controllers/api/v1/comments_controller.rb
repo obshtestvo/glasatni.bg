@@ -23,7 +23,9 @@ module Api
         query = query.custom_order order
 
         @beforePaged = query
-        @comments = query.page(comment_params[:page])
+
+        @page = comment_params[:page].present? ? comment_params[:page].to_i : 1
+        @comments = query.page(@page)
       end
 
       def show
