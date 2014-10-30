@@ -1,5 +1,6 @@
 json.id @comment.id
 json.content @comment.content
+json.comments_count @comment.comments_count
 json.created_at @comment.created_at
 json.updated_at @comment.updated_at
 json.commentable_id @comment.commentable_id
