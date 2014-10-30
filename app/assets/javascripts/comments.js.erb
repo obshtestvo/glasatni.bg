@@ -169,14 +169,19 @@ promeni.directive('commentActions', ['commentService', function(commentService) 
       }
 
       scope.destroyComment = function(comment) {
-        commentService.delete({ id: scope.comment.id }).$promise.then(function(data) {
-          // Implement this
+        commentService.delete({ id: comment.id }).$promise.then(function(data) {
+          // perhaps a better way?
+          commentService.queryByComment({ commentable_id: scope.$parent.comment.id, order: "newest" }).$promise.then(function(data) {
+            scope.$parent.comment.comments = data.comments;
+            scope.$parent.comment.comments_count = data.comments_count;
+          });
         });
       }
 
       scope.showNestedComments = function(comment) {
         commentService.queryByComment({ commentable_id: comment.id, order: "newest" }).$promise.then(function(data) {
           comment.comments = data.comments;
+          comment.comments_count = data.comments_count;
         });
       }
 
