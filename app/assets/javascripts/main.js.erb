@@ -122,7 +122,7 @@ promeni.directive('votingButtons', ['Proposal', 'commentService', function(Propo
         if (scope.votableType === "proposal") {
           Proposal.vote(params, success, failure);
         } else {
-          commentService.vote(params).$promise(success, failure);
+          commentService.vote(params).$promise.then(success, failure);
         }
       }
 
