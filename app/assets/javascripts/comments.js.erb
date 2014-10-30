@@ -63,7 +63,6 @@ promeni.directive('commentSection', ["commentService", function(commentService) 
         commentService.save({ commentable_id: scope.comment.id, commentable_type: "comment", content: scope.comment.reply }).$promise.then(function(reply) {
           commentService.query({ commentable_id: scope.comment.id, commentable_type: "comment", order: "relevance" }).$promise.then(function(data) {
             scope.comment.comments = data.comments;
-            scope.comment.showReplyBox = true;
           });
 
           scope.comment.reply = "";
