@@ -14,7 +14,7 @@
         <comment-actions comment="comment"></comment-actions>
       </div>
       <div class="col-md-2">
-        <a href="{{ comment.user_profile_url }}" class="btn btn-default btn-xs pull-right">{{ comment.user.name }}<br>
+        <a href="/#/users/{{ comment.user.id }}" class="btn btn-default btn-xs pull-right">{{ comment.user.name }}<br>
           <i class="fa fa-gavel" ng-show="comment.moderator"></i>
         </a>
       </div>
@@ -45,7 +45,7 @@
               <comment-actions comment="nc" nested="true"></comment-actions>
             </div>
             <div class="col-md-2">
-              <a href="{{ nc.user_profile_url }}" class="btn btn-default btn-xs pull-right">{{ nc.user.name }}<br>
+              <a href="/#/users/{{ nc.user.id }}" class="btn btn-default btn-xs pull-right">{{ nc.user.name }}<br>
                 <i class="fa fa-gavel" ng-show="nc.moderator"></i>
               </a>
             </div>
