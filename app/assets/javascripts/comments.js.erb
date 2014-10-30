@@ -29,7 +29,11 @@ promeni.service("commentService", ["$routeParams", "Comment", function($routePar
   }
 
   this.save = function(params) {
-    return Comment.save(params)
+    return Comment.save(params);
+  }
+
+  this.delete = function(params) {
+    return Comment.delete(params);
   }
 
   this.flag = function(comment, reason) {
@@ -164,9 +168,9 @@ promeni.directive('commentActions', ['commentService', function(commentService) 
         });
       }
 
-      scope.destroyComment = function(idx) {
-        scope.comment.$delete({ id: scope.comment.id }, function(data) {
-          scope.$parent.$parent.comments.splice(idx, 1);
+      scope.destroyComment = function(comment) {
+        commentService.delete({ id: scope.comment.id }).$promise.then(function(data) {
+          // Implement this
         });
       }
 
