@@ -31,7 +31,7 @@
       </div>
       <ul class="list-group">
         <li ng-repeat="proposal in proposals" class="list-group-item">
-          <a href="/proposals/{{proposal.id}}">{{ proposal.title }}</a>
+          <a href="/#/proposals/{{ proposal.id }}">{{ proposal.title }}</a>
         </li>
         <li ng-hide="proposals" class="list-group-item">Този потребител не е направил предложения.</li>
       </ul>
