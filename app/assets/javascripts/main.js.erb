@@ -82,7 +82,7 @@ promeni.filter('countWords', [function() {
   };
 }]);
 
-promeni.directive('votingButtons', ['Proposal', 'commentService', function(Proposal, commentService) {
+promeni.directive('votingButtons', ['proposalService', 'commentService', function(proposalService, commentService) {
   return {
     restrict: 'E',
     scope: {
@@ -120,7 +120,7 @@ promeni.directive('votingButtons', ['Proposal', 'commentService', function(Propo
         }
 
         if (scope.votableType === "proposal") {
-          Proposal.vote(params, success, failure);
+          proposalService.vote(params).$promise.then(success, failure);
         } else {
           commentService.vote(params).$promise.then(success, failure);
         }
