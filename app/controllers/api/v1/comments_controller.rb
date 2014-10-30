@@ -19,7 +19,7 @@ module Api
 
         query = Comment.includes(:user).includes(:proposal)
         query = query.where(user_id: user_id) if user_id.present?
-        query = query.find_by_parent(commentable) unless commentable_type.present?
+        query = query.find_by_parent(commentable) if commentable_type.present?
         query = query.custom_order order
 
         @beforePaged = query
