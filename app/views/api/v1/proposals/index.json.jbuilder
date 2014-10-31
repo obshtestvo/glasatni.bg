@@ -19,6 +19,7 @@ json.proposals @proposals do |p|
   json.updated_at p.updated_at
 end
 
-json.proposals_count @beforePaged.count
+json.proposals_count @proposals_count
+json.pages_count (@proposals_count.to_f/Proposal.default_per_page).ceil
 json.page @page
 

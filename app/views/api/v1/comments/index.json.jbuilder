@@ -21,8 +21,9 @@ json.comments @comments do |c|
   unless idx.nil?
     json.voted values[idx]
   end
-
 end
 
-json.comments_count @beforePaged.count
+json.comments_count @comments_count
+json.pages_count (@comments_count.to_f/Proposal.default_per_page).ceil
 json.page @page
+

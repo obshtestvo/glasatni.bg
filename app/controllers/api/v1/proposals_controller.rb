@@ -17,7 +17,7 @@ module Api
         query = query.custom_order(order) if order.present?
         query = query.includes(:user).includes(:theme)
 
-        @beforePaged = query
+        @proposals_count = query.count
         @page = proposal_params[:page].present? ? proposal_params[:page].to_i : 1
         @proposals = query.page(proposal_params[:page])
       end
