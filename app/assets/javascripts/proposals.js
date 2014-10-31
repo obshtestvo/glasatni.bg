@@ -109,9 +109,15 @@ promeni.controller("ProposalCreateController", ["$scope", "$location", "proposal
   }
 
   $scope.submitProposal = function(proposal) {
-    proposalService.save(proposal).$promise.then(function(proposal) {
+    var success = function(proposal) {
       $location.path("/proposals/" + proposal.id);
-    });
+    }
+
+    var failure = function(errors) {
+      // TODO bring up modal or smth.
+    }
+
+    proposalService.save(proposal).$promise.then(success, failure);
   }
 
 }]);

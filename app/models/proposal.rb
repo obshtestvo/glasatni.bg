@@ -7,6 +7,8 @@ class Proposal < ActiveRecord::Base
   has_many :votings, as: :votable, dependent: :destroy
   has_many :flags, as: :flaggable, dependent: :destroy
 
+  validates :title, presence: true
+
   after_save :update_user_rank
   after_destroy :update_user_rank
 
