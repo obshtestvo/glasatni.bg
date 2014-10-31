@@ -20,18 +20,17 @@
       </div>
     </div>
 
-    <br />
     <div class="row" ng-show="comment.showReplyBox">
+      <br />
       <textarea name="test" id="test" class="form-control" rows="2" ng-model="comment.reply"></textarea>
       <br />
       <button class="btn btn-success btn-xs" ng-click="replyToComment()">Прати</button>
       <button class="btn btn-link btn-xs" ng-click="cancelNewNestedComment()">Махни</button>
+      <br />
     </div>
 
-    <br />
-
     <div ng-repeat="nc in comment.comments">
-
+      <br ng-show="$first"/>
       <div class="row">
         <div class="col-md-1">
           <voting-buttons votable="nc" votable-type="'comment'" button-size="'btn-xs'"></voting-buttons>
