@@ -20,4 +20,5 @@ json.proposals @proposals do |p|
 end
 
 json.proposals_count @beforePaged.count
+json.page @page
 

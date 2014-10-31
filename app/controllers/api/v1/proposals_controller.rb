@@ -18,6 +18,7 @@ module Api
         query = query.includes(:user).includes(:theme)
 
         @beforePaged = query
+        @page = proposal_params[:page].present? ? proposal_params[:page].to_i : 1
         @proposals = query.page(proposal_params[:page])
       end
 
