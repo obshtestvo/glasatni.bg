@@ -29,6 +29,10 @@ promeni.service('proposalService', ["$routeParams", "Proposal", function($routeP
     return Proposal.flag({ id: proposal.id, reason: reason, flaggable: "proposal" });
   }
 
+  this.vote = function(params) {
+    return Proposal.vote(params);
+  }
+
 }]);
 
 var ProposalIndexController = promeni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "data", function($scope, $routeParams, $location, data) {
