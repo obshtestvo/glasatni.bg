@@ -87,7 +87,7 @@ promeni.directive('votingButtons', ['proposalService', 'commentService', functio
     restrict: 'E',
     scope: {
       votable: "=",
-      votableType: "=",
+      votableType: "@",
       buttonSize: "=?"
     },
     controller: ['$scope', function($scope) {
