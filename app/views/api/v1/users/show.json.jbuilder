@@ -1,3 +1,4 @@
+json.id @user.id
 json.name @user.name
 json.bio @user.bio
 json.time_ago pretty_date @user.created_at

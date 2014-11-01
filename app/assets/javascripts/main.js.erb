@@ -127,7 +127,7 @@ promeni.directive('votingButtons', ['proposalService', 'commentService', functio
       }
 
     },
-    templateUrl: '<%= asset_path('voting_buttons.html') %>'
+    templateUrl: "<%= asset_path('voting_buttons.html') %>"
   };
 }]);
 
@@ -147,7 +147,63 @@ promeni.directive('markdown', [function() {
       scope.$watch('content', function(newValue, oldValue) {
         if (newValue === oldValue) return;
         element.html(converter.makeHtml(scope.content));
-      })
+      });
+    }
+  }
+}]);
+
+promeni.directive("moreButton", ["commentService", "proposalService", function(commentService, proposalService) {
+  return {
+    restrict: "E",
+    scope: {
+      collection: "=",
+      collectionType: "@",
+      order: "@",
+      userId: "@",
+      nextPage: "@"
+    },
+    template: "<button class='btn btn-default' ng-hide='lastPage' ng-disabled='disabled' ng-click='getMore()'>{{ text }}</button>",
+    link: function(scope, element) {
+
+      scope.lastPage = false;
+      scope.text = "Дай ОЩЕ!";
+      scope.disabled = false;
+
+      var success = function(response) {
+        scope.collection = scope.collection.concat(response[scope.collectionType+"s"]);
+
+        scope.disabled = false;
+        scope.text = "Дай ОЩЕ";
+
+        if (response.page === response.pages_count) {
+          scope.lastPage = true;
+        }
+      }
+
+      var failure = function(data) {
+      }
+
+      scope.getMore = function() {
+        scope.disabled = true;
+        scope.text = "Пуф Паф!";
+
+        var params = {
+          page: scope.nextPage
+        };
+
+        if (typeof scope.userId !== "undefined") {
+          params.user_id = scope.userId;
+        }
+
+        if (scope.collectionType === "proposal") {
+          proposalService.query(params).$promise.then(success, failure);
+          scope.nextPage = parseInt(scope.nextPage) + 1;
+        } else {
+          commentService.query(params).$promise.then(success, failure);
+          scope.nextPage = parseInt(scope.nextPage) + 1;
+        }
+      }
+
     }
   }
 }]);
