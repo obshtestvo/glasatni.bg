@@ -15,131 +15,128 @@
 
 <section id="topnav">
   <div class="container">
-    <div class="pull-left">
-      <%= link_to "Дудъл", doodle_path, class: "btn btn-link" %>
-    </div>
-    <% if user_signed_in? %>
-      <div class="pull-right">
-        Здравей, <%= link_to current_user.name, "/#/users/#{current_user.id}", id: "username" %> (<%= current_user.reputation %>) |
-        <%= link_to edit_user_registration_path, :class => "btn btn-link" do %>
-          <i class="fa fa-wrench"></i> &nbsp;Настройки
-        <% end %>
-        <%= link_to destroy_user_session_path, :method => :delete, :class => "btn btn-link" do %>
-          <i class="fa fa-sign-out"></i> &nbsp;Изход
-        <% end %>
-      </div>
-    <% else %>
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+      <%= link_to "Начало", doodle_path, class: "btn btn-link" %>
+      <% if user_signed_in? %>
+        <div class="pull-right">
+          Здравей, <%= link_to current_user.name, "/#/users/#{current_user.id}", id: "username" %> (<%= current_user.reputation %>) |
+          <%= link_to edit_user_registration_path, :class => "btn btn-link" do %>
+            <i class="fa fa-wrench"></i> &nbsp;Настройки
+          <% end %>
+          <%= link_to destroy_user_session_path, :method => :delete, :class => "btn btn-link" do %>
+            <i class="fa fa-sign-out"></i> &nbsp;Изход
+          <% end %>
+        </div>
+      <% else %>
 
-      <ul class="nav navbar-nav navbar-right">
-        <!-- login dropdown -->
-        <li class="dropdown">
-          <a href="#" class="btn btn-link dropdown-toggle" data-target="login-menu" data-toggle="dropdown" data-disabled=true>
-            <i class="fa fa-sign-in"></i>&nbsp; Влез <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu login-menu" role="menu">
-            <li class="dropdown-header">Радвам се да те видя отново.</li>
-            <li>
-              <%= link_to new_session_path(:user) do %>
+        <ul class="nav navbar-nav navbar-right">
+          <!-- login dropdown -->
+          <li class="dropdown">
+            <a href="#" class="btn btn-link dropdown-toggle" data-target="login-menu" data-toggle="dropdown" data-disabled=true>
+              <i class="fa fa-sign-in"></i>&nbsp; Влез <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu login-menu" role="menu">
+              <li class="dropdown-header">Радвам се да те видя отново.</li>
+              <li>
+                <%= link_to new_session_path(:user) do %>
+                  <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
+                <% end %>
+              </li>
+              <li>
+                <%= link_to user_omniauth_authorize_path(:facebook) do %>
+                  <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
+                <% end %>
+              </li>
+            </ul>
+          </li>
+          <!-- register dropdown -->
+          <li class="dropdown">
+            <a href="#" class="btn btn-link dropdown-toggle" data-target="register-menu" data-toggle="dropdown" data-disabled=true>
+              <i class="fa fa-plug"></i> &nbsp; Регистрирай се <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu register-menu">
+              <li class="dropdown-header">Радвам се да се запознаем.<br />Можеш да се регистрираш с:</li>
+              <li>
+              <%= link_to new_registration_path(:user) do %>
                 <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
               <% end %>
-            </li>
-            <li>
+              </li>
+              <li>
               <%= link_to user_omniauth_authorize_path(:facebook) do %>
                 <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
               <% end %>
-            </li>
-          </ul>
-        </li>
-        <!-- register dropdown -->
-        <li class="dropdown">
-          <a href="#" class="btn btn-link dropdown-toggle" data-target="register-menu" data-toggle="dropdown" data-disabled=true>
-            <i class="fa fa-plug"></i> &nbsp; Регистрирай се <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu register-menu">
-            <li class="dropdown-header">Радвам се да се запознаем.<br />Можеш да се регистрираш с:</li>
-            <li>
-            <%= link_to new_registration_path(:user) do %>
-              <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
-            <% end %>
-            </li>
-            <li>
-            <%= link_to user_omniauth_authorize_path(:facebook) do %>
-              <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
-            <% end %>
-            </li>
-          </ul>
-        </li>
-      </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
 
-    <% end %>
-    <div class="clearfix"></div>
+      <% end %>
+      <div class="clearfix"></div>
+    </div>
   </div>
+</div>
 </section>
 
 <br />
 <div class="container">
+
   <div class="row">
-    <div class="col-md-9">
-      <%= link_to root_path do %>
-        <%= image_tag "glasatni_logo.png", width: 230 %>
+    <div class="col-md-10 col-md-offset-1">
+
+      <% if notice %>
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <%= notice %>
+        </div>
+      <% elsif alert %>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <%= alert %>
+        </div>
       <% end %>
-    </div>
-    <div class="col-md-3">
+
+      <div class="row">
+        <div class="col-md-8">
+          <%= link_to root_path do %>
+            <%= image_tag "glasatni_logo.png", width: 230 %>
+          <% end %>
+        </div>
+        <div class="col-md-4">
+          <br />
+          <br />
+          <% if user_signed_in? %>
+            <a href="/#/proposals/new" class="btn btn-success pull-right">
+              <i class="fa fa-plus-square"></i> &nbsp;Направи предложение
+            </a>
+          <% end %>
+        </div>
+      </div>
       <br />
-      <% if user_signed_in? %>
-        <a href="/#/proposals/new" class="btn btn-success pull-right">
-          <i class="fa fa-plus-square"></i> &nbsp;Направи предложение
-        </a>
-      <% end %>
-    </div>
-  </div>
-</div>
 
-<br />
-<div class="container">
-
-  <% if notice %>
-    <div class="alert alert-success alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <%= notice %>
-    </div>
-  <% elsif alert %>
-    <div class="alert alert-danger alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <%= alert %>
-    </div>
-  <% end %>
-
-  <div class="row">
-    <div class="col-md-10">
       <%= yield %>
-    </div>
-    <div class="col-md-2">
-      <div class="fb-like-box" data-href="https://www.facebook.com/pages/%D0%93%D0%BB%D0%B0%D1%81%D0%B0-%D0%BD%D0%B8/479851892157819" data-width="150" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
+
+      <div class="clearfix"></div>
+      <hr />
+
+      <p class="text-center text-muted"><small>Партньори</small></p>
+
+      <br />
+
+      <div class="row">
+        <div class="col-md-2"><%= image_tag "eea_grants_logo.png", width: 100 %></div>
+        <div class="col-md-2"><%= image_tag "bcnl_logo.png", width: 100 %></div>
+        <div class="col-md-2"><%= image_tag "proinfo_logo.png", width: 100 %></div>
+        <div class="col-md-2"><%= image_tag "obshtestvo_logo.png", width: 100 %></div>
+        <div class="col-md-2"><%= image_tag "offnews_logo.png", width: 100 %></div>
+        <div class="col-md-2"><%= image_tag "capital_foundation_logo.png", width: 100 %></div>
+      </div>
+
       <br />
       <br />
-      <%= image_tag "eea_grants_logo.png", width: 165 %>
-      <br />
-      <br />
-      <%= image_tag "bcnl_logo.png", width: 165 %>
-      <br />
-      <br />
-      <%= image_tag "proinfo_logo.png", width: 165 %>
-      <br />
-      <br />
-      <%= image_tag "obshtestvo_logo.png", width: 165 %>
-      <br />
-      <br />
-      <%= image_tag "offnews_logo.png", width: 165 %>
-      <br />
-      <br />
-      <%= image_tag "capital_foundation_logo.png", width: 165 %>
     </div>
   </div>
 
-<hr />
-
-<p class="text-center text-muted"><small>Тук може да се сложат връзки и/или информация. Изработено от <%= link_to "Общество.бг", "http://obshtestvo.bg" %> </small></p>
 
 </div>
 
