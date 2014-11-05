@@ -1,12 +1,12 @@
 <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-2 col-sm-2">
     <filter order="params.order">
       <li><a href="" ng-show="params.order != 'newest'" ng-click="params.order='newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
       <li><a href="" ng-show="params.order != 'oldest'" ng-click="params.order='oldest'"><i class="fa fa-calendar-o fa-lg"></i>&nbsp; Най-стари</a></li>
       <li><a href="" ng-show="params.order != 'relevance'" ng-click="params.order='relevance'"><i class="fa fa-trophy fa-lg"></i>&nbsp; Най-подкрепени</a></li>
     </filter>
   </div>
-  <div class="col-md-10">
+  <div class="col-md-10 col-sm-10">
     <pagination ng-model="params.page" total-items="commentsCount" items-per-page="<%= Comment.default_per_page %>" max-size="5"
     class="pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
     last-text="Последна"></pagination>

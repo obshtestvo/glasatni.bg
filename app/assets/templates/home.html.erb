@@ -1,26 +1,26 @@
 <%= image_tag "doodle.jpg", width: "100%" %>
 
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-3 col-sm-6 col-xs-6">
     <h3>Гражданско образование</h3>
     <%= image_tag "education.jpg", width: "100%" %>
     <p><%= Theme.find_by(name: "Гражданско образование").info.truncate(200) %></p>
     <p><a class="btn btn-default" href="/#/themes/5">Научи още! »</a></p>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 col-sm-6 col-xs-6">
     <h3>Гражданско участие</h3>
     <%= image_tag "participation.jpg", width: "100%" %>
     <p><%= Theme.find_by(name: "Гражданско участие").info.truncate(200) %></p>
     <p><a class="btn btn-default" href="/#/themes/4">Научи още! »</a></p>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 col-sm-6 col-xs-6">
     <h3>Доброволчество</h3>
     <%= image_tag "volunteering.jpg", width: "100%" %>
     <p><%= Theme.find_by(name: "Доброволчество").info.truncate(200) %></p>
     <p><a class="btn btn-default" href="/#/themes/3">Научи още! »</a></p>
   </div>
-  <div class="col-md-3">
-    <h3>Неправителствени организации</h3>
+  <div class="col-md-3 col-sm-6 col-xs-6">
+    <h3>НПО</h3>
     <%= image_tag "ngo.jpg", width: "100%" %>
     <p><%= Theme.find_by(name: "НПО").info.truncate(200) %></p>
     <p><a class="btn btn-default" href="/#/themes/5">Научи още! »</a></p>
