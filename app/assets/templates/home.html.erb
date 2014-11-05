@@ -4,25 +4,25 @@
   <div class="col-md-3">
     <h3>Гражданско образование</h3>
     <%= image_tag "education.jpg", width: "100%" %>
-    <p><%= truncate(Theme.find_by(name: "Гражданско образование").info, length: 200) %></p>
+    <p><%= Theme.find_by(name: "Гражданско образование").info.truncate(200) %></p>
     <p><a class="btn btn-default" href="/#/themes/5">Научи още! »</a></p>
   </div>
   <div class="col-md-3">
     <h3>Гражданско участие</h3>
     <%= image_tag "participation.jpg", width: "100%" %>
-    <p><%= truncate(Theme.find_by(name: "Гражданско участие").info, length: 200) %></p>
+    <p><%= Theme.find_by(name: "Гражданско участие").info.truncate(200) %></p>
     <p><a class="btn btn-default" href="/#/themes/4">Научи още! »</a></p>
   </div>
   <div class="col-md-3">
     <h3>Доброволчество</h3>
     <%= image_tag "volunteering.jpg", width: "100%" %>
-    <p><%= truncate(Theme.find_by(name: "Доброволчество").info, length: 200) %></p>
+    <p><%= Theme.find_by(name: "Доброволчество").info.truncate(200) %></p>
     <p><a class="btn btn-default" href="/#/themes/3">Научи още! »</a></p>
   </div>
   <div class="col-md-3">
     <h3>Неправителствени организации</h3>
     <%= image_tag "ngo.jpg", width: "100%" %>
-    <p><%= truncate(Theme.find_by(name: "НПО").info, length: 200) %></p>
+    <p><%= Theme.find_by(name: "НПО").info.truncate(200) %></p>
     <p><a class="btn btn-default" href="/#/themes/5">Научи още! »</a></p>
   </div>
 </div>
@@ -33,7 +33,8 @@
   </div>
   <div class="col-md-8">
     <h3>Мета тема</h3>
-    <p><%= Theme.find_by(name: "Мета тема").info %></p>
+    <p><%= Theme.find_by(name: "Мета тема").info.truncate(200) %></p>
     <p><a class="btn btn-default" href="/#/themes/4">Научи още! »</a></p>
   </div>
 </div>
+

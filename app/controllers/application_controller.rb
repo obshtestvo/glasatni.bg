@@ -7,10 +7,6 @@ class ApplicationController < ActionController::Base
   def about
   end
 
-  def doodle
-    @themes = Theme.all
-  end
-
   def rank
     @rank = application_params[:rank]
     if @rank.in? User.comments_ranks.keys

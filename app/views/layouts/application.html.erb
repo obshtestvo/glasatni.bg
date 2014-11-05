@@ -17,7 +17,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
-      <%= link_to "Начало", doodle_path, class: "btn btn-link" %>
+      <%= link_to "Начало", "/#/home", class: "btn btn-link" %>
       <% if user_signed_in? %>
         <div class="pull-right">
           Здравей, <%= link_to current_user.name, "/#/users/#{current_user.id}", id: "username" %> (<%= current_user.reputation %>) |
