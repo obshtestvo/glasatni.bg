@@ -10,7 +10,7 @@ class Theme < ActiveRecord::Base
       ngo: "НПО",
       participation: "Гражданско участие",
       education: "Гражданско образование",
-      meta: "Мета тема"
+      meta: "Мета"
     }
   end
 end
