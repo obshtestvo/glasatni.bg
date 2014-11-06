@@ -15,7 +15,7 @@ module Api
         end
         query = query.where(user_id: user_id) if user_id.present?
         query = query.custom_order(order) if order.present?
-        query = query.includes(:user).includes(:theme)
+        query = query.includes(:user).includes(theme: :moderator)
 
         @proposals_count = query.count
         @page = proposal_params[:page].present? ? proposal_params[:page].to_i : 1
