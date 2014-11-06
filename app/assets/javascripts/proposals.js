@@ -18,11 +18,11 @@ promeni.service('proposalService', ["$routeParams", "Proposal", function($routeP
   }
 
   this.update = function(proposal) {
-    return Proposal.update({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme_id });
+    return Proposal.update({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme.id });
   }
 
   this.save = function(proposal) {
-    return Proposal.save({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme_id });
+    return Proposal.save({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme.id });
   }
 
   this.flag = function(proposal, reason) {
