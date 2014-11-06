@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20140928223330) do
   create_table "themes", force: true do |t|
     t.string   "name"
     t.text     "info"
+    t.integer  "user_id"
     t.integer  "proposals_count", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"

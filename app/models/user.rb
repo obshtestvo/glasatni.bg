@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :votings
   has_many :flags
+  has_one :theme
 
   enum role: [:registered, :moderator, :admin]
   enum comments_rank: [:observer, :speaker, :orator]

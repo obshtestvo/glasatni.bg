@@ -46,7 +46,8 @@
         <small>
           в <a href="/#/themes/{{ proposal.theme_id }}">{{ proposal.theme_name }}</a> |
           {{ proposal.comments_count }} коментара |
-          автор: <a href="/#/users/{{ proposal.user_id }}">{{ proposal.username }}</a>
+          автор: <a href="/#/users/{{ proposal.user.id }}">{{ proposal.user.name }}</a> |
+          модератор: <a href="/#/users/{{ proposal.theme.moderator.id }}">{{ proposal.theme.moderator.name }}</a>
         </small>
         </h3>
       </div>

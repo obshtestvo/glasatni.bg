@@ -1,5 +1,6 @@
 class Theme < ActiveRecord::Base
   has_many :proposals
+  belongs_to :moderator, class_name: :User, foreign_key: :user_id
 
   private
   def self.en_names
