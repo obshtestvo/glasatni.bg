@@ -2,8 +2,12 @@ json.id @proposal.id
 json.type "proposal"
 json.title @proposal.title
 json.content @proposal.content
-json.theme_id @proposal.theme_id
-json.theme_name @proposal.theme.name
+
+json.theme do
+  json.id @proposal.theme.id
+  json.name @proposal.theme.name
+end
+
 json.comments_count @proposal.comments_count
 json.hotness @proposal.hotness
 json.user_id @proposal.user.id

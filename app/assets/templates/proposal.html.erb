@@ -9,7 +9,7 @@
   </div>
   <div class="col-md-11">
     <h3>{{ proposal.title }}</h3>
-    <a class="btn btn-success btn-sm pull-left" href="/#/themes/{{ proposal.theme_id }}">{{ proposal.theme_name }}</a>
+    <a class="btn btn-success btn-sm pull-left" href="/#/themes/{{ proposal.theme.id }}">{{ proposal.theme.name }}</a>
     <div class="btn-group pull-right">
       <a class="btn btn-default btn-sm" href="/#/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil fa-lg"></i>&nbsp; Редактирай</a>
       <a class="btn btn-default btn-sm btn-danger" data-confirm="Сигурен ли си, че искаш да изтриеш това предложение?" data-method="delete" href="/proposals/{{ proposal.id }}" rel="nofollow">
