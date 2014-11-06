@@ -37,7 +37,7 @@
       </ul>
     </div>
     <p class="text-muted">Показани са {{ proposals.length }} от {{ proposalsCount }} предложения</p>
-    <more-button collection="proposals" collection-type="proposal" user-id="{{ user.id }}" next-page="2"></more-button>
+    <more-button ng-hide="proposals.length == proposalsCount" collection="proposals" collection-type="proposal" user-id="{{ user.id }}" next-page="2"></more-button>
   </div>
 
   <div class="col-md-6">
@@ -55,7 +55,7 @@
       </ul>
     </div>
     <p class="text-muted">Показани са {{ comments.length }} от {{ commentsCount }} коментара</p>
-    <more-button collection="comments" collection-type="comment" user-id="{{ user.id }}" next-page="2"></more-button>
+    <more-button ng-hide="comments.length == commentsCount" collection="comments" collection-type="comment" user-id="{{ user.id }}" next-page="2"></more-button>
   </div>
 
 </div>

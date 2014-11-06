@@ -164,22 +164,17 @@ promeni.directive("moreButton", ["commentService", "proposalService", function(c
       userId: "@",
       nextPage: "@"
     },
-    template: "<button class='btn btn-default' ng-hide='lastPage' ng-disabled='disabled' ng-click='getMore()'>{{ text }}</button>",
+    template: "<button class='btn btn-default' ng-disabled='disabled' ng-click='getMore()'>{{ text }}</button>",
     link: function(scope, element) {
 
-      scope.lastPage = false;
-      scope.text = "Дай ОЩЕ!";
       scope.disabled = false;
+      scope.text = "Дай ОЩЕ!";
 
       var success = function(response) {
         scope.collection = scope.collection.concat(response[scope.collectionType+"s"]);
 
         scope.disabled = false;
-        scope.text = "Дай ОЩЕ";
-
-        if (response.page === response.pages_count) {
-          scope.lastPage = true;
-        }
+        scope.text = "Дай ОЩЕ!";
       }
 
       var failure = function(data) {
