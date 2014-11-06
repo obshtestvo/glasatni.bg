@@ -2,11 +2,9 @@
 
 <div class="form-group">
   <select class="form-control" id="proposal_theme_id" name="proposal[theme_id]">
-    <option value="2">НПО</option>
-    <option value="5">Мета тема</option>
-    <option value="4">Доброволчество</option>
-    <option value="3">Гражданско образование</option>
-    <option value="1">Гражданско участие</option>
+    <% Theme.pluck(:id, :name).each do |t| %>
+      <option value="<%= t[0] %>"><%= t[1] %></option>
+    <% end %>
   </select>
 </div>
 
