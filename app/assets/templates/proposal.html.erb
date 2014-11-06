@@ -12,7 +12,7 @@
     <a class="btn btn-success btn-sm pull-left" href="/#/themes/{{ proposal.theme.id }}">{{ proposal.theme.name }}</a>
     <div class="btn-group pull-right">
       <a class="btn btn-default btn-sm" href="/#/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil fa-lg"></i>&nbsp; Редактирай</a>
-      <a class="btn btn-default btn-sm btn-danger" data-confirm="Сигурен ли си, че искаш да изтриеш това предложение?" data-method="delete" href="/proposals/{{ proposal.id }}" rel="nofollow">
+      <a class="btn btn-default btn-sm btn-danger" ng-click="delete(proposal)" rel="nofollow">
         <i class="fa fa-times fa-lg"></i>&nbsp; Изтрий
       </a>
     </div>

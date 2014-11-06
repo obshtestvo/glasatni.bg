@@ -45,6 +45,11 @@ module Api
         end
       end
 
+      def destroy
+        @proposal.destroy
+        render json: { success: true }
+      end
+
       private
       def set_proposal
         @proposal = Proposal.find(params[:id])

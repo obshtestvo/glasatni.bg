@@ -29,6 +29,10 @@ promeni.service('proposalService', ["$routeParams", "Proposal", function($routeP
     return Proposal.flag({ id: proposal.id, reason: reason, flaggable: "proposal" });
   }
 
+  this.delete = function(proposal) {
+    return Proposal.delete({ id: proposal.id });
+  }
+
   this.vote = function(params) {
     return Proposal.vote(params);
   }
@@ -61,7 +65,7 @@ ProposalIndexController.loadProposals = ["$route", "proposalService", function($
   });
 }];
 
-promeni.controller("ProposalShowController", ["$scope", "proposalService", function($scope, proposalService) {
+promeni.controller("ProposalShowController", ["$scope", "$location", "proposalService", function($scope, $location, proposalService) {
 
   proposalService.get().$promise.then(function(proposal) {
     $scope.proposal = proposal;
@@ -77,6 +81,12 @@ promeni.controller("ProposalShowController", ["$scope", "proposalService", funct
 
   $scope.closeAlert = function(comment) {
     comment.alerts = [];
+  }
+
+  $scope.delete = function(proposal) {
+    proposalService.delete(proposal).$promise.then(function(data) {
+      $location.path("/themes/" + proposal.theme.id);
+    });
   }
 
 }]);
