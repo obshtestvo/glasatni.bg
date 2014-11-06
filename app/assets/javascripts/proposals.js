@@ -105,7 +105,9 @@ promeni.controller("ProposalCreateController", ["$scope", "$location", "proposal
   $scope.proposal = {
     title: "",
     conetnt: "",
-    theme_id: 1
+    theme: {
+      id: $("select option").get(0).value,
+    }
   }
 
   $scope.submitProposal = function(proposal) {
