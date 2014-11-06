@@ -1,9 +1,9 @@
 <h1>{{ title }}</h1>
 
 <div class="form-group">
-  <select class="form-control" id="proposal_theme_id" name="proposal[theme_id]">
+  <select class="form-control" ng-model="proposal.theme_id">
     <% Theme.pluck(:id, :name).each do |t| %>
-      <option value="<%= t[0] %>"><%= t[1] %></option>
+      <option value="<%= t[0] %>" ng-selected="proposal.theme.id == <%= t[0] %>"><%= t[1] %></option>
     <% end %>
   </select>
 </div>
