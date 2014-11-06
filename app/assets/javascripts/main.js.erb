@@ -33,7 +33,6 @@ promeni.config(['$routeProvider', function($routeProvider) {
       data: ProposalIndexController.loadProposals
     }
   }).when("/home", {
-    controller: "HomeController",
     templateUrl: "<%= asset_path('home.html') %>",
   }).when("/:theme/:order/:page", {
     controller: "ProposalIndexController",
