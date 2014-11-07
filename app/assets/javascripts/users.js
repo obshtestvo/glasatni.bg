@@ -19,3 +19,13 @@ promeni.controller("UserController", ["$scope", "$routeParams", "$http", functio
 
 }]);
 
+promeni.directive("userButton", [function() {
+  return {
+    restrict: "E",
+    templateUrl: "user_button.html",
+    scope: {
+      user: "&"
+    }
+  }
+}]);
+

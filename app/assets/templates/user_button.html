@@ -1,0 +1,13 @@
+<a href="/#/users/{{ user.id }}" class="btn btn-default btn-sm pull-right">
+
+  <i class="fa fa-binoculars fa-sm" ng-show="user.comments_rank == 'observer'"></i>
+  <i class="fa fa-bullhorn fa-sm" ng-show="user.comments_rank == 'speaker'"></i>
+  <i class="fa fa-microphone fa-sm" ng-show="user.comments_rank == 'orator'"></i>
+
+  <i class="fa fa-eye fa-sm" ng-show="user.proposals_rank == 'enthusiast'"></i>
+  <i class="fa fa-gavel fa-sm" ng-show="user.proposals_rank == 'activist'"></i>
+  <i class="fa fa-institution fa-sm" ng-show="user.proposals_rank == 'policy_maker'"></i>
+
+  {{ user.name }}
+</a>
+

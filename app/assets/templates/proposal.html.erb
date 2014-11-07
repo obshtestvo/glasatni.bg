@@ -32,7 +32,7 @@
 
 <br />
 <div class="clearfix"></div>
-<alert ng-repeat="alert in proposal.alerts" type="{{alert.type}}" close="closeAlert(proposal)">{{alert.msg}}</alert>
+<alert ng-repeat="alert in proposal.alerts" type="{{ alert.type }}" close="closeAlert(proposal)">{{ alert.msg }}</alert>
 
 <markdown content="proposal.content"></markdown>
 
@@ -46,7 +46,7 @@
     </div>
   </div>
   <div class="col-md-4">
-    <a href="/#/users/{{proposal.user_id}}" class="btn btn-default btn-sm pull-right">{{ proposal.username }}</a>
+    <user-button user="proposal.user"></user-button>
   </div>
 </div>
 
