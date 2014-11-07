@@ -10,14 +10,7 @@ end
 
 json.comments_count @proposal.comments_count
 json.hotness @proposal.hotness
-
-json.user do
-  json.id @proposal.user.id
-  json.name @proposal.user.name
-  json.comments_rank @proposal.user.comments_rank
-  json.proposals_rank @proposal.user.proposals_rank
-end
-
+json.user @proposal.user, :id, :name, :comments_rank, :proposals_rank
 voted = Voting.where(votable_id: @proposal.id, user: current_user).first
 json.voted voted.value unless voted.nil?
 
