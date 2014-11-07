@@ -63,7 +63,7 @@ promeni.directive('commentSection', ["commentService", function(commentService) 
         commentService.save({ commentable_id: scope.comment.id, commentable_type: "comment", content: scope.comment.reply }).$promise.then(function(reply) {
           commentService.query({ commentable_id: scope.comment.id, commentable_type: "comment", order: "relevance" }).$promise.then(function(data) {
             scope.comment.comments = data.comments;
-            scope.comment.comments_count = data.comments_count;
+            scope.comment.commentsCount = data.comments_count;
           });
 
           scope.comment.reply = "";
@@ -173,7 +173,7 @@ promeni.directive('commentActions', ['commentService', function(commentService) 
           // perhaps a better way?
           commentService.queryByComment({ commentable_id: scope.$parent.comment.id, order: "newest" }).$promise.then(function(data) {
             scope.$parent.comment.comments = data.comments;
-            scope.$parent.comment.comments_count = data.comments_count;
+            scope.proposal.commentsCount = data.comments_count;
           });
         });
       }
@@ -181,7 +181,7 @@ promeni.directive('commentActions', ['commentService', function(commentService) 
       scope.showNestedComments = function(comment) {
         commentService.queryByComment({ commentable_id: comment.id, order: "newest" }).$promise.then(function(data) {
           comment.comments = data.comments;
-          comment.comments_count = data.comments_count;
+          comment.commentsCount = data.comments_count;
         });
       }
 
