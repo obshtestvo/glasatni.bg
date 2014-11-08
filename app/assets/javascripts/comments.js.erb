@@ -21,7 +21,7 @@ promeni.service("commentService", ["Comment", function(Comment) {
   }
 
   this.flag = function(params) {
-    return Comment.flag();
+    return Comment.flag(params);
   }
 
   this.vote = function(params) {
@@ -93,10 +93,7 @@ promeni.controller('CommentIndexController', ["$scope", "commentService", functi
 
   $scope.destroyComment = function(comment) {
     commentService.delete({ id: comment.id }).$promise.then(function(data) {
-      commentService.query({ commentable_type: "proposal", order: "newest" }).$promise.then(function(data) {
-        $scope.comments = data.comments;
-        $scope.commentsCount = data.comments_count;
-      });
+      getCommentsData();
     });
   }
 
