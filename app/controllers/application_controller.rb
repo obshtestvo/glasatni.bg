@@ -85,7 +85,7 @@ class ApplicationController < ActionController::Base
     if application_params[:flaggable_type] == "comment"
       flaggable = Comment.find(application_params[:flaggable_id])
     else
-      flaggable = Proposal.find(application_params[:id])
+      flaggable = Proposal.find(application_params[:flaggable_id])
     end
 
     flag = Flag.find_or_initialize_by({

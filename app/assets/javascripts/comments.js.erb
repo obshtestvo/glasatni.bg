@@ -59,7 +59,7 @@ promeni.controller('CommentIndexController', ["$scope", "Comment", function($sco
   }
 
   $scope.flag = function(comment, reason) {
-    Comment.flag(comment, reason).$promise.then(function(data) {
+    Comment.flag({ flaggable_id: comment.id, reason: reason, flaggable_type: "comment" }).$promise.then(function(data) {
       comment.alerts = [{
         type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
       }];

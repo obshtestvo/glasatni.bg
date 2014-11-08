@@ -61,7 +61,7 @@ promeni.controller("ProposalShowController", ["$scope", "$routeParams", "$locati
   });
 
   $scope.flag = function(proposal, reason) {
-    Proposal.flag({ id: proposal.id, reason: reason, flaggable: "proposal" }).$promise.then(function(data) {
+    Proposal.flag({ flaggable_id: proposal.id, reason: reason, flaggable_type: "proposal" }).$promise.then(function(data) {
       proposal.alerts = [{
         type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
       }];
