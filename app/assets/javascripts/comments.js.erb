@@ -6,31 +6,7 @@ promeni.factory('Comment', ['$resource', function($resource) {
   });
 }]);
 
-promeni.service("commentService", ["Comment", function(Comment) {
-
-  this.query = function(params) {
-    return Comment.query(params);
-  }
-
-  this.save = function(params) {
-    return Comment.save(params);
-  }
-
-  this.delete = function(params) {
-    return Comment.delete(params);
-  }
-
-  this.flag = function(params) {
-    return Comment.flag(params);
-  }
-
-  this.vote = function(params) {
-    return Comment.vote(params);
-  }
-
-}]);
-
-promeni.controller('CommentCreateController', ["$scope", "commentService", function($scope, commentService) {
+promeni.controller('CommentCreateController', ["$scope", "Comment", function($scope, Comment) {
 
   $scope.logged_in = $("#logged_in").length !== 0 ? true : false;
 
@@ -47,8 +23,7 @@ promeni.controller('CommentCreateController', ["$scope", "commentService", funct
       commentable_type: "proposal",
       content: $scope.newComment.content
     };
-    commentService.save(params).$promise.then(function(comment) {
-      $scope.comments.unshift(comment);
+    Comment.save(params).$promise.then(function(comment) {
 
       $("#warning-box").slideUp();
       $("#comment-box").attr("rows", 3);
@@ -58,12 +33,12 @@ promeni.controller('CommentCreateController', ["$scope", "commentService", funct
 
 }]);
 
-promeni.controller('CommentIndexController', ["$scope", "commentService", function($scope, commentService) {
+promeni.controller('CommentIndexController', ["$scope", "Comment", function($scope, Comment) {
   var getCommentsData = function() {
     var params = angular.copy($scope.params);
     params.commetable_type = "proposal";
 
-    commentService.query(params).$promise.then(function(data) {
+    Comment.query(params).$promise.then(function(data) {
       $scope.comments = data.comments;
       $scope.commentsCount = data.comments_count;
     });
@@ -84,7 +59,7 @@ promeni.controller('CommentIndexController', ["$scope", "commentService", functi
   }
 
   $scope.flag = function(comment, reason) {
-    commentService.flag(comment, reason).$promise.then(function(data) {
+    Comment.flag(comment, reason).$promise.then(function(data) {
       comment.alerts = [{
         type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
       }];
@@ -92,7 +67,7 @@ promeni.controller('CommentIndexController', ["$scope", "commentService", functi
   }
 
   $scope.destroyComment = function(comment) {
-    commentService.delete({ id: comment.id }).$promise.then(function(data) {
+    Comment.delete({ id: comment.id }).$promise.then(function(data) {
       getCommentsData();
     });
   }

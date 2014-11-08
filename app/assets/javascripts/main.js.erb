@@ -84,7 +84,7 @@ promeni.filter('countWords', [function() {
   };
 }]);
 
-promeni.directive('votingButtons', ['proposalService', 'commentService', function(proposalService, commentService) {
+promeni.directive('votingButtons', ['proposalService', 'Comment', function(proposalService, Comment) {
   return {
     restrict: 'E',
     scope: {
@@ -124,7 +124,7 @@ promeni.directive('votingButtons', ['proposalService', 'commentService', functio
         if (scope.votableType === "proposal") {
           proposalService.vote(params).$promise.then(success, failure);
         } else {
-          commentService.vote(params).$promise.then(success, failure);
+          Comment.vote(params).$promise.then(success, failure);
         }
       }
 
@@ -154,7 +154,7 @@ promeni.directive('markdown', [function() {
   }
 }]);
 
-promeni.directive("moreButton", ["commentService", "proposalService", function(commentService, proposalService) {
+promeni.directive("moreButton", ["Comment", "proposalService", function(Comment, proposalService) {
   return {
     restrict: "E",
     scope: {
@@ -196,7 +196,7 @@ promeni.directive("moreButton", ["commentService", "proposalService", function(c
           proposalService.query(params).$promise.then(success, failure);
           scope.nextPage = parseInt(scope.nextPage) + 1;
         } else {
-          commentService.query(params).$promise.then(success, failure);
+          Comment.query(params).$promise.then(success, failure);
           scope.nextPage = parseInt(scope.nextPage) + 1;
         }
       }
