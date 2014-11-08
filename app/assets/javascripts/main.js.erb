@@ -84,7 +84,7 @@ promeni.filter('countWords', [function() {
   };
 }]);
 
-promeni.directive('votingButtons', ['proposalService', 'Comment', function(proposalService, Comment) {
+promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Comment) {
   return {
     restrict: 'E',
     scope: {
@@ -122,7 +122,7 @@ promeni.directive('votingButtons', ['proposalService', 'Comment', function(propo
         }
 
         if (scope.votableType === "proposal") {
-          proposalService.vote(params).$promise.then(success, failure);
+          Proposal.vote(params).$promise.then(success, failure);
         } else {
           Comment.vote(params).$promise.then(success, failure);
         }
@@ -154,7 +154,7 @@ promeni.directive('markdown', [function() {
   }
 }]);
 
-promeni.directive("moreButton", ["Comment", "proposalService", function(Comment, proposalService) {
+promeni.directive("moreButton", ["Comment", "Proposal", function(Comment, Proposal) {
   return {
     restrict: "E",
     scope: {
@@ -193,7 +193,7 @@ promeni.directive("moreButton", ["Comment", "proposalService", function(Comment,
         }
 
         if (scope.collectionType === "proposal") {
-          proposalService.query(params).$promise.then(success, failure);
+          Proposal.query(params).$promise.then(success, failure);
           scope.nextPage = parseInt(scope.nextPage) + 1;
         } else {
           Comment.query(params).$promise.then(success, failure);

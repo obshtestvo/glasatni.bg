@@ -28,38 +28,6 @@ promeni.factory('Proposal', ["$resource", function($resource) {
   });
 }]);
 
-promeni.service('proposalService', ["$routeParams", "Proposal", function($routeParams, Proposal) {
-
-  this.get = function() {
-    return Proposal.get({ id: $routeParams.id });
-  };
-
-  this.query = function(params) {
-    return Proposal.query(params);
-  }
-
-  this.update = function(proposal) {
-    return Proposal.update({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme.id });
-  }
-
-  this.save = function(proposal) {
-    return Proposal.save({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme.id });
-  }
-
-  this.flag = function(proposal, reason) {
-    return Proposal.flag({ id: proposal.id, reason: reason, flaggable: "proposal" });
-  }
-
-  this.delete = function(proposal) {
-    return Proposal.delete({ id: proposal.id });
-  }
-
-  this.vote = function(params) {
-    return Proposal.vote(params);
-  }
-
-}]);
-
 var ProposalIndexController = promeni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "data", function($scope, $routeParams, $location, data) {
 
   $scope.proposals = data.proposals;
@@ -75,25 +43,25 @@ var ProposalIndexController = promeni.controller("ProposalIndexController", ["$s
 
 }]);
 
-ProposalIndexController.loadProposals = ["$route", "proposalService", function($route, proposalService) {
+ProposalIndexController.loadProposals = ["$route", "Proposal", function($route, Proposal) {
   var params = {
     theme_name: $route.current.params.theme,
     order: $route.current.params.order,
     page: $route.current.params.page
   };
-  return proposalService.query(params).$promise.then(function(data) {
+  return Proposal.query(params).$promise.then(function(data) {
     return data;
   });
 }];
 
-promeni.controller("ProposalShowController", ["$scope", "$location", "proposalService", function($scope, $location, proposalService) {
+promeni.controller("ProposalShowController", ["$scope", "$routeParams", "$location", "Proposal", function($scope, $routeParams, $location, Proposal) {
 
-  proposalService.get().$promise.then(function(proposal) {
+  Proposal.get({ id: $routeParams.id }).$promise.then(function(proposal) {
     $scope.proposal = proposal;
   });
 
   $scope.flag = function(proposal, reason) {
-    proposalService.flag(proposal, reason).$promise.then(function(data) {
+    Proposal.flag({ id: proposal.id, reason: reason, flaggable: "proposal" }).$promise.then(function(data) {
       proposal.alerts = [{
         type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
       }];
@@ -105,29 +73,29 @@ promeni.controller("ProposalShowController", ["$scope", "$location", "proposalSe
   }
 
   $scope.delete = function(proposal) {
-    proposalService.delete(proposal).$promise.then(function(data) {
+    Proposal.delete({ id: proposal.id }).$promise.then(function(data) {
       $location.path("/themes/" + proposal.theme.id);
     });
   }
 
 }]);
 
-promeni.controller("ProposalEditController", ["$scope", "$location", "proposalService", function($scope, $location, proposalService) {
+promeni.controller("ProposalEditController", ["$scope", "$routeParams", "$location", "Proposal", function($scope, $routeParams, $location, Proposal) {
 
-  $scope.proposal = proposalService.get();
+  $scope.proposal = Proposal.get({ id: $routeParams.id });
   $scope.showFormatting = false;
   $scope.title = "Редактирай предложението";
   $scope.icon = "fa-pencil";
 
   $scope.submitProposal = function(proposal) {
-    proposalService.update(proposal).$promise.then(function(proposal) {
+    Proposal.update({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme.id }).$promise.then(function(proposal) {
       $location.path("/proposals/" + proposal.id);
     });
   }
 
 }]);
 
-promeni.controller("ProposalCreateController", ["$scope", "$location", "proposalService", function($scope, $location, proposalService) {
+promeni.controller("ProposalCreateController", ["$scope", "$location", "Proposal", function($scope, $location, Proposal) {
 
   $scope.showFormatting = false;
   $scope.title = "Направи предложение";
@@ -150,7 +118,7 @@ promeni.controller("ProposalCreateController", ["$scope", "$location", "proposal
       // TODO bring up modal or smth.
     }
 
-    proposalService.save(proposal).$promise.then(success, failure);
+    Proposal.save({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme.id }).$promise.then(success, failure);
   }
 
 }]);
