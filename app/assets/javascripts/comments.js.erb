@@ -30,7 +30,7 @@ promeni.service("commentService", ["Comment", function(Comment) {
 
 }]);
 
-promeni.controller('CommentCreateController', ["$scope", "commentService" , function($scope, commentService) {
+promeni.controller('CommentCreateController', ["$scope", "commentService", function($scope, commentService) {
 
   $scope.logged_in = $("#logged_in").length !== 0 ? true : false;
 
@@ -58,7 +58,7 @@ promeni.controller('CommentCreateController', ["$scope", "commentService" , func
 
 }]);
 
-promeni.controller('CommentIndexController', ["$scope", "commentService" , function($scope, commentService) {
+promeni.controller('CommentIndexController', ["$scope", "commentService", function($scope, commentService) {
   var getCommentsData = function() {
     var params = angular.copy($scope.params);
     params.commetable_type = "proposal";
@@ -83,8 +83,6 @@ promeni.controller('CommentIndexController', ["$scope", "commentService" , funct
     comment.alerts = [];
   }
 
-  getCommentsData();
-
   $scope.flag = function(comment, reason) {
     commentService.flag(comment, reason).$promise.then(function(data) {
       comment.alerts = [{
@@ -96,11 +94,13 @@ promeni.controller('CommentIndexController', ["$scope", "commentService" , funct
   $scope.destroyComment = function(comment) {
     commentService.delete({ id: comment.id }).$promise.then(function(data) {
       commentService.query({ commentable_type: "proposal", order: "newest" }).$promise.then(function(data) {
-        $scope.proposal.comments = data.comments;
-        $scope.proposal.commentsCount = data.comments_count;
+        $scope.comments = data.comments;
+        $scope.commentsCount = data.comments_count;
       });
     });
   }
+
+  getCommentsData();
 
 }]);
 
