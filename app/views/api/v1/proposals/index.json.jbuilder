@@ -2,7 +2,6 @@ votings = Voting.where(user: current_user, votable: @proposals).pluck(:votable_i
 
 json.proposals @proposals do |p|
   json.id p.id
-  json.theme_name p.theme.name
 
   json.user do
     json.id p.user_id

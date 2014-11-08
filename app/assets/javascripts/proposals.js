@@ -1,8 +1,29 @@
 promeni.factory('Proposal', ["$resource", function($resource) {
   return $resource('/api/v1/proposals/:id', null, {
-    'update': { method: 'PUT' },
-    'query': { method:'GET', isArray: false },
+    'query': {
+      method:'GET',
+      isArray: false,
+      transformResponse: function(data) {
+        data = JSON.parse(data);
+
+        data.proposals = data.proposals.map(function(p) {
+          return {
+            id: p.id,
+            user: p.user,
+            title: p.title,
+            content: p.content,
+            theme: p.theme,
+            commentsCount: p.comments_count,
+            user: p.user,
+            voted: p.voted
+          }
+        });
+
+        return data;
+      }
+    },
     'vote': { method: "POST", url: "/vote" },
+    'update': { method: 'PUT' },
     'flag': { method: "POST", url: "/flag" }
   });
 }]);
