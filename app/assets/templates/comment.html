@@ -18,40 +18,6 @@
       </div>
     </div>
 
-    <div class="row" ng-show="comment.showReplyBox">
-      <br />
-      <textarea name="test" id="test" class="form-control" rows="2" ng-model="comment.reply"></textarea>
-      <br />
-      <button class="btn btn-success btn-xs" ng-click="replyToComment()">Прати</button>
-      <button class="btn btn-link btn-xs" ng-click="cancelNewNestedComment()">Махни</button>
-      <br />
-    </div>
-
-    <div ng-repeat="nc in comment.comments">
-      <br ng-show="$first"/>
-      <div class="row">
-        <div class="col-md-1">
-          <voting-buttons votable="nc" votable-type="comment" button-size="'btn-xs'"></voting-buttons>
-        </div>
-        <div class="col-md-11">
-          <markdown content="nc.content"></markdown>
-          <alert ng-repeat="alert in nc.alerts" type="{{ alert.type }}" close="closeAlert(nc)">{{alert.msg}}</alert>
-
-          <div class="row">
-            <div class="col-md-10">
-              <comment-actions comment="nc" nested="true"></comment-actions>
-            </div>
-            <div class="col-md-2">
-              <user-button user="nc.user"></user-button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <hr ng-hide="$last"/>
-
-    </div>
-
   </div>
 </div>
 
