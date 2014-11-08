@@ -82,42 +82,12 @@ promeni.controller('CommentIndexController', ["$scope", "commentService" , funct
     getCommentsData();
   });
 
+  $scope.closeAlert = function(comment) {
+    comment.alerts = [];
+  }
+
   getCommentsData();
 
-}]);
-
-promeni.directive('commentSection', ["commentService", function(commentService) {
-  return {
-    restrict: 'E',
-    scope: {
-      comment: "=",
-    },
-    link: function(scope) {
-
-      scope.cancelNewNestedComment = function() {
-        scope.comment.reply = "";
-        scope.comment.showReplyBox = false;
-      }
-
-      scope.replyToComment = function() {
-        commentService.save({ commentable_id: scope.comment.id, commentable_type: "comment", content: scope.comment.reply }).$promise.then(function(reply) {
-          commentService.query({ commentable_id: scope.comment.id, commentable_type: "comment", order: "relevance" }).$promise.then(function(data) {
-            scope.comment.comments = data.comments;
-            scope.comment.commentsCount = data.comments_count;
-          });
-
-          scope.comment.reply = "";
-          scope.comment.showReplyBox = false;
-        });
-      }
-
-      scope.closeAlert = function(comment) {
-        comment.alerts = [];
-      }
-
-    },
-    templateUrl: "<%= asset_path('comment.html') %>"
-  }
 }]);
 
 promeni.directive('commentActions', ['commentService', function(commentService) {

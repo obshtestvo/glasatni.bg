@@ -108,7 +108,28 @@
   <div id="comments-list">
     <div ng-repeat="comment in comments">
 
-      <comment-section comment="comment"></comment-section>
+      <div class="row">
+        <div class="col-md-1 col-sm-1 col-xs-1">
+          <center>
+            <voting-buttons votable="comment" votable-type="comment"></voting-buttons>
+            <p class="text-muted rating">{{ comment.hotness }}</p>
+          </center>
+        </div>
+        <div class="col-md-11 col-sm-11 col-xs-11">
+          <markdown content="comment.content"></markdown>
+          <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="closeAlert(comment)">{{alert.msg}}</alert>
+
+          <div class="row">
+            <div class="col-md-10">
+              <comment-actions comment="comment"></comment-actions>
+            </div>
+            <div class="col-md-2">
+              <user-button user="comment.user"></user-button>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
       <hr ng-hide="$last"/>
 
