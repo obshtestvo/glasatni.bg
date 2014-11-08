@@ -60,18 +60,6 @@ promeni.controller("ProposalShowController", ["$scope", "$routeParams", "$locati
     $scope.proposal = proposal;
   });
 
-  $scope.flag = function(proposal, reason) {
-    Proposal.flag({ flaggable_id: proposal.id, reason: reason, flaggable_type: "proposal" }).$promise.then(function(data) {
-      proposal.alerts = [{
-        type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
-      }];
-    });
-  }
-
-  $scope.closeAlert = function(comment) {
-    comment.alerts = [];
-  }
-
   $scope.delete = function(proposal) {
     Proposal.delete({ id: proposal.id }).$promise.then(function(data) {
       $location.path("/themes/" + proposal.theme.id);

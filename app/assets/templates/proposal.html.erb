@@ -16,23 +16,13 @@
         <i class="fa fa-times fa-lg"></i>&nbsp; Изтрий
       </a>
     </div>
-
-    <div class="dropdown pull-right">
-      <button class="btn btn-default btn-sm dropdown-toggle proposal-report" type="button" id="dropdownMenu1" data-disabled="true" data-toggle="dropdown">
-        <i class="fa fa-bullhorn fa-lg"></i>&nbsp; Докладвай
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(proposal, 'spam')"><i class="fa fa-keyboard-o fa-lg"></i>&nbsp; СПАМ</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(proposal, 'hatespeech')"><i class="fa fa-users fa-lg"></i>&nbsp; Език на омразата</a></li>
-      </ul>
-    </div>
+    <flag-button type="proposal" flaggable="proposal" size="btn-sm"></flag-button>
   </div>
 </div>
 
 <br />
 <div class="clearfix"></div>
-<alert ng-repeat="alert in proposal.alerts" type="{{ alert.type }}" close="closeAlert(proposal)">{{ alert.msg }}</alert>
+<alert ng-repeat="alert in proposal.alerts" type="{{ alert.type }}" close="proposal.alerts=[]">{{ alert.msg }}</alert>
 
 <markdown content="proposal.content"></markdown>
 
@@ -117,22 +107,13 @@
         </div>
         <div class="col-md-11 col-sm-11 col-xs-11">
           <markdown content="comment.content"></markdown>
-          <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="closeAlert(comment)">{{alert.msg}}</alert>
+          <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="comment.alerts=[]">{{alert.msg}}</alert>
 
           <div class="row">
             <div class="col-md-10">
               <!-- comment actions -->
               <div class="btn-group">
-                <div class="btn-group">
-                  <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-disabled="true" data-toggle="dropdown">
-                    Докладвай
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'spam')">СПАМ</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'hatespeech')">Език на омразата</a></li>
-                  </ul>
-                </div>
+                <flag-button type="comment" flaggable="comment" size="btn-xs"></flag-button>
                 <button class="btn btn-danger btn-xs" ng-click="destroyComment(comment, $index)">Изтрий</button>
               </div>
               <!-- end of comment actions -->

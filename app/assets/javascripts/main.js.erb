@@ -205,6 +205,28 @@ promeni.directive("moreButton", ["Comment", "Proposal", function(Comment, Propos
   }
 }]);
 
+promeni.directive("flagButton", ["Comment", "Proposal", function(Comment, Proposal) {
+  return {
+    restrict: "E",
+    templateUrl: "<%= asset_path('flag_button.html') %>",
+    scope: {
+      flaggable: "=",
+      type: "@",
+      size: "@"
+    },
+    link: function(scope) {
+      scope.flag = function(flaggable, reason) {
+        var Flaggable = scope.type === "proposal" ? Proposal : Comment;
+        Flaggable.flag({ flaggable_id: flaggable.id, reason: reason, flaggable_type: scope.type }).$promise.then(function(data) {
+          flaggable.alerts = [{
+            type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
+          }];
+        });
+      }
+    }
+  }
+}]);
+
 promeni.directive("filter", [function() {
   return {
     restrict: "E",
@@ -215,3 +237,4 @@ promeni.directive("filter", [function() {
     }
   }
 }]);
+

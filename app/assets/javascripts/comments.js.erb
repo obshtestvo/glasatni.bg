@@ -54,18 +54,6 @@ promeni.controller('CommentIndexController', ["$scope", "Comment", function($sco
     getCommentsData();
   });
 
-  $scope.closeAlert = function(comment) {
-    comment.alerts = [];
-  }
-
-  $scope.flag = function(comment, reason) {
-    Comment.flag({ flaggable_id: comment.id, reason: reason, flaggable_type: "comment" }).$promise.then(function(data) {
-      comment.alerts = [{
-        type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
-      }];
-    });
-  }
-
   $scope.destroyComment = function(comment) {
     Comment.delete({ id: comment.id }).$promise.then(function(data) {
       getCommentsData();
