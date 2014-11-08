@@ -59,7 +59,32 @@ promeni.controller('CommentCreateController', ["$scope", "commentService" , func
     });
   }
 
-}])
+}]);
+
+promeni.controller('CommentIndexController', ["$scope", "commentService" , function($scope, commentService) {
+  var getCommentsData = function() {
+    var params = angular.copy($scope.params);
+    params.commetable_type = "proposal";
+
+    commentService.query(params).$promise.then(function(data) {
+      $scope.comments = data.comments;
+      $scope.commentsCount = data.comments_count;
+    });
+  }
+
+  $scope.params = {
+    order: "relevance",
+    page: 1
+  }
+
+  $scope.$watchCollection("[params.order, params.page]", function(newValue, oldValue) {
+    if (newValue === oldValue) return;
+    getCommentsData();
+  });
+
+  getCommentsData();
+
+}]);
 
 promeni.directive('commentSection', ["commentService", function(commentService) {
   return {
@@ -92,41 +117,6 @@ promeni.directive('commentSection', ["commentService", function(commentService) 
 
     },
     templateUrl: "<%= asset_path('comment.html') %>"
-  }
-}]);
-
-promeni.directive('commentsSection', ["commentService", function(commentService) {
-  return {
-    restrict: "E",
-    templateUrl: "<%= asset_path('comments_section.html') %>",
-    scope: {
-      comments: "="
-    },
-    link: function(scope, element) {
-
-      var getCommentsData = function() {
-        var params = angular.copy(scope.params);
-        params.commetable_type = "proposal";
-
-        commentService.query(params).$promise.then(function(data) {
-          scope.comments = data.comments;
-          scope.commentsCount = data.comments_count;
-        });
-      }
-
-      scope.params = {
-        order: "relevance",
-        page: 1
-      }
-
-      getCommentsData();
-
-      scope.$watchCollection("[params.order, params.page]", function(newValue, oldValue) {
-        if (newValue === oldValue) return;
-        getCommentsData();
-      });
-
-    }
   }
 }]);
 
