@@ -33,6 +33,34 @@ promeni.service("commentService", ["Comment", function(Comment) {
 
 }]);
 
+promeni.controller('CommentCreateController', ["$scope", "commentService" , function($scope, commentService) {
+
+  $scope.logged_in = $("#logged_in").length !== 0 ? true : false;
+
+  $scope.showWarning = function() {
+    $("#warning-box").slideDown();
+    $("#comment-box").attr("rows", 8);
+  }
+
+  $scope.newComment = { content: "" };
+
+  $scope.createNewComment = function() {
+    var params = {
+      commentable_id: $scope.proposal.id,
+      commentable_type: "proposal",
+      content: $scope.newComment.content
+    };
+    commentService.save(params).$promise.then(function(comment) {
+      $scope.comments.unshift(comment);
+
+      $("#warning-box").slideUp();
+      $("#comment-box").attr("rows", 3);
+      $scope.newComment = { content: "" };
+    });
+  }
+
+}])
+
 promeni.directive('commentSection', ["commentService", function(commentService) {
   return {
     restrict: 'E',
@@ -98,43 +126,6 @@ promeni.directive('commentsSection', ["commentService", function(commentService)
         getCommentsData();
       });
 
-    }
-  }
-}]);
-
-promeni.directive("commentBox", ["commentService", function(commentService) {
-  return {
-    restrict: "E",
-    templateUrl: "<%= asset_path('comment_box.html') %>",
-    scope: {
-      proposal: "=",
-      comments: "="
-    },
-    link: function(scope) {
-
-      scope.logged_in = $("#logged_in").length !== 0 ? true : false;
-
-      scope.showWarning = function() {
-        $("#warning-box").slideDown();
-        $("#comment-box").attr("rows", 8);
-      }
-
-      scope.newComment = { content: "" };
-
-      scope.createNewComment = function() {
-        var params = {
-          commentable_id: scope.proposal.id,
-          commentable_type: "proposal",
-          content: scope.newComment.content
-        };
-        commentService.save(params).$promise.then(function(comment) {
-          scope.comments.unshift(comment);
-
-          $("#warning-box").slideUp();
-          $("#comment-box").attr("rows", 3);
-          scope.newComment = { content: "" };
-        });
-      }
     }
   }
 }]);
