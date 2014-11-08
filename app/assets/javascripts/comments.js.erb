@@ -1,6 +1,3 @@
-//= depend_on_asset comment.html
-//= depend_on_asset comment_actions.html
-
 promeni.factory('Comment', ['$resource', function($resource) {
   return $resource('/api/v1/comments/:id', null, {
     'query': { method:'GET', isArray: false },
@@ -88,46 +85,23 @@ promeni.controller('CommentIndexController', ["$scope", "commentService" , funct
 
   getCommentsData();
 
-}]);
-
-promeni.directive('commentActions', ['commentService', function(commentService) {
-  return {
-    restrict: 'E',
-    templateUrl: "<%= asset_path('comment_actions.html') %>",
-    scope: {
-      comment: "=",
-      nested: "=?"
-    },
-    controller: ['$scope', function($scope) {
-      $scope.nested = $scope.nested || false;
-    }],
-    link: function(scope) {
-
-      scope.flag = function(comment, reason) {
-        commentService.flag(comment, reason).$promise.then(function(data) {
-          comment.alerts = [{
-            type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
-          }];
-        });
-      }
-
-      scope.destroyComment = function(comment) {
-        commentService.delete({ id: comment.id }).$promise.then(function(data) {
-          commentService.query({ commentable_type: "proposal", order: "newest" }).$promise.then(function(data) {
-            scope.proposal.comments = data.comments;
-            scope.proposal.commentsCount = data.comments_count;
-          });
-        });
-      }
-
-      scope.showNestedComments = function(comment) {
-        commentService.query({ commentable_id: comment.id, commentable_type: "comment", order: "newest" }).$promise.then(function(data) {
-          comment.comments = data.comments;
-          comment.commentsCount = data.comments_count;
-        });
-      }
-
-    }
+  $scope.flag = function(comment, reason) {
+    commentService.flag(comment, reason).$promise.then(function(data) {
+      comment.alerts = [{
+        type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
+      }];
+    });
   }
+
+  $scope.destroyComment = function(comment) {
+    commentService.delete({ id: comment.id }).$promise.then(function(data) {
+      commentService.query({ commentable_type: "proposal", order: "newest" }).$promise.then(function(data) {
+        $scope.proposal.comments = data.comments;
+        $scope.proposal.commentsCount = data.comments_count;
+      });
+    });
+  }
+
 }]);
+
 

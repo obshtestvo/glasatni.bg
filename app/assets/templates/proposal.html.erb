@@ -121,7 +121,21 @@
 
           <div class="row">
             <div class="col-md-10">
-              <comment-actions comment="comment"></comment-actions>
+              <!-- comment actions -->
+              <div class="btn-group">
+                <div class="btn-group">
+                  <button class="btn btn-default btn-xs dropdown-toggle" type="button" id="dropdownMenu1" data-disabled="true" data-toggle="dropdown">
+                    Докладвай
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'spam')">СПАМ</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="flag(comment, 'hatespeech')">Език на омразата</a></li>
+                  </ul>
+                </div>
+                <button class="btn btn-danger btn-xs" ng-click="destroyComment(comment, $index)">Изтрий</button>
+              </div>
+              <!-- end of comment actions -->
             </div>
             <div class="col-md-2">
               <user-button user="comment.user"></user-button>
