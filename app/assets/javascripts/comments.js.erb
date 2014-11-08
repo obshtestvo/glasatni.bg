@@ -126,6 +126,7 @@ promeni.directive("commentBox", ["commentService", function(commentService) {
 
       scope.showWarning = function() {
         $("#warning-box").slideDown();
+        $("#comment-box").attr("rows", 8);
       }
 
       scope.newComment = { content: "" };
@@ -140,6 +141,7 @@ promeni.directive("commentBox", ["commentService", function(commentService) {
           scope.comments.unshift(comment);
 
           $("#warning-box").slideUp();
+          $("#comment-box").attr("rows", 3);
           scope.newComment = { content: "" };
         });
       }
