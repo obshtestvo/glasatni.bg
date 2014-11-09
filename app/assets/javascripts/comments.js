@@ -33,12 +33,9 @@ promeni.controller('CommentCreateController', ["$scope", "Comment", function($sc
 
 }]);
 
-promeni.controller('CommentIndexController', ["$scope", "Comment", function($scope, Comment) {
+promeni.controller('CommentIndexController', ["$scope", "$routeParams", "Comment", function($scope, $routeParams, Comment) {
   var getCommentsData = function() {
-    var params = angular.copy($scope.params);
-    params.commetable_type = "proposal";
-
-    Comment.query(params).$promise.then(function(data) {
+    Comment.query($scope.params).$promise.then(function(data) {
       $scope.comments = data.comments;
       $scope.commentsCount = data.comments_count;
     });
@@ -46,7 +43,9 @@ promeni.controller('CommentIndexController', ["$scope", "Comment", function($sco
 
   $scope.params = {
     order: "relevance",
-    page: 1
+    page: 1,
+    commentable_type: "proposal",
+    commentable_id: $routeParams.id
   }
 
   $scope.$watchCollection("[params.order, params.page]", function(newValue, oldValue) {
