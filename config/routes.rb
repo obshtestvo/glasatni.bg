@@ -12,16 +12,12 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
-  resources :themes
 
   resources :proposals, :only => [:index]
 
   post "flag" => "application#flag"
   post "vote" => "application#vote"
   get "about" => "application#about"
-
-  get "rank/:rank" => "application#rank",
-    constraints: { rank: /observer|speaker|orator|enthusiast|activist|policy_maker/ }
 
   root "proposals#index"
 end
