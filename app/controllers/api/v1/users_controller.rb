@@ -17,7 +17,7 @@ module Api
         end
 
         @users_count = query.count
-        @page = user_params[:page].present? ? users_params[:page].to_i : 1
+        @page = user_params[:page].present? ? user_params[:page].to_i : 1
         @users = query.page(@page)
       end
 

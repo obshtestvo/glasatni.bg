@@ -1,3 +1,9 @@
+promeni.factory('User', ['$resource', function($resource) {
+  return $resource('/api/v1/users/:id', null, {
+    'query': { method:'GET', isArray: false },
+  });
+}]);
+
 promeni.controller("UserShowController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http) {
 
   $scope.proposals = [];

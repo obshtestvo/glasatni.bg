@@ -157,7 +157,7 @@ promeni.directive('markdown', [function() {
   }
 }]);
 
-promeni.directive("moreButton", ["Comment", "Proposal", function(Comment, Proposal) {
+promeni.directive("moreButton", ["Comment", "Proposal", "User", function(Comment, Proposal, User) {
   return {
     restrict: "E",
     scope: {
@@ -165,6 +165,7 @@ promeni.directive("moreButton", ["Comment", "Proposal", function(Comment, Propos
       collectionType: "@",
       order: "@",
       userId: "@",
+      rank: "@",
       nextPage: "@"
     },
     template: "<button class='btn btn-default' ng-disabled='disabled' ng-click='getMore()'>{{ text }}</button>",
@@ -178,30 +179,34 @@ promeni.directive("moreButton", ["Comment", "Proposal", function(Comment, Propos
 
         scope.disabled = false;
         scope.text = "Дай ОЩЕ!";
+        scope.nextPage = parseInt(scope.nextPage) + 1;
       }
 
       var failure = function(data) {
       }
 
       scope.getMore = function() {
-        scope.disabled = true;
-        scope.text = "Пуф Паф!";
-
         var params = {
           page: scope.nextPage
         };
+        var moreable;
 
         if (typeof scope.userId !== "undefined") {
           params.user_id = scope.userId;
         }
-
-        if (scope.collectionType === "proposal") {
-          Proposal.query(params).$promise.then(success, failure);
-          scope.nextPage = parseInt(scope.nextPage) + 1;
-        } else {
-          Comment.query(params).$promise.then(success, failure);
-          scope.nextPage = parseInt(scope.nextPage) + 1;
+        if (typeof scope.rank !== "undefined") {
+          params.rank = scope.rank;
         }
+
+        scope.disabled = true;
+        scope.text = "Пуф Паф!";
+
+        Moreable =
+          scope.collectionType === "proposal" ? Proposal :
+          scope.collectionType === "comment"  ? Comment :
+          /* else */                            User;
+
+        Moreable.query(params).$promise.then(success, failure);
       }
 
     }

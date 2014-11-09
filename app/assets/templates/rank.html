@@ -32,3 +32,4 @@
 </table>
 
 <p class="text-muted">Показани са {{ users.length }} от {{ usersCount }} потребители.</p>
+<more-button ng-hide="users.length == usersCount" collection="users" collection-type="user" rank='{{ rank }}' next-page="2"></more-button>
