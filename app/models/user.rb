@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   has_many :flags
   has_one :theme
 
+  paginates_per 3
+
   enum role: [:registered, :moderator, :admin]
   enum comments_rank: [:observer, :speaker, :orator]
   enum proposals_rank: [:enthusiast, :activist, :policy_maker]

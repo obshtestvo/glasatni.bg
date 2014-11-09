@@ -15,11 +15,14 @@ promeni.config(['$routeProvider', function($routeProvider) {
     controller: "ProposalCreateController",
     templateUrl: "<%= asset_path('proposal_form.html') %>"
   }).when("/users/:id", {
-    controller: "UserController",
+    controller: "UserShowController",
     templateUrl: "<%= asset_path('user.html') %>"
   }).when("/themes/:id", {
     controller: "ThemeController",
     templateUrl: "<%= asset_path('theme.html') %>"
+  }).when("/ranks/:rank", {
+    controller: "UserIndexController",
+    templateUrl: "<%= asset_path('rank.html') %>"
   }).when("/proposals/:id", {
     controller: "ProposalShowController",
     templateUrl: "<%= asset_path('proposal.html') %>"

@@ -7,12 +7,11 @@ Rails.application.routes.draw do
       resources :proposals
       resources :comments, only: [:index, :create, :destroy]
       resources :themes, only: [:index, :show]
-      resources :users, only: [:show]
+      resources :users, only: [:index, :show]
     end
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
-  resources :users, :only => [:show]
   resources :themes
 
   resources :proposals, :only => [:index]

@@ -1,0 +1,34 @@
+<h1>Ранг: {{ rank }} <span class="label label-success">{{ usersCount }}</span></h1>
+
+<br />
+
+<p ng-show="rank == 'observer'">Рангът се дава на потребител, който има под 3 коментара.</p>
+<p ng-show="rank == 'speaker'">Рангът се дава на потребител, който има между 3 и 7 коментара.</p>
+<p ng-show="rank == 'orator'">Рангът се дава на потребител, който има над 7 коментара.</p>
+
+<p ng-show="rank == 'enthusiast'">Рангът се дава на потребител, който има под 3 предложения.</p>
+<p ng-show="rank == 'activist'">Рангът се дава на потребител, който има между 3 и 7 предложения.</p>
+<p ng-show="rank == 'policy_maker'">Рангът се дава на потребител, който има над 7 предложения.</p>
+
+<br />
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Потребителско име</th>
+      <th>Репутация</th>
+      <th>Ранг за коментари</th>
+      <th>Ранг за предложения</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users">
+      <td><a href="/#/users/{{ user.id }}">{{ user.name }}</a></td>
+      <td>{{ user.reputation }}</td>
+      <td>{{ user.comments_rank }}</td>
+      <td>{{ user.proposals_rank }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="text-muted">Показани са {{ users.length }} от {{ usersCount }} потребители.</p>

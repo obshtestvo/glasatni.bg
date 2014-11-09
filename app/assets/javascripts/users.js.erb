@@ -1,4 +1,4 @@
-promeni.controller("UserController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http) {
+promeni.controller("UserShowController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http) {
 
   $scope.proposals = [];
   $scope.comments = [];
@@ -15,6 +15,17 @@ promeni.controller("UserController", ["$scope", "$routeParams", "$http", functio
   $http.get("/api/v1/comments?user_id=" + $routeParams.id).success(function(data) {
     $scope.comments = data.comments;
     $scope.commentsCount = data.comments_count;
+  });
+
+}]);
+
+promeni.controller("UserIndexController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http) {
+
+  $scope.rank = $routeParams.rank;
+
+  $http.get("/api/v1/users?rank=" + $routeParams.rank).success(function(data) {
+    $scope.users = data.users;
+    $scope.usersCount = data.users_count;
   });
 
 }]);
