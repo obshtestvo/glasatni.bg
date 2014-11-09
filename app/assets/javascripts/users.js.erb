@@ -4,12 +4,12 @@ promeni.factory('User', ['$resource', function($resource) {
   });
 }]);
 
-promeni.controller("UserShowController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http) {
+promeni.controller("UserShowController", ["$scope", "$routeParams", "$http", "User", function($scope, $routeParams, $http, User) {
 
   $scope.proposals = [];
   $scope.comments = [];
 
-  $http.get("/api/v1/users/" + $routeParams.id).success(function(user) {
+  User.get({ id: $routeParams.id }).$promise.then(function(user) {
     $scope.user = user;
   });
 
@@ -25,11 +25,11 @@ promeni.controller("UserShowController", ["$scope", "$routeParams", "$http", fun
 
 }]);
 
-promeni.controller("UserIndexController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http) {
+promeni.controller("UserIndexController", ["$scope", "$routeParams", "User", function($scope, $routeParams, User) {
 
   $scope.rank = $routeParams.rank;
 
-  $http.get("/api/v1/users?rank=" + $routeParams.rank).success(function(data) {
+  User.query({ rank: $routeParams.rank }).$promise.then(function(data) {
     $scope.users = data.users;
     $scope.usersCount = data.users_count;
   });
