@@ -13,7 +13,7 @@ promeni.config(['$routeProvider', function($routeProvider) {
     }
   }).when("/proposals/new", {
     controller: "ProposalCreateController",
-    templateUrl: "<%= asset_path('proposal_form.html.erb') %>"
+    templateUrl: "<%= asset_path('proposal_form.html') %>"
   }).when("/users/:id", {
     controller: "UserController",
     templateUrl: "<%= asset_path('user.html') %>"
@@ -25,7 +25,7 @@ promeni.config(['$routeProvider', function($routeProvider) {
     templateUrl: "<%= asset_path('proposal.html') %>"
   }).when("/proposals/:id/edit", {
     controller: "ProposalEditController",
-    templateUrl: "<%= asset_path('proposal_form.html.erb') %>",
+    templateUrl: "<%= asset_path('proposal_form.html') %>",
   }).when("/:theme/:order", {
     controller: "ProposalIndexController",
     templateUrl: "<%= asset_path('proposals.html') %>",
