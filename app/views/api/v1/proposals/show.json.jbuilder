@@ -15,6 +15,5 @@ voted = Voting.where(votable_id: @proposal.id, user: current_user).first
 json.voted voted.value unless voted.nil?
 
 json.moderator @proposal.user.role === 1
-json.user_profile_url url_for(@proposal.user)
 json.created_at @proposal.created_at
 json.updated_at @proposal.updated_at

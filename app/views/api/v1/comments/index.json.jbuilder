@@ -13,7 +13,6 @@ json.comments @comments do |c|
   json.comments_count c.comments_count
   json.user c.user, :id, :name, :comments_rank, :proposals_rank
   json.moderator c.user.role === 1
-  json.user_profile_url url_for(c.user)
   json.hotness c.hotness
 
   idx = ids.index(c.id)
