@@ -28,6 +28,7 @@ gem 'paperclip', '~> 4.2'
 gem 'figaro'
 gem 'showdown-rails'
 gem 'puma'
+gem 'therubyracer'
 
 group :development do
   gem 'quiet_assets'
