@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.1.1'
+
 gem 'rails', '4.1.1'
 gem 'rails-i18n', '~> 4.0.0'
 gem 'pg'
@@ -25,7 +27,6 @@ gem 'angular-ui-bootstrap-rails'
 gem 'paperclip', '~> 4.2'
 gem 'figaro'
 gem 'showdown-rails'
-ruby '2.1.1'
 
 group :development do
   gem 'quiet_assets'
