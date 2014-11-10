@@ -34,4 +34,8 @@ group :development do
   gem 'binding_of_caller'
   gem 'letter_opener'
   gem 'spring'
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano3-puma'
 end
