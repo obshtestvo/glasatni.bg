@@ -1,30 +1,22 @@
 <%= image_tag "doodle.jpg", width: "100%" %>
 
 <div class="row">
-  <div class="col-md-3 col-sm-6 col-xs-6">
-    <h3>Гражданско образование</h3>
-    <%= image_tag "education.jpg", width: "100%" %>
-    <p><%= Theme.find_by(name: "Гражданско образование").info.truncate(200) %></p>
-    <p><a class="btn btn-default" href="/#/themes/5">Научи още! »</a></p>
-  </div>
-  <div class="col-md-3 col-sm-6 col-xs-6">
-    <h3>Гражданско участие</h3>
-    <%= image_tag "participation.jpg", width: "100%" %>
-    <p><%= Theme.find_by(name: "Гражданско участие").info.truncate(200) %></p>
-    <p><a class="btn btn-default" href="/#/themes/4">Научи още! »</a></p>
-  </div>
-  <div class="col-md-3 col-sm-6 col-xs-6">
-    <h3>Доброволчество</h3>
-    <%= image_tag "volunteering.jpg", width: "100%" %>
-    <p><%= Theme.find_by(name: "Доброволчество").info.truncate(200) %></p>
-    <p><a class="btn btn-default" href="/#/themes/3">Научи още! »</a></p>
-  </div>
-  <div class="col-md-3 col-sm-6 col-xs-6">
-    <h3>НПО</h3>
-    <%= image_tag "ngo.jpg", width: "100%" %>
-    <p><%= Theme.find_by(name: "НПО").info.truncate(200) %></p>
-    <p><a class="btn btn-default" href="/#/themes/5">Научи още! »</a></p>
-  </div>
+  <% {
+    'Гражданско образование'  => 'education.jpg',
+    'Гражданско участие'      => 'participation.jpg',
+    'Доброволчество'          => 'volunteering.jpg',
+    'НПО'                     => 'ngo.jpg',
+  }.each do |theme_name, theme_icon| %>
+    <% theme = Theme.find_by(name: theme_name) %>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+      <h3><%= theme_name %></h3>
+      <%= image_tag theme_icon, width: "100%" %>
+      <% if theme %>
+        <p><%= theme.info.truncate(200) %></p>
+        <p><a class="btn btn-default" href="/#/themes/<%= theme.id %>">Научи още! »</a></p>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
 <div class="row">
@@ -32,9 +24,16 @@
     <%= image_tag "meta.jpg", width: "100%" %>
   </div>
   <div class="col-md-8">
-    <h3>Мета</h3>
-    <p><%= Theme.find_by(name: "Мета").info.truncate(200) %></p>
-    <p><a class="btn btn-default" href="/#/themes/4">Научи още! »</a></p>
+    <%
+      theme_name = 'Мета'
+      theme = Theme.find_by(name: theme_name)
+    %>
+    <div class="col-md-3 col-sm-6 col-xs-6">
+      <h3><%= theme_name %></h3>
+      <% if theme %>
+        <p><%= theme.info.truncate(200) %></p>
+        <p><a class="btn btn-default" href="/#/themes/<%= theme.id %>">Научи още! »</a></p>
+      <% end %>
+    </div>
   </div>
 </div>
-
