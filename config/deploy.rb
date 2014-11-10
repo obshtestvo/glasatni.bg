@@ -7,6 +7,7 @@ set :linked_dirs,     %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle pu
 set :keep_releases,   20
 set :rails_env,       'production'
 set :puma_init_active_record, true
+set :nginx_server_name, 'glasatni.bg *.glasatni.bg'
 
 namespace :deploy do
   namespace :nginx do
