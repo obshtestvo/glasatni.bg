@@ -27,6 +27,7 @@ gem 'angular-ui-bootstrap-rails'
 gem 'paperclip', '~> 4.2'
 gem 'figaro'
 gem 'showdown-rails'
+gem 'puma'
 
 group :development do
   gem 'quiet_assets'
