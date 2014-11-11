@@ -25,6 +25,7 @@ module Api
         @comments_count = query.count
         @page = comment_params[:page].present? ? comment_params[:page].to_i : 1
         @comments = query.page(@page)
+
       end
 
       def show
@@ -41,13 +42,13 @@ module Api
         content = comment_params[:content]
 
         @comment = Comment.new(commentable: commentable, user: current_user, content: content)
+        authorize! :create, @comment
 
         if @comment.save
           render :show
         else
           render json: @badge.errors, status: :unprocessable_entity
         end
-
       end
 
       def destroy
