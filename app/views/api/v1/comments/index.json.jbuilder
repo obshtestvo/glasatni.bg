@@ -11,8 +11,13 @@ json.comments @comments do |c|
   json.updated_at c.updated_at
   json.commentable c.commentable.id
   json.comments_count c.comments_count
-  json.user c.user, :id, :name, :comments_rank, :proposals_rank
-  json.moderator c.user.role === 1
+  json.user do
+    json.id c.user.id
+    json.name c.user.name
+    json.comments_rank c.user.comments_rank
+    json.proposals_rank c.user.proposals_rank
+    json.moderator c.user.moderator?
+  end
   json.hotness c.hotness
 
   idx = ids.index(c.id)

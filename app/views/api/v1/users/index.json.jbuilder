@@ -4,6 +4,7 @@ json.users @users do |u|
   json.reputation u.reputation
   json.comments_rank u.comments_rank
   json.proposals_rank u.proposals_rank
+  json.moderator u.moderator?
   json.created_at u.created_at
   json.time_ago pretty_date(u.created_at)
   json.updated_at u.updated_at
