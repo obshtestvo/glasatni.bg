@@ -98,7 +98,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+    render json: { :status => :error, :message => "You don't have permission to #{exception.action} #{exception.subject.class.to_s.pluralize}" }, :status => 403
   end
 
   protected

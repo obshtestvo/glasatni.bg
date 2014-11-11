@@ -7,10 +7,10 @@ class Ability
 
     if user.admin?
       can :manage, :all
-    elsif user.registered?
+    elsif user.persisted?
       can :vote, [Proposal, Comment]
-    else
-      can :read, :all
+      can :create, [Proposal, Comment]
+      can :update, Proposal, user_id: user.id
     end
 
     # The first argument to `can` is the action you are giving the user

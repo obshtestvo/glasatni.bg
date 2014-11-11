@@ -1,7 +1,8 @@
 module Api
   module V1
     class ProposalsController < ApplicationController
-      before_action :set_proposal, only: [:show, :edit, :update, :destroy]
+      before_action :set_proposal, only: [:show, :update, :destroy]
+      authorize_resource only: [:create, :update, :destroy]
       respond_to :json
 
       def index
