@@ -5,7 +5,7 @@ class Ability
 
     user ||= User.new # guest user (not logged in)
 
-    if user.admin?
+    if user.moderator?
       can :manage, :all
     elsif user.persisted?
       can :vote, [Proposal, Comment]
