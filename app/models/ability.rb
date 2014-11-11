@@ -11,6 +11,7 @@ class Ability
       can :vote, [Proposal, Comment]
       can :create, [Proposal, Comment]
       can :update, Proposal, user_id: user.id
+      can :update, Flag
     end
 
     # The first argument to `can` is the action you are giving the user
