@@ -6,6 +6,7 @@ module Api
       def index
         commentable_type = comment_params[:commentable_type]
         user_id = comment_params[:user_id]
+        @voter_id = comment_params[:voter_id]
 
         if commentable_type == "comment"
           commentable = Comment.find(comment_params[:commentable_id])
@@ -61,7 +62,7 @@ module Api
       private
 
       def comment_params
-        params.slice(:id, :commentable_id, :commentable_type, :per_page, :page, :content, :order, :user_id)
+        params.slice(:id, :commentable_id, :commentable_type, :per_page, :page, :content, :order, :user_id, :voter_id)
       end
 
     end

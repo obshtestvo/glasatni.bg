@@ -1,4 +1,9 @@
-votings = Voting.where(votable: @comments, user: current_user).pluck("votable_id", "value")
+if @voter_id.present?
+  voter = User.find(@voter_id)
+  votings = Voting.where(user: voter, votable: @comments).pluck(:votable_id, :value)
+else
+  votings = []
+end
 
 ids = votings.to_h.keys
 values = votings.to_h.values
