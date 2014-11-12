@@ -18,8 +18,10 @@ json.user do
   json.moderator @proposal.user.moderator?
 end
 
+if @voter_id.present?
+  voter = User.find(@voter_id)
+  json.voted Voting.where(votable_id: @proposal.id, user: voter).try(:first).try(:value)
+end
 
-voted = Voting.where(votable_id: @proposal.id, user: current_user).first
-json.voted voted.value unless voted.nil?
 json.created_at @proposal.created_at
 json.updated_at @proposal.updated_at

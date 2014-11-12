@@ -1,4 +1,9 @@
-votings = Voting.where(user: current_user, votable: @proposals).pluck(:votable_id, :value).to_h
+if @voter_id.present?
+  voter = User.find(@voter_id)
+  votings = Voting.where(user: voter, votable: @proposals).pluck(:votable_id, :value).to_h
+else
+  votings = []
+end
 
 json.proposals @proposals do |p|
   json.id p.id

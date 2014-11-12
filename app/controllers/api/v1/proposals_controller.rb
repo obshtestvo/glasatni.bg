@@ -9,6 +9,7 @@ module Api
         order = proposal_params[:order]
         theme_name = proposal_params[:theme_name]
         user_id = proposal_params[:user_id]
+        @voter_id = proposal_params[:voter_id]
 
         query = Proposal.all
         if theme_name.present? and theme_name != "all"
@@ -25,6 +26,7 @@ module Api
 
       def show
         @proposal = Proposal.find(proposal_params[:id])
+        @voter_id = proposal_params[:voter_id]
       end
 
       def create
@@ -57,7 +59,7 @@ module Api
       end
 
       def proposal_params
-        params.permit(:id, :order, :page, :theme_name, :user_id, :title, :content, :theme_id)
+        params.permit(:id, :order, :page, :theme_name, :user_id, :title, :content, :theme_id, :voter_id)
       end
     end
   end

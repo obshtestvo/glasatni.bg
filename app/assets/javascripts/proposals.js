@@ -15,7 +15,8 @@ promeni.factory('Proposal', ["$resource", function($resource) {
             theme: p.theme,
             commentsCount: p.comments_count,
             user: p.user,
-            voted: p.voted
+            voted: p.voted,
+            hotness: p.hotness
           }
         });
 
@@ -43,20 +44,34 @@ var ProposalIndexController = promeni.controller("ProposalIndexController", ["$s
 
 }]);
 
-ProposalIndexController.loadProposals = ["$route", "Proposal", function($route, Proposal) {
-  var params = {
-    theme_name: $route.current.params.theme,
-    order: $route.current.params.order,
-    page: $route.current.params.page
-  };
-  return Proposal.query(params).$promise.then(function(data) {
+ProposalIndexController.loadProposals = ["$rootScope", "$route", "Proposal", function($rootScope, $route, Proposal) {
+  $rootScope.params = {
+    theme_name: ($route.current.params.theme || "all"),
+    order: ($route.current.params.order || "relevance"),
+    page: ($route.current.params.page || 1),
+  }
+  var $el = $("#username");
+
+  if ($el.length !== 0) {
+    $rootScope.params.voter_id = $el.attr("href").match(/\d+/)[0];
+  }
+
+  return Proposal.query($rootScope.params).$promise.then(function(data) {
     return data;
   });
 }];
 
 promeni.controller("ProposalShowController", ["$scope", "$routeParams", "$location", "Proposal", function($scope, $routeParams, $location, Proposal) {
+  var params = {
+    id: $routeParams.id
+  };
+  var $el = $("#username");
 
-  Proposal.get({ id: $routeParams.id }).$promise.then(function(proposal) {
+  if ($el.length !== 0) {
+    params.voter_id = $el.attr("href").match(/\d+/)[0];
+  }
+
+  Proposal.get(params).$promise.then(function(proposal) {
     $scope.proposal = proposal;
   });
 
