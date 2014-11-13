@@ -1,5 +1,6 @@
 <a href="/#/users/{{ user.id }}" class="btn btn-default btn-sm pull-right">
-
+  <i class="fa fa-gavel" ng-show="user.moderator" style="color: #B94A48"></i>
+  &nbsp;
   <i class="fa fa-binoculars" ng-show="user.comments_rank == 'observer'"></i>
   <i class="fa fa-bullhorn" ng-show="user.comments_rank == 'speaker'"></i>
   <i class="fa fa-microphone" ng-show="user.comments_rank == 'orator'"></i>
