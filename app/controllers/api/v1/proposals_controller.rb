@@ -7,7 +7,7 @@ module Api
 
       def index
         order = proposal_params[:order]
-        theme_name = proposal_params[:theme_name]
+        theme_name = proposal_params[:theme]
         user_id = proposal_params[:user_id]
         @voter_id = proposal_params[:voter_id]
 
@@ -59,7 +59,7 @@ module Api
       end
 
       def proposal_params
-        params.permit(:id, :order, :page, :theme_name, :user_id, :title, :content, :theme_id, :voter_id)
+        params.permit(:id, :order, :page, :theme, :user_id, :title, :content, :theme_id, :voter_id)
       end
     end
   end

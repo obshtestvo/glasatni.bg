@@ -1,12 +1,12 @@
 <div class="row">
   <div class="col-md-12">
     <ul class="nav nav-tabs" role="tablist">
-      <li ng-class="{active: theme=='all'}"><a href="/#/all/{{ order }}">Всички теми &nbsp;<span class="label label-primary" ng-show="theme=='all'">{{ proposalsCount }}</span></a></li>
-      <li ng-class="{active: theme=='volunteering'}"><a href="/#/volunteering/{{ order }}">Доброволчество &nbsp;<span class="label label-primary" ng-show="theme=='volunteering'">{{ proposalsCount }}</span></a></li>
-      <li ng-class="{active: theme=='ngo'}"><a href="#/ngo/{{ order }}">НПО &nbsp;<span class="label label-primary" ng-show="theme=='ngo'">{{ proposalsCount }}</span></a></li>
-      <li ng-class="{active: theme=='participation'}"><a href="#/participation/{{ order }}">Гражданско участие &nbsp;<span class="label label-primary" ng-show="theme=='participation'">{{ proposalsCount }}</span></a></li>
-      <li ng-class="{active: theme=='education'}"><a href="#/education/{{ order }}">Гражданско образование &nbsp;<span class="label label-primary" ng-show="theme=='education'">{{ proposalsCount }}</span></a></li>
-      <li ng-class="{active: theme=='meta'}"><a href="#/meta/{{ order }}">Мета &nbsp;<span class="label label-primary" ng-show="theme=='meta'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: $root.params.theme=='all'}"><a href="/#/all/{{ $root.params.order }}">Всички теми &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='all'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: $root.params.theme=='volunteering'}"><a href="/#/volunteering/{{ $root.params.order }}">Доброволчество &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='volunteering'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: $root.params.theme=='ngo'}"><a href="#/ngo/{{ $root.params.order }}">НПО &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='ngo'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: $root.params.theme=='participation'}"><a href="#/participation/{{ $root.params.order }}">Гражданско участие &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='participation'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: $root.params.theme=='education'}"><a href="#/education/{{ $root.params.order }}">Гражданско образование &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='education'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: $root.params.theme=='meta'}"><a href="#/meta/{{ $root.params.order }}">Мета &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='meta'">{{ proposalsCount }}</span></a></li>
     </ul>
   </div>
 </div>
@@ -16,17 +16,17 @@
 <div class="row">
   <div class="col-md-3">
 
-    <filter order="order">
-      <li><a href="/#/{{ theme }}/newest" ng-show="order != 'newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
-      <li><a href="/#/{{ theme }}/oldest" ng-show="order != 'oldest'"><i class="fa fa-calendar-o fa-lg"></i>&nbsp; Най-стари</a></li>
-      <li><a href="/#/{{ theme }}/relevance" ng-show="order != 'relevance'"><i class="fa fa-trophy fa-lg"></i>&nbsp; Най-подкрепени</a></li>
-      <li><a href="/#/{{ theme }}/most-comments" ng-show="order != 'most-comments'"><i class="fa fa-comments fa-lg"></i>&nbsp; Коментирани</a></li>
-      <li><a href="/#/{{ theme }}/least-comments" ng-show="order != 'least-comments'"><i class="fa fa-comments-o fa-lg"></i>&nbsp; Некоментирани</a></li>
+    <filter order="$root.params.order">
+      <li><a href="/#/{{ $root.params.theme }}/newest" ng-show="$root.params.order != 'newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
+      <li><a href="/#/{{ $root.params.theme }}/oldest" ng-show="$root.params.order != 'oldest'"><i class="fa fa-calendar-o fa-lg"></i>&nbsp; Най-стари</a></li>
+      <li><a href="/#/{{ $root.params.theme }}/relevance" ng-show="$root.params.order != 'relevance'"><i class="fa fa-trophy fa-lg"></i>&nbsp; Най-подкрепени</a></li>
+      <li><a href="/#/{{ $root.params.theme }}/most-comments" ng-show="$root.params.order != 'most-comments'"><i class="fa fa-comments fa-lg"></i>&nbsp; Коментирани</a></li>
+      <li><a href="/#/{{ $root.params.theme }}/least-comments" ng-show="$root.params.order != 'least-comments'"><i class="fa fa-comments-o fa-lg"></i>&nbsp; Некоментирани</a></li>
     </filter>
 
   </div>
   <div class="col-md-9">
-    <pagination ng-model="currentPage" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pull-right" boundary-links="true"
+    <pagination ng-model="$root.params.page" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pull-right" boundary-links="true"
     rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
   </div>
 </div>
@@ -63,7 +63,7 @@
   </div>
 </div>
 
-<pagination ng-model="currentPage" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right" boundary-links="true"
+<pagination ng-model="$root.params.page" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right" boundary-links="true"
 rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
 
 <div class="clearfix"></div>
