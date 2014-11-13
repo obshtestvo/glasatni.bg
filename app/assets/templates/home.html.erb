@@ -9,7 +9,7 @@
   }.each do |theme_name, theme_icon| %>
     <% theme = Theme.find_by(name: theme_name) %>
     <div class="col-md-3 col-sm-6 col-xs-6">
-      <h3><%= theme_name %></h3>
+      <h3 class="text-center"><%= theme_name %></h3>
       <%= image_tag theme_icon, width: "100%" %>
       <% if theme %>
         <p><%= theme.info.truncate(200) %></p>
