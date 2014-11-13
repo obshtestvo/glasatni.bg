@@ -1,4 +1,4 @@
-<h1>Ранг: {{ rank }} <span class="label label-success">{{ usersCount }}</span></h1>
+<h1>Ранг: {{ rank | translateRank }} <span class="label label-success">{{ usersCount }}</span></h1>
 
 <br />
 
@@ -25,8 +25,8 @@
     <tr ng-repeat="user in users">
       <td><a href="/#/users/{{ user.id }}">{{ user.name }}</a></td>
       <td>{{ user.reputation }}</td>
-      <td>{{ user.comments_rank }}</td>
-      <td>{{ user.proposals_rank }}</td>
+      <td>{{ user.comments_rank | translateRank }}</td>
+      <td>{{ user.proposals_rank | translateRank }}</td>
     </tr>
   </tbody>
 </table>

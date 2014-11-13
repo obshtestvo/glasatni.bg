@@ -57,7 +57,22 @@ promeni.filter('translateOrder', [function () {
       "oldest": "Най-стари",
       "relevance": "Най-подкрепени",
       "most-comments": "Коментирани",
-      "least-comments": "Некоментирани",
+      "least-comments": "Некоментирани"
+    }
+    return translations[string];
+  };
+}]);
+
+promeni.filter('translateRank', [function () {
+  "use strict";
+  return function (string) {
+    var translations = {
+      "observer": "Наблюдател",
+      "speaker": "Говорител",
+      "orator": "Оратор",
+      "enthusiast": "Ентусиаст",
+      "activist": "Активист",
+      "policy_maker": "Полиси мейкър"
     }
     return translations[string];
   };
