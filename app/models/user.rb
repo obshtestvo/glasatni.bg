@@ -32,4 +32,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  def mod?
+    self.role == "moderator"
+  end
+
 end

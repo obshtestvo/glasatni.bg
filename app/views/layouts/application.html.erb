@@ -8,9 +8,7 @@
 </head>
 <body>
 
-<% if user_signed_in? %>
-  <div style="display:none;" id="logged_in"></div>
-<% end %>
+<div style="display:none;" id="user-info" user-id="<%= current_user.try(:id) %>" user-is-mod="<%= current_user.try(:mod?) %>"></div>
 
 <section id="topnav">
   <div class="container">

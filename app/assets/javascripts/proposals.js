@@ -40,16 +40,15 @@ var ProposalIndexController = promeni.controller("ProposalIndexController", ["$s
 
 }]);
 
-ProposalIndexController.loadProposals = ["$rootScope", "$route", "Proposal", function($rootScope, $route, Proposal) {
+ProposalIndexController.loadProposals = ["$rootScope", "$route", "CurrentUser", "Proposal", function($rootScope, $route, CurrentUser, Proposal) {
   $rootScope.params = {
     theme: ($route.current.params.theme || "all"),
     order: ($route.current.params.order || "relevance"),
     page: ($route.current.params.page || 1),
   }
-  var $el = $("#username");
 
-  if ($el.length !== 0) {
-    $rootScope.params.voter_id = $el.attr("href").match(/\d+/)[0];
+  if (CurrentUser.id) {
+    $rootScope.params.voter_id = CurrentUser.id;
   }
 
   return Proposal.query($rootScope.params).$promise.then(function(data) {
@@ -57,15 +56,13 @@ ProposalIndexController.loadProposals = ["$rootScope", "$route", "Proposal", fun
   });
 }];
 
-promeni.controller("ProposalShowController", ["$scope", "$routeParams", "$location", "Proposal", function($scope, $routeParams, $location, Proposal) {
+promeni.controller("ProposalShowController", ["$scope", "$routeParams", "$location", "CurrentUser", "Proposal", function($scope, $routeParams, $location, CurrentUser, Proposal) {
   var params = {
     id: $routeParams.id
   };
-  var $el = $("#username");
+  params.voter_id = CurrentUser.id;
 
-  if ($el.length !== 0) {
-    params.voter_id = $el.attr("href").match(/\d+/)[0];
-  }
+  $scope.currentUser = CurrentUser;
 
   Proposal.get(params).$promise.then(function(proposal) {
     $scope.proposal = proposal;

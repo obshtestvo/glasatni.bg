@@ -1,6 +1,8 @@
 module Api
   module V1
     class CommentsController < ApplicationController
+      before_action :set_comment, only: [:show, :destroy]
+      authorize_resource only: [:create, :destroy]
       respond_to :json
 
       def index
@@ -30,7 +32,6 @@ module Api
       end
 
       def show
-        @comment = Comment.find(comment_params[:id])
       end
 
       def create
@@ -43,7 +44,6 @@ module Api
         content = comment_params[:content]
 
         @comment = Comment.new(commentable: commentable, user: current_user, content: content)
-        authorize! :create, @comment
 
         if @comment.save
           render :show
@@ -53,13 +53,16 @@ module Api
       end
 
       def destroy
-        @comment = Comment.find(comment_params[:id])
         @comment.destroy
 
         head :no_content
       end
 
       private
+
+      def set_comment
+        @comment = Comment.find(comment_params[:id])
+      end
 
       def comment_params
         params.slice(:id, :commentable_id, :commentable_type, :per_page, :page, :content, :order, :user_id, :voter_id)

@@ -4,6 +4,16 @@ promeni.factory('User', ['$resource', function($resource) {
   });
 }]);
 
+promeni.service("CurrentUser", [function() {
+  var $el = $("#user-info"),
+    id = $el.attr("user-id"),
+    isMod = $el.attr("user-is-mod") === "true";
+
+  this.id = id;
+  this.isMod = isMod;
+
+}]);
+
 promeni.controller("UserShowController", ["$scope", "$routeParams", "$http", "User", function($scope, $routeParams, $http, User) {
 
   $scope.proposals = [];

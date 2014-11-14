@@ -10,7 +10,7 @@
   <div class="col-md-11">
     <h3>{{ proposal.title }}</h3>
     <a class="btn btn-success btn-sm pull-left" href="/#/{{ proposal.theme.en_name }}/{{ $root.params.order }}">{{ proposal.theme.name }}</a>
-    <div class="btn-group pull-right">
+    <div ng-if="currentUser.isMod || currentUser.id == proposal.user.id" class="btn-group pull-right">
       <a class="btn btn-default btn-sm" href="/#/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil fa-lg"></i>&nbsp; Редактирай</a>
       <a class="btn btn-default btn-sm btn-danger" ng-click="delete(proposal)" rel="nofollow">
         <i class="fa fa-times fa-lg"></i>&nbsp; Изтрий
@@ -45,7 +45,7 @@
 <h3>Коментари</h3>
 
 <div ng-controller="CommentCreateController">
-  <div ng-show="logged_in">
+  <div ng-show="currentUser.id">
 
     <div id="warning-box" class="bs-callout bs-callout-danger" style="display:none">
       <h4>Само да ти кажем някои неща...</h4>
@@ -61,7 +61,7 @@
     </div>
 
   </div>
-  <div ng-hide="logged_in">
+  <div ng-hide="currentUser.id">
 
     <div id="not-registered" class="bs-callout bs-callout-danger">
       <h4>Само регистрирани потребители могат да оставят коментари.</h4>
@@ -113,7 +113,7 @@
             <div class="col-md-10">
               <!-- comment actions -->
               <div class="btn-group">
-                <button class="btn btn-danger btn-xs" ng-click="destroyComment(comment, $index)">Изтрий</button>
+                <button ng-if="currentUser.isMod || currentUser.id == comment.user.id" class="btn btn-danger btn-xs" ng-click="destroyComment(comment, $index)">Изтрий</button>
                 <flag-button type="comment" flaggable="comment" size="btn-xs"></flag-button>
               </div>
               <!-- end of comment actions -->
