@@ -10,7 +10,7 @@
   <div class="col-md-11">
     <h3>{{ proposal.title }}</h3>
     <a class="btn btn-success btn-sm pull-left" href="/#/{{ proposal.theme.en_name }}/{{ $root.params.order }}">{{ proposal.theme.name }}</a>
-    <div ng-if="currentUser.isMod || currentUser.id == proposal.user.id" class="btn-group pull-right">
+    <div ng-if="currentUser.isMod || currentUser.id == proposal.user.id" class="btn-group pull-right proposal-actions">
       <a class="btn btn-default btn-sm" href="/#/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil fa-lg"></i>&nbsp; Редактирай</a>
       <a class="btn btn-default btn-sm btn-danger" ng-click="delete(proposal)" rel="nofollow">
         <i class="fa fa-times fa-lg"></i>&nbsp; Изтрий
