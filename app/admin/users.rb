@@ -4,7 +4,7 @@ ActiveAdmin.register User do
   config.per_page = 20
 
   index do
-    column(:name) { |u| link_to u.name, user_path(u) }
+    column(:name) { |u| link_to u.name, admin_user_path(u) }
     column(:role)
     actions
   end
