@@ -68,7 +68,7 @@ promeni.controller("ProposalShowController", ["$scope", "$routeParams", "$locati
     $scope.proposal = proposal;
   });
 
-  $scope.delete = function(proposal) {
+  $scope.destroyProposal = function(proposal) {
     Proposal.delete({ id: proposal.id }).$promise.then(function(data) {
       $location.path("/themes/" + proposal.theme.id);
     });
