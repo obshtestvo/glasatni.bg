@@ -95,41 +95,27 @@
     Бързо напиши един, за да изпревариш останалите!
   </div>
 
-  <div id="comments-list">
-    <div ng-repeat="comment in comments">
+  <table class="table table-hover">
+    <tr ng-repeat="comment in comments" ng-class="{warning: comment.user.moderator}">
+    <td>
+      <voting-buttons votable="comment" votable-type="comment"></voting-buttons>
+      <p class="text-muted text-center rating">{{ comment.hotness }}</p>
+    </td>
+    <td class="col-md-12">
+      <p class="pull-left"><strong><a href="/#/users/{{ comment.user.id }}">{{ comment.user.name }}</a></strong> ( <i class="fa fa-microphone"></i>&nbsp; <i class="fa fa-bullhorn"></i> )
+      | <span class="text-muted">{{ comment.time_ago }}</span></p>
+      <a ng-if="currentUser.isMod || currentUser.id == comment.user.id" class="btn btn-default btn-xs btn-danger pull-right" ng-click="destroyComment(comment)" rel="nofollow">
+        <i class="fa fa-times fa-lg"></i>&nbsp; Изтрий
+      </a>
+      <flag-button ng-if="!(currentUser.isMod || currentUser.id == comment.user.id)" type="comment" flaggable="comment" size="btn-xs"></flag-button>
+      <div class="clearfix"></div>
+      <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="comment.alerts=[]">{{alert.msg}}</alert>
+      <markdown content="comment.content"></markdown>
+    </td>
+    </tr>
+  </table>
 
-      <div class="row">
-        <div class="col-md-1 col-sm-1 col-xs-1">
-          <center>
-            <voting-buttons votable="comment" votable-type="comment"></voting-buttons>
-            <p class="text-muted rating">{{ comment.hotness }}</p>
-          </center>
-        </div>
-        <div class="col-md-11 col-sm-11 col-xs-11">
-          <markdown content="comment.content"></markdown>
-          <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="comment.alerts=[]">{{alert.msg}}</alert>
-
-          <div class="row">
-            <div class="col-md-10">
-              <!-- comment actions -->
-              <div class="btn-group">
-                <button ng-if="currentUser.isMod || currentUser.id == comment.user.id" class="btn btn-danger btn-xs" ng-click="destroyComment(comment, $index)">Изтрий</button>
-                <flag-button type="comment" flaggable="comment" size="btn-xs"></flag-button>
-              </div>
-              <!-- end of comment actions -->
-            </div>
-            <div class="col-md-2">
-              <user-button user="comment.user"></user-button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <hr ng-hide="$last"/>
-
-    </div>
-  </div>
+  <br />
 
   <pagination ng-model="params.page" total-items="commentsCount" items-per-page="<%= Comment.default_per_page %>" max-size="5"
   class="pagination-sm pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"

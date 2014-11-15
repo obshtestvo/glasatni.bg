@@ -12,7 +12,7 @@ class Ability
       can :create, [Proposal, Comment]
       can :update, Proposal, user_id: user.id
       can :update, Flag
-      can :destroy, Comment, user_id: user.id
+      can :destroy, [Comment, Proposal], user_id: user.id
     end
 
   end
