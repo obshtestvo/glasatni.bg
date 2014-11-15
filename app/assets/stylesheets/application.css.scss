@@ -26,6 +26,9 @@ body {
 }
 
 section#topnav {
+  p {
+    margin: 0;
+  }
   color: white;
   background: $green;
   a.btn-link {

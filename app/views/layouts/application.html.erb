@@ -14,9 +14,12 @@
   <div class="container">
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
-      <%= link_to "Начало", "/#/home", class: "btn btn-link" %>
+        <p class="pull-left">
+          <%= link_to "Начало", "/#/home", class: "btn btn-link" %>
+          <%= link_to "За платформата", "/#/about", class: "btn btn-link" %>
+        </p>
       <% if user_signed_in? %>
-        <div class="pull-right">
+        <p class="pull-right">
           Здравей, <%= link_to current_user.name, "/#/users/#{current_user.id}", id: "username" %> (<%= current_user.reputation %>) |
           <%= link_to edit_user_registration_path, :class => "btn btn-link" do %>
             <i class="fa fa-wrench"></i> &nbsp;Настройки
@@ -24,7 +27,7 @@
           <%= link_to destroy_user_session_path, :method => :delete, :class => "btn btn-link" do %>
             <i class="fa fa-sign-out"></i> &nbsp;Изход
           <% end %>
-        </div>
+        </p>
       <% else %>
 
         <ul class="nav navbar-nav navbar-right">

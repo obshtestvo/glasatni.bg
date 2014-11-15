@@ -2,10 +2,10 @@
 
 <div class="row">
   <% {
-    'Гражданско образование'  => 'education.jpg',
-    'Гражданско участие'      => 'participation.jpg',
-    'Доброволчество'          => 'volunteering.jpg',
-    'НПО'                     => 'ngo.jpg',
+    'Гражданско образование'        => 'education.jpg',
+    'Гражданско участие'            => 'participation.jpg',
+    'Доброволчество'                => 'volunteering.jpg',
+    'Неправителствени организации'  => 'ngo.jpg',
   }.each do |theme_name, theme_icon| %>
     <% theme = Theme.find_by(name: theme_name) %>
     <div class="col-md-3 col-sm-6 col-xs-6">
@@ -20,20 +20,18 @@
 </div>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-3 col-sm-6 col-xs-6">
     <%= image_tag "meta.jpg", width: "100%" %>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-9 col-sm-6 col-xs-6">
     <%
       theme_name = 'Мета'
       theme = Theme.find_by(name: theme_name)
     %>
-    <div class="col-md-3 col-sm-6 col-xs-6">
-      <h3><%= theme_name %></h3>
-      <% if theme %>
-        <p><%= theme.info.truncate(200) %></p>
-        <p><a class="btn btn-default" href="/#/themes/<%= theme.id %>">Научи още! »</a></p>
-      <% end %>
-    </div>
+    <h3><%= theme_name %></h3>
+    <% if theme %>
+      <p><%= theme.info.truncate(200) %></p>
+      <p><a class="btn btn-default" href="/#/themes/<%= theme.id %>">Научи още! »</a></p>
+    <% end %>
   </div>
 </div>
