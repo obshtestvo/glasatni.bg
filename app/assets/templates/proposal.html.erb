@@ -102,7 +102,16 @@
       <p class="text-muted text-center rating">{{ comment.hotness }}</p>
     </td>
     <td class="col-md-12">
-      <p class="pull-left"><strong><a href="/#/users/{{ comment.user.id }}">{{ comment.user.name }}</a></strong> ( <i class="fa fa-microphone"></i>&nbsp; <i class="fa fa-bullhorn"></i> )
+      <p class="pull-left"><strong><a href="/#/users/{{ comment.user.id }}">{{ comment.user.name }}</a></strong>
+      (
+      <i class="fa fa-binoculars" ng-show="comment.user.comments_rank == 'observer'"></i>
+      <i class="fa fa-bullhorn" ng-show="comment.user.comments_rank == 'speaker'"></i>
+      <i class="fa fa-microphone" ng-show="comment.user.comments_rank == 'orator'"></i>
+
+      <i class="fa fa-eye" ng-show="comment.user.proposals_rank == 'enthusiast'"></i>
+      <i class="fa fa-gavel" ng-show="comment.user.proposals_rank == 'activist'"></i>
+      <i class="fa fa-institution" ng-show="comment.user.proposals_rank == 'policy_maker'"></i>
+      )
       | <span class="text-muted">{{ comment.time_ago }}</span></p>
       <a ng-if="currentUser.isMod || currentUser.id == comment.user.id" class="btn btn-default btn-xs btn-danger pull-right" ng-click="destroyComment(comment)" rel="nofollow">
         <i class="fa fa-times fa-lg"></i>&nbsp; Изтрий
@@ -114,8 +123,6 @@
     </td>
     </tr>
   </table>
-
-  <br />
 
   <pagination ng-model="params.page" total-items="commentsCount" items-per-page="<%= Comment.default_per_page %>" max-size="5"
   class="pagination-sm pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
