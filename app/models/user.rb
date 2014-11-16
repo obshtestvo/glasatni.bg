@@ -6,11 +6,6 @@ class User < ActiveRecord::Base
 
   devise :omniauthable, :omniauth_providers => [:facebook]
 
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" },
-    :default_url => "/system/images/:style/missing.png"
-  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
-  #validates_attachment_file_name :avatar, :matches => [/png\Z/, /jpe?g\Z/]
-
   has_many :proposals
   has_many :comments
   has_many :votings
@@ -28,7 +23,6 @@ class User < ActiveRecord::Base
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.name = auth.info.name
-      user.avatar = auth.info.image
     end
   end
 
