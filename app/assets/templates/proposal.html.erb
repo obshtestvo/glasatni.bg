@@ -10,13 +10,13 @@
   <div class="col-md-11">
     <h3>{{ proposal.title }}</h3>
     <a class="btn btn-success btn-sm pull-left" href="/#/{{ proposal.theme.en_name }}/{{ $root.params.order }}">{{ proposal.theme.name }}</a>
-    <div ng-if="currentUser.isMod || currentUser.id == proposal.user.id" class="btn-group pull-right proposal-actions">
+    <div ng-if="currentUser.isMod || currentUser.id == proposal.user.id" class="btn-group pull-right">
       <a class="btn btn-default btn-sm" href="/#/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil fa-lg"></i>&nbsp; Редактирай</a>
       <a class="btn btn-default btn-sm btn-danger" ng-click="destroyProposal(proposal)" rel="nofollow">
         <i class="fa fa-times fa-lg"></i>&nbsp; Изтрий
       </a>
     </div>
-    <flag-button type="proposal" flaggable="proposal" size="btn-sm"></flag-button>
+    <flag-button ng-if="!(currentUser.isMod || currentUser.id == proposal.user.id)" type="proposal" flaggable="proposal" size="btn-sm"></flag-button>
   </div>
 </div>
 
@@ -96,7 +96,7 @@
   </div>
 
   <table class="table table-hover">
-    <tr ng-repeat="comment in comments" ng-class="{warning: comment.user.moderator}">
+    <tr ng-repeat="comment in comments" ng-class="{warning: comment.user.moderator}" class="active">
     <td>
       <voting-buttons votable="comment" votable-type="comment"></voting-buttons>
       <p class="text-muted text-center rating">{{ comment.hotness }}</p>
