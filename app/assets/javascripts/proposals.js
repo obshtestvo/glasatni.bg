@@ -36,7 +36,7 @@ var ProposalIndexController = promeni.controller("ProposalIndexController", ["$s
   $scope.proposalsCount = data.proposals_count;
 
   $scope.pageChanged = function() {
-    $location.path("/" + $scope.$root.params.theme + "/" + $scope.$root.params.order + "/" + $scope.$root.params.page);
+    $location.path("/proposals/theme/" + $scope.$root.params.theme + "/" + $scope.$root.params.order + "/" + $scope.$root.params.page);
   }
 
 }]);
