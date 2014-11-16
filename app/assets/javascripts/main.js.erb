@@ -37,6 +37,8 @@ promeni.config(['$routeProvider', function($routeProvider) {
     }
   }).when("/home", {
     templateUrl: "<%= asset_path('home.html') %>",
+  }).when("/about", {
+    templateUrl: "<%= asset_path('about.html') %>",
   }).when("/:theme/:order/:page", {
     controller: "ProposalIndexController",
     templateUrl: "<%= asset_path('proposals.html') %>",
