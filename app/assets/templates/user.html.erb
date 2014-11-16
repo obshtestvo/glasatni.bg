@@ -53,7 +53,7 @@
       </div>
       <ul class="list-group">
         <li ng-repeat="comment in comments" class="list-group-item">
-          <p>{{ comment.content }}</p>
+          <p><markdown content="comment.content"></markdown></p>
           <small class="text-muted">{{ comment.time_ago }}</small>
           <div class="clearfix"></div>
         </li>
