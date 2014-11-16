@@ -21,6 +21,12 @@
 @import "fonts";
 @import "colors";
 
+.row-no-gutter {
+  [class*="col-"] {
+    padding-left: 0;
+  }
+}
+
 body {
   font-family: "obshtestvobg", "Myriad Pro", "Verdana", sans-serif;
 }
