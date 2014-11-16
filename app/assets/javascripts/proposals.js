@@ -70,12 +70,7 @@ promeni.controller("ProposalShowController", ["$scope", "$rootScope", "$routePar
   });
 
   $scope.destroyProposal = function(proposal) {
-    Modal.open({
-      title: "Бърз въпрос.",
-      body: "Абе, сигурен(на) ли си, че искаш да изтриеш това предложение?",
-      okButton: "Ами да.",
-      cancelButton: "Не, размислих."
-    }).then(function() {
+    Modal.open("destroyProposal").then(function() {
       Proposal.delete({ id: proposal.id }).$promise.then(function(data) {
         $location.path("/proposals/theme/" + proposal.theme.en_name + "/" + $rootScope.params.order);
       });
@@ -99,7 +94,7 @@ promeni.controller("ProposalEditController", ["$scope", "$routeParams", "$locati
 
 }]);
 
-promeni.controller("ProposalCreateController", ["$scope", "$location", "Proposal", function($scope, $location, Proposal) {
+promeni.controller("ProposalCreateController", ["$scope", "$location", "Proposal", "Modal", function($scope, $location, Proposal, Modal) {
 
   $scope.showFormatting = false;
   $scope.title = "Направи предложение";
@@ -114,13 +109,8 @@ promeni.controller("ProposalCreateController", ["$scope", "$location", "Proposal
   }
 
   $scope.submitProposal = function(proposal) {
-    var success = function(proposal) {
-      $location.path("/proposals/" + proposal.id);
-    }
-
-    var failure = function(errors) {
-      // TODO bring up modal or smth.
-    }
+    var success = function(proposal) { $location.path("/proposals/" + proposal.id) };
+    var failure = function() { Modal.open("unknownError") };
 
     Proposal.save({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme.id }).$promise.then(success, failure);
   }

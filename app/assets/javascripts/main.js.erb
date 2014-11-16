@@ -134,23 +134,11 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', function(Pro
           scope.votable.voted = scope.votable.voted === value ? -1 : value;
         }
         var failure = function(response) {
-
           if (response.statusText == "Unauthorized") {
-            text = {
-              title: "Чакай малко!",
-              body: "Само регистрирани потребители могат да гласуват.",
-              okButton: "Ясно, разбрах.",
-              cancelButton: "Скрий"
-            }
+            Modal.open("unregisteredVote");
           } else {
-            text = {
-              title: "Опа!",
-              body: "Изглежда, че гласуването не работи по някаква причина. Моля да ни извините!",
-              okButton: "От мен да мине.",
-              cancelButton: "Скрий"
-            }
+            Modal.open("unknownError");
           }
-          Modal.open(text);
         }
 
         if (scope.votableType === "proposal") {
@@ -167,11 +155,38 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', function(Pro
 
 promeni.service('Modal', ['$modal', function($modal) {
 
-  this.open = function(text) {
+  var texts = {
+    unknownError: {
+      title: "Опа!",
+      body: "Изглежда тази операция не работи за сега. Моля да ни извините!",
+      okButton: "От мен да мине.",
+      cancelButton: "Скрий"
+    },
+    unregisteredVote: {
+      title: "Чакай малко!",
+      body: "Само регистрирани потребители могат да гласуват.",
+      okButton: "Ясно, разбрах.",
+      cancelButton: "Скрий"
+    },
+    destroyComment: {
+      title: "Бърз въпрос.",
+      body: "Този коментар нещо не ти харесва. Ще го изтриеш ли?",
+      okButton: "Вярно е, не ми харесва.",
+      cancelButton: "Нека живее."
+    },
+    destroyProposal: {
+      title: "Бърз въпрос.",
+      body: "Абе, сигурен(на) ли си, че искаш да изтриеш това предложение?",
+      okButton: "Ами да.",
+      cancelButton: "Не, размислих."
+    }
+  };
+
+  this.open = function(msgKey) {
     return $modal.open({
       templateUrl: "<%= asset_path('modal.html') %>",
       controller: ["$scope", function($scope) {
-        $scope.text = text;
+        $scope.text = texts[msgKey];
       }]
     }).result;
   }
@@ -199,7 +214,7 @@ promeni.directive('markdown', [function() {
   }
 }]);
 
-promeni.directive("moreButton", ["Comment", "Proposal", "User", function(Comment, Proposal, User) {
+promeni.directive("moreButton", ["Comment", "Proposal", "User", "Modal", function(Comment, Proposal, User, Modal) {
   return {
     restrict: "E",
     scope: {
@@ -225,6 +240,7 @@ promeni.directive("moreButton", ["Comment", "Proposal", "User", function(Comment
       }
 
       var failure = function(data) {
+        Modal.open('unknownError');
       }
 
       scope.getMore = function() {
@@ -255,7 +271,7 @@ promeni.directive("moreButton", ["Comment", "Proposal", "User", function(Comment
   }
 }]);
 
-promeni.directive("flagButton", ["Comment", "Proposal", function(Comment, Proposal) {
+promeni.directive("flagButton", ["Comment", "Proposal", "Modal", function(Comment, Proposal, Modal) {
   return {
     restrict: "E",
     templateUrl: "<%= asset_path('flag_button.html') %>",
@@ -271,7 +287,7 @@ promeni.directive("flagButton", ["Comment", "Proposal", function(Comment, Propos
           flaggable.alerts = [{
             type: "success", msg: "Вие докладвахте този коментар. Благодарим ви."
           }];
-        });
+        }, function() { Modal.open("unknownError") });
       }
     }
   }

@@ -58,12 +58,7 @@ promeni.controller('CommentIndexController', ["$scope", "$routeParams", "Comment
   });
 
   $scope.destroyComment = function(comment) {
-    Modal.open({
-      title: "Бърз въпрос.",
-      body: "Този коментар нещо не ти харесва. Ще го изтриеш ли?",
-      okButton: "Вярно е, не ми харесва.",
-      cancelButton: "Нека живее."
-    }).then(function() {
+    Modal.open('destroyComment').then(function() {
       Comment.delete({ id: comment.id }).$promise.then(function(data) {
         getCommentsData();
       });
