@@ -56,7 +56,7 @@ ProposalIndexController.loadProposals = ["$rootScope", "$route", "CurrentUser", 
   });
 }];
 
-promeni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "CurrentUser", "Proposal", function($scope, $rootScope, $routeParams, $location, CurrentUser, Proposal) {
+promeni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "CurrentUser", "Proposal", "Modal", function($scope, $rootScope, $routeParams, $location, CurrentUser, Proposal, Modal) {
   var params = {
     id: $routeParams.id
   };
@@ -69,8 +69,15 @@ promeni.controller("ProposalShowController", ["$scope", "$rootScope", "$routePar
   });
 
   $scope.destroyProposal = function(proposal) {
-    Proposal.delete({ id: proposal.id }).$promise.then(function(data) {
-      $location.path("/proposals/theme/" + proposal.theme.en_name + "/" + $rootScope.params.order);
+    Modal.open({
+      title: "Бърз въпрос.",
+      body: "Абе, сигурен(на) ли си, че искаш да изтриеш това предложение?",
+      okButton: "Ами да.",
+      cancelButton: "Не, размислих."
+    }).then(function() {
+      Proposal.delete({ id: proposal.id }).$promise.then(function(data) {
+        $location.path("/proposals/theme/" + proposal.theme.en_name + "/" + $rootScope.params.order);
+      });
     });
   }
 

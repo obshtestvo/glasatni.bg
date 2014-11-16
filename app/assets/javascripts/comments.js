@@ -32,7 +32,7 @@ promeni.controller('CommentCreateController', ["$scope", "Comment", function($sc
 
 }]);
 
-promeni.controller('CommentIndexController', ["$scope", "$routeParams", "Comment", function($scope, $routeParams, Comment) {
+promeni.controller('CommentIndexController', ["$scope", "$routeParams", "Comment", "Modal", function($scope, $routeParams, Comment, Modal) {
   var getCommentsData = function() {
     Comment.query($scope.params).$promise.then(function(data) {
       $scope.comments = data.comments;
@@ -58,8 +58,15 @@ promeni.controller('CommentIndexController', ["$scope", "$routeParams", "Comment
   });
 
   $scope.destroyComment = function(comment) {
-    Comment.delete({ id: comment.id }).$promise.then(function(data) {
-      getCommentsData();
+    Modal.open({
+      title: "Бърз въпрос.",
+      body: "Този коментар нещо не ти харесва. Ще го изтриеш ли?",
+      okButton: "Вярно е, не ми харесва.",
+      cancelButton: "Нека живее."
+    }).then(function() {
+      Comment.delete({ id: comment.id }).$promise.then(function(data) {
+        getCommentsData();
+      });
     });
   }
 

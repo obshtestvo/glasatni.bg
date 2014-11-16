@@ -139,15 +139,15 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', function(Pro
             text = {
               title: "Чакай малко!",
               body: "Само регистрирани потребители могат да гласуват.",
-              okButtonText: "Ясно, разбрах.",
-              cancelButtonText: "Скрий"
+              okButton: "Ясно, разбрах.",
+              cancelButton: "Скрий"
             }
           } else {
             text = {
               title: "Опа!",
               body: "Изглежда, че гласуването не работи по някаква причина. Моля да ни извините!",
-              okButtonText: "От мен да мине.",
-              cancelButtonText: "Скрий"
+              okButton: "От мен да мине.",
+              cancelButton: "Скрий"
             }
           }
           Modal.open(text);
