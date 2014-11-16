@@ -16,7 +16,8 @@ promeni.factory('Proposal', ["$resource", function($resource) {
             commentsCount: p.comments_count,
             user: p.user,
             voted: p.voted,
-            hotness: p.hotness
+            hotness: p.hotness,
+            timeAgo: p.time_ago
           }
         });
 

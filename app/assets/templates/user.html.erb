@@ -35,7 +35,7 @@
       <ul class="list-group">
         <li ng-repeat="proposal in proposals" class="list-group-item">
           <p><a href="/#/proposals/{{ proposal.id }}">{{ proposal.title }}</a></p>
-          <small class="text-muted">в <a href="/#/themes/{{ proposal.theme.id }}">{{ proposal.theme.name }}</a> | {{ proposal.time_ago }}</small>
+          <small class="text-muted">в <a href="/#/themes/{{ proposal.theme.id }}">{{ proposal.theme.name }}</a> | {{ proposal.timeAgo }}</small>
         </li>
         <li ng-hide="proposals" class="list-group-item">Този потребител не е направил предложения.</li>
       </ul>

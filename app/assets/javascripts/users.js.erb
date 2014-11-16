@@ -14,21 +14,18 @@ promeni.service("CurrentUser", [function() {
 
 }]);
 
-promeni.controller("UserShowController", ["$scope", "$routeParams", "$http", "User", function($scope, $routeParams, $http, User) {
-
-  $scope.proposals = [];
-  $scope.comments = [];
+promeni.controller("UserShowController", ["$scope", "$routeParams", "User", "Proposal", "Comment", function($scope, $routeParams, User, Proposal, Comment) {
 
   User.get({ id: $routeParams.id }).$promise.then(function(user) {
     $scope.user = user;
   });
 
-  $http.get("/api/v1/proposals?user_id=" + $routeParams.id).success(function(data) {
+  Proposal.query({ user_id: $routeParams.id }).$promise.then(function(data) {
     $scope.proposals = data.proposals;
     $scope.proposalsCount = data.proposals_count;
   });
 
-  $http.get("/api/v1/comments?user_id=" + $routeParams.id).success(function(data) {
+  Comment.query({ user_id: $routeParams.id }).$promise.then(function(data) {
     $scope.comments = data.comments;
     $scope.commentsCount = data.comments_count;
   });
