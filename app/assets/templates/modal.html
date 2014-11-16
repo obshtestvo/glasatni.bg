@@ -1,0 +1,10 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{ text.title }}</h3>
+</div>
+<div class="modal-body">
+  {{ text.body }}
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default" ng-click="$dismiss()">{{ text.cancelButtonText }}</button>
+  <button class="btn btn-primary" ng-click="$close()">{{ text.okButtonText }}</button>
+</div>

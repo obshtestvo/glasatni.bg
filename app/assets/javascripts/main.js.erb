@@ -113,7 +113,7 @@ promeni.filter('countWords', [function() {
   };
 }]);
 
-promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Comment) {
+promeni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', function(Proposal, Comment, Modal) {
   return {
     restrict: 'E',
     scope: {
@@ -134,20 +134,23 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
           scope.votable.voted = scope.votable.voted === value ? -1 : value;
         }
         var failure = function(response) {
+
           if (response.statusText == "Unauthorized") {
-            scope.$root.$modalMessages = {
+            text = {
               title: "Чакай малко!",
               body: "Само регистрирани потребители могат да гласуват.",
-              button: "Ясно, разбрах."
+              okButtonText: "Ясно, разбрах.",
+              cancelButtonText: "Скрий"
             }
           } else {
-            scope.$root.$modalMessages = {
+            text = {
               title: "Опа!",
               body: "Изглежда, че гласуването не работи по някаква причина. Моля да ни извините!",
-              button: "От мен да мине."
+              okButtonText: "От мен да мине.",
+              cancelButtonText: "Скрий"
             }
           }
-          angular.element("#whoops-box").modal();
+          Modal.open(text);
         }
 
         if (scope.votableType === "proposal") {
@@ -160,6 +163,19 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', function(Proposal, Co
     },
     templateUrl: "<%= asset_path('voting_buttons.html') %>"
   };
+}]);
+
+promeni.service('Modal', ['$modal', function($modal) {
+
+  this.open = function(text) {
+    return $modal.open({
+      templateUrl: "<%= asset_path('modal.html') %>",
+      controller: ["$scope", function($scope) {
+        $scope.text = text;
+      }]
+    }).result;
+  }
+
 }]);
 
 promeni.directive('markdown', [function() {
