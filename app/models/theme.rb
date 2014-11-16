@@ -7,7 +7,7 @@ class Theme < ActiveRecord::Base
     {
       all: "Всички теми",
       volunteering: "Доброволчество",
-      ngo: "НПО",
+      ngo: "Неправителствени организации",
       participation: "Гражданско участие",
       education: "Гражданско образование",
       meta: "Мета"

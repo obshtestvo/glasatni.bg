@@ -56,7 +56,7 @@ ProposalIndexController.loadProposals = ["$rootScope", "$route", "CurrentUser", 
   });
 }];
 
-promeni.controller("ProposalShowController", ["$scope", "$routeParams", "$location", "CurrentUser", "Proposal", function($scope, $routeParams, $location, CurrentUser, Proposal) {
+promeni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "CurrentUser", "Proposal", function($scope, $rootScope, $routeParams, $location, CurrentUser, Proposal) {
   var params = {
     id: $routeParams.id
   };
@@ -70,7 +70,7 @@ promeni.controller("ProposalShowController", ["$scope", "$routeParams", "$locati
 
   $scope.destroyProposal = function(proposal) {
     Proposal.delete({ id: proposal.id }).$promise.then(function(data) {
-      $location.path("/themes/" + proposal.theme.id);
+      $location.path("/proposals/theme/" + proposal.theme.en_name + "/" + $rootScope.params.order);
     });
   }
 

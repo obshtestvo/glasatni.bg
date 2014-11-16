@@ -4,4 +4,6 @@ promeni.controller("ThemeController", ["$scope", "$routeParams", "$http", functi
     $scope.theme = theme;
   });
 
+  $scope.proposal = [];
+
 }]);

@@ -6,4 +6,24 @@
 
 <br />
 <a href="/#/proposals/new" class="btn btn-default btn-lg">Направи предложение</a>
-<a href="/#/{{ theme.name | translateTheme }}/relevance" class="btn btn-success btn-lg">Виж всички предложения от {{ theme.name }}</a>
+<a href="/#/proposals/theme/{{ theme.name | translateTheme }}/relevance" class="btn btn-success btn-lg">Виж всички предложения от {{ theme.name }}</a>
+
+<br />
+<br />
+<br />
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Последни предложения от {{ theme.name }}</h3>
+  </div>
+  <ul class="list-group">
+    <li ng-repeat="proposal in proposals" class="list-group-item">
+      <p><a href="/#/proposals/{{ proposal.id }}">{{ proposal.title }}</a></p>
+      <small class="text-muted">в <a href="/#/themes/{{ proposal.theme.id }}">{{ proposal.theme.name }}</a> | {{ proposal.time_ago }}</small>
+    </li>
+    <li ng-hide="proposals" class="list-group-item">Няма намерени предложения.</li>
+  </ul>
+</div>
+<p class="text-muted">Показани са {{ proposals.length }} от {{ proposalsCount }} предложения</p>
+<more-button ng-hide="proposals.length == proposalsCount" collection="proposals" collection-type="proposal" user-id="{{ user.id }}" next-page="2"></more-button>
+

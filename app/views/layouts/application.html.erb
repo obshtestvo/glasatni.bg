@@ -15,7 +15,8 @@
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <p class="pull-left">
-          <%= link_to "Начало", "/#/home", class: "btn btn-link" %>
+          <%= link_to "Начало", "/#/", class: "btn btn-link" %>
+          <%= link_to "Всички предложения", "/#/proposals", class: "btn btn-link" %>
           <%= link_to "За платформата", "/#/about", class: "btn btn-link" %>
         </p>
       <% if user_signed_in? %>
@@ -98,7 +99,7 @@
 
       <div class="row">
         <div class="col-md-8">
-          <%= link_to "/#/{{ $root.params.theme }}/{{ $root.params.order }}/{{ $root.params.page }}" do %>
+          <%= link_to "/#/proposals" do %>
             <%= image_tag "glasatni_logo.png", width: 230 %>
           <% end %>
         </div>
