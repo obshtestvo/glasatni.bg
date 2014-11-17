@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
 
   paginates_per 3
 
+  scope :subscribed, -> { where(subscribed: true) }
+
   enum role: [:registered, :moderator, :admin]
   enum comments_rank: [:observer, :speaker, :orator]
   enum proposals_rank: [:enthusiast, :activist, :policy_maker]
