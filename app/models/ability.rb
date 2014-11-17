@@ -11,7 +11,6 @@ class Ability
       can :vote, [Proposal, Comment]
       can :create, [Proposal, Comment]
       can :update, Proposal, user_id: user.id
-      can :update, Flag
       can :destroy, [Comment, Proposal], user_id: user.id
     end
 

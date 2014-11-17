@@ -96,7 +96,6 @@ class ApplicationController < ActionController::Base
       user: current_user,
       flaggable: flaggable
     })
-    authorize! :update, flag
 
     flag.update(reason: Flag.reasons[application_params[:reason]])
 
