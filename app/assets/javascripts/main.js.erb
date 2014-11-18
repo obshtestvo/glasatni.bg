@@ -2,6 +2,9 @@
 //= depend_on_asset proposal.html
 //= depend_on_asset voting_buttons.html
 
+// This file contains services and directives used throughout the project as well as
+// the routes.
+
 var promeni = angular.module('promeni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
 promeni.config(['$routeProvider', function($routeProvider) {
@@ -153,6 +156,9 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', function(Pro
   };
 }]);
 
+// This service is a wrapper of the ui.bootstrap's $modal service.
+// The 'open' method returns a promise which is fulfilled when the
+// user clicks 'ok' (blue) and rejected when he/she clicks 'cancel' (white)
 promeni.service('Modal', ['$modal', function($modal) {
 
   var texts = {
@@ -199,6 +205,9 @@ promeni.service('Modal', ['$modal', function($modal) {
 
 }]);
 
+// this very simple directive has only one function -
+// listen for changes in the given string and update it
+// converting with the 'showdown' library.
 promeni.directive('markdown', [function() {
   var converter = new Showdown.converter();
 
@@ -220,6 +229,8 @@ promeni.directive('markdown', [function() {
   }
 }]);
 
+
+// The 'more' button is a directive that collects more of comments/proposals/users
 promeni.directive("moreButton", ["Comment", "Proposal", "User", "Modal", function(Comment, Proposal, User, Modal) {
   return {
     restrict: "E",
@@ -277,6 +288,7 @@ promeni.directive("moreButton", ["Comment", "Proposal", "User", "Modal", functio
   }
 }]);
 
+// flag button is used for flagging comments and proposals
 promeni.directive("flagButton", ["Comment", "Proposal", "Modal", function(Comment, Proposal, Modal) {
   return {
     restrict: "E",

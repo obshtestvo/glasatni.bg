@@ -6,9 +6,7 @@ promeni.factory('Comment', ['$resource', function($resource) {
   });
 }]);
 
-promeni.controller('CommentCreateController', ["$scope", "Comment", function($scope, Comment) {
-
-  $scope.logged_in = $("#logged_in").length !== 0 ? true : false;
+promeni.controller('CommentCreateController', ["$scope", "Comment", "Modal", function($scope, Comment, Modal) {
 
   $scope.showWarning = function() {
     $("#warning-box").slideDown();
@@ -27,7 +25,8 @@ promeni.controller('CommentCreateController', ["$scope", "Comment", function($sc
       $("#warning-box").slideUp();
       $("#comment-box").attr("rows", 3);
       $scope.newComment = { content: "" };
-    });
+      $scope.proposal.comments.push(comment);
+    }, function() { Modal.open('unknownError') });
   }
 
 }]);
@@ -68,5 +67,4 @@ promeni.controller('CommentIndexController', ["$scope", "$routeParams", "Comment
   getCommentsData();
 
 }]);
-
 

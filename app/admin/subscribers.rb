@@ -8,7 +8,7 @@ ActiveAdmin.register User, as: "Subscriber" do
 
   index do
     column(:name) { |u| link_to u.name, admin_user_path(u) }
-    column(:role)
+    column(:email)
     actions
   end
 
