@@ -24,7 +24,7 @@ module UsersHelper
     a = (Time.now-date).to_i
 
     case a
-      when 0 then 'току що'
+      when 0 then 'току-що'
       when 1 then 'преди секунда'
       when 2..59 then 'преди ' + a.to_s + ' секунди'
       when 60..119 then 'преди минута' #120 = 2 minutes
