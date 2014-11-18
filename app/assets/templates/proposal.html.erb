@@ -44,7 +44,10 @@
 
 <h3>Коментари</h3>
 
-<div ng-controller="CommentCreateController">
+<div ng-controller="CommentController">
+
+  {{ proposal.comments }}
+
   <div ng-show="currentUser.id">
 
     <div id="warning-box" class="bs-callout bs-callout-danger" style="display:none">
@@ -69,11 +72,9 @@
     </div>
 
   </div>
-</div>
 
-<br />
+  <br />
 
-<div ng-controller="CommentIndexController">
   <div class="row">
     <div class="col-md-2 col-sm-2">
       <filter order="params.order">
