@@ -61,12 +61,17 @@ promeni.controller("ProposalShowController", ["$scope", "$rootScope", "$routePar
   var params = {
     id: $routeParams.id
   };
-  params.voter_id = CurrentUser.id;
+  if (CurrentUser.id) {
+    params.voter_id = CurrentUser.id;
+  }
 
   $scope.currentUser = CurrentUser;
 
   Proposal.get(params).$promise.then(function(proposal) {
     $scope.proposal = proposal;
+  }, function() {
+    var fn = function() { $location.path("/proposals") };
+    Modal.open('proposalNotFound').then(fn, fn);
   });
 
   $scope.destroyProposal = function(proposal) {
