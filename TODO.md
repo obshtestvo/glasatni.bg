@@ -1,28 +1,17 @@
-# задължителни:
-
-- FB likes - май не работят в момента
-- fb страница - cover, текст и картинка.
-- бюлетин
-- can can - да настроя кой какво може да прави
-- seeds - comments + better formating
-- nested comments
+- login dropdown
+- token based auth
+- да се пипне дизайна
+- статус на предложението
 - списък с рангове
-- markdown list of formatting options page
-- да пренапиша изречението за символите
-- да се премести ограничението от коментари на предложения
-- complex hotness rating
+- page not found
+- N comments -> link to comment section
+- nested comments
 - style all devise views
 - style mails
-- config mailer
-- bower
-- N comments -> link to comment section
-
-# желателни:
-
-- login dropdown
+- loading при смяна на страницата
+- complex hotness rating
+- да измисля защита от ботове
 - edit comments
 - notifications
-- документация на API
 - времето да се update-ва автоматично
-- да се пипне дизайна
-- markdown for comments
+- google analytics
