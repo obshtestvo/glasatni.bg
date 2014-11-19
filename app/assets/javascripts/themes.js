@@ -10,11 +10,21 @@ promeni.controller("ThemeShowController", ["$scope", "$routeParams", "$http", fu
 
 promeni.controller("ThemeIndexController", ["$scope", "$http", function($scope, $http) {
 
-  $scope.order = ["education", "participation", "volunteering", "ngo"];
+  // Fisher–Yates Shuffle http://bost.ocks.org/mike/shuffle/
+  var shuffle = function(array) {
+    var m = array.length, t, i;
+    while (m) {
+      i = Math.floor(Math.random() * m--);
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+    return array;
+  }
 
   $http.get("/api/v1/themes").success(function(themes) {
     $scope.meta = themes.filter(function(t) { return t.en_name === "meta" })[0];
-    $scope.themes = themes.filter(function(t) { return t.en_name !== "meta" });
+    $scope.themes = shuffle(themes.filter(function(t) { return t.en_name !== "meta" }));
   });
 
 }]);
