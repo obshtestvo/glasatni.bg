@@ -21,6 +21,7 @@ promeni.config(['$routeProvider', function($routeProvider) {
 
   // home
   .when("/", {
+    controller: "ThemeIndexController",
     templateUrl: "<%= asset_path('home.html') %>" })
 
   // proposals
@@ -44,7 +45,7 @@ promeni.config(['$routeProvider', function($routeProvider) {
 
   // themes
   .when("/themes/:id", {
-    controller: "ThemeController",
+    controller: "ThemeShowController",
     templateUrl: "<%= asset_path('theme.html') %>" })
 
   // ranks
