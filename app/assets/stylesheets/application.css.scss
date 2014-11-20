@@ -59,6 +59,11 @@ ul.nav-tabs {
   }
 }
 
+h3.education, h3.volunteering, h3.participation, h3.ngo, h3.meta {
+  a { color: black; }
+  a:hover { color: #4586C8; }
+}
+
 h3.volunteering {
   margin-bottom: 1.3em;
 }
