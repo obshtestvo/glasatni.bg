@@ -117,7 +117,7 @@ promeni.filter('countWords', [function() {
   };
 }]);
 
-promeni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', function(Proposal, Comment, Modal) {
+promeni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', 'CurrentUser', function(Proposal, Comment, Modal, CurrentUser) {
   return {
     restrict: 'E',
     scope: {
@@ -145,11 +145,16 @@ promeni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', function(Pro
           }
         }
 
-        if (scope.votableType === "proposal") {
-          Proposal.vote(params).$promise.then(success, failure);
+        if (CurrentUser.id) {
+          if (scope.votableType === "proposal") {
+            Proposal.vote(params).$promise.then(success, failure);
+          } else {
+            Comment.vote(params).$promise.then(success, failure);
+          }
         } else {
-          Comment.vote(params).$promise.then(success, failure);
+          Modal.open("unregisteredVote");
         }
+
       }
 
     },
