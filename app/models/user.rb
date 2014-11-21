@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
   enum comments_rank: [:observer, :speaker, :orator]
   enum proposals_rank: [:enthusiast, :activist, :policy_maker]
 
+  def active_for_authentication?
+    super && !self.banned?
+  end
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

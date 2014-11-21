@@ -37,6 +37,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer :proposals_rank, :default => 0
       t.text :bio
       t.boolean :subscribed, null: false, default: false
+      t.boolean :banned, null: false, default: false
 
       # oauth
       t.string :provider
