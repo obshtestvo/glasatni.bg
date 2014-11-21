@@ -93,20 +93,6 @@ promeni.filter('translateRank', [function () {
   };
 }]);
 
-promeni.filter('translateTheme', [function () {
-  "use strict";
-  return function (value) {
-    var translations = {
-      "education": "Гражданско образование",
-      "volunteering": "Доброволчество",
-      "meta": "Мета",
-      "ngo": "НПО",
-      "participation": "Гражданско участие",
-    }
-    return Object.keys(translations).filter(function(key) { return translations[key] === value })[0];
-  };
-}]);
-
 promeni.filter('countWords', [function() {
   "use strict";
   return function(string) {
