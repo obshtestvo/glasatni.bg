@@ -1,6 +1,8 @@
-# test user
 user = User.create({ name: "Гражданин", password: SecureRandom.hex, email: "test@user.com" })
 sceptic = User.create({ name: "Скептик", password: SecureRandom.hex, email: "second@user.com" })
+
+AdminUser.create!(:email => 'admin@example.com', :password => 'password', :password_confirmation => 'password')
+
 p "Imported #{User.count} users"
 
 # themes
