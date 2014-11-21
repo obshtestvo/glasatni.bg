@@ -4,7 +4,7 @@ module Api
       respond_to :json
 
       def index
-        @themes = Theme.all
+        @themes = Theme.includes(:moderator)
       end
 
       def show

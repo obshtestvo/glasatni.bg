@@ -6,6 +6,7 @@
     <img alt="{{ theme.name }}" ng-src="{{ theme.image_url }}" width="100%">
     <p>{{ theme.info | limitTo:200 }}...</p>
     <p><a class="btn btn-default" href="/#/themes/{{ theme.id }}">Научи още! »</a></p>
+    <p class="text-muted">Модератор: <a href="/#/users/{{ theme.moderator.id }}">{{ theme.moderator.name }}</a></p>
   </div>
 </div>
 
@@ -17,5 +18,6 @@
     <h3 class="meta"><a href="/#/proposals/theme/{{ meta.en_name }}/relevance">{{ meta.name }}</a></h3>
     <p>{{ meta.info | limitTo:200 }}...</p>
     <p><a class="btn btn-default" href="/#/themes/{{ meta.id }}">Научи още! »</a></p>
+    <p class="text-muted">Модератор: <a href="/#/users/{{ meta.moderator.id }}">{{ meta.moderator.name }}</a></p>
   </div>
 </div>
