@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
   scope :subscribed, -> { where(subscribed: true) }
 
-  enum role: [:registered, :moderator, :admin]
+  enum role: [:registered, :moderator]
   enum comments_rank: [:observer, :speaker, :orator]
   enum proposals_rank: [:enthusiast, :activist, :policy_maker]
 
