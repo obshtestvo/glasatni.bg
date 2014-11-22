@@ -31,6 +31,14 @@ body {
   font-family: "obshtestvobg", "Myriad Pro", "Verdana", sans-serif;
 }
 
+li.dropdown.open {
+  a.dropdown-toggle, a.dropdown-toggle:hover {
+    background: $blue;
+    border: none;
+  }
+}
+
+/*.nav .open > a, .nav .open > a:hover, .nav .open > a:focus*/
 section#topnav {
   p {
     margin: 0;
