@@ -99,7 +99,12 @@ promeni.controller("ProposalEditController", ["$scope", "$routeParams", "$locati
 
 }]);
 
-promeni.controller("ProposalCreateController", ["$scope", "$location", "Proposal", "Modal", function($scope, $location, Proposal, Modal) {
+promeni.controller("ProposalCreateController", ["$scope", "$location", "Proposal", "Modal", "CurrentUser", function($scope, $location, Proposal, Modal, CurrentUser) {
+
+  if (!CurrentUser.id) {
+    var fn = function() { $location.path("/proposals/theme/" + $scope.$root.params.theme + "/" + $scope.$root.params.order) };
+    Modal.open("unregisteredCreateProposal").then(fn, fn);
+  }
 
   $scope.showFormatting = false;
   $scope.title = "Направи предложение";
