@@ -1,4 +1,4 @@
-promeni.controller("ThemeShowController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http) {
+glasatni.controller("ThemeShowController", ["$scope", "$routeParams", "$http", function($scope, $routeParams, $http) {
 
   $http.get("/api/v1/themes/" + $routeParams.id).success(function(theme) {
     $scope.theme = theme;
@@ -8,7 +8,7 @@ promeni.controller("ThemeShowController", ["$scope", "$routeParams", "$http", fu
 
 }]);
 
-promeni.controller("ThemeIndexController", ["$scope", "$http", function($scope, $http) {
+glasatni.controller("ThemeIndexController", ["$scope", "$http", function($scope, $http) {
 
   // Fisher–Yates Shuffle http://bost.ocks.org/mike/shuffle/
   var shuffle = function(array) {

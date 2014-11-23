@@ -1,4 +1,4 @@
-promeni.factory('Proposal', ["$resource", function($resource) {
+glasatni.factory('Proposal', ["$resource", function($resource) {
   return $resource('/api/v1/proposals/:id', null, {
     'query': {
       method:'GET',
@@ -30,7 +30,7 @@ promeni.factory('Proposal', ["$resource", function($resource) {
   });
 }]);
 
-var ProposalIndexController = promeni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "data", function($scope, $routeParams, $location, data) {
+var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "data", function($scope, $routeParams, $location, data) {
 
   $scope.proposals = data.proposals;
   $scope.proposalsCount = data.proposals_count;
@@ -57,7 +57,7 @@ ProposalIndexController.loadProposals = ["$rootScope", "$route", "CurrentUser", 
   });
 }];
 
-promeni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "CurrentUser", "Proposal", "Modal", function($scope, $rootScope, $routeParams, $location, CurrentUser, Proposal, Modal) {
+glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "CurrentUser", "Proposal", "Modal", function($scope, $rootScope, $routeParams, $location, CurrentUser, Proposal, Modal) {
   var params = {
     id: $routeParams.id
   };
@@ -84,7 +84,7 @@ promeni.controller("ProposalShowController", ["$scope", "$rootScope", "$routePar
 
 }]);
 
-promeni.controller("ProposalEditController", ["$scope", "$routeParams", "$location", "Proposal", function($scope, $routeParams, $location, Proposal) {
+glasatni.controller("ProposalEditController", ["$scope", "$routeParams", "$location", "Proposal", function($scope, $routeParams, $location, Proposal) {
 
   $scope.proposal = Proposal.get({ id: $routeParams.id });
   $scope.showFormatting = false;
@@ -99,7 +99,7 @@ promeni.controller("ProposalEditController", ["$scope", "$routeParams", "$locati
 
 }]);
 
-promeni.controller("ProposalCreateController", ["$scope", "$location", "Proposal", "Modal", "CurrentUser", function($scope, $location, Proposal, Modal, CurrentUser) {
+glasatni.controller("ProposalCreateController", ["$scope", "$location", "Proposal", "Modal", "CurrentUser", function($scope, $location, Proposal, Modal, CurrentUser) {
 
   if (!CurrentUser.id) {
     var fn = function() { $location.path("/proposals/theme/" + $scope.$root.params.theme + "/" + $scope.$root.params.order) };

@@ -1,10 +1,10 @@
-promeni.factory('User', ['$resource', function($resource) {
+glasatni.factory('User', ['$resource', function($resource) {
   return $resource('/api/v1/users/:id', null, {
     'query': { method:'GET', isArray: false },
   });
 }]);
 
-promeni.service("CurrentUser", [function() {
+glasatni.service("CurrentUser", [function() {
   var $el = $("#user-info"),
     id = $el.attr("user-id"),
     isMod = $el.attr("user-is-mod") === "true";
@@ -14,7 +14,7 @@ promeni.service("CurrentUser", [function() {
 
 }]);
 
-promeni.controller("UserShowController", ["$scope", "$routeParams", "User", "Proposal", "Comment", function($scope, $routeParams, User, Proposal, Comment) {
+glasatni.controller("UserShowController", ["$scope", "$routeParams", "User", "Proposal", "Comment", function($scope, $routeParams, User, Proposal, Comment) {
 
   User.get({ id: $routeParams.id }).$promise.then(function(user) {
     $scope.user = user;
@@ -32,7 +32,7 @@ promeni.controller("UserShowController", ["$scope", "$routeParams", "User", "Pro
 
 }]);
 
-promeni.controller("UserIndexController", ["$scope", "$routeParams", "User", function($scope, $routeParams, User) {
+glasatni.controller("UserIndexController", ["$scope", "$routeParams", "User", function($scope, $routeParams, User) {
 
   $scope.rank = $routeParams.rank;
 
@@ -43,7 +43,7 @@ promeni.controller("UserIndexController", ["$scope", "$routeParams", "User", fun
 
 }]);
 
-promeni.directive("userButton", [function() {
+glasatni.directive("userButton", [function() {
   return {
     restrict: "E",
     templateUrl: "<%= asset_path('user_button.html') %>",

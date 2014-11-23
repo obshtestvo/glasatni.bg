@@ -1,4 +1,4 @@
-promeni.factory('Comment', ['$resource', function($resource) {
+glasatni.factory('Comment', ['$resource', function($resource) {
   return $resource('/api/v1/comments/:id', null, {
     'query': { method:'GET', isArray: false },
     'vote': { method: "POST", url: "/vote" },
@@ -6,7 +6,7 @@ promeni.factory('Comment', ['$resource', function($resource) {
   });
 }]);
 
-promeni.controller('CommentController', ["$scope", "$routeParams", "Comment", "CurrentUser", "Modal", function($scope, $routeParams, Comment, CurrentUser, Modal) {
+glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "CurrentUser", "Modal", function($scope, $routeParams, Comment, CurrentUser, Modal) {
 
   var getCommentsData = function() {
     Comment.query($scope.params).$promise.then(function(data) {
