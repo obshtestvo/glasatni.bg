@@ -57,7 +57,7 @@ ProposalIndexController.loadProposals = ["$rootScope", "$route", "CurrentUser", 
   });
 }];
 
-glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "CurrentUser", "Proposal", "Modal", function($scope, $rootScope, $routeParams, $location, CurrentUser, Proposal, Modal) {
+glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "$anchorScroll", "$timeout", "CurrentUser", "Proposal", "Modal", function($scope, $rootScope, $routeParams, $location, $anchorScroll, $timeout, CurrentUser, Proposal, Modal) {
   var params = {
     id: $routeParams.id
   };
@@ -82,6 +82,7 @@ glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routePa
     });
   }
 
+  $anchorScroll();
 }]);
 
 glasatni.controller("ProposalEditController", ["$scope", "$routeParams", "$location", "Proposal", function($scope, $routeParams, $location, Proposal) {
