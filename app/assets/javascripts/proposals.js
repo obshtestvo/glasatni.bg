@@ -103,7 +103,8 @@ glasatni.controller("ProposalEditController", ["$scope", "$routeParams", "$locat
 glasatni.controller("ProposalCreateController", ["$scope", "$location", "Proposal", "Modal", "CurrentUser", function($scope, $location, Proposal, Modal, CurrentUser) {
 
   if (!CurrentUser.id) {
-    var fn = function() { $location.path("/proposals/theme/" + $scope.$root.params.theme + "/" + $scope.$root.params.order) };
+    var params = typeof $scope.$root.params === "undefined" ? { theme: "all", order: "relevance" } : $scope.$root.params;
+    var fn = function() { $location.path("/proposals/theme/" + params.theme + "/" + params.order) };
     Modal.open("unregisteredCreateProposal").then(fn, fn);
   }
 
