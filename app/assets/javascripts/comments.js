@@ -58,7 +58,7 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
       $("#warning-box").slideUp();
       $("#comment-box").attr("rows", 3);
       $scope.newComment = { content: "" };
-      $scope.comments.unshift(comment);
+      $scope.comments.push(comment);
 
     }, function() { Modal.open('unknownError') });
   }

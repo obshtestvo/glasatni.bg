@@ -42,38 +42,9 @@
 
 <hr />
 
-<h3>Коментари</h3>
+<h3 id="comments">Коментари</h3>
 
 <div ng-controller="CommentController">
-
-  {{ proposal.comments }}
-
-  <div ng-show="currentUser.id">
-
-    <div id="warning-box" class="bs-callout bs-callout-danger" style="display:none">
-      <h4>Само да ти кажем някои неща...</h4>
-      Опитай се да бъдеш максимално изчерпателен(на). Всякакви расистки, хомофобски, сексистки, шовинистки коментари ще бъдат изтривани, както и коментари приканващи към насилие над хора или животни.
-    </div>
-
-    <textarea id="comment-box" name="" rows="3" cols="40" class="form-control" ng-model="newComment.content" ng-focus="showWarning()" placeholder="Напиши своя коментар тук."></textarea>
-    <br />
-    <div class="row">
-      <div class="col-md-1">
-        <button class="btn btn-success" ng-disabled="newComment.content == ''" ng-click="createNewComment()"><i class="fa fa-comment fa-lg"></i>&nbsp; Коментирай</button>
-      </div>
-    </div>
-
-  </div>
-  <div ng-hide="currentUser.id">
-
-    <div id="not-registered" class="bs-callout bs-callout-danger">
-      <h4>Само регистрирани потребители могат да оставят коментари.</h4>
-      Регистрирането ти позволява също да гласуваш, да даваш предложения и да разбереш какъв интерес имат те сред другите участници от сайта. Бъди активен!
-    </div>
-
-  </div>
-
-  <br />
 
   <div class="row">
     <div class="col-md-2 col-sm-2">
@@ -128,5 +99,33 @@
   <pagination ng-model="params.page" total-items="commentsCount" items-per-page="<%= Comment.default_per_page %>" max-size="5"
   class="pagination-sm pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
   last-text="Последна"></pagination>
+
+  <div class="clearfix"></div>
+  <h4>Нов коментар</h4>
+
+  <div ng-show="currentUser.id">
+
+    <div id="warning-box" class="bs-callout bs-callout-danger" style="display:none">
+      <h4>Само да ти кажем някои неща...</h4>
+      Опитай се да бъдеш максимално изчерпателен(на). Всякакви расистки, хомофобски, сексистки, шовинистки коментари ще бъдат изтривани, както и коментари приканващи към насилие над хора или животни.
+    </div>
+
+    <textarea id="comment-box" name="" rows="3" cols="40" class="form-control" ng-model="newComment.content" ng-focus="showWarning()" placeholder="Напиши своя коментар тук."></textarea>
+    <br />
+    <div class="row">
+      <div class="col-md-1">
+        <button class="btn btn-success" ng-disabled="newComment.content == ''" ng-click="createNewComment()"><i class="fa fa-comment fa-lg"></i>&nbsp; Коментирай</button>
+      </div>
+    </div>
+
+  </div>
+  <div ng-hide="currentUser.id">
+
+    <div id="not-registered" class="bs-callout bs-callout-danger">
+      <h4>Само регистрирани потребители могат да оставят коментари.</h4>
+      Регистрирането ти позволява също да гласуваш, да даваш предложения и да разбереш какъв интерес имат те сред другите участници от сайта. Бъди активен!
+    </div>
+
+  </div>
 
 </div>
