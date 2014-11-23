@@ -22,10 +22,10 @@
       <% if user_signed_in? %>
         <p class="pull-right">
           Здравей, <%= link_to current_user.name, "/#/users/#{current_user.id}", id: "username" %> (<%= current_user.reputation %>) |
-          <%= link_to edit_user_registration_path, :class => "btn btn-link" do %>
+          <%= link_to edit_user_registration_path, :class => "btn btn-link", target: "_self" do %>
             <i class="fa fa-wrench"></i> &nbsp;Настройки
           <% end %>
-          <%= link_to destroy_user_session_path, :method => :delete, :class => "btn btn-link" do %>
+          <%= link_to destroy_user_session_path, :method => :delete, :class => "btn btn-link", target: "_self" do %>
             <i class="fa fa-sign-out"></i> &nbsp;Изход
           <% end %>
         </p>
@@ -40,12 +40,12 @@
             <ul class="dropdown-menu login-menu" role="menu">
               <li class="dropdown-header">Радвам се да те видя отново.</li>
               <li>
-                <%= link_to new_session_path(:user) do %>
+                <%= link_to new_session_path(:user), target: "_self" do %>
                   <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
                 <% end %>
               </li>
               <li>
-                <%= link_to user_omniauth_authorize_path(:facebook) do %>
+                <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>
                   <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
                 <% end %>
               </li>
@@ -59,12 +59,12 @@
             <ul class="dropdown-menu register-menu">
               <li class="dropdown-header">Радвам се да се запознаем.<br />Можеш да се регистрираш с:</li>
               <li>
-              <%= link_to new_registration_path(:user) do %>
+              <%= link_to new_registration_path(:user), target: "_self" do %>
                 <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
               <% end %>
               </li>
               <li>
-              <%= link_to user_omniauth_authorize_path(:facebook) do %>
+              <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>
                 <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
               <% end %>
               </li>
