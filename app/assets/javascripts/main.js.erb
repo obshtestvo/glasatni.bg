@@ -7,7 +7,9 @@
 
 var promeni = angular.module('promeni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
-promeni.config(['$routeProvider', function($routeProvider) {
+promeni.config(['$routeProvider', "$locationProvider", function($routeProvider, $locationProvider) {
+
+  $locationProvider.html5Mode(true);
 
   var proposalsOptions = {
     controller: "ProposalIndexController",
@@ -22,7 +24,16 @@ promeni.config(['$routeProvider', function($routeProvider) {
   // home
   .when("/", {
     controller: "ThemeIndexController",
-    templateUrl: "<%= asset_path('home.html') %>" })
+    templateUrl: "<%= asset_path('home.html') %>",
+    redirectTo: function(current, path, search) {
+      //return search.goto ? "/" + search.goto : "/";
+      if (search.goto) {
+        return "/" + search.goto;
+      } else {
+        return "/";
+      }
+    }
+  })
 
   // proposals
   .when("/proposals", proposalsOptions)
