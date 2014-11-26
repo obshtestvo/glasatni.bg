@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div style="display:none;" id="user-info" user-id="<%= current_user.try(:id) %>" user-is-mod="<%= current_user.try(:mod?) %>"></div>
+<div style="display:none;" id="user-info" user-id="<%= current_user.try(:id) %>" user-is-mod="<%= current_user.try(:moderator?) %>"></div>
 
 <section id="topnav">
   <div class="container">
