@@ -10,11 +10,13 @@
   <div class="col-md-11">
     <h3 id="title">{{ proposal.title }}</h3>
     <a class="btn btn-success btn-sm pull-left" href="/#/proposals/theme/{{ proposal.theme.en_name }}/{{ $root.params.order }}">{{ proposal.theme.name }}</a>
-    <div ng-if="currentUser.isMod || currentUser.id == proposal.user.id" class="btn-group pull-right">
-      <a class="btn btn-default btn-sm" href="/#/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil fa-lg"></i>&nbsp; Редактирай</a>
-      <a class="btn btn-default btn-sm btn-danger" ng-click="destroyProposal(proposal)" rel="nofollow">
+    <div class="btn-group pull-right">
+      <a ng-if="currentUser.isMod || proposal.user.id == currentUser.id" class="btn btn-default btn-sm" href="/#/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil fa-lg"></i>&nbsp; Редактирай</a>
+      <button ng-if="proposal.approved && currentUser.isMod" class="btn btn-danger btn-sm" ng-click="approval(proposal, false)"><i class="fa fa-pencil fa-lg"></i>&nbsp; Махни одобрение</button>
+      <button ng-if="!proposal.approved && currentUser.isMod" class="btn btn-success btn-sm" ng-click="approval(proposal, true)"><i class="fa fa-pencil fa-lg"></i>&nbsp; Одобри</button>
+      <button ng-if="currentUser.isMod || proposal.user.id == currentUser.id" class="btn btn-default btn-sm btn-danger" ng-click="destroyProposal(proposal)" rel="nofollow">
         <i class="fa fa-times fa-lg"></i>&nbsp; Изтрий
-      </a>
+      </button>
     </div>
     <flag-button ng-if="!(currentUser.isMod || currentUser.id == proposal.user.id)" type="proposal" flaggable="proposal" size="btn-sm"></flag-button>
   </div>
@@ -22,6 +24,10 @@
 
 <br />
 <div class="clearfix"></div>
+<div ng-if="!proposal.approved" class="bs-callout bs-callout-danger">
+  <h4>Това предложение чака одобрение от модератор!</h4>
+  До тогава, няма да излиза в списъка с предложения.
+</div>
 <alert ng-repeat="alert in proposal.alerts" type="{{ alert.type }}" close="proposal.alerts=[]">{{ alert.msg }}</alert>
 
 <markdown content="proposal.content"></markdown>

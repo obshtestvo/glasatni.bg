@@ -19,6 +19,8 @@ json.user do
   json.moderator @proposal.user.moderator?
 end
 
+json.approved @proposal.approved
+
 if @voter_id.present?
   voter = User.find(@voter_id)
   json.voted Voting.where(votable_id: @proposal.id, user: voter).try(:first).try(:value)

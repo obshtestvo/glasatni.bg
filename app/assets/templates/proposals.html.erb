@@ -43,6 +43,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title"><a href="/#/proposals/{{ proposal.id }}/#title">{{ proposal.title }}</a>
+        <span ng-if="currentUser.isMod" class="label" ng-class="{'label-success': proposal.approved, 'label-danger': !proposal.approved }">{{ proposal.approved ? "Одобрено" : "Неодобрено" }}</span>
         <br />
         <small>
           в <a href="/#/themes/{{ proposal.theme.id }}">{{ proposal.theme.name }}</a> |
@@ -70,3 +71,4 @@ rotate="false" previous-text="Предишна" next-text="Следваща" fir
 <div class="clearfix"></div>
 <br />
 <p class="text-muted pull-right">Показани са {{ proposals.length }} от {{ proposalsCount }} предложения.</p>
+

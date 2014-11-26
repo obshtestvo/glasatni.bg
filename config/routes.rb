@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   # API routes
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      resources :proposals
+      resources :proposals do
+        member do
+          post "approve"
+        end
+      end
       resources :comments, only: [:index, :create, :destroy]
       resources :themes, only: [:index, :show]
       resources :users, only: [:index, :show]

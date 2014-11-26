@@ -14,6 +14,8 @@ class Proposal < ActiveRecord::Base
 
   paginates_per 3
 
+  scope :approved, -> { where(approved: true) }
+
   private
   def update_user_rank
     user = self.user

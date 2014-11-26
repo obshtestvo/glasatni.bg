@@ -1,10 +1,3 @@
-if @voter_id.present?
-  voter = User.find(@voter_id)
-  votings = Voting.where(user: voter, votable: @proposals).pluck(:votable_id, :value).to_h
-else
-  votings = []
-end
-
 json.proposals @proposals do |p|
   json.id p.id
 
@@ -16,7 +9,7 @@ json.proposals @proposals do |p|
   json.title p.title
   json.content p.content
 
-  json.voted votings[p.id]
+  json.voted @votings[p.id]
 
   json.theme do
     json.id p.theme_id
@@ -33,6 +26,7 @@ json.proposals @proposals do |p|
   json.down p.down
   json.hotness p.hotness
   json.comments_count p.comments_count
+  json.approved p.approved
   json.created_at p.created_at
   json.time_ago pretty_date(p.created_at)
   json.updated_at p.updated_at

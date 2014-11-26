@@ -15,6 +15,7 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
             theme: p.theme,
             commentsCount: p.comments_count,
             user: p.user,
+            approved: p.approved,
             voted: p.voted,
             hotness: p.hotness,
             timeAgo: p.time_ago
@@ -26,14 +27,17 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
     },
     'vote': { method: "POST", url: "/vote" },
     'update': { method: 'PUT' },
-    'flag': { method: "POST", url: "/flag" }
+    'flag': { method: "POST", url: "/flag" },
+    'approve': { method: "POST", url: "/api/v1/proposals/:id/approve" },
   });
 }]);
 
-var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "data", function($scope, $routeParams, $location, data) {
+var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "data", "CurrentUser", function($scope, $routeParams, $location, data, CurrentUser) {
 
   $scope.proposals = data.proposals;
   $scope.proposalsCount = data.proposals_count;
+
+  $scope.currentUser = CurrentUser;
 
   $scope.pageChanged = function() {
     $location.path("/proposals/theme/" + $scope.$root.params.theme + "/" + $scope.$root.params.order + "/" + $scope.$root.params.page);
@@ -79,6 +83,15 @@ glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routePa
       Proposal.delete({ id: proposal.id }).$promise.then(function(data) {
         $location.path("/proposals/theme/" + proposal.theme.en_name + "/" + $rootScope.params.order);
       });
+    });
+  }
+
+  $scope.approval = function(proposal, approved) {
+    Proposal.approve({ id: proposal.id }, { approved: approved }).$promise.then(function(proposal) {
+      $scope.proposal = proposal;
+    }, function(response) {
+      var reason = response.status === 403 ? "unauthorizedUpdateProposal" : "unknownError";
+      Modal.open(reason);
     });
   }
 
