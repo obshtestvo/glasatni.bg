@@ -38,6 +38,7 @@ module Api
           query = query.approved unless user.moderator?
           @votings = Voting.where(user: user, votable: query).pluck(:votable_id, :value).to_h
         else
+          query = query.approved
           @votings = []
         end
 
