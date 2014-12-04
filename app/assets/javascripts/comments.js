@@ -8,12 +8,14 @@ glasatni.factory('Comment', ['$resource', function($resource) {
 
 glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "CurrentUser", "Modal", function($scope, $routeParams, Comment, CurrentUser, Modal) {
 
-  var getCommentsData = function() {
-    Comment.query($scope.params).$promise.then(function(data) {
-      $scope.comments = data.comments;
-      $scope.commentsCount = data.comments_count;
-    });
-  }
+    var getCommentsData;
+
+    getCommentsData = function () {
+        Comment.query($scope.params).$promise.then(function (data) {
+            $scope.comments = data.comments;
+            $scope.commentsCount = data.comments_count;
+        });
+    };
 
   $scope.params = {
     order: "relevance",
@@ -33,7 +35,7 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
 
   $scope.destroyComment = function(comment) {
     Modal.open('destroyComment').then(function() {
-      Comment.delete({ id: comment.id }).$promise.then(function(data) {
+      Comment.delete({ id: comment.id }).$promise.then(function() {
         getCommentsData();
       });
     });

@@ -111,7 +111,7 @@ glasatni.controller("ProposalEditController", ["$scope", "$routeParams", "$locat
 
 }]);
 
-glasatni.controller("ProposalCreateController", ["$scope", "$location", "Proposal", "Modal", "CurrentUser", function($scope, $location, Proposal, Modal, CurrentUser) {
+glasatni.controller("ProposalCreateController", ["$scope", "$location", "$http", "Proposal", "Modal", "CurrentUser", function($scope, $location, $http, Proposal, Modal, CurrentUser) {
 
   if (!CurrentUser.id) {
     var params = typeof $scope.$root.params === "undefined" ? { theme: "all", order: "relevance" } : $scope.$root.params;
@@ -119,24 +119,28 @@ glasatni.controller("ProposalCreateController", ["$scope", "$location", "Proposa
     Modal.open("unregisteredCreateProposal").then(fn, fn);
   }
 
+  $http.get("/api/v1/themes").then(function(res) {
+    $scope.themes = res.data;
+
+    $scope.proposal = {
+      title: "",
+      content: "",
+      theme: {
+        id: $scope.themes[0].id
+      }
+    };
+  }, function() { Modal.open("unknownError") });
+
   $scope.showFormatting = false;
   $scope.title = "Направи предложение";
   $scope.icon = "fa-plus-square";
-
-  $scope.proposal = {
-    title: "",
-    content: "",
-    theme: {
-      id: $("select option").get(0).value
-    }
-  }
 
   $scope.submitProposal = function(proposal) {
     var success = function(proposal) { $location.path("/proposals/" + proposal.id) };
     var failure = function() { Modal.open("unknownError") };
 
     Proposal.save({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme.id }).$promise.then(success, failure);
-  }
+}
 
 }]);
 
