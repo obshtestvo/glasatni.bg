@@ -140,7 +140,7 @@ glasatni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', 'CurrentUse
           } else {
             Modal.open("unknownError");
           }
-        }
+        };
 
         if (CurrentUser.id) {
           if (scope.votableType === "proposal") {

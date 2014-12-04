@@ -9,7 +9,6 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
         data.proposals = data.proposals.map(function(p) {
           return {
             id: p.id,
-            user: p.user,
             title: p.title,
             content: p.content,
             theme: p.theme,
@@ -79,7 +78,7 @@ glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routePa
 
   $scope.destroyProposal = function(proposal) {
     Modal.open("destroyProposal").then(function() {
-      Proposal.delete({ id: proposal.id }).$promise.then(function(data) {
+      Proposal.delete({ id: proposal.id }).$promise.then(function() {
         $location.path("/proposals/theme/" + proposal.theme.en_name + "/" + $rootScope.params.order);
       });
     });
