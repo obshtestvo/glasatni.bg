@@ -28,15 +28,14 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
     'vote': { method: "POST", url: "/vote" },
     'update': { method: 'PUT' },
     'flag': { method: "POST", url: "/flag" },
-    'approve': { method: "POST", url: "/api/v1/proposals/:id/approve" },
+    'approve': { method: "POST", url: "/api/v1/proposals/:id/approve" }
   });
 }]);
 
 var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "data", "CurrentUser", function($scope, $routeParams, $location, data, CurrentUser) {
 
   $scope.proposals = data.proposals;
-  $scope.proposalsCount = data.proposals_count;
-
+    $scope.proposalsCount = data.proposals_count;
   $scope.currentUser = CurrentUser;
 
   $scope.pageChanged = function() {
@@ -49,8 +48,8 @@ ProposalIndexController.loadProposals = ["$rootScope", "$route", "CurrentUser", 
   $rootScope.params = {
     theme: ($route.current.params.theme || "all"),
     order: ($route.current.params.order || "relevance"),
-    page: ($route.current.params.page || 1),
-  }
+    page: ($route.current.params.page || 1)
+  };
 
   if (CurrentUser.id) {
     $rootScope.params.voter_id = CurrentUser.id;
@@ -84,7 +83,7 @@ glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routePa
         $location.path("/proposals/theme/" + proposal.theme.en_name + "/" + $rootScope.params.order);
       });
     });
-  }
+  };
 
   $scope.approval = function(proposal, approved) {
     Proposal.approve({ id: proposal.id }, { approved: approved }).$promise.then(function(proposal) {
@@ -93,7 +92,7 @@ glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routePa
       var reason = response.status === 403 ? "unauthorizedUpdateProposal" : "unknownError";
       Modal.open(reason);
     });
-  }
+  };
 
   $anchorScroll();
 }]);
@@ -127,9 +126,9 @@ glasatni.controller("ProposalCreateController", ["$scope", "$location", "Proposa
 
   $scope.proposal = {
     title: "",
-    conetnt: "",
+    content: "",
     theme: {
-      id: $("select option").get(0).value,
+      id: $("select option").get(0).value
     }
   }
 

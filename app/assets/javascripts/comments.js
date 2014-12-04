@@ -20,7 +20,7 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
     page: 1,
     commentable_type: "proposal",
     commentable_id: $routeParams.id
-  }
+  };
 
   if (CurrentUser.id) {
     $scope.params.voter_id = CurrentUser.id;
@@ -37,14 +37,14 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
         getCommentsData();
       });
     });
-  }
+  };
 
   getCommentsData();
 
   $scope.showWarning = function() {
     $("#warning-box").slideDown();
     $("#comment-box").attr("rows", 8);
-  }
+  };
 
   $scope.newComment = { content: "" };
 
