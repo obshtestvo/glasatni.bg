@@ -33,11 +33,9 @@
 
 <br />
 <div class="row row-no-gutter" ng-repeat="proposal in proposals">
-  <div class="col-md-1">
-    <center>
-      <voting-buttons votable="proposal" votable-type="proposal"></voting-buttons>
-      <p class="text-muted rating">{{ proposal.hotness }}</p>
-    </center>
+  <div class="col-md-1 text-center">
+    <voting-buttons votable="proposal" votable-type="proposal"></voting-buttons>
+    <p class="text-muted">{{ proposal.hotness }}</p>
   </div>
   <div class="col-md-11">
     <div class="panel panel-default">
