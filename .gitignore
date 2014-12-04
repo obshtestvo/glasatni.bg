@@ -19,5 +19,7 @@ public/system
 
 .vagrant/
 
+.idea/
+
 # Ignore application configuration
 /config/application.yml
