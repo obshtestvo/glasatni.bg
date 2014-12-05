@@ -1,9 +1,23 @@
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12 hidden-xs hidden-sm hidden-md text-center">
     <ul class="nav nav-tabs" role="tablist">
       <li ng-class="{active: $root.params.theme=='all'}"><a href="/#/proposals/theme/all/{{ $root.params.order }}">Всички теми &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='all'">{{ proposalsCount }}</span></a></li>
       <li ng-class="{active: $root.params.theme=='volunteering'}"><a href="/#/proposals/theme/volunteering/{{ $root.params.order }}">Доброволчество &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='volunteering'">{{ proposalsCount }}</span></a></li>
       <li ng-class="{active: $root.params.theme=='ngo'}"><a href="/#/proposals/theme/ngo/{{ $root.params.order }}">НПО &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='ngo'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: $root.params.theme=='participation'}"><a href="/#/proposals/theme/participation/{{ $root.params.order }}">Гражданско участие &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='participation'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: $root.params.theme=='education'}"><a href="/#/proposals/theme/education/{{ $root.params.order }}">Гражданско образование &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='education'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: $root.params.theme=='meta'}"><a href="/#/proposals/theme/meta/{{ $root.params.order }}">Мета &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='meta'">{{ proposalsCount }}</span></a></li>
+    </ul>
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-6 hidden-lg text-center">
+    <ul class="nav nav-pills nav-stacked" role="tablist">
+      <li ng-class="{active: $root.params.theme=='all'}"><a href="/#/proposals/theme/all/{{ $root.params.order }}">Всички теми &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='all'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: $root.params.theme=='volunteering'}"><a href="/#/proposals/theme/volunteering/{{ $root.params.order }}">Доброволчество &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='volunteering'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: $root.params.theme=='ngo'}"><a href="/#/proposals/theme/ngo/{{ $root.params.order }}">НПО &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='ngo'">{{ proposalsCount }}</span></a></li>
+    </ul>
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-6 hidden-lg text-center">
+    <ul class="nav nav-pills nav-stacked" role="tablist">
       <li ng-class="{active: $root.params.theme=='participation'}"><a href="/#/proposals/theme/participation/{{ $root.params.order }}">Гражданско участие &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='participation'">{{ proposalsCount }}</span></a></li>
       <li ng-class="{active: $root.params.theme=='education'}"><a href="/#/proposals/theme/education/{{ $root.params.order }}">Гражданско образование &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='education'">{{ proposalsCount }}</span></a></li>
       <li ng-class="{active: $root.params.theme=='meta'}"><a href="/#/proposals/theme/meta/{{ $root.params.order }}">Мета &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='meta'">{{ proposalsCount }}</span></a></li>
@@ -14,7 +28,7 @@
 <br />
 
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-3 col-sm-3 col-xs-3">
 
     <filter order="$root.params.order">
       <li><a href="/#/proposals/theme/{{ $root.params.theme }}/newest" ng-show="$root.params.order != 'newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
@@ -25,19 +39,25 @@
     </filter>
 
   </div>
-  <div class="col-md-9">
+  <div class="col-md-9 col-lg-9 hidden-xs hidden-sm">
     <pagination ng-model="$root.params.page" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pull-right" boundary-links="true"
     rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
   </div>
+
+  <div class="col-sm-9 col-xs-9 hidden-lg hidden-md">
+    <pagination ng-model="$root.params.page" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="0" class="pull-right"
+                rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
+  </div>
+
 </div>
 
 <br />
 <div class="row row-no-gutter" ng-repeat="proposal in proposals">
-  <div class="col-md-1 text-center">
+  <div class="col-md-1 col-sm-1 text-center">
     <voting-buttons votable="proposal" votable-type="proposal"></voting-buttons>
     <p class="text-muted">{{ proposal.hotness }}</p>
   </div>
-  <div class="col-md-11">
+  <div class="col-md-11 col-sm-11">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title"><a href="/#/proposals/{{ proposal.id }}/#title">{{ proposal.title }}</a>
@@ -63,8 +83,16 @@
   </div>
 </div>
 
-<pagination ng-model="$root.params.page" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right" boundary-links="true"
-rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
+<div class="row">
+  <div class="col-md-12 hidden-xs">
+    <pagination ng-model="$root.params.page" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right" boundary-links="true"
+                rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
+  </div>
+  <div class="col-md-12 visible-xs">
+    <pagination ng-model="$root.params.page" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pagination-sm pull-right"
+                rotate="false" previous-text="Предишна" next-text="Следваща"></pagination>
+  </div>
+</div>
 
 <div class="clearfix"></div>
 <br />
