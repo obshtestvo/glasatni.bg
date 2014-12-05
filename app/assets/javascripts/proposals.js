@@ -34,7 +34,7 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
 var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "data", "CurrentUser", function($scope, $routeParams, $location, data, CurrentUser) {
 
   $scope.proposals = data.proposals;
-    $scope.proposalsCount = data.proposals_count;
+  $scope.proposalsCount = data.proposals_count;
   $scope.currentUser = CurrentUser;
 
   $scope.pageChanged = function() {

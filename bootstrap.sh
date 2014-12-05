@@ -20,4 +20,4 @@ bundle
 bin/rake db:create
 bin/rake db:migrate
 bin/rake db:seed
-bin/rake s
+bin/rails s

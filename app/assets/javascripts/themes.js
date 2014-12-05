@@ -4,6 +4,7 @@ glasatni.controller("ThemeShowController", ["$scope", "$routeParams", "$http", f
     $scope.theme = theme;
   });
 
+  $scope.order = typeof $scope.$root.order === "undefined" ? "relevance" : $scope.$root.order;
   $scope.proposal = [];
 
 }]);
@@ -20,7 +21,7 @@ glasatni.controller("ThemeIndexController", ["$scope", "$http", function($scope,
       array[i] = t;
     }
     return array;
-  }
+  };
 
   $http.get("/api/v1/themes").success(function(themes) {
     $scope.meta = themes.filter(function(t) { return t.en_name === "meta" })[0];

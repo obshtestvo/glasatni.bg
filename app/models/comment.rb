@@ -13,7 +13,7 @@ class Comment < ActiveRecord::Base
   after_save    :update_user_rank
   after_destroy :update_user_rank
 
-  paginates_per 3
+  paginates_per 25
 
   def self.find_by_parent(parent)
     where(:commentable_id => parent.id, :commentable_type => parent.class.name)
