@@ -96,12 +96,16 @@ glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routePa
   $anchorScroll();
 }]);
 
-glasatni.controller("ProposalEditController", ["$scope", "$routeParams", "$location", "Proposal", function($scope, $routeParams, $location, Proposal) {
+glasatni.controller("ProposalEditController", ["$scope", "$routeParams", "$location", "$http", "Proposal", function($scope, $routeParams, $location, $http, Proposal) {
 
   $scope.proposal = Proposal.get({ id: $routeParams.id });
   $scope.showFormatting = false;
   $scope.title = "Редактирай предложението";
   $scope.icon = "fa-pencil";
+
+  $http.get("/api/v1/themes").then(function(res) {
+    $scope.themes = res.data;
+  }, function() { Modal.open("unknownError") });
 
   $scope.submitProposal = function(proposal) {
     Proposal.update({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme.id }).$promise.then(function(proposal) {
