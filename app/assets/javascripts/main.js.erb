@@ -7,6 +7,10 @@
 
 var glasatni = angular.module('glasatni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
+glasatni.run(function($rootScope, $location) {
+  $rootScope.location = $location;
+});
+
 glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider, $locationProvider) {
 
   $locationProvider.html5Mode(true);
