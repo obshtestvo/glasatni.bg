@@ -20,6 +20,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <form class="visible-xs" role="search">
+        <a href="/#/proposals/new" class="btn btn-success navbar-btn"><i class="fa fa-plus-square"></i> &nbsp;Направи предложение</a>
+      </form>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -84,12 +87,12 @@
   <% end %>
 
   <div class="row vertical-align">
-    <div class="col-md-8 col-sm-6 col-xs-6">
-      <%= link_to "/#/proposals" do %>
-          <%= image_tag "glasatni_logo.png", width: 230 %>
-      <% end %>
+    <div class="col-md-6 col-sm-6">
+      <a href="/#/proposals">
+        <%= image_tag "glasatni_logo.png", width: 230 %>
+      </a>
     </div>
-    <div class="col-md-4 col-sm-6 col-xs-6">
+    <div class="col-md-6 col-sm-6 hidden-xs">
       <a href="/#/proposals/new" class="btn btn-success pull-right">
         <i class="fa fa-plus-square"></i> &nbsp;Направи предложение
       </a>
