@@ -20,15 +20,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <form class="visible-xs" role="search">
-        <a href="/#/proposals/new" class="btn btn-success navbar-btn" ng-disabled="location.path() == '/proposals/new'"><i class="fa fa-plus-square"></i> &nbsp;Направи предложение</a>
-      </form>
+      <a class="navbar-brand visible-xs" href="/proposals">glasatni.bg</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li ng-class="{ active: location.path() == '/' }"><%= link_to "Начало", "/" %></li>
         <li ng-class="{ active: location.path().match('proposals') }"><%= link_to "Предложения", "/proposals" %></li>
         <li ng-class="{ active: location.path() == '/about' }"><%= link_to "За платформата", "/about" %></li>
+        <li><a href="/proposals/new" class="visible-xs"><i class="fa fa-plus-square"></i> &nbsp;Направи предложение</a>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
@@ -96,13 +95,13 @@
       </div>
   <% end %>
 
-  <div class="row vertical-align">
+  <div class="row vertical-align hidden-xs">
     <div class="col-md-6 col-sm-6">
       <a href="/#/proposals">
         <%= image_tag "glasatni_logo.png", width: 230 %>
       </a>
     </div>
-    <div class="col-md-6 col-sm-6 hidden-xs">
+    <div class="col-md-6 col-sm-6">
       <a href="/#/proposals/new" class="btn btn-success pull-right">
         <i class="fa fa-plus-square"></i> &nbsp;Направи предложение
       </a>

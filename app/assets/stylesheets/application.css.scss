@@ -36,7 +36,10 @@ $colHighlight   : #fff000;
   background-color: $bgDefault;
   border-color: $bgHighlight;
   font-size: 14px;
-  padding: 0px;
+  .navbar-brand {
+    color: $colDefault;
+    &:hover, &:focus {
+      color: $colHighlight; }}
   .navbar-text {
     color: $colDefault; }
   .navbar-nav {
