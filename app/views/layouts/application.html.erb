@@ -13,127 +13,115 @@
 
 <nav class="navbar navbar-default" role="navigation">
   <div class="container">
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li ng-class="{ active: location.path() == '/' }"><%= link_to "Начало", "/#/" %></li>
-            <li ng-class="{ active: location.path().match('proposals') }"><%= link_to "Предложения", "/#/proposals" %></li>
-            <li ng-class="{ active: location.path() == '/about' }"><%= link_to "За платформата", "/#/about" %></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-target="login-menu" data-toggle="dropdown" data-disabled=true>
-                <i class="fa fa-sign-in"></i>&nbsp; Влез <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" role="menu">
-                <li class="dropdown-header">Радвам се да те видя отново.</li>
-                <li>
-                  <%= link_to new_session_path(:user), target: "_self" do %>
-                      <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
-                  <% end %>
-                </li>
-                <li>
-                  <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>
-                      <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
-                  <% end %>
-                </li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-target="register-menu" data-toggle="dropdown" data-disabled=true>
-                <i class="fa fa-plug"></i> &nbsp; Регистрирай се <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" role="menu">
-                <li class="dropdown-header">Радвам се да се запознаем.<br />Можеш да се регистрираш с:</li>
-                <li>
-                  <%= link_to new_registration_path(:user), target: "_self" do %>
-                      <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
-                  <% end %>
-                </li>
-                <li>
-                  <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>
-                      <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
-                  <% end %>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
     </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li ng-class="{ active: location.path() == '/' }"><%= link_to "Начало", "/#/" %></li>
+        <li ng-class="{ active: location.path().match('proposals') }"><%= link_to "Предложения", "/#/proposals" %></li>
+        <li ng-class="{ active: location.path() == '/about' }"><%= link_to "За платформата", "/#/about" %></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-target="login-menu" data-toggle="dropdown" data-disabled=true>
+            <i class="fa fa-sign-in"></i>&nbsp; Влез <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Радвам се да те видя отново.</li>
+            <li>
+              <%= link_to new_session_path(:user), target: "_self" do %>
+                  <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
+              <% end %>
+            </li>
+            <li>
+              <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>
+                  <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
+              <% end %>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-target="register-menu" data-toggle="dropdown" data-disabled=true>
+            <i class="fa fa-plug"></i> &nbsp; Регистрирай се <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Радвам се да се запознаем.<br />Можеш да се регистрираш с:</li>
+            <li>
+              <%= link_to new_registration_path(:user), target: "_self" do %>
+                  <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
+              <% end %>
+            </li>
+            <li>
+              <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>
+                  <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
+              <% end %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div><!--/.nav-collapse -->
   </div>
 </nav>
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1">
 
-      <% if notice %>
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <%= notice %>
-        </div>
-      <% elsif alert %>
-        <div class="alert alert-danger alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <%= alert %>
-        </div>
+  <% if notice %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <%= notice %>
+      </div>
+  <% elsif alert %>
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <%= alert %>
+      </div>
+  <% end %>
+
+  <div class="row vertical-align">
+    <div class="col-md-8 col-sm-6 col-xs-6">
+      <%= link_to "/#/proposals" do %>
+          <%= image_tag "glasatni_logo.png", width: 230 %>
       <% end %>
-
-      <div class="row vertical-align">
-        <div class="col-md-8 col-sm-6 col-xs-6">
-          <%= link_to "/#/proposals" do %>
-            <%= image_tag "glasatni_logo.png", width: 230 %>
-          <% end %>
-        </div>
-        <div class="col-md-4 col-sm-6 col-xs-6">
-          <a href="/#/proposals/new" class="btn btn-success pull-right">
-            <i class="fa fa-plus-square"></i> &nbsp;Направи предложение
-          </a>
-        </div>
-      </div>
-      <br />
-
-      <%= yield %>
-
-      <div class="clearfix"></div>
-      <hr />
-
-      <p class="text-center text-muted"><small>Партньори</small></p>
-
-      <br />
-
-      <div class="row vertical-align">
-        <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://www.ngogrants.bg/" do image_tag "eea_grants_logo.png", class: "center-block", width: "70%" end %></div>
-        <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://www.bcnl.org/" do image_tag "bcnl_logo.png", class: "center-block", width: "70%" end %></div>
-        <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://proinfobg.org/" do image_tag "proinfo_logo.png", class: "center-block", width: "70%" end %></div>
-        <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://www.obshtestvo.bg/" do image_tag "obshtestvo_logo.png", class: "center-block", width: "70%" end %></div>
-      </div>
-      <div class="row vertical-align">
-        <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://offnews.bg/" do image_tag "offnews_logo.png", class: "center-block", width: "70%" end %></div>
-        <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://foundation.capital.bg/" do image_tag "capital_foundation_logo.png", class: "center-block", width: "70%" end %></div>
-        <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://ngobg.info/" do image_tag "ngobg_logo.png", class: "center-block", width: "70%" end %></div>
-      </div>
-
-      <br />
-      <hr />
-
-      <p class="text-muted text-center">„Гласът ни“ е платформа с <%= link_to "отворен код", "http://github.com/obshtestvo/glasatni.bg" %>. За да се свържете с разработчиците, пишете на <%= link_to "info@obshtestvo.bg", "mailto:info@obshtestvo.bg" %>.</p>
-
-      <br />
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-6">
+      <a href="/#/proposals/new" class="btn btn-success pull-right">
+        <i class="fa fa-plus-square"></i> &nbsp;Направи предложение
+      </a>
     </div>
   </div>
+  <br />
 
+  <%= yield %>
+
+  <div class="clearfix"></div>
+  <hr />
+
+  <p class="text-center text-muted"><small>Партньори</small></p>
+
+  <br />
+
+  <div class="row vertical-align">
+    <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://www.ngogrants.bg/" do image_tag "eea_grants_logo.png", class: "center-block", width: "70%" end %></div>
+    <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://www.bcnl.org/" do image_tag "bcnl_logo.png", class: "center-block", width: "70%" end %></div>
+    <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://proinfobg.org/" do image_tag "proinfo_logo.png", class: "center-block", width: "70%" end %></div>
+    <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://www.obshtestvo.bg/" do image_tag "obshtestvo_logo.png", class: "center-block", width: "70%" end %></div>
+  </div>
+  <div class="row vertical-align">
+    <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://offnews.bg/" do image_tag "offnews_logo.png", class: "center-block", width: "70%" end %></div>
+    <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://foundation.capital.bg/" do image_tag "capital_foundation_logo.png", class: "center-block", width: "70%" end %></div>
+    <div class="col-md-3 col-sm-3 col-xs-6"><%= link_to "http://ngobg.info/" do image_tag "ngobg_logo.png", class: "center-block", width: "70%" end %></div>
+  </div>
+
+  <br />
+  <hr />
+
+  <p class="text-muted text-center">„Гласът ни“ е платформа с <%= link_to "отворен код", "http://github.com/obshtestvo/glasatni.bg" %>. За да се свържете с разработчиците, пишете на <%= link_to "info@obshtestvo.bg", "mailto:info@obshtestvo.bg" %>.</p>
 
 </div>
 
