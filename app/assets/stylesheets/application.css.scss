@@ -32,34 +32,6 @@ body {
   font-size: 15px;
 }
 
-li.dropdown.open {
-  a.dropdown-toggle, a.dropdown-toggle:hover {
-    background: $blue;
-    border: none;
-  }
-}
-
-/*.nav .open > a, .nav .open > a:hover, .nav .open > a:focus*/
-section#topnav {
-  p {
-    margin: 0;
-  }
-  color: white;
-  background: $green;
-  a.btn-link {
-    padding: 5px;
-    color: white;
-    &:hover {
-      background: $green;
-      background-color: $green;
-      text-decoration: underline;
-    }
-  }
-  a#username {
-    color: yellow;
-  }
-}
-
 ul.nav-tabs {
   li {
     a {
