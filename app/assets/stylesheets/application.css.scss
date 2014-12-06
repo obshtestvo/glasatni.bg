@@ -27,6 +27,65 @@
   }
 }
 
+$bgDefault      : #5CB85C;
+$bgHighlight    : #00a929;
+$colDefault     : #f9fdff;
+$colHighlight   : #fff000;
+
+.navbar-default {
+  background-color: $bgDefault;
+  border-color: $bgHighlight;
+  font-size: 14px;
+  padding: 0px;
+  .navbar-text {
+    color: $colDefault; }
+  .navbar-nav {
+    > li {
+      > a {
+        color: $colDefault;
+        &:hover,  &:focus {
+          color: $colHighlight; }}}
+    > .active {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}
+    > .open {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}}
+  .navbar-toggle {
+    border-color: $bgHighlight;
+    &:hover, &:focus {
+      background-color: $bgHighlight; }
+    .icon-bar {
+      background-color: $colDefault; }}
+  .navbar-collapse,
+  .navbar-form {
+    border-color: $colDefault; }
+  .navbar-link {
+    color: $colDefault;
+    &:hover {
+      color: $colHighlight; }}}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu {
+    > li > a {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight; }
+    }
+    > .active {
+      > a, > a:hover, > a:focus, {
+        color: $colHighlight;
+        background-color: $bgHighlight; }
+    }
+  }
+}
+
+.navbar-nav > li > a { padding-top: 5px !important; padding-bottom: 5px !important;}
+.navbar { min-height: 25px !important}
+#navbar { padding: 0px; }
+
 body {
   font-family: "obshtestvobg", "Myriad Pro", "Verdana", sans-serif;
   font-size: 15px;
