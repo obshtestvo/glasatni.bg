@@ -85,6 +85,7 @@ $colHighlight   : #fff000;
 .navbar-nav > li > a { padding-top: 5px !important; padding-bottom: 5px !important;}
 .navbar { min-height: 25px !important}
 #navbar { padding: 0px; }
+.navbar-collapse { overflow-x:hidden; }
 
 body {
   font-family: "obshtestvobg", "Myriad Pro", "Verdana", sans-serif;
