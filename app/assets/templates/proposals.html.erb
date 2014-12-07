@@ -28,7 +28,7 @@
 <br />
 
 <div class="row">
-  <div class="col-md-3 col-sm-3 col-xs-3">
+  <div class="col-md-3 col-sm-6 col-xs-6">
 
     <filter order="$root.params.order">
       <li><a href="/#/proposals/theme/{{ $root.params.theme }}/newest" ng-show="$root.params.order != 'newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
@@ -45,7 +45,7 @@
     rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
   </div>
 
-  <div class="col-sm-9 col-xs-9 hidden-lg hidden-md">
+  <div class="col-sm-6 col-xs-6 hidden-lg hidden-md hidden-xs">
     <pagination ng-model="$root.params.page" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="0" class="pull-right"
                 rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
   </div>
