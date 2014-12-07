@@ -10,10 +10,10 @@
     <img ng-src="{{ theme.image_url }}" width="200px"/>
     <br />
 
-    <h4>Модератор на темата е: <a href="/#/users/{{ theme.moderator.id }}">{{ theme.moderator.name }}</a></h4>
+    <h4>Модератор на темата е: <a href="/users/{{ theme.moderator.id }}">{{ theme.moderator.name }}</a></h4>
   </div>
 </div>
 
 <br />
-<a href="/#/proposals/theme/{{ theme.en_name }}/{{ order }}" class="btn btn-success btn-lg">Виж всички предложения относно {{ theme.name }}</a>
+<a href="/proposals/theme/{{ theme.en_name }}/{{ order }}" class="btn btn-success btn-lg">Виж всички предложения относно {{ theme.name }}</a>
 

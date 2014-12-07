@@ -7,9 +7,9 @@
   </div>
   <div class="col-md-11">
     <h3 id="title">{{ proposal.title }}</h3>
-    <a class="btn btn-success btn-sm pull-left" href="/#/proposals/theme/{{ proposal.theme.en_name }}/{{ $root.params.order }}">{{ proposal.theme.name }}</a>
+    <a class="btn btn-success btn-sm pull-left" href="/proposals/theme/{{ proposal.theme.en_name }}/{{ $root.params.order }}">{{ proposal.theme.name }}</a>
     <div class="btn-group pull-right">
-      <a ng-if="currentUser.isMod || proposal.user.id == currentUser.id" class="btn btn-default btn-sm" href="/#/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil fa-lg"></i>&nbsp; Редактирай</a>
+      <a ng-if="currentUser.isMod || proposal.user.id == currentUser.id" class="btn btn-default btn-sm" href="/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil fa-lg"></i>&nbsp; Редактирай</a>
       <button ng-if="proposal.approved && currentUser.isMod" class="btn btn-danger btn-sm" ng-click="approval(proposal, false)"><i class="fa fa-pencil fa-lg"></i>&nbsp; Махни одобрение</button>
       <button ng-if="!proposal.approved && currentUser.isMod" class="btn btn-success btn-sm" ng-click="approval(proposal, true)"><i class="fa fa-pencil fa-lg"></i>&nbsp; Одобри</button>
       <button ng-if="currentUser.isMod || proposal.user.id == currentUser.id" class="btn btn-default btn-sm btn-danger" ng-click="destroyProposal(proposal)" rel="nofollow">
@@ -78,7 +78,7 @@
       <p class="text-muted text-center rating">{{ comment.hotness }}</p>
     </td>
     <td class="col-md-12">
-      <p class="pull-left"><strong><a href="/#/users/{{ comment.user.id }}">{{ comment.user.name }}</a></strong>
+      <p class="pull-left"><strong><a href="/users/{{ comment.user.id }}">{{ comment.user.name }}</a></strong>
       (
       <i class="fa fa-binoculars" ng-show="comment.user.comments_rank == 'observer'"></i>
       <i class="fa fa-bullhorn" ng-show="comment.user.comments_rank == 'speaker'"></i>

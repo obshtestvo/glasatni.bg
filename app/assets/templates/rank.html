@@ -23,7 +23,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="user in users">
-      <td><a href="/#/users/{{ user.id }}">{{ user.name }}</a></td>
+      <td><a href="/users/{{ user.id }}">{{ user.name }}</a></td>
       <td>{{ user.reputation }}</td>
       <td>{{ user.comments_rank | translateRank }}</td>
       <td>{{ user.proposals_rank | translateRank }}</td>

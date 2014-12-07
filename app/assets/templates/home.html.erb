@@ -2,11 +2,11 @@
 
 <div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12" ng-repeat="theme in themes">
-    <h3 class="text-center {{ theme.en_name }}"><a href="/#/proposals/theme/{{ theme.en_name }}/relevance">{{ theme.name }}</a></h3>
+    <h3 class="text-center {{ theme.en_name }}"><a href="/proposals/theme/{{ theme.en_name }}/relevance">{{ theme.name }}</a></h3>
     <img alt="{{ theme.name }}" ng-src="{{ theme.image_url }}" width="100%">
     <p>{{ theme.info | limitTo:200 }}...</p>
-    <p><a class="btn btn-default" href="/#/themes/{{ theme.id }}">Научи още! »</a></p>
-    <p class="text-muted">Модератор: <a href="/#/users/{{ theme.moderator.id }}">{{ theme.moderator.name }}</a></p>
+    <p><a class="btn btn-default" href="/themes/{{ theme.id }}">Научи още! »</a></p>
+    <p class="text-muted">Модератор: <a href="/users/{{ theme.moderator.id }}">{{ theme.moderator.name }}</a></p>
   </div>
 </div>
 
@@ -15,9 +15,9 @@
     <img alt="{{ meta.name }}" ng-src="{{ meta.image_url }}" width="100%">
   </div>
   <div class="col-md-9 col-sm-6 col-xs-12">
-    <h3 class="meta"><a href="/#/proposals/theme/{{ meta.en_name }}/relevance">{{ meta.name }}</a></h3>
+    <h3 class="meta"><a href="/proposals/theme/{{ meta.en_name }}/relevance">{{ meta.name }}</a></h3>
     <p>{{ meta.info | limitTo:200 }}...</p>
-    <p><a class="btn btn-default" href="/#/themes/{{ meta.id }}">Научи още! »</a></p>
-    <p class="text-muted">Модератор: <a href="/#/users/{{ meta.moderator.id }}">{{ meta.moderator.name }}</a></p>
+    <p><a class="btn btn-default" href="/themes/{{ meta.id }}">Научи още! »</a></p>
+    <p class="text-muted">Модератор: <a href="/users/{{ meta.moderator.id }}">{{ meta.moderator.name }}</a></p>
   </div>
 </div>
