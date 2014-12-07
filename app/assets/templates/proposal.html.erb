@@ -58,7 +58,7 @@
         <li><a href="" ng-show="params.order != 'relevance'" ng-click="params.order='relevance'"><i class="fa fa-trophy fa-lg"></i>&nbsp; Най-подкрепени</a></li>
       </filter>
     </div>
-    <div class="col-md-10 col-sm-10">
+    <div class="col-md-10 col-sm-10 hidden-xs">
       <pagination ng-model="params.page" total-items="commentsCount" items-per-page="<%= Comment.default_per_page %>" max-size="5"
       class="pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
       last-text="Последна"></pagination>
@@ -101,8 +101,11 @@
   </table>
 
   <pagination ng-model="params.page" total-items="commentsCount" items-per-page="<%= Comment.default_per_page %>" max-size="5"
-  class="pagination-sm pull-right" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
-  last-text="Последна"></pagination>
+  class="pagination-sm pull-right visible-xs" boundary-links="false" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща"></pagination>
+
+  <pagination ng-model="params.page" total-items="commentsCount" items-per-page="<%= Comment.default_per_page %>" max-size="5"
+              class="pagination-sm pull-right hidden-xs" boundary-links="true" rotate="false" num-pages="numPages" previous-text="Предишна" next-text="Следваща" first-text="Първа"
+              last-text="Последна"></pagination>
 
   <div class="clearfix"></div>
   <h4>Нов коментар</h4>
