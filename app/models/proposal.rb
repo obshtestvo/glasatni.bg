@@ -9,7 +9,7 @@ class Proposal < ActiveRecord::Base
 
   validates :title, presence: true
 
-  after_save :update_user_rank
+  after_save :after_save_callbacks
   after_destroy :update_user_rank
 
   paginates_per 25
@@ -17,6 +17,23 @@ class Proposal < ActiveRecord::Base
   scope :approved, -> { where(approved: true) }
 
   private
+
+  def after_save_callbacks
+    update_user_rank
+    create_notification
+  end
+
+  def create_notification
+
+    Notification.create({
+                            user: self.user,
+                            proposal: self,
+                            recipient: self.theme.moderator,
+                            action: Notification.actions[:proposal_created]
+                        })
+
+  end
+
   def update_user_rank
     user = self.user
     count = user.proposals.count
