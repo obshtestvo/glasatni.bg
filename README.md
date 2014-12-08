@@ -81,7 +81,7 @@ API-то е **unstable** на този етап. Може да търпи про
 
 Една заявка може да изглежда така:
 
-`curl http://glasatni.bg/api/v1/proposals?order=newest&page=3&theme=ngo`
+`curl 'http://glasatni.bg/api/v1/proposals?order=newest&page=3&theme=ngo'`
 
 params могат да бъдат:
 
@@ -164,7 +164,7 @@ params могат да бъдат:
 
 Една заявка може да изглежда така:
 
-`curl http://glasatni.bg/api/v1/comments?order=newest&page=3`
+`curl 'http://glasatni.bg/api/v1/comments?order=newest&page=3'`
 
 params могат да бъдат:
 
@@ -236,7 +236,7 @@ params могат да бъдат:
 
 Примерна заявка изглежда така:
 
-`curl http://glasatni.bg/api/v1/users?rank=orator`
+`curl 'http://glasatni.bg/api/v1/users?rank=orator'`
 
 params могат да бъдат единствено:
 
