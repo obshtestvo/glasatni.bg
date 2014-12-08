@@ -49,7 +49,6 @@ module Api
       end
 
       def show
-        @proposal = Proposal.find(proposal_params[:id])
         @voter_id = proposal_params[:voter_id]
       end
 
