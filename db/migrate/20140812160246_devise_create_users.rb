@@ -36,6 +36,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer :comments_rank, :default => 0
       t.integer :proposals_rank, :default => 0
       t.text :bio
+      t.string :api_token
       t.boolean :subscribed, null: false, default: false
       t.boolean :banned, null: false, default: false
 

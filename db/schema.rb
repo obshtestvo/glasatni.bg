@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 20141207171014) do
     t.integer  "comments_rank",          default: 0
     t.integer  "proposals_rank",         default: 0
     t.text     "bio"
+    t.string   "api_token"
     t.boolean  "subscribed",             default: false, null: false
     t.boolean  "banned",                 default: false, null: false
     t.string   "provider"

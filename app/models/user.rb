@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   devise :omniauthable, :omniauth_providers => [:facebook]
 
+  before_create :generate_token
+
   has_many :proposals
   has_many :comments
   has_many :votings
@@ -29,6 +31,15 @@ class User < ActiveRecord::Base
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.name = auth.info.name
+    end
+  end
+
+  protected
+
+  def generate_token
+    self.api_token = loop do
+      random_token = SecureRandom.urlsafe_base64(nil, false)
+      break random_token unless User.exists?(api_token: random_token)
     end
   end
 
