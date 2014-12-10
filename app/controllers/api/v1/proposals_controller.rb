@@ -42,6 +42,7 @@ module Api
           @votings = []
         end
 
+
         # some meta data about the result of the query, needed for UI purposes
         @proposals_count = query.count
         @page = proposal_params[:page].present? ? proposal_params[:page].to_i : 1
