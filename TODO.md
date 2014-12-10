@@ -15,3 +15,6 @@
 - notifications
 - времето да се update-ва автоматично
 - google analytics
+- да сложа FB "social box" до мета темата след като пуснем фб страницата
+- notification system
+- messages system
