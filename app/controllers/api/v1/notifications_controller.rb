@@ -6,7 +6,7 @@ module Api
       respond_to :json
 
       def index
-        @notifications = Notification.includes(:proposal, :user)
+        @notifications = Notification.includes(:proposal, :user).where(recipient: current_user)
       end
 
       def check_new
