@@ -341,3 +341,11 @@ glasatni.directive("filter", [function() {
     }
   }
 }]);
+
+glasatni.controller("NavigationController", ["$scope", "$location", function($scope, $location) {
+
+  $scope.isActive = function(url) {
+    return $location.path() === url;
+  }
+
+}]);
