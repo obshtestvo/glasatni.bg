@@ -138,7 +138,7 @@ glasatni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', 'CurrentUse
         var success = function(response) {
           scope.votable.hotness = response.hotness;
           scope.votable.voted = scope.votable.voted === value ? -1 : value;
-        }
+        };
         var failure = function(response) {
           if (response.statusText == "Unauthorized") {
             Modal.open("unregisteredVote");
@@ -274,11 +274,11 @@ glasatni.directive("moreButton", ["Comment", "Proposal", "User", "Modal", functi
         scope.disabled = false;
         scope.text = "Дай ОЩЕ!";
         scope.nextPage = parseInt(scope.nextPage) + 1;
-      }
+      };
 
       var failure = function(data) {
         Modal.open('unknownError');
-      }
+      };
 
       scope.getMore = function() {
         var params = {

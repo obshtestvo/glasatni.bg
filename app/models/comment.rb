@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
   include Orderable
+  include Notificationable
 
   belongs_to :user
   belongs_to :proposal
@@ -23,18 +24,7 @@ class Comment < ActiveRecord::Base
 
   def after_save_callbacks
     update_user_rank
-    create_notification
-  end
-
-  def create_notification
-    Notification.create(
-      {
-        user: self.user,
-        proposal: self.commentable,
-        recipient: self.commentable.theme.moderator,
-        action: Notification.actions[:comment_created]
-      }
-    )
+    create_notification :comment_created
   end
 
   def update_user_rank

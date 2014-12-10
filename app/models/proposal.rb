@@ -1,5 +1,6 @@
 class Proposal < ActiveRecord::Base
   include Orderable
+  include Notificationable
 
   belongs_to :theme, counter_cache: true
   belongs_to :user
@@ -20,18 +21,7 @@ class Proposal < ActiveRecord::Base
 
   def after_save_callbacks
     update_user_rank
-    create_notification
-  end
-
-  def create_notification
-
-    Notification.create({
-                            user: self.user,
-                            proposal: self,
-                            recipient: self.theme.moderator,
-                            action: Notification.actions[:proposal_created]
-                        })
-
+    create_notification :proposal_created
   end
 
   def update_user_rank
