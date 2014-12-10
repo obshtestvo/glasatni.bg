@@ -9,4 +9,7 @@
       Ново коментар в предложение „<strong>{{ notification.proposal.title }}</strong>“ беше написан от {{ notification.author.name }}.
     </span>
   </a>
+  <a ng-if="notifications.length == 0" href="#" class="list-group-item disabled">Нямате нови уведомления.</a>
 </div>
+
+<more-button ng-hide="notifications.length == notificationsCount" collection="notifications" collection-type="notification" next-page="2"></more-button>

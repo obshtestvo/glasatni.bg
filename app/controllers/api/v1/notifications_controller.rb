@@ -6,7 +6,12 @@ module Api
       respond_to :json
 
       def index
-        @notifications = Notification.includes(:proposal, :user).where(recipient: current_user)
+        query = Notification.includes(:proposal, :user).where(recipient: current_user)
+
+        # some meta data about the result of the query, needed for UI purposes
+        @notifications_count = query.count
+        @page = notification_params[:page].present? ? notification_params[:page].to_i : 1
+        @notifications = query.page(notification_params[:page])
       end
 
       def check_new
@@ -16,7 +21,7 @@ module Api
 
       private
       def notification_params
-        params.permit(:api_token)
+        params.permit(:page)
       end
 
     end

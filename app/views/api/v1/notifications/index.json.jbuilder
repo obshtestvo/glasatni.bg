@@ -1,4 +1,4 @@
-json.array! @notifications do |n|
+json.notifications @notifications do |n|
 
   json.author do
     json.id n.user.id
@@ -12,3 +12,6 @@ json.array! @notifications do |n|
 
 end
 
+json.notifications_count @notifications_count
+json.pages_count (@notifications_count.to_f/Notification.default_per_page).ceil
+json.page @page
