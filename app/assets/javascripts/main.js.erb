@@ -7,10 +7,6 @@
 
 var glasatni = angular.module('glasatni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
-//glasatni.run(function($rootScope, $location) {
-//  $rootScope.location = $location;
-//});
-
 glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider, $locationProvider) {
 
   $locationProvider.html5Mode(true);
@@ -62,6 +58,11 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
   .when("/themes/:id", {
     controller: "ThemeShowController",
     templateUrl: "<%= asset_path('theme.html') %>" })
+
+  // notifications
+  .when("/notifications", {
+    controller: "NotificationIndexController",
+    templateUrl: "<%= asset_path('notifications.html') %>" })
 
   // ranks
   .when("/ranks/:rank", {
@@ -340,4 +341,3 @@ glasatni.directive("filter", [function() {
     }
   }
 }]);
-

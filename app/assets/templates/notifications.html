@@ -1,0 +1,7 @@
+<h2>Съобщения</h2>
+
+<div class="list-group">
+  <a href="/proposals/{{ notification.proposal.id }}" class="list-group-item" ng-repeat="notification in notifications">
+    Ново предложение със заглавие: „<strong>{{ notification.proposal.title }}</strong>“ беше създадено от {{ notification.author.name }}.
+  </a>
+</div>

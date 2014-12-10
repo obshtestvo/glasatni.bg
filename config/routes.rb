@@ -17,6 +17,11 @@ Rails.application.routes.draw do
       resources :comments, only: [:index, :create, :destroy]
       resources :themes, only: [:index, :show]
       resources :users, only: [:index, :show]
+      resources :notifications, only: [:index] do
+        collection do
+          get 'check_new'
+        end
+      end
     end
   end
 

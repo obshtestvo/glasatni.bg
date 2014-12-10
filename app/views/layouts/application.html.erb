@@ -31,28 +31,37 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-            <li ng-class="{ active: location.path() == '/users/<%= current_user.id %>' }">
-              <a href="/users/<%= current_user.id %>" id="username" ><%= current_user.name %></a>
-            </li>
-            <li><a href="<%= edit_user_registration_path %>" target="_self"><i class="fa fa-wrench"></i> &nbsp;Настройки</a></li>
-            <li><%= link_to destroy_user_session_path, :method => :delete, target: "_self" do %>
-                  <i class="fa fa-sign-out"></i> &nbsp;Изход
-              <% end %></li>
+
+          <!-- user profile -->
+          <li ng-class="{ active: location.path() == '/users/<%= current_user.id %>' }">
+            <a href="/users/<%= current_user.id %>" id="username" ><%= current_user.name %></a>
+          </li>
+
+          <!-- options -->
+          <li><a href="<%= edit_user_registration_path %>" target="_self"><i class="fa fa-wrench"></i> &nbsp;Настройки</a></li>
+
+          <!-- logout -->
+          <li>
+            <%= link_to destroy_user_session_path, :method => :delete, target: "_self" do %>
+              <i class="fa fa-sign-out"></i> &nbsp;Изход
+            <% end %>
+          </li>
+
         <% else %>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-target="login-menu" data-toggle="dropdown" data-disabled=true>
+              <a href="#" class="dropdown-toggle" data-target="login-menu" data-toggle="dropdown" data-disabled="true">
                 <i class="fa fa-sign-in"></i>&nbsp; Влез <span class="caret"></span>
               </a>
               <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-header">Радвам се да те видя отново.</li>
                 <li>
                   <%= link_to new_session_path(:user), target: "_self" do %>
-                      <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
+                    <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
                   <% end %>
                 </li>
                 <li>
                   <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>
-                      <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
+                    <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
                   <% end %>
                 </li>
               </ul>
