@@ -2,6 +2,11 @@
 
 <div class="list-group">
   <a href="/proposals/{{ notification.proposal.id }}" class="list-group-item" ng-repeat="notification in notifications">
-    Ново предложение със заглавие: „<strong>{{ notification.proposal.title }}</strong>“ беше създадено от {{ notification.author.name }}.
+    <span ng-if="notification.action == 'proposal_created'">
+      Ново предложение със заглавие: „<strong>{{ notification.proposal.title }}</strong>“ беше създадено от {{ notification.author.name }}.
+    </span>
+    <span ng-if="notification.action == 'comment_created'">
+      Ново коментар в предложение „<strong>{{ notification.proposal.title }}</strong>“ беше написан от {{ notification.author.name }}.
+    </span>
   </a>
 </div>

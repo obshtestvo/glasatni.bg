@@ -10,7 +10,7 @@ class Comment < ActiveRecord::Base
   has_many :votings, as: :votable, dependent: :destroy
   has_many :flags, as: :flaggable, dependent: :destroy
 
-  after_save    :update_user_rank
+  after_save    :after_save_callbacks
   after_destroy :update_user_rank
 
   paginates_per 25
@@ -20,6 +20,23 @@ class Comment < ActiveRecord::Base
   end
 
   private
+
+  def after_save_callbacks
+    update_user_rank
+    create_notification
+  end
+
+  def create_notification
+    Notification.create(
+      {
+        user: self.user,
+        proposal: self.commentable,
+        recipient: self.commentable.theme.moderator,
+        action: Notification.actions[:comment_created]
+      }
+    )
+  end
+
   def update_user_rank
     user = self.user
     count = user.comments.count

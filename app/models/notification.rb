@@ -4,5 +4,5 @@ class Notification < ActiveRecord::Base
   belongs_to :user
   belongs_to :proposal
 
-  enum action: [:proposal_created]
+  enum action: [:proposal_created, :comment_created]
 end
