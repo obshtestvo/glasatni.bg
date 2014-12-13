@@ -42,6 +42,11 @@
 
 </div>
 
+<div ng-show="$root.params.theme != 'all'">
+  <br/>
+  {{ selectedTheme.info }}
+</div>
+
 <br />
 <div class="row row-no-gutter" ng-repeat="proposal in proposals">
   <div class="col-md-1 col-sm-1 text-center">

@@ -31,11 +31,15 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
   });
 }]);
 
-var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$scope", "$routeParams", "$location", "data", "CurrentUser", function($scope, $routeParams, $location, data, CurrentUser) {
+var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$scope", "$routeParams", "$http", "$location", "data", "CurrentUser", function($scope, $routeParams, $http, $location, data, CurrentUser) {
 
   $scope.proposals = data.proposals;
   $scope.proposalsCount = data.proposals_count;
   $scope.currentUser = CurrentUser;
+
+  $http.get("/api/v1/themes").success(function(themes) {
+    $scope.selectedTheme = themes.filter(function(t) { return t.en_name === $scope.$root.params.theme })[0];
+  });
 
   $scope.pageChanged = function() {
     $location.path("/proposals/theme/" + $scope.$root.params.theme + "/" + $scope.$root.params.order + "/" + $scope.$root.params.page);
