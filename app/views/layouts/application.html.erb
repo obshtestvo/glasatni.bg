@@ -11,7 +11,7 @@
 
 <div style="display:none;" id="user-info" user-id="<%= current_user.try(:id) %>" user-is-mod="<%= current_user.try(:moderator?) %>"></div>
 
-<nav class="navbar navbar-default" role="navigation" ng-controller="NavigationController">
+<nav class="navbar navbar-default" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -24,21 +24,21 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li ng-class="{ active: isActive('/') }" class="hidden-xs"><a href="/">Начало</a></li>
-        <li ng-class="{ active: isActive('/proposals') }" class="hidden-xs"><a href="/proposals">Предложения</a></li>
-        <li ng-class="{ active: isActive('/about') }" class="hidden-xs"><a href="/about">За платформата</a></li>
+        <li class="hidden-xs"><a href="/">Начало</a></li>
+        <li class="hidden-xs"><a href="/proposals">Предложения</a></li>
+        <li class="hidden-xs"><a href="/about">За платформата</a></li>
 
-        <li ng-class="{ active: isActive('/') }" class="visible-xs"><a href="/" data-toggle="collapse" data-target=".navbar-collapse">Начало</a></li>
-        <li ng-class="{ active: isActive('/proposals') }" class="visible-xs"><a href="/proposals" data-toggle="collapse" data-target=".navbar-collapse">Предложения</a></li>
-        <li ng-class="{ active: isActive('/about') }" class="visible-xs"><a href="/about" data-toggle="collapse" data-target=".navbar-collapse">За платформата</a></li>
-        <li ng-class="{ active: isActive('/proposals/new') }" class="visible-xs"><a href="/proposals/new" data-toggle="collapse" data-target=".navbar-collapse" class="visible-xs"><i class="fa fa-plus-square"></i> &nbsp;Направи предложение</a>
+        <li class="visible-xs"><a href="/" data-toggle="collapse" data-target=".navbar-collapse">Начало</a></li>
+        <li class="visible-xs"><a href="/proposals" data-toggle="collapse" data-target=".navbar-collapse">Предложения</a></li>
+        <li class="visible-xs"><a href="/about" data-toggle="collapse" data-target=".navbar-collapse">За платформата</a></li>
+        <li class="visible-xs"><a href="/proposals/new" data-toggle="collapse" data-target=".navbar-collapse" class="visible-xs"><i class="fa fa-plus-square"></i> &nbsp;Направи предложение</a>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
 
           <!-- user profile -->
-          <li ng-class="{ active: isActive('/users/<%= current_user.id %>') }" class="hidden-xs"><a href="/users/<%= current_user.id %>" id="username"><%= current_user.name %></a></li>
-          <li ng-class="{ active: isActive('/users/<%= current_user.id %>') }" class="visible-xs"><a href="/users/<%= current_user.id %>" id="username" data-toggle="collapse" data-target=".navbar-collapse"><%= current_user.name %></a></li>
+          <li class="hidden-xs"><a href="/users/<%= current_user.id %>" id="username"><%= current_user.name %></a></li>
+          <li class="visible-xs"><a href="/users/<%= current_user.id %>" id="username" data-toggle="collapse" data-target=".navbar-collapse"><%= current_user.name %></a></li>
 
           <!-- options -->
           <li><a href="<%= edit_user_registration_path %>" target="_self"><i class="fa fa-wrench"></i> &nbsp;Настройки</a></li>
