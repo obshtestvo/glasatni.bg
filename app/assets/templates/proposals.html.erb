@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row themes-navigation">
   <div class="col-md-6 col-sm-6 col-xs-6 text-center">
     <ul class="nav nav-pills nav-stacked" role="tablist">
       <li ng-class="{active: $root.params.theme=='all'}"><a href="/proposals/theme/all/{{ $root.params.order }}">Всички теми &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='all'">{{ proposalsCount }}</span></a></li>
@@ -15,7 +15,9 @@
   </div>
 </div>
 
-<br />
+<div ng-show="$root.params.theme != 'all'" class="themes-info">
+  {{ selectedTheme.info }}
+</div>
 
 <div class="row">
   <div class="col-md-3 col-sm-6 col-xs-6">
@@ -40,11 +42,6 @@
                 rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
   </div>
 
-</div>
-
-<div ng-show="$root.params.theme != 'all'">
-  <br/>
-  {{ selectedTheme.info }}
 </div>
 
 <br />
