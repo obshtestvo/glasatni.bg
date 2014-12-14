@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   devise :omniauthable, :omniauth_providers => [:facebook]
 
-  before_create :generate_token
+  # before_create :generate_token
 
   has_many :proposals
   has_many :comments
