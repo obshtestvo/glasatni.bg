@@ -1,5 +1,5 @@
 ActiveAdmin.register Proposal do
-  permit_params :title, :content
+  permit_params :title, :content, :user_id, :theme_id
 
   config.per_page = 20
 
