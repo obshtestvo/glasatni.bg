@@ -73,6 +73,10 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
   .when("/about", {
     templateUrl: "<%= asset_path('about.html') %>" })
 
+  // about
+  .when("/legal", {
+    templateUrl: "<%= asset_path('legal.html') %>" })
+
   // 404
   // TODO show 404 error page
   .otherwise({
@@ -332,6 +336,7 @@ glasatni.directive("flagButton", ["Comment", "Proposal", "Modal", function(Comme
 }]);
 
 glasatni.directive("filter", [function() {
+
   return {
     restrict: "E",
     templateUrl: "<%= asset_path('filter.html') %>",
@@ -340,5 +345,6 @@ glasatni.directive("filter", [function() {
       order: "=",
     }
   }
+
 }]);
 
