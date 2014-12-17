@@ -9,5 +9,12 @@ module Promeni
     config.time_zone = 'Sofia'
     config.i18n.available_locales = [:bg]
     config.i18n.default_locale = :bg
+
+    config.action_mailer.default_options = { from: ENV['default_options_from'] }
+    config.action_mailer.default_url_options = {
+      host: ENV['default_url_options_host'],
+      protocol: ENV['default_url_options_protocol']
+    }
+    config.action_mailer.delivery_method = ENV['delivery_method'].to_sym
   end
 end
