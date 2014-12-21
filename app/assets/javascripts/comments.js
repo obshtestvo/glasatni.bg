@@ -6,7 +6,7 @@ glasatni.factory('Comment', ['$resource', function($resource) {
   });
 }]);
 
-glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "CurrentUser", "Modal", function($scope, $routeParams, Comment, CurrentUser, Modal) {
+glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "AuthService", "Modal", function($scope, $routeParams, Comment, AuthService, Modal) {
 
     var getCommentsData;
 
@@ -24,8 +24,8 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
     commentable_id: $routeParams.id
   };
 
-  if (CurrentUser.id) {
-    $scope.params.voter_id = CurrentUser.id;
+  if (AuthService.getUser()) {
+    $scope.params.voter_id = AuthService.getUser().id;
   }
 
   $scope.$watchCollection("[params.order, params.page]", function(newValue, oldValue) {

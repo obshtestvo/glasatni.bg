@@ -134,7 +134,7 @@ glasatni.filter('countWords', [function() {
   };
 }]);
 
-glasatni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', 'CurrentUser', function(Proposal, Comment, Modal, CurrentUser) {
+glasatni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', 'AuthService', function(Proposal, Comment, Modal, AuthService) {
   return {
     restrict: 'E',
     scope: {
@@ -162,7 +162,7 @@ glasatni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', 'CurrentUse
           }
         };
 
-        if (CurrentUser.id) {
+        if (AuthService.getUser()) {
           if (scope.votableType === "proposal") {
             Proposal.vote(params).$promise.then(success, failure);
           } else {
