@@ -69,6 +69,11 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
     controller: "UserIndexController",
     templateUrl: "<%= asset_path('rank.html') %>" })
 
+  // login
+  .when("/login", {
+    controller: "LoginController",
+    templateUrl: "<%= asset_path('login.html') %>" })
+
   // about
   .when("/about", {
     templateUrl: "<%= asset_path('about.html') %>" })
