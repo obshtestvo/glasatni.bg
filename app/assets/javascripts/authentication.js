@@ -19,6 +19,12 @@ glasatni.service("AuthService", ["$http", function($http) {
     });
   };
 
+  this.getUserFromServer = function() {
+    $http.get("/me").then(function(res) {
+      _user = res.data;
+    });
+  };
+
 }]);
 
 glasatni.controller("LoginController", ["$scope", "$http", "AuthService", function($scope, $http, AuthService) {

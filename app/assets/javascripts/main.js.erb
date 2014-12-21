@@ -7,6 +7,12 @@
 
 var glasatni = angular.module('glasatni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
+glasatni.run(["AuthService", function(AuthService) {
+
+  AuthService.getUserFromServer();
+
+}]);
+
 glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider, $locationProvider) {
 
   $locationProvider.html5Mode(true);

@@ -102,6 +102,10 @@ class ApplicationController < ActionController::Base
     render json: { success: true }
   end
 
+  def me
+    render json: current_user
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     render json: { :status => :error, :message => "You don't have permission to #{exception.action} #{exception.subject.class.to_s.pluralize}" }, :status => 403
   end

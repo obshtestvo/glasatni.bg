@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   post "flag" => "application#flag"
   post "vote" => "application#vote"
 
+  get "me" => "application#me"
+
   get "/*path" => redirect("/?goto=%{path}")
   root "application#home"
 end
