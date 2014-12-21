@@ -33,12 +33,12 @@
         <li class="visible-xs"><a href="/about" data-toggle="collapse" data-target=".navbar-collapse">За платформата</a></li>
         <li class="visible-xs"><a href="/proposals/new" data-toggle="collapse" data-target=".navbar-collapse" class="visible-xs"><i class="fa fa-plus-square"></i> &nbsp;Направи предложение</a>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" ng-controller="NavigationController">
         <% if user_signed_in? %>
 
           <!-- user profile -->
-          <li class="hidden-xs"><a href="/users/<%= current_user.id %>" id="username"><%= current_user.name %></a></li>
-          <li class="visible-xs"><a href="/users/<%= current_user.id %>" id="username" data-toggle="collapse" data-target=".navbar-collapse"><%= current_user.name %></a></li>
+          <li class="hidden-xs" ng-if="AuthService.getUser()"><a href="/users/{{ AuthService.getUser().id }}" id="username">{{ AuthService.getUser().name }}</a></li>
+          <li class="visible-xs" ng-if="AuthService.getUser()"><a href="/users/{{ AuthService.getUser().id }}" id="username" data-toggle="collapse" data-target=".navbar-collapse">{{ AuthService.getUser().name }}</a></li>
 
           <!-- options -->
           <li><a href="<%= edit_user_registration_path %>" target="_self"><i class="fa fa-wrench"></i> &nbsp;Настройки</a></li>
