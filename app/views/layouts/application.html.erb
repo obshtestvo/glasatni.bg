@@ -44,9 +44,9 @@
 
         <!-- logout -->
         <li>
-          <%= link_to destroy_user_session_path, :method => :delete, target: "_self" do %>
+          <a href="" ng-click="AuthService.logout()">
             <i class="fa fa-sign-out"></i> &nbsp;Изход
-          <% end %>
+          </a>
         </li>
 
       </ul>
@@ -58,9 +58,9 @@
           <ul class="dropdown-menu" role="menu">
             <li class="dropdown-header">Радвам се да те видя отново.</li>
             <li>
-              <%= link_to new_session_path(:user), target: "_self" do %>
+              <a href="/login">
                 <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
-              <% end %>
+              </a>
             </li>
             <li>
               <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>

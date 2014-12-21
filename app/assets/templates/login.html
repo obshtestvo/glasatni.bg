@@ -3,8 +3,6 @@
 
     <h2>Вход с електронна поща</h2>
 
-    {{ AuthService.getUser() }}
-
     <form ng-submit="AuthService.login(loginUser.email, loginUser.password, loginUser.remember_me)">
       <div class="form-group">
         <input ng-model="loginUser.email" type="email" class="form-control" placeholder="Поща"></input>
@@ -25,8 +23,6 @@
       <a href="/forgotten-password">Забравена парола?</a>
 
     </form>
-
-    <button ng-click="AuthService.logout()">Изход</button>
 
   </div>
 </div>
