@@ -14,7 +14,7 @@ glasatni.service("AuthService", ["$http", function($http) {
   };
 
   this.logout = function() {
-    $http.post("/users/sign_out.json", {}).then(function() {
+    $http({ method: 'DELETE', url: "/users/sign_out.json", data: {} }).then(function() {
       _user = null;
     });
   };
