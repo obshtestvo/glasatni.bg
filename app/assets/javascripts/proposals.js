@@ -48,31 +48,33 @@ var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$
 
 }]);
 
-ProposalIndexController.loadProposals = ["$rootScope", "$route", "CurrentUser", "Proposal", function($rootScope, $route, CurrentUser, Proposal) {
+ProposalIndexController.loadProposals = ["$rootScope", "$route", "AuthService", "Proposal", function($rootScope, $route, AuthService, Proposal) {
+
   $rootScope.params = {
     theme: ($route.current.params.theme || "all"),
     order: ($route.current.params.order || "relevance"),
     page: ($route.current.params.page || 1)
   };
 
-  if (CurrentUser.id) {
-    $rootScope.params.voter_id = CurrentUser.id;
+  if (AuthService.getUser()) {
+    $rootScope.params.voter_id = AuthService.getUser().id;
   }
 
   return Proposal.query($rootScope.params).$promise.then(function(data) {
     return data;
   });
+
 }];
 
-glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "$anchorScroll", "$timeout", "CurrentUser", "Proposal", "Modal", function($scope, $rootScope, $routeParams, $location, $anchorScroll, $timeout, CurrentUser, Proposal, Modal) {
+glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "$anchorScroll", "$timeout", "AuthService", "Proposal", "Modal", function($scope, $rootScope, $routeParams, $location, $anchorScroll, $timeout, AuthService, Proposal, Modal) {
   var params = {
     id: $routeParams.id
   };
-  if (CurrentUser.id) {
-    params.voter_id = CurrentUser.id;
+  if (AuthService.getUser()) {
+    params.voter_id = AuthService.getUser().id;
   }
 
-  $scope.currentUser = CurrentUser;
+  $scope.AuthService = AuthService;
 
   Proposal.get(params).$promise.then(function(proposal) {
     $scope.proposal = proposal;
@@ -120,9 +122,9 @@ glasatni.controller("ProposalEditController", ["$scope", "$routeParams", "$locat
 
 }]);
 
-glasatni.controller("ProposalCreateController", ["$scope", "$location", "$http", "Proposal", "Modal", "CurrentUser", function($scope, $location, $http, Proposal, Modal, CurrentUser) {
+glasatni.controller("ProposalCreateController", ["$scope", "$location", "$http", "Proposal", "Modal", "AuthService", function($scope, $location, $http, Proposal, Modal, AuthService) {
 
-  if (!CurrentUser.id) {
+  if (!AuthService.getUser()) {
     var params = typeof $scope.$root.params === "undefined" ? { theme: "all", order: "relevance" } : $scope.$root.params;
     var fn = function() { $location.path("/proposals/theme/" + params.theme + "/" + params.order) };
     Modal.open("unregisteredCreateProposal").then(fn, fn);
