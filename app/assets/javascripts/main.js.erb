@@ -7,20 +7,10 @@
 
 var glasatni = angular.module('glasatni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
-glasatni.service('InitService', ['$q', function ($q) {
-
-  var d = $q.defer();
-  return {
-    defer: d,
-    promise: d.promise
-  };
-
-}]);
-
-glasatni.run(['InitService', "AuthService", function(InitService, AuthService) {
+glasatni.run(["AuthService", function(AuthService) {
 
   AuthService.getUserFromServer().then(function() {
-    InitService.defer.resolve();
+    AuthService.userIsFetchedFromServer.defer.resolve();
   });
 
 }]);
@@ -33,10 +23,7 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
     controller: "ProposalIndexController",
     templateUrl: "<%= asset_path('proposals.html') %>",
     resolve: {
-      data: ProposalIndexController.loadProposals,
-      init: ['InitService', function (Init) {
-        return Init.promise;
-      }]
+      data: ProposalIndexController.loadProposals
     }
   };
 

@@ -1,5 +1,6 @@
-glasatni.service("AuthService", ["$http", function($http) {
+glasatni.service("AuthService", ["$http", "$q", function($http, $q) {
   var _user = null;
+  var d = $q.defer();
 
   this.login = function(email, password, remember_me) {
     $http.post("/users/sign_in.json", {
@@ -23,6 +24,11 @@ glasatni.service("AuthService", ["$http", function($http) {
     return $http.get("/me").then(function(res) {
       _user = res.data === "null" ? null : res.data;
     });
+  };
+
+  this.userIsFetchedFromServer = {
+    defer: d,
+    promise: d.promise
   };
 
 }]);
