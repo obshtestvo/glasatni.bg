@@ -2,14 +2,26 @@
 //= depend_on_asset proposal.html
 //= depend_on_asset voting_buttons.html
 
-// This file contains services and directives used throughout the project as well as
-// the routes.
+// This file contains services and directives used throughout the project.
+// Also the routes are defined here.
 
 var glasatni = angular.module('glasatni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
-glasatni.run(["AuthService", function(AuthService) {
+glasatni.service('InitService', ['$q', function ($q) {
 
-  AuthService.getUserFromServer();
+  var d = $q.defer();
+  return {
+    defer: d,
+    promise: d.promise
+  };
+
+}]);
+
+glasatni.run(['InitService', "AuthService", function(InitService, AuthService) {
+
+  AuthService.getUserFromServer().then(function() {
+    InitService.defer.resolve();
+  });
 
 }]);
 
@@ -21,7 +33,10 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
     controller: "ProposalIndexController",
     templateUrl: "<%= asset_path('proposals.html') %>",
     resolve: {
-      data: ProposalIndexController.loadProposals
+      data: ProposalIndexController.loadProposals,
+      init: ['InitService', function (Init) {
+        return Init.promise;
+      }]
     }
   };
 
@@ -104,7 +119,7 @@ glasatni.filter('translateOrder', [function () {
       "relevance": "Най-подкрепени",
       "most-comments": "Коментирани",
       "least-comments": "Некоментирани"
-    }
+    };
     return translations[string];
   };
 }]);
@@ -299,7 +314,7 @@ glasatni.directive("moreButton", ["Comment", "Proposal", "User", "Modal", functi
         var params = {
           page: scope.nextPage
         };
-        var moreable;
+        var Moreable;
 
         if (typeof scope.userId !== "undefined") {
           params.user_id = scope.userId;
@@ -353,7 +368,7 @@ glasatni.directive("filter", [function() {
     templateUrl: "<%= asset_path('filter.html') %>",
     transclude: true,
     scope: {
-      order: "=",
+      order: "="
     }
   }
 
