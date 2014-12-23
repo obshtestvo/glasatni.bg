@@ -1,12 +1,16 @@
-glasatni.service("AuthService", ["$http", "$q", function($http, $q) {
+glasatni.service("AuthService", ["$http", "$q", "$location", function($http, $q, $location) {
   var _user = null;
   var d = $q.defer();
 
-  this.login = function(email, password, remember_me) {
+  this.login = function(email, password, rememberMe, redirectTo) {
     $http.post("/users/sign_in.json", {
-      user: { email: email, password: password, remember_me: remember_me }
+      user: { email: email, password: password, remember_me: rememberMe }
     }).then(function (res) {
       _user = res.data;
+
+      if(redirectTo) {
+        $location.path(redirectTo);
+      }
     });
   };
 
@@ -14,9 +18,13 @@ glasatni.service("AuthService", ["$http", "$q", function($http, $q) {
     return _user;
   };
 
-  this.logout = function() {
+  this.logout = function(redirectTo) {
     $http({ method: 'DELETE', url: "/users/sign_out.json", data: {} }).then(function() {
       _user = null;
+
+      if(redirectTo) {
+        $location.path(redirectTo);
+      }
     });
   };
 

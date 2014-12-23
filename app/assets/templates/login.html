@@ -3,7 +3,7 @@
 
     <h2>Вход с електронна поща</h2>
 
-    <form ng-submit="AuthService.login(loginUser.email, loginUser.password, loginUser.remember_me)">
+    <form ng-submit="AuthService.login(loginUser.email, loginUser.password, loginUser.remember_me, '/proposals')">
       <div class="form-group">
         <input ng-model="loginUser.email" type="email" class="form-control" placeholder="Поща"></input>
       </div>
