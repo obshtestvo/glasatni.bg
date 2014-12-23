@@ -3,6 +3,8 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
     'query': {
       method:'GET',
       isArray: false,
+
+      // I need this tiny layer to switch form the snake_case API, to the camelCase used in js variables. (Sorry)
       transformResponse: function(data) {
         data = JSON.parse(data);
 
@@ -12,11 +14,15 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
             title: p.title,
             content: p.content,
             theme: p.theme,
+
+            // the switch happens here:
             commentsCount: p.comments_count,
             user: p.user,
             approved: p.approved,
             voted: p.voted,
             hotness: p.hotness,
+
+            // and here:
             timeAgo: p.time_ago
           }
         });
@@ -61,7 +67,7 @@ ProposalIndexController.loadProposals = ["$rootScope", "$route", "AuthService", 
   // Only fetch proposals when we know whether or not the user is authorized on the server.
   // Otherwise a race condition is happening on page reload: the proposals can be fetched before we have information
   // about the user (All this is needed, because moderators and regulars have different proposal listings.) ;_;
-  return AuthService.userIsFetchedFromServer.promise.then(function() {
+  return AuthService.userIsFetchedFromServer.then(function() {
 
     // check if user is logged in and fetch id if so.
     if (AuthService.getUser()) {
@@ -162,7 +168,7 @@ glasatni.controller("ProposalCreateController", ["$scope", "$location", "$http",
     var failure = function() { Modal.open("unknownError") };
 
     Proposal.save({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme.id }).$promise.then(success, failure);
-}
+  };
 
 }]);
 

@@ -7,18 +7,18 @@
 
 var glasatni = angular.module('glasatni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
+// on page reload - fetch user from server
 glasatni.run(["AuthService", function(AuthService) {
 
-  AuthService.getUserFromServer().then(function() {
-    AuthService.userIsFetchedFromServer.defer.resolve();
-  });
+  AuthService.getUserFromServer();
 
 }]);
 
 glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider, $locationProvider) {
 
-  $locationProvider.html5Mode(true);
-
+  // We use the angular core's routes (not the ui.routes module) and
+  // they don't support states. This is the reason we define options for
+  // different proposals-related routes here and reuse them 3 time later on.
   var proposalsOptions = {
     controller: "ProposalIndexController",
     templateUrl: "<%= asset_path('proposals.html') %>",
@@ -27,19 +27,23 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
     }
   };
 
+  $locationProvider.html5Mode(true);
+
   $routeProvider
 
   // home
   .when("/", {
     controller: "ThemeIndexController",
     templateUrl: "<%= asset_path('home.html') %>",
+
+    // This redirection is needed to switch from rails to angular.
+    // In rails' routes we catch all angular routes and pass them
+    // with the 'goto' parameter. Then, the string is handled by this
+    // function. It simply gets the string (if present) and redirects
+    // to the new address.
     redirectTo: function(current, path, search) {
       //return search.goto ? "/" + search.goto : "/";
-      if (search.goto) {
-        return "/" + search.goto;
-      } else {
-        return "/";
-      }
+      return "/" + search.goto ? search.goto : "";
     }
   })
 
@@ -126,6 +130,8 @@ glasatni.filter('translateRank', [function () {
   };
 }]);
 
+// Counts the words in the passed string with a simple regex.
+// Used when editing/creating proposals.
 glasatni.filter('countWords', [function() {
   "use strict";
   return function(string) {
@@ -136,6 +142,7 @@ glasatni.filter('countWords', [function() {
   };
 }]);
 
+// voting buttons
 glasatni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', 'AuthService', function(Proposal, Comment, Modal, AuthService) {
   return {
     restrict: 'E',
@@ -348,6 +355,10 @@ glasatni.directive("flagButton", ["Comment", "Proposal", "Modal", function(Comme
   }
 }]);
 
+// The 'order by' dropdown.
+// I have mixed feelings about this directive in the sense that
+// I haven't figured out yet whether or not it adds complexity or
+// reduces it.
 glasatni.directive("filter", [function() {
 
   return {

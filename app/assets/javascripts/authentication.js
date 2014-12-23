@@ -23,13 +23,11 @@ glasatni.service("AuthService", ["$http", "$q", function($http, $q) {
   this.getUserFromServer = function() {
     return $http.get("/me").then(function(res) {
       _user = res.data === "null" ? null : res.data;
+      d.resolve();
     });
   };
 
-  this.userIsFetchedFromServer = {
-    defer: d,
-    promise: d.promise
-  };
+  this.userIsFetchedFromServer = d.promise;
 
 }]);
 
