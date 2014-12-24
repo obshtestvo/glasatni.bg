@@ -3,20 +3,47 @@
 
     <h2>Вход с електронна поща</h2>
 
-    <form ng-submit="AuthService.login(loginUser.email, loginUser.password, loginUser.remember_me, '/proposals')">
+    {{ loginForm.$submitted }}
+
+    <form name="loginForm" ng-submit="AuthService.login(loginUser.email, loginUser.password, loginUser.remember_me, '/proposals')" class="css-form" novalidate>
+
       <div class="form-group">
-        <input ng-model="loginUser.email" type="email" class="form-control" placeholder="Поща"></input>
+        <input
+                ng-model="loginUser.email"
+                name="email"
+                type="email"
+                class="form-control"
+                placeholder="Поща"
+                required>
+        </input>
+      </div>
+
+      <div ng-show="loginForm.$submitted">
+        <div class="alert alert-danger" ng-show="loginForm.email.$error.email">Въведи валиден email, бе!</div>
       </div>
 
       <div class="form-group">
-        <input ng-model="loginUser.password" type="password" class="form-control" autocomplete="off" placeholder="Парола"></input>
+        <input
+                ng-model="loginUser.password"
+                name="password"
+                type="password"
+                class="form-control"
+                autocomplete="off"
+                placeholder="Парола"
+                required=""
+                ng-minlength="5">
+        </input>
+      </div>
+
+      <div ng-show="loginForm.$submitted">
+        <div class="alert alert-danger" ng-show="loginForm.password.$error.minlength">Паролата ти няма как да е толкова кратка.</div>
       </div>
 
       <input ng-model="loginUser.remember_me" id="remember_me" type="checkbox" value="1">
       <label for="remember_me">Запомни ме</label>
 
       <br/>
-      <button type="submit" class="btn btn-success">Влез</button>
+      <button type="submit" class="btn btn-success" ng-disabled="loginForm.$invalid && loginForm.$submitted">Влез</button>
 
       <br/>
       <br/>
