@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  # if the facebook crawler bot comes to the site -> redirect to facebook controller
+  # this is needed for better sharing on facebook
+  constraints :user_agent => /facebookexternalhit/ do
+    get "proposals/:id" => "facebook#proposal"
+    get "/*path" => "facebook#home"
+    root :to => "facebook#home", as: :bot_root
+  end
+
   # auth
   devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => "registrations" }
@@ -30,4 +38,5 @@ Rails.application.routes.draw do
 
   get "/*path" => redirect("/?goto=%{path}")
   root "application#home"
+
 end

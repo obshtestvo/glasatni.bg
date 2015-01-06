@@ -1,0 +1,7 @@
+<% content_for :head do %>
+
+  <%= tag :meta, property: "og:title", content: @proposal.title %>
+  <%= tag :meta, property: "og:image", content: image_url("#{Theme.en_names.key(@proposal.theme.name).to_s}.jpg") %>
+
+<% end %>
+
