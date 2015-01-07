@@ -6,6 +6,8 @@ ActiveAdmin.register Proposal do
   index do
     column :title
     column :content
+    column :up
+    column :down
     actions
   end
 
