@@ -141,6 +141,8 @@ glasatni.directive('votingButtons', ['Proposal', 'Comment', 'Modal', 'CurrentUse
         var params = { id: scope.votable.id, vote: direction, votable: scope.votableType };
         var success = function(response) {
           scope.votable.hotness = response.hotness;
+          scope.votable.up = response.up;
+          scope.votable.down = response.down;
           scope.votable.voted = scope.votable.voted === value ? -1 : value;
         };
         var failure = function(response) {

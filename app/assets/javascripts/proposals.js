@@ -17,6 +17,8 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
             approved: p.approved,
             voted: p.voted,
             hotness: p.hotness,
+            up: p.up,
+            down: p.down,
             timeAgo: p.time_ago
           }
         });

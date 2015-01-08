@@ -60,7 +60,9 @@
           в <a href="/themes/{{ proposal.theme.id }}">{{ proposal.theme.name }}</a> |
           {{ proposal.commentsCount }} коментара |
           автор: <a href="/users/{{ proposal.user.id }}">{{ proposal.user.name }}</a> |
-          модератор: <a href="/users/{{ proposal.theme.moderator.id }}">{{ proposal.theme.moderator.name }}</a>
+          модератор: <a href="/users/{{ proposal.theme.moderator.id }}">{{ proposal.theme.moderator.name }}</a> |
+          създадено {{ proposal.timeAgo }} |
+          гласували за: {{ proposal.up }} против: {{ proposal.down }}
         </small>
         </h3>
       </div>

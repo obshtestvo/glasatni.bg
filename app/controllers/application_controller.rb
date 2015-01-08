@@ -63,10 +63,10 @@ class ApplicationController < ActionController::Base
         voting.save
 
         if direction == "up"
-          votable.up += 1;
+          votable.up += 1
           votable.down -= 1
         else
-          votable.up -= 1;
+          votable.up -= 1
           votable.down += 1
         end
 
@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
       votable.save
       author.save
 
-      render json: { hotness: votable.hotness }
+      render json: { hotness: votable.hotness, up: votable.up, down: votable.down }
     else
       render nothing: true, status: :unauthorized
     end
