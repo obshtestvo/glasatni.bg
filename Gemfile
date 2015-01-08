@@ -28,7 +28,7 @@ gem 'figaro'
 gem 'showdown-rails'
 gem 'puma'
 gem 'therubyracer'
-
+gem 'exception_notification'
 
 group :development do
   gem 'quiet_assets'
