@@ -86,6 +86,11 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
     controller: "LoginController",
     templateUrl: "<%= asset_path('login.html') %>" })
 
+  // register
+  .when("/register", {
+    controller: "LoginController",
+    templateUrl: "<%= asset_path('register.html') %>" })
+
   // about
   .when("/about", {
     templateUrl: "<%= asset_path('about.html') %>" })
@@ -260,7 +265,7 @@ glasatni.directive('markdown', [function() {
     scope: {
       content: "="
     },
-    link: function(scope, element, attrs) {
+    link: function(scope, element) {
       if (typeof scope.content !== "undefined") {
         element.html(converter.makeHtml(scope.content));
       }
@@ -272,7 +277,6 @@ glasatni.directive('markdown', [function() {
     }
   }
 }]);
-
 
 // The 'more' button is a directive that collects more of comments/proposals/users
 glasatni.directive("moreButton", ["Comment", "Proposal", "User", "Modal", function(Comment, Proposal, User, Modal) {
@@ -385,7 +389,7 @@ glasatni.service("messageService", [function() {
   };
 
   this.removeByLocation = function(destination) {
-    _container = _container.filter(function(alert) { return alert !== destination });
+    _container = _container.filter(function(msg) { return msg.destination !== destination });
   };
 
   this.get = function(destination) {

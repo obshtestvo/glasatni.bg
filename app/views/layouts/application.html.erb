@@ -77,9 +77,9 @@
           <ul class="dropdown-menu" role="menu">
             <li class="dropdown-header">Радвам се да се запознаем.<br />Можеш да се регистрираш с:</li>
             <li>
-              <%= link_to new_registration_path(:user), target: "_self" do %>
-                  <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
-              <% end %>
+              <a href="/register">
+                <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
+              </a>
             </li>
             <li>
               <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>
@@ -106,6 +106,8 @@
         <%= alert %>
       </div>
   <% end %>
+
+  <display-messages destination="top message"></display-messages>
 
   <div class="row hidden-xs">
     <div class="col-md-6 col-sm-6 vcenter">
