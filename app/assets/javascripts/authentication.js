@@ -8,13 +8,18 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
     }).then(function (res) {
       _user = res.data;
 
+      messageService.removeByLocation('login');
+
       if(redirectTo) {
         $location.path(redirectTo);
       }
     }, function(error) {
+      var msg;
+
+      msg = error.status === 401 ? "Невалидна поща или парола." : error.data.error;
 
       messageService.push({
-        msg: "test",
+        msg: msg,
         type: "danger",
         destination: "login"
       });

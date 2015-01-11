@@ -371,7 +371,7 @@ glasatni.directive("filter", [function() {
 
 }]);
 
-// The sevice is just a container for alerts with 3 simple methods
+// The sevice is just a container for alerts with 4 simple methods
 glasatni.service("messageService", [function() {
 
   var container = [];
@@ -380,8 +380,12 @@ glasatni.service("messageService", [function() {
     container.push(msgOb);
   };
 
-  this.remove = function(idx) {
+  this.removeByIndex = function(idx) {
     container.splice(idx, 1);
+  };
+
+  this.removeByLocation = function(destination) {
+    container = container.filter(function(alert) { return alert !== destination });
   };
 
   this.get = function(destination) {
@@ -398,13 +402,12 @@ glasatni.directive("displayMessages", ["messageService", function(messageService
     restrict: "E",
     template: "<div ng-repeat='alert in messageService.get(destination)' class='alert alert-{{ alert.type }}'>" +
               "{{ alert.msg }}" +
-              "<button type='button' class='close' ng-click='messageService.remove($index)'><span aria-hidden='true'>&times;</span></button>" +
+              "<button type='button' class='close' ng-click='messageService.removeByIndex($index)'><span aria-hidden='true'>&times;</span></button>" +
               "</div>",
     scope: {
       destination: "@"
     },
     link: function(scope) {
-      console.log(scope.destination);
       scope.messageService = messageService;
     }
   };
