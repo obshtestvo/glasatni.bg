@@ -11,7 +11,7 @@ class Comment < ActiveRecord::Base
   has_many :votings, as: :votable, dependent: :destroy
   has_many :flags, as: :flaggable, dependent: :destroy
 
-  after_save    :after_save_callbacks
+  after_create  :after_create_callbacks
   after_destroy :update_user_rank
 
   paginates_per 25
@@ -22,7 +22,7 @@ class Comment < ActiveRecord::Base
 
   private
 
-  def after_save_callbacks
+  def after_create_callbacks
     update_user_rank
     create_notification :comment_created
   end

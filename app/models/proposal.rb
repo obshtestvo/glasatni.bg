@@ -10,7 +10,7 @@ class Proposal < ActiveRecord::Base
 
   validates :title, presence: true
 
-  after_save :after_save_callbacks
+  after_create :after_create_callbacks
   after_destroy :update_user_rank
 
   paginates_per 25
@@ -19,7 +19,7 @@ class Proposal < ActiveRecord::Base
 
   private
 
-  def after_save_callbacks
+  def after_create_callbacks
     update_user_rank
     create_notification :proposal_created
   end
