@@ -1,12 +1,11 @@
 module Api
   module V1
     class NotificationsController < ApplicationController
-      before_action :set_proposal, only: [:show, :update, :destroy, :approve]
       authorize_resource only: [:create, :update, :destroy, :approve]
       respond_to :json
 
       def index
-        query = Notification.includes(:proposal, :user).where(recipient: current_user)
+        query = Notification.order(created_at: :desc).includes(:proposal, :user).where(recipient: current_user)
 
         # some meta data about the result of the query, needed for UI purposes
         @notifications_count = query.count

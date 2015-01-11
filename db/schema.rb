@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141207171014) do
+ActiveRecord::Schema.define(version: 20150111113136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,11 +87,13 @@ ActiveRecord::Schema.define(version: 20141207171014) do
   add_index "flags", ["user_id"], name: "index_flags_on_user_id", using: :btree
 
   create_table "notifications", force: true do |t|
-    t.integer "proposal_id"
-    t.integer "action"
-    t.integer "recipient_id"
-    t.integer "user_id"
-    t.boolean "seen",         default: false, null: false
+    t.integer  "proposal_id"
+    t.integer  "action"
+    t.integer  "recipient_id"
+    t.integer  "user_id"
+    t.boolean  "seen",         default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "proposals", force: true do |t|

@@ -9,6 +9,7 @@ json.notifications @notifications do |n|
     json.title n.proposal.title
   end
   json.action n.action
+  json.time_ago pretty_date(n.created_at)
 
 end
 

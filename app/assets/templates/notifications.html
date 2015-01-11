@@ -2,11 +2,14 @@
 
 <div class="list-group">
   <a href="/proposals/{{ notification.proposal.id }}" class="list-group-item" ng-repeat="notification in notifications">
+
     <span ng-if="notification.action == 'proposal_created'">
-      Ново предложение със заглавие: „<strong>{{ notification.proposal.title }}</strong>“ беше създадено от {{ notification.author.name }}.
+      <i class="fa fa-envelope"></i>&nbsp;&nbsp;&nbsp;
+      Ново предложение със заглавие: „<strong>{{ notification.proposal.title }}</strong>“ беше създадено от {{ notification.author.name }} {{ notification.time_ago }}.
     </span>
     <span ng-if="notification.action == 'comment_created'">
-      Ново коментар в предложение „<strong>{{ notification.proposal.title }}</strong>“ беше написан от {{ notification.author.name }}.
+      <i class="fa fa-pencil"></i>&nbsp;&nbsp;&nbsp;
+      Нов коментар в предложение „<strong>{{ notification.proposal.title }}</strong>“ беше написан от {{ notification.author.name }} {{ notification.time_ago }}.
     </span>
   </a>
   <a ng-if="notifications.length == 0" href="#" class="list-group-item disabled">Нямате нови уведомления.</a>
