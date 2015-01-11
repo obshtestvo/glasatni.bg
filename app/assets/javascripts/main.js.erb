@@ -257,7 +257,7 @@ glasatni.directive('markdown', [function() {
 
 
 // The 'more' button is a directive that collects more of comments/proposals/users
-glasatni.directive("moreButton", ["Comment", "Proposal", "User", "Modal", function(Comment, Proposal, User, Modal) {
+glasatni.directive("moreButton", ["Comment", "Proposal", "Notification", "User", "Modal", function(Comment, Proposal, Notification, User, Modal) {
   return {
     restrict: "E",
     scope: {
@@ -282,7 +282,7 @@ glasatni.directive("moreButton", ["Comment", "Proposal", "User", "Modal", functi
         scope.nextPage = parseInt(scope.nextPage) + 1;
       };
 
-      var failure = function(data) {
+      var failure = function() {
         Modal.open('unknownError');
       };
 
@@ -290,7 +290,6 @@ glasatni.directive("moreButton", ["Comment", "Proposal", "User", "Modal", functi
         var params = {
           page: scope.nextPage
         };
-        var moreable;
 
         if (typeof scope.userId !== "undefined") {
           params.user_id = scope.userId;
@@ -303,9 +302,10 @@ glasatni.directive("moreButton", ["Comment", "Proposal", "User", "Modal", functi
         scope.text = "Пуф Паф!";
 
         Moreable =
-          scope.collectionType === "proposal" ? Proposal :
-          scope.collectionType === "comment"  ? Comment :
-          /* else */                            User;
+          scope.collectionType === "proposal"      ? Proposal :
+          scope.collectionType === "comment"       ? Comment :
+          scope.collectionType === "notification"  ? Notification :
+          /* else */                                 User;
 
         Moreable.query(params).$promise.then(success, failure);
       }

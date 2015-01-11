@@ -1,6 +1,6 @@
 glasatni.factory('User', ['$resource', function($resource) {
   return $resource('/api/v1/users/:id', null, {
-    'query': { method:'GET', isArray: false },
+    'query': { method:'GET', isArray: false }
   });
 }]);
 
