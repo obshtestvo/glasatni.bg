@@ -371,25 +371,25 @@ glasatni.directive("filter", [function() {
 
 }]);
 
-// The sevice is just a container for alerts with 4 simple methods
+// The service is just a container for alerts with 4 simple methods
 glasatni.service("messageService", [function() {
 
-  var container = [];
+  var _container = [];
 
   this.push = function(msgOb) {
-    container.push(msgOb);
+    _container.push(msgOb);
   };
 
   this.removeByIndex = function(idx) {
-    container.splice(idx, 1);
+    _container.splice(idx, 1);
   };
 
   this.removeByLocation = function(destination) {
-    container = container.filter(function(alert) { return alert !== destination });
+    _container = _container.filter(function(alert) { return alert !== destination });
   };
 
   this.get = function(destination) {
-    return container.filter(function(msg) { return msg.destination === destination });
+    return _container.filter(function(msg) { return msg.destination === destination });
   };
 
 }]);
