@@ -3,8 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
+  respond_to :html, :json
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for resource
     "/proposals"
   end
 
@@ -63,10 +64,10 @@ class ApplicationController < ActionController::Base
         voting.save
 
         if direction == "up"
-          votable.up += 1;
+          votable.up += 1
           votable.down -= 1
         else
-          votable.up -= 1;
+          votable.up -= 1
           votable.down += 1
         end
 

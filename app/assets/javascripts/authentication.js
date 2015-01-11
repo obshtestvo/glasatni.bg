@@ -1,4 +1,4 @@
-glasatni.service("AuthService", ["$http", "$q", "$location", function($http, $q, $location) {
+glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", function($http, $q, $location, messageService) {
   var _user = null;
   var d = $q.defer();
 
@@ -11,6 +11,14 @@ glasatni.service("AuthService", ["$http", "$q", "$location", function($http, $q,
       if(redirectTo) {
         $location.path(redirectTo);
       }
+    }, function(error) {
+
+      messageService.push({
+        msg: "test",
+        type: "danger",
+        destination: "login"
+      });
+
     });
   };
 

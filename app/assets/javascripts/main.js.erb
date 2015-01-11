@@ -356,9 +356,8 @@ glasatni.directive("flagButton", ["Comment", "Proposal", "Modal", function(Comme
 }]);
 
 // The 'order by' dropdown.
-// I have mixed feelings about this directive in the sense that
-// I haven't figured out yet whether or not it adds complexity or
-// reduces it.
+// I have mixed feelings about this directive. I haven't figured
+// out yet whether or not it adds complexity or reduces it.
 glasatni.directive("filter", [function() {
 
   return {
@@ -372,3 +371,42 @@ glasatni.directive("filter", [function() {
 
 }]);
 
+// The sevice is just a container for alerts with 3 simple methods
+glasatni.service("messageService", [function() {
+
+  var container = [];
+
+  this.push = function(msgOb) {
+    container.push(msgOb);
+  };
+
+  this.remove = function(idx) {
+    container.splice(idx, 1);
+  };
+
+  this.get = function(destination) {
+    return container.filter(function(msg) { return msg.destination === destination });
+  };
+
+}]);
+
+// The directive is just a convenient way to "stick" the appropriate messages to the right place
+// One can think of it as a way to give a ui to the messageService
+glasatni.directive("displayMessages", ["messageService", function(messageService) {
+
+  return {
+    restrict: "E",
+    template: "<div ng-repeat='alert in messageService.get(destination)' class='alert alert-{{ alert.type }}'>" +
+              "{{ alert.msg }}" +
+              "<button type='button' class='close' ng-click='messageService.remove($index)'><span aria-hidden='true'>&times;</span></button>" +
+              "</div>",
+    scope: {
+      destination: "@"
+    },
+    link: function(scope) {
+      console.log(scope.destination);
+      scope.messageService = messageService;
+    }
+  };
+
+}]);

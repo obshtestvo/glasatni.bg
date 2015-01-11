@@ -3,7 +3,7 @@
 
     <h2>Вход с електронна поща</h2>
 
-    {{ loginForm.$submitted }}
+    <display-messages destination="login"></display-messages>
 
     <form name="loginForm" ng-submit="AuthService.login(loginUser.email, loginUser.password, loginUser.remember_me, '/proposals')" class="css-form" novalidate>
 
