@@ -8,13 +8,14 @@ module Notificationable
       when :proposal_created then proposal = self; recipient = self.theme.moderator
     end
 
-    Notification.create
+    Notification.create(
       {
         user: self.user,
         proposal: proposal,
         recipient: recipient,
         action: Notification.actions[action]
       }
+    )
 
   end
 
