@@ -16,6 +16,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
     }, function(error) {
       var msg;
 
+      // change the error message if it is too ambiguous
       msg = error.status === 401 ? "Невалидна поща или парола." : error.data.error;
 
       messageService.push({

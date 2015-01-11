@@ -400,10 +400,9 @@ glasatni.directive("displayMessages", ["messageService", function(messageService
 
   return {
     restrict: "E",
-    template: "<div ng-repeat='alert in messageService.get(destination)' class='alert alert-{{ alert.type }}'>" +
+    template: "<alert ng-repeat='alert in messageService.get(destination)' type='{{ alert.type }}' close='messageService.removeByIndex($index)'>" +
               "{{ alert.msg }}" +
-              "<button type='button' class='close' ng-click='messageService.removeByIndex($index)'><span aria-hidden='true'>&times;</span></button>" +
-              "</div>",
+              "</alert>",
     scope: {
       destination: "@"
     },
