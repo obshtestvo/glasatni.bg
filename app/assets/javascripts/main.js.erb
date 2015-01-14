@@ -88,8 +88,14 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
 
   // register
   .when("/register", {
-    controller: "LoginController",
-    templateUrl: "<%= asset_path('register.html') %>" })
+    controller: "RegisterController",
+    templateUrl: "<%= asset_path('options.html') %>" })
+
+  // options
+  .when("/options", {
+    controller: "OptionsController",
+    templateUrl: "<%= asset_path('options.html') %>",
+    resolve: { user: OptionsController.loadUser }})
 
   // about
   .when("/about", {

@@ -66,7 +66,7 @@ ProposalIndexController.loadProposals = ["$rootScope", "$route", "AuthService", 
 
   // Only fetch proposals when we know whether or not the user is authorized on the server.
   // Otherwise a race condition is happening on page reload: the proposals can be fetched before we have information
-  // about the user (All this is needed, because moderators and regulars have different proposal listings.) ;_;
+  // about the user (All this is needed, because moderators and regulars have different proposal listings. ;_;)
   return AuthService.userIsFetchedFromServer.then(function() {
 
     // check if user is logged in and fetch id if so.

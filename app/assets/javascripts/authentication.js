@@ -1,6 +1,7 @@
 glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", function($http, $q, $location, messageService) {
   var _user = null;
   var d = $q.defer();
+  var that = this;
 
   this.login = function(email, password, rememberMe, redirectTo) {
     messageService.removeByLocation('login');
@@ -9,6 +10,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
     }).then(function (res) {
       _user = res.data;
 
+      messageService.removeByLocation('top message');
       messageService.push({
         msg: "Успешно влязохте в своя профил.",
         type: "success",
@@ -38,7 +40,14 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
     messageService.removeByLocation('register');
 
     $http.post("/users.json", {
-      user: { email: email, name: name, password: password, password_confirmation: passwordConfirmation, bio: bio, subscribed: subscribed }
+      user: {
+        email: email,
+        name: name,
+        password: password,
+        password_confirmation: passwordConfirmation,
+        bio: bio,
+        subscribed: subscribed
+      }
     }).then(function(res) { // on success
 
       messageService.push({
@@ -67,6 +76,52 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
     });
   };
 
+  this.updateUser = function(email, name, password, passwordConfirmation, bio, subscribed, currentPassword, redirectTo) {
+
+    $http({
+      method: "PUT",
+      data: {
+        user : {
+          email: email,
+          name: name,
+          password: password,
+          password_confirmation: passwordConfirmation,
+          bio: bio,
+          subscribed: subscribed,
+          current_password: currentPassword
+        }
+      },
+      url: "/users.json"
+    }).then(function(res) {
+
+      messageService.push({
+        msg: "Промените са направени успешно",
+        type: "success",
+        destination: "top message"
+      });
+
+      that.getUserFromServer();
+
+      if (redirectTo) {
+        $location.path(redirectTo);
+      }
+
+    }, function(response) {
+
+      for(wrongField in response.data.errors) {
+
+        messageService.push({
+          msg: wrongField + " " + response.data.errors[wrongField],
+          type: "danger",
+          destination: "register"
+        });
+
+      }
+
+    });
+
+  };
+
   this.getUser = function() {
     return _user;
   };
@@ -78,6 +133,13 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
       if(redirectTo) {
         $location.path(redirectTo);
       }
+
+      messageService.removeByLocation('top message');
+      messageService.push({
+        msg: "Успешно излязохте от своя профил.",
+        type: "success",
+        destination: "top message"
+      });
     });
   };
 
@@ -103,3 +165,57 @@ glasatni.controller("NavigationController", ["$scope", "AuthService", function($
   $scope.AuthService = AuthService;
 
 }]);
+
+glasatni.controller("RegisterController", ["$scope", "AuthService", function($scope, AuthService) {
+
+  $scope.AuthService = AuthService;
+  $scope.page = {
+    showCurrentPassword: false,
+    title: "Регистрирай се",
+    button: "Хайде!"
+  };
+
+  $scope.submit = function() {
+    AuthService.register(
+      $scope.user.email,
+      $scope.user.name,
+      $scope.user.password,
+      $scope.user.passwordConfirmation,
+      $scope.user.bio,
+      $scope.user.subscribed,
+      '/proposals');
+  };
+
+}]);
+
+var OptionsController = glasatni.controller("OptionsController", ["$scope", "AuthService", "user", function($scope, AuthService, user) {
+
+  $scope.AuthService = AuthService;
+  $scope.user = angular.copy(user);
+  $scope.page = {
+    showCurrentPassword: true,
+    title: "Настройки",
+    button: "Промени!"
+  };
+
+  $scope.submit = function() {
+    AuthService.updateUser(
+      $scope.user.email,
+      $scope.user.name,
+      $scope.user.password,
+      $scope.user.passwordConfirmation,
+      $scope.user.bio,
+      $scope.user.subscribed,
+      $scope.user.currentPassword,
+      '/proposals');
+  };
+
+}]);
+
+OptionsController.loadUser = ["AuthService", function(AuthService) {
+
+  return AuthService.userIsFetchedFromServer.then(function() {
+    return AuthService.getUser();
+  });
+
+}];

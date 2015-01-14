@@ -10,8 +10,6 @@
 </head>
 <body>
 
-<div style="display:none;" id="user-info" user-id="<%= current_user.try(:id) %>" user-is-mod="<%= current_user.try(:moderator?) %>"></div>
-
 <nav class="navbar navbar-default" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -41,7 +39,7 @@
         <li class="visible-xs" ng-if="AuthService.getUser()"><a href="/users/{{ AuthService.getUser().id }}" id="username" data-toggle="collapse" data-target=".navbar-collapse">{{ AuthService.getUser().name }}</a></li>
 
         <!-- options -->
-        <li><a href="<%= edit_user_registration_path %>" target="_self"><i class="fa fa-wrench"></i> &nbsp;Настройки</a></li>
+        <li><a href="/options"><i class="fa fa-wrench"></i> &nbsp;Настройки</a></li>
 
         <!-- logout -->
         <li>
