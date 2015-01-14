@@ -8,17 +8,15 @@ glasatni.factory('Comment', ['$resource', function($resource) {
 
 glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "CurrentUser", "Modal", function($scope, $routeParams, Comment, CurrentUser, Modal) {
 
-    var getCommentsData;
-
-    getCommentsData = function () {
-        Comment.query($scope.params).$promise.then(function (data) {
-            $scope.comments = data.comments;
-            $scope.commentsCount = data.comments_count;
-        });
-    };
+  var getCommentsData = function () {
+      Comment.query($scope.params).$promise.then(function (data) {
+          $scope.comments = data.comments;
+          $scope.commentsCount = data.comments_count;
+      });
+  };
 
   $scope.params = {
-    order: "relevance",
+    order: "newest",
     page: 1,
     commentable_type: "proposal",
     commentable_id: $routeParams.id
