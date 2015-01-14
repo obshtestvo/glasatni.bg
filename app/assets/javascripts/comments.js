@@ -16,7 +16,7 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
   };
 
   $scope.params = {
-    order: "newest",
+    order: "oldest",
     page: 1,
     commentable_type: "proposal",
     commentable_id: $routeParams.id
