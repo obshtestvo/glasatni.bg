@@ -7,6 +7,17 @@
 
 var glasatni = angular.module('glasatni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
+glasatni.run(["$rootScope", "$window", "$location", function($rootScope, $window, $location) {
+
+  // this handles page hopping statistics for google analytics.
+  // on every successful route change -> send data to google
+  $rootScope.$on('$locationChangeSuccess', function() {
+    if (!$window.ga) { return; }
+    $window.ga('send', 'pageview', { page: $location.path() });
+  });
+
+}]);
+
 glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider, $locationProvider) {
 
   $locationProvider.html5Mode(true);
