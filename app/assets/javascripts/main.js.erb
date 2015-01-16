@@ -5,15 +5,21 @@
 // This file contains services and directives used throughout the project.
 // Also the routes are defined here.
 
+// initialize the app and polute the global namespace
 var glasatni = angular.module('glasatni', ['ngResource', 'ngRoute', 'ui.bootstrap']);
 
-// on page reload - fetch user from server
+// hopefully you know when this is executed
+// hint: when the app is bootstrapped
 glasatni.run(["AuthService", function(AuthService) {
 
+  // we need to fetch the user from server on every page refresh
+  // as the app doesn't store this information anywhere and therefor
+  // it is lost.
   AuthService.getUserFromServer();
 
 }]);
 
+// configuration for the application
 glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider, $locationProvider) {
 
   // We use the angular core's routes (not the ui.routes module) and
