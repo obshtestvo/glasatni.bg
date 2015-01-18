@@ -6,6 +6,8 @@ ActiveAdmin.register Comment, :as => "ProposalComment" do
   index do
     selectable_column
     column :content
+    column :up
+    column :down
     actions
   end
 
