@@ -171,6 +171,7 @@ glasatni.controller("RegisterController", ["$scope", "AuthService", function($sc
   $scope.AuthService = AuthService;
   $scope.page = {
     title: "Регистрирай се",
+    password: "Парола",
     button: "Хайде!"
   };
 
@@ -193,6 +194,7 @@ var OptionsController = glasatni.controller("OptionsController", ["$scope", "Aut
   $scope.user = angular.copy(user);
   $scope.page = {
     title: "Настройки",
+    password: "Нова парола",
     button: "Промени!"
   };
 
