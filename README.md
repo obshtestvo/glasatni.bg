@@ -268,5 +268,5 @@ params могат да бъдат единствено:
 
 Възможно е също да бъде изтеглен конкретен потребител с:
 
-`curl https://glasatni.bg/api/v1/user/1234`
+`curl https://glasatni.bg/api/v1/users/1234`
 
