@@ -170,7 +170,6 @@ glasatni.controller("RegisterController", ["$scope", "AuthService", function($sc
 
   $scope.AuthService = AuthService;
   $scope.page = {
-    showCurrentPassword: false,
     title: "Регистрирай се",
     button: "Хайде!"
   };
@@ -193,7 +192,6 @@ var OptionsController = glasatni.controller("OptionsController", ["$scope", "Aut
   $scope.AuthService = AuthService;
   $scope.user = angular.copy(user);
   $scope.page = {
-    showCurrentPassword: true,
     title: "Настройки",
     button: "Промени!"
   };
