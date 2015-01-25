@@ -1,4 +1,4 @@
-lock '3.2.1'
+lock '3.3.5'
 
 set :application,     'glasatni'
 set :repo_url,        'https://github.com/obshtestvo/glasatni.bg.git'
