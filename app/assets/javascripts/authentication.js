@@ -76,7 +76,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
     });
   };
 
-  this.updateUser = function(email, name, password, passwordConfirmation, bio, subscribed, currentPassword, redirectTo) {
+  this.updateUser = function(email, name, password, passwordConfirmation, bio, subscribed, redirectTo) {
 
     $http({
       method: "PUT",
@@ -88,7 +88,6 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
           password_confirmation: passwordConfirmation,
           bio: bio,
           subscribed: subscribed,
-          current_password: currentPassword
         }
       },
       url: "/users.json"
@@ -206,7 +205,6 @@ var OptionsController = glasatni.controller("OptionsController", ["$scope", "Aut
       $scope.user.passwordConfirmation,
       $scope.user.bio,
       $scope.user.subscribed,
-      $scope.user.currentPassword,
       '/proposals');
   };
 
