@@ -5,19 +5,18 @@ glasatni.directive('fbSocialBox', ["$window", function($window) {
     template: '<div class="fb-like-box" data-href="https://www.facebook.com/glasatni" data-colorscheme="light" data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>',
     link: function(scope, element, attrs) {
 
-      var fbEnsureInit = function(callback) {
-        if(!window.fbApiInit) {
+      var ensureRender = function(callback) {
+        if(typeof $window.FB === "undefined") {
           setTimeout(function() {
-            fbEnsureInit(callback);
+            ensureRender(callback);
           }, 50);
         } else {
-          if(callback) {
-            callback();
-          }
+          $window.FB.XFBML.parse(element[0]);
         }
       };
 
-      $window.FB.XFBML.parse(element[0]);
+      ensureRender();
+
     }
   }
 }]);
