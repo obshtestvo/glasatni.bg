@@ -12,8 +12,9 @@ glasatni.run(["$rootScope", "$window", "$location", function($rootScope, $window
   // this handles page hopping statistics for google analytics.
   // on every successful route change -> send data to google
   $rootScope.$on('$locationChangeSuccess', function() {
-    if (!$window.ga) { return; }
-    $window.ga('send', 'pageview', { page: $location.path() });
+    if ($window.ga) {
+      $window.ga('send', 'pageview', { page: $location.path() });
+    }
   });
 
 }]);

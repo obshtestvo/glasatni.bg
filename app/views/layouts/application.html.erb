@@ -19,6 +19,17 @@
   </script>
 </head>
 <body>
+<div id="fb-root"></div>
+<script>
+  $(document).ready(function() {
+    $.ajaxSetup({ cache: true });
+    $.getScript('//connect.facebook.net/en_UK/all.js', function() {
+      FB.init({
+        appId: '<%= ENV['facebook_app_id'] %>'
+      });
+    });
+  });
+</script>
 
 <div style="display:none;" id="user-info" user-id="<%= current_user.try(:id) %>" user-is-mod="<%= current_user.try(:moderator?) %>"></div>
 

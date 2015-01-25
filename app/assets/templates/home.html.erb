@@ -18,10 +18,18 @@
       <img alt="{{ meta.name }}" ng-src="{{ meta.image_url }}" width="100%">
     </a>
   </div>
-  <div class="col-md-9 col-sm-6 col-xs-12">
+  <div class="col-md-3 col-sm-6 col-xs-12">
     <h3 class="meta"><a href="/themes/{{ meta.id }}">{{ meta.name }}</a></h3>
     <p>{{ meta.info | limitTo:200 }}...</p>
     <p><a class="btn btn-default" href="/proposals/theme/{{ meta.en_name }}/relevance">Виж всички предложения »</a></p>
     <p class="text-muted">Модератор: <a href="/users/{{ meta.moderator.id }}">{{ meta.moderator.name }}</a></p>
   </div>
+
+  <div class="col-md-6">
+
+    <fb-social-box></fb-social-box>
+
+  </div>
+
 </div>
+

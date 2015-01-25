@@ -8,7 +8,6 @@ gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 
-gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
@@ -18,7 +17,6 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'rails_12factor', group: :production
 gem 'cancancan', '~> 1.9'
-gem 'angularjs-rails'
 gem 'angular_rails_csrf'
 gem 'activeadmin', github: 'activeadmin'
 gem 'omniauth-facebook'
@@ -29,6 +27,13 @@ gem 'showdown-rails'
 gem 'puma'
 gem 'therubyracer'
 gem 'exception_notification'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-angular'
+  gem 'rails-assets-angular-resource'
+  gem 'rails-assets-angular-route'
+  gem 'rails-assets-jquery'
+end
 
 group :development do
   gem 'quiet_assets'
