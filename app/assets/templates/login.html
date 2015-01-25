@@ -35,10 +35,6 @@
         </input>
       </div>
 
-      <div ng-show="loginForm.$submitted">
-        <div class="alert alert-danger" ng-show="loginForm.password.$error.minlength">Паролата ти няма как да е толкова кратка.</div>
-      </div>
-
       <input ng-model="loginUser.remember_me" id="remember_me" type="checkbox" value="1">
       <label for="remember_me">Запомни ме</label>
 
