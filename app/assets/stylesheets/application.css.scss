@@ -130,3 +130,10 @@ fb-social-box * {
   width: 100% !important;
 }
 
+h3.panel-title {
+  small {
+    a {
+      color: $blue;
+    }
+  }
+}
