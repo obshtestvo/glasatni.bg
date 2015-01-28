@@ -76,10 +76,10 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
     });
   };
 
-  this.updateUser = function(email, name, password, passwordConfirmation, bio, subscribed, redirectTo) {
+  this.updateUser = function(email, name, password, passwordConfirmation, bio, subscribed, currentPassword, redirectTo) {
 
     $http({
-      method: "PUT",
+      method: "PATCH",
       data: {
         user : {
           email: email,
@@ -88,6 +88,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
           password_confirmation: passwordConfirmation,
           bio: bio,
           subscribed: subscribed,
+          current_password: currentPassword
         }
       },
       url: "/users.json"
@@ -169,10 +170,13 @@ glasatni.controller("RegisterController", ["$scope", "AuthService", function($sc
 
   $scope.AuthService = AuthService;
   $scope.page = {
-    showCurrentPassword: false,
     title: "Регистрирай се",
     password: "Парола",
     button: "Хайде!"
+  };
+
+  $scope.user = {
+    passwordConfirmation: ""
   };
 
   $scope.submit = function() {
@@ -190,10 +194,11 @@ glasatni.controller("RegisterController", ["$scope", "AuthService", function($sc
 
 var OptionsController = glasatni.controller("OptionsController", ["$scope", "AuthService", "user", function($scope, AuthService, user) {
 
+  messageService.removeByLocation('register');
+
   $scope.AuthService = AuthService;
-  $scope.user = angular.copy(user);
+  $scope.user = angular.extend(user, { passwordConfirmation: "" });
   $scope.page = {
-    showCurrentPassword: true,
     title: "Настройки",
     password: "Нова парола",
     button: "Промени!"
@@ -207,6 +212,7 @@ var OptionsController = glasatni.controller("OptionsController", ["$scope", "Aut
       $scope.user.passwordConfirmation,
       $scope.user.bio,
       $scope.user.subscribed,
+      $scope.user.currentPassword,
       '/proposals');
   };
 
