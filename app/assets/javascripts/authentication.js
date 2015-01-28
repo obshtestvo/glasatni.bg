@@ -4,7 +4,9 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
   var that = this;
 
   this.login = function(email, password, rememberMe, redirectTo) {
+
     messageService.removeByLocation('login');
+
     $http.post("/users/sign_in.json", {
       user: { email: email, password: password, remember_me: rememberMe }
     }).then(function (res) {
@@ -26,6 +28,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
       // change the error message if it is too ambiguous
       msg = error.status === 401 ? "Невалидна поща или парола." : error.data.error;
 
+      messageService.removeByLocation('login');
       messageService.push({
         msg: msg,
         type: "danger",
@@ -50,6 +53,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
       }
     }).then(function(res) { // on success
 
+      messageService.removeByLocation('top message');
       messageService.push({
         msg: "Регистрацията приключи успешно",
         type: "success",
@@ -64,6 +68,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
 
     }, function(response) { // on error
 
+      messageService.removeByLocation('register');
       for(wrongField in response.data.errors) {
 
         messageService.push({
@@ -94,6 +99,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
       url: "/users.json"
     }).then(function(res) {
 
+      messageService.removeByLocation('top message');
       messageService.push({
         msg: "Промените са направени успешно",
         type: "success",
@@ -108,6 +114,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
 
     }, function(response) {
 
+      messageService.removeByLocation('register');
       for(wrongField in response.data.errors) {
 
         messageService.push({
@@ -170,6 +177,7 @@ glasatni.controller("RegisterController", ["$scope", "AuthService", function($sc
 
   $scope.AuthService = AuthService;
   $scope.page = {
+    showCurrentPassword: false,
     title: "Регистрирай се",
     password: "Парола",
     button: "Хайде!"
@@ -192,13 +200,14 @@ glasatni.controller("RegisterController", ["$scope", "AuthService", function($sc
 
 }]);
 
-var OptionsController = glasatni.controller("OptionsController", ["$scope", "AuthService", "user", function($scope, AuthService, user) {
+var OptionsController = glasatni.controller("OptionsController", ["$scope", "AuthService", "user", "messageService", function($scope, AuthService, user, messageService) {
 
   messageService.removeByLocation('register');
 
   $scope.AuthService = AuthService;
   $scope.user = angular.extend(user, { passwordConfirmation: "" });
   $scope.page = {
+    showCurrentPassword: true,
     title: "Настройки",
     password: "Нова парола",
     button: "Промени!"
