@@ -84,6 +84,23 @@
       <p class="text-muted">(Ще ти харесат)</p>
     </div>
 
+    <div ng-show="page.showCurrentPassword">
+
+      <hr/>
+
+      <div class="form-group">
+        <p class="text-muted"><i>За да промениш настройките, трябва да въведеш сегашната си парола.</i></p>
+        <input
+                autocomplete="off"
+                ng-model="user.currentPassword"
+                class="form-control"
+                name="user[current_password]"
+                placeholder="Сегашна парола"
+                type="password">
+      </div>
+
+    </div>
+
     <input class="btn btn-success" name="commit" type="submit" value="{{ page.button }}">
 
   </form>
