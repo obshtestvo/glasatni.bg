@@ -3,6 +3,7 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
     'query': {
       method:'GET',
       isArray: false,
+      // I need this tiny layer to switch form the snake_case API, to the camelCase used in js variables. (Sorry)
       transformResponse: function(data) {
         data = JSON.parse(data);
 
@@ -12,6 +13,7 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
             title: p.title,
             content: p.content,
             theme: p.theme,
+            // the switch happens here:
             commentsCount: p.comments_count,
             user: p.user,
             approved: p.approved,
@@ -19,6 +21,7 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
             hotness: p.hotness,
             up: p.up,
             down: p.down,
+            // and here:
             timeAgo: p.time_ago
           }
         });
@@ -33,15 +36,16 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
   });
 }]);
 
-var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$scope", "$routeParams", "$http", "$location", "data", "CurrentUser", function($scope, $routeParams, $http, $location, data, CurrentUser) {
+var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$scope", "$routeParams", "$http", "$location", "data", "AuthService", function($scope, $routeParams, $http, $location, data, AuthService) {
 
   $scope.proposals = data.proposals;
   $scope.proposalsCount = data.proposals_count;
-  $scope.currentUser = CurrentUser;
 
   $http.get("/api/v1/themes").success(function(themes) {
     $scope.selectedTheme = themes.filter(function(t) { return t.en_name === $scope.$root.params.theme })[0];
   });
+
+  $scope.AuthService = AuthService;
 
   $scope.pageChanged = function() {
     $location.path("/proposals/theme/" + $scope.$root.params.theme + "/" + $scope.$root.params.order + "/" + $scope.$root.params.page);
@@ -49,31 +53,44 @@ var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$
 
 }]);
 
-ProposalIndexController.loadProposals = ["$rootScope", "$route", "CurrentUser", "Proposal", function($rootScope, $route, CurrentUser, Proposal) {
+// this is a function returning promise that will be evaluated before every request for proposals listings.
+ProposalIndexController.loadProposals = ["$rootScope", "$route", "AuthService", "Proposal", function($rootScope, $route, AuthService, Proposal) {
+
+  // perhaps a ParamsService is needed
   $rootScope.params = {
     theme: ($route.current.params.theme || "all"),
     order: ($route.current.params.order || "relevance"),
     page: ($route.current.params.page || 1)
   };
 
-  if (CurrentUser.id) {
-    $rootScope.params.voter_id = CurrentUser.id;
-  }
+  // Only fetch proposals when we know whether or not the user is authorized on the server.
+  // Otherwise a race condition is happening on page reload: the proposals can be fetched before we have information
+  // about the user (All this is needed, because moderators and regulars have different proposal listings. ;_;)
+  return AuthService.userIsFetchedFromServer.then(function() {
 
-  return Proposal.query($rootScope.params).$promise.then(function(data) {
-    return data;
+    // check if user is logged in and fetch id if so.
+    if (AuthService.getUser()) {
+      $rootScope.params.voter_id = AuthService.getUser().id;
+    }
+
+    // fetch proposals
+    return Proposal.query($rootScope.params).$promise.then(function(data) {
+      return data;
+    });
+
   });
+
 }];
 
-glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "$anchorScroll", "$timeout", "CurrentUser", "Proposal", "Modal", function($scope, $rootScope, $routeParams, $location, $anchorScroll, $timeout, CurrentUser, Proposal, Modal) {
+glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "$anchorScroll", "$timeout", "AuthService", "Proposal", "Modal", function($scope, $rootScope, $routeParams, $location, $anchorScroll, $timeout, AuthService, Proposal, Modal) {
   var params = {
     id: $routeParams.id
   };
-  if (CurrentUser.id) {
-    params.voter_id = CurrentUser.id;
+  if (AuthService.getUser()) {
+    params.voter_id = AuthService.getUser().id;
   }
 
-  $scope.currentUser = CurrentUser;
+  $scope.AuthService = AuthService;
 
   Proposal.get(params).$promise.then(function(proposal) {
     $scope.proposal = proposal;
@@ -121,9 +138,9 @@ glasatni.controller("ProposalEditController", ["$scope", "$routeParams", "$locat
 
 }]);
 
-glasatni.controller("ProposalCreateController", ["$scope", "$location", "$http", "Proposal", "Modal", "CurrentUser", function($scope, $location, $http, Proposal, Modal, CurrentUser) {
+glasatni.controller("ProposalCreateController", ["$scope", "$location", "$http", "Proposal", "Modal", "AuthService", function($scope, $location, $http, Proposal, Modal, AuthService) {
 
-  if (!CurrentUser.id) {
+  if (!AuthService.getUser()) {
     var params = typeof $scope.$root.params === "undefined" ? { theme: "all", order: "relevance" } : $scope.$root.params;
     var fn = function() { $location.path("/proposals/theme/" + params.theme + "/" + params.order) };
     Modal.open("unregisteredCreateProposal").then(fn, fn);
@@ -150,7 +167,7 @@ glasatni.controller("ProposalCreateController", ["$scope", "$location", "$http",
     var failure = function() { Modal.open("unknownError") };
 
     Proposal.save({ id: proposal.id }, { title: proposal.title, content: proposal.content, theme_id: proposal.theme.id }).$promise.then(success, failure);
-}
+  };
 
 }]);
 

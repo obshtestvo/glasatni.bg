@@ -10,6 +10,10 @@ module Promeni
     config.i18n.available_locales = [:bg]
     config.i18n.default_locale = :bg
 
+    config.to_prepare do
+      DeviseController.respond_to :html, :json
+    end
+
     config.action_mailer.default_options = { from: ENV['default_options_from'] }
     config.action_mailer.default_url_options = {
       host: ENV['default_url_options_host'],

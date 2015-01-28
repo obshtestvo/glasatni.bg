@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="glasatni">
 <head>
+  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <base href="/">
   <title>Гласът ни - тук мнението ти е от значение.</title>
@@ -32,8 +33,6 @@
   });
 </script>
 
-<div style="display:none;" id="user-info" user-id="<%= current_user.try(:id) %>" user-is-mod="<%= current_user.try(:moderator?) %>"></div>
-
 <nav class="navbar navbar-default" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -45,7 +44,7 @@
       </button>
       <a class="navbar-brand visible-xs" href="/">glasatni.bg</a>
     </div>
-    <div id="navbar" class="navbar-collapse collapse">
+    <div id="navbar" class="navbar-collapse collapse" ng-controller="NavigationController">
       <ul class="nav navbar-nav">
         <li class="hidden-xs"><a href="/">Начало</a></li>
         <li class="hidden-xs"><a href="/proposals">Предложения</a></li>
@@ -56,61 +55,60 @@
         <li class="visible-xs"><a href="/about" data-toggle="collapse" data-target=".navbar-collapse">За платформата</a></li>
         <li class="visible-xs"><a href="/proposals/new" data-toggle="collapse" data-target=".navbar-collapse" class="visible-xs"><i class="fa fa-plus-square"></i> &nbsp;Направи предложение</a>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
+      <ul class="nav navbar-nav navbar-right" ng-if="AuthService.getUser()">
 
-          <!-- user profile -->
-          <li class="hidden-xs"><a href="/users/<%= current_user.id %>" id="username"><%= current_user.name %></a></li>
-          <li class="visible-xs"><a href="/users/<%= current_user.id %>" id="username" data-toggle="collapse" data-target=".navbar-collapse"><%= current_user.name %></a></li>
+        <!-- user profile -->
+        <li class="hidden-xs" ng-if="AuthService.getUser()"><a href="/users/{{ AuthService.getUser().id }}" id="username">{{ AuthService.getUser().name }}</a></li>
+        <li class="visible-xs" ng-if="AuthService.getUser()"><a href="/users/{{ AuthService.getUser().id }}" id="username" data-toggle="collapse" data-target=".navbar-collapse">{{ AuthService.getUser().name }}</a></li>
 
-          <!-- options -->
-          <li><a href="<%= edit_user_registration_path %>" target="_self"><i class="fa fa-wrench"></i> &nbsp;Настройки</a></li>
+        <!-- options -->
+        <li><a href="/options"><i class="fa fa-wrench"></i> &nbsp;Настройки</a></li>
 
-          <!-- logout -->
-          <li>
-            <%= link_to destroy_user_session_path, :method => :delete, target: "_self" do %>
-              <i class="fa fa-sign-out"></i> &nbsp;Изход
-            <% end %>
-          </li>
+        <!-- logout -->
+        <li>
+          <a href="" ng-click="AuthService.logout('/proposals')">
+            <i class="fa fa-sign-out"></i> &nbsp;Изход
+          </a>
+        </li>
 
-        <% else %>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-target="login-menu" data-toggle="dropdown" data-disabled="true">
-                <i class="fa fa-sign-in"></i>&nbsp; Влез <span class="caret"></span>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" ng-if="!AuthService.getUser()">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-target="login-menu" data-toggle="dropdown" data-disabled="true">
+            <i class="fa fa-sign-in"></i>&nbsp; Влез <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Радвам се да те видя отново.</li>
+            <li>
+              <a href="/login">
+                <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
               </a>
-              <ul class="dropdown-menu" role="menu">
-                <li class="dropdown-header">Радвам се да те видя отново.</li>
-                <li>
-                  <%= link_to new_session_path(:user), target: "_self" do %>
-                    <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
-                  <% end %>
-                </li>
-                <li>
-                  <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>
-                    <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
-                  <% end %>
-                </li>
-              </ul>
             </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-target="register-menu" data-toggle="dropdown" data-disabled=true>
-                <i class="fa fa-plug"></i> &nbsp; Регистрирай се <span class="caret"></span>
+            <li>
+              <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>
+                <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
+              <% end %>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-target="register-menu" data-toggle="dropdown" data-disabled=true>
+            <i class="fa fa-plug"></i> &nbsp; Регистрирай се <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Радвам се да се запознаем.<br />Можеш да се регистрираш с:</li>
+            <li>
+              <a href="/register">
+                <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
               </a>
-              <ul class="dropdown-menu" role="menu">
-                <li class="dropdown-header">Радвам се да се запознаем.<br />Можеш да се регистрираш с:</li>
-                <li>
-                  <%= link_to new_registration_path(:user), target: "_self" do %>
-                      <i class="fa fa-envelope-o fa-lg"></i>&nbsp; Поща
-                  <% end %>
-                </li>
-                <li>
-                  <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>
-                      <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
-                  <% end %>
-                </li>
-              </ul>
             </li>
-        <% end %>
+            <li>
+              <%= link_to user_omniauth_authorize_path(:facebook), target: "_self" do %>
+                  <i class="fa fa-facebook-square fa-lg"></i>&nbsp; Facebook
+              <% end %>
+            </li>
+          </ul>
+        </li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
@@ -129,6 +127,8 @@
         <%= alert %>
       </div>
   <% end %>
+
+  <display-messages destination="top message"></display-messages>
 
   <div class="row hidden-xs">
     <div class="col-md-6 col-sm-6 vcenter">

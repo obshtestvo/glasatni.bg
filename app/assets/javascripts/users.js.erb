@@ -4,16 +4,6 @@ glasatni.factory('User', ['$resource', function($resource) {
   });
 }]);
 
-glasatni.service("CurrentUser", [function() {
-  var $el = $("#user-info"),
-    id = $el.attr("user-id"),
-    isMod = $el.attr("user-is-mod") === "true";
-
-  this.id = id;
-  this.isMod = isMod;
-
-}]);
-
 glasatni.controller("UserShowController", ["$scope", "$routeParams", "User", "Proposal", "Comment", function($scope, $routeParams, User, Proposal, Comment) {
 
   User.get({ id: $routeParams.id }).$promise.then(function(user) {

@@ -53,7 +53,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title"><a href="/proposals/{{ proposal.id }}#title">{{ proposal.title }}</a>
-        <span ng-if="currentUser.isMod" class="label" ng-class="{'label-success': proposal.approved, 'label-danger': !proposal.approved }">{{ proposal.approved ? "Одобрено" : "Неодобрено" }}</span>
+        <span ng-if="AuthService.getUser().role == 'moderator'" class="label" ng-class="{'label-success': proposal.approved, 'label-danger': !proposal.approved }">{{ proposal.approved ? "Одобрено" : "Неодобрено" }}</span>
         <br />
         <small>
           в <a href="/themes/{{ proposal.theme.id }}">{{ proposal.theme.name }}</a> |

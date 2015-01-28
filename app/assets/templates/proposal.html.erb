@@ -8,14 +8,14 @@
     <h3 id="title">{{ proposal.title }}</h3>
     <a class="btn btn-success btn-sm pull-left" href="/proposals/theme/{{ proposal.theme.en_name }}/{{ $root.params.order }}">{{ proposal.theme.name }}</a>
     <div class="btn-group pull-right">
-      <a ng-if="currentUser.isMod || proposal.user.id == currentUser.id" class="btn btn-default btn-sm" href="/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil fa-lg"></i>&nbsp; Редактирай</a>
-      <button ng-if="proposal.approved && currentUser.isMod" class="btn btn-danger btn-sm" ng-click="approval(proposal, false)"><i class="fa fa-pencil fa-lg"></i>&nbsp; Махни одобрение</button>
-      <button ng-if="!proposal.approved && currentUser.isMod" class="btn btn-success btn-sm" ng-click="approval(proposal, true)"><i class="fa fa-pencil fa-lg"></i>&nbsp; Одобри</button>
-      <button ng-if="currentUser.isMod || proposal.user.id == currentUser.id" class="btn btn-default btn-sm btn-danger" ng-click="destroyProposal(proposal)" rel="nofollow">
+      <a ng-if="AuthService.getUser().role == 'moderator' || proposal.user.id == AuthService.getUser().id" class="btn btn-default btn-sm" href="/proposals/{{ proposal.id }}/edit"><i class="fa fa-pencil fa-lg"></i>&nbsp; Редактирай</a>
+      <button ng-if="proposal.approved && AuthService.getUser().role == 'moderator'" class="btn btn-danger btn-sm" ng-click="approval(proposal, false)"><i class="fa fa-pencil fa-lg"></i>&nbsp; Махни одобрение</button>
+      <button ng-if="!proposal.approved && AuthService.getUser().role == 'moderator'" class="btn btn-success btn-sm" ng-click="approval(proposal, true)"><i class="fa fa-pencil fa-lg"></i>&nbsp; Одобри</button>
+      <button ng-if="AuthService.getUser().role == 'moderator' || proposal.user.id == AuthService.getUser().id" class="btn btn-default btn-sm btn-danger" ng-click="destroyProposal(proposal)" rel="nofollow">
         <i class="fa fa-times fa-lg"></i>&nbsp; Изтрий
       </button>
     </div>
-    <flag-button ng-if="!(currentUser.isMod || currentUser.id == proposal.user.id)" type="proposal" flaggable="proposal" size="btn-sm"></flag-button>
+    <flag-button ng-if="!(AuthService.getUser().role == 'moderator' || AuthService.getUser().id == proposal.user.id)" type="proposal" flaggable="proposal" size="btn-sm"></flag-button>
   </div>
 </div>
 
@@ -88,10 +88,10 @@
       <i class="fa fa-institution" ng-show="comment.user.proposals_rank == 'policy_maker'"></i>
       )
       | <span class="text-muted">{{ comment.time_ago }}</span></p>
-      <a ng-if="currentUser.isMod || currentUser.id == comment.user.id" class="btn btn-default btn-xs btn-danger pull-right" ng-click="destroyComment(comment)" rel="nofollow">
+      <a ng-if="AuthService.getUser().role == 'moderator' || AuthService.getUser().id == comment.user.id" class="btn btn-default btn-xs btn-danger pull-right" ng-click="destroyComment(comment)" rel="nofollow">
         <i class="fa fa-times fa-lg"></i>&nbsp; Изтрий
       </a>
-      <flag-button ng-if="!(currentUser.isMod || currentUser.id == comment.user.id)" type="comment" flaggable="comment" size="btn-xs"></flag-button>
+      <flag-button ng-if="!(AuthService.getUser().role == 'moderator' || AuthService.getUser().id == comment.user.id)" type="comment" flaggable="comment" size="btn-xs"></flag-button>
       <div class="clearfix"></div>
       <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="comment.alerts=[]">{{alert.msg}}</alert>
       <markdown content="comment.content"></markdown>
@@ -109,7 +109,7 @@
   <div class="clearfix"></div>
   <h4>Нов коментар</h4>
 
-  <div ng-show="currentUser.id">
+  <div ng-show="AuthService.getUser()">
 
     <div id="warning-box" class="bs-callout bs-callout-danger" style="display:none">
       <h4>Само да ти кажем някои неща...</h4>
@@ -125,7 +125,7 @@
     </div>
 
   </div>
-  <div ng-hide="currentUser.id">
+  <div ng-hide="AuthService.getUser()">
 
     <div id="not-registered" class="bs-callout bs-callout-danger">
       <h4>Само регистрирани потребители могат да оставят коментари.</h4>
