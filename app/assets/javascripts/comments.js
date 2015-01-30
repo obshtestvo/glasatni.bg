@@ -1,6 +1,34 @@
 glasatni.factory('Comment', ['$resource', function($resource) {
   return $resource('/api/v1/comments/:id', null, {
-    'query': { method:'GET', isArray: false },
+    'query': {
+      method:'GET',
+      isArray: false,
+
+      // transformResponse is needed to:
+      // 1. attach 'reply' object on every comment in case the user wants to comment on it.
+      // 2. convert the snake_case (API) to camelCase (the App)
+      transformResponse: function(data) {
+        data = JSON.parse(data);
+
+        data.comments = data.comments.map(function(c) {
+          return {
+            id: c.id,
+            content: c.content,
+            timeAgo: c.time_ago,
+            hotness: c.hotness,
+            user: c.user,
+            voted: c.voted,
+            commentsCount: c.comments_count,
+            reply: {
+              content: "",
+              showBox: false
+            }
+          }
+        });
+
+        return data;
+      }
+    },
     'vote': { method: "POST", url: "/vote" },
     'flag': { method: "POST", url: "/flag"}
   });
