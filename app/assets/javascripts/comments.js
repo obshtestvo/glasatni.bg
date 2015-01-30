@@ -37,10 +37,10 @@ glasatni.factory('Comment', ['$resource', function($resource) {
 glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "AuthService", "Modal", function($scope, $routeParams, Comment, AuthService, Modal) {
 
   var getCommentsData = function () {
-      Comment.query($scope.params).$promise.then(function (data) {
-          $scope.comments = data.comments;
-          $scope.commentsCount = data.comments_count;
-      });
+    Comment.query($scope.params).$promise.then(function (data) {
+      $scope.comments = data.comments;
+      $scope.commentsCount = data.comments_count;
+    });
   };
 
   $scope.params = {
