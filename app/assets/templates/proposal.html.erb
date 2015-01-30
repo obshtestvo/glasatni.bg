@@ -87,14 +87,29 @@
       <i class="fa fa-gavel" ng-show="comment.user.proposals_rank == 'activist'"></i>
       <i class="fa fa-institution" ng-show="comment.user.proposals_rank == 'policy_maker'"></i>
       )
-      | <span class="text-muted">{{ comment.time_ago }}</span></p>
-      <a ng-if="AuthService.getUser().role == 'moderator' || AuthService.getUser().id == comment.user.id" class="btn btn-default btn-xs btn-danger pull-right" ng-click="destroyComment(comment)" rel="nofollow">
-        <i class="fa fa-times fa-lg"></i>&nbsp; Изтрий
-      </a>
+      | <span class="text-muted">{{ comment.timeAgo }}</span></p>
+
       <flag-button ng-if="!(AuthService.getUser().role == 'moderator' || AuthService.getUser().id == comment.user.id)" type="comment" flaggable="comment" size="btn-xs"></flag-button>
       <div class="clearfix"></div>
       <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="comment.alerts=[]">{{alert.msg}}</alert>
       <markdown content="comment.content"></markdown>
+
+      <small>
+        <a href="#" ng-click="comment.reply.showBox = true" rel="nofollow">Отговори</a> |
+        <a href="#" ng-if="AuthService.getUser().role == 'moderator' || AuthService.getUser().id == comment.user.id" ng-click="destroyComment(comment)" rel="nofollow">Изтрий</a>
+      </small>
+
+      <table class="table" ng-show="comment.reply.showBox">
+        <tr>
+          <td>
+            <textarea name="" id="" cols="3" rows="3" class="form-control" placeholder="Напиши твоя отговор тук."></textarea>
+            <br/>
+            <button class="btn btn-success btn-xs" ng-disabled="comment.reply.content == ''" ng-click="createNewComment(comment)"><i class="fa fa-comment fa-xs"></i>&nbsp; Коментирай</button>
+            <button class="btn btn-default btn-xs" ng-click="cancelReply(comment)"><i class="fa fa-close fa-xs"></i> Отказах се да пиша</button>
+          </td>
+        </tr>
+      </table>
+
     </td>
     </tr>
   </table>
@@ -120,7 +135,7 @@
     <br />
     <div class="row">
       <div class="col-md-1">
-        <button class="btn btn-success" ng-disabled="newComment.content == ''" ng-click="createNewComment()"><i class="fa fa-comment fa-lg"></i>&nbsp; Коментирай</button>
+        <button class="btn btn-success" ng-disabled="comment.newComment.content == ''" ng-click="createNewComment()"><i class="fa fa-comment fa-lg"></i>&nbsp; Коментирай</button>
       </div>
     </div>
 
