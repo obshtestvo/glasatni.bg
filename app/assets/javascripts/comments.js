@@ -76,20 +76,37 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
 
   $scope.newComment = { content: "" };
 
-  $scope.createNewComment = function() {
-    var params = {
-      commentable_id: $scope.proposal.id,
-      commentable_type: "proposal",
-      content: $scope.newComment.content
-    };
+  $scope.createNewComment = function(parentComment) {
+    var params;
+
+    if (typeof parentComment === "undefined") {
+      params = {
+        commentable_id: $scope.proposal.id,
+        commentable_type: "proposal",
+        content: $scope.newComment.content
+      };
+    } else {
+      params = {
+        commentable_id: parentComment.id,
+        commentable_type: "comment",
+        content: parentComment.reply.content
+      };
+    }
+
     Comment.save(params).$promise.then(function(comment) {
       $("#warning-box").slideUp();
       $("#comment-box").attr("rows", 3);
       $scope.newComment = { content: "" };
       $scope.comments.push(comment);
-
     }, function() { Modal.open('unknownError') });
-  }
+  };
+
+  $scope.cancelReply = function(comment) {
+    comment.reply = {
+      content: "",
+      showBox: false
+    }
+  };
 
 }]);
 
