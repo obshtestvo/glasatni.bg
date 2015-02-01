@@ -24,7 +24,7 @@ class Comment < ActiveRecord::Base
 
   def after_create_callbacks
     update_user_rank
-    create_notification :comment_created
+    # create_notification :comment_created
   end
 
   def update_user_rank
