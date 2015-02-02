@@ -70,7 +70,7 @@
     Бързо напиши един, за да изпревариш останалите!
   </div>
 
-  <table class="table table-hover">
+  <table class="table">
     <tr ng-repeat="comment in comments" ng-class="{warning: comment.user.moderator}" class="active">
     <td>
       <voting-buttons votable="comment" votable-type="comment"></voting-buttons>
@@ -94,8 +94,10 @@
       <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="comment.alerts=[]">{{alert.msg}}</alert>
       <markdown content="comment.content"></markdown>
       <small>
-        <a href="#" ng-click="comment.reply.showBox = true" rel="nofollow">Отговори</a> |
-        <a href="#" ng-if="AuthService.getUser().role == 'moderator' || AuthService.getUser().id == comment.user.id" ng-click="destroyComment(comment)" rel="nofollow">Изтрий</a>
+        <a href="#" ng-click="comment.reply.showBox = true" rel="nofollow">Отговори</a>
+        <span ng-if="AuthService.getUser().role == 'moderator' || AuthService.getUser().id == comment.user.id"> |
+          <a href="#" ng-click="destroyComment(comment)" rel="nofollow">Изтрий</a>
+        </span>
       </small>
 
       <div ng-show="comment.reply.showBox">
@@ -108,13 +110,13 @@
       <br ng-if="comment.comments.length" />
       <br ng-if="comment.comments.length" />
       <table class="table" ng-if="comment.comments.length">
-        <tr ng-repeat="nested_comment in comment.comments">
+        <tr ng-repeat="nested_comment in comment.comments" ng-class="{warning: nested_comment.user.moderator}" class="active">
           <td>
             <voting-buttons votable="nested_comment" votable-type="comment"></voting-buttons>
             <p class="text-muted text-center rating">{{ nested_comment.hotness }}</p>
           </td>
           <td class="col-md-12 col-xs-12 col-sm-12">
-            <strong><a href="/users/{{ nested_comment.user.id }}">{{ nested_comment.user.name }}</a></strong>
+            <p class="pull-left"><strong><a href="/users/{{ nested_comment.user.id }}">{{ nested_comment.user.name }}</a></strong>
             (
             <i class="fa fa-binoculars" ng-show="nested_comment.user.comments_rank == 'observer'"></i>
             <i class="fa fa-bullhorn" ng-show="nested_comment.user.comments_rank == 'speaker'"></i>
@@ -125,6 +127,10 @@
             <i class="fa fa-institution" ng-show="nested_comment.user.proposals_rank == 'policy_maker'"></i>
             )
             | <span class="text-muted">{{ nested_comment.time_ago }}</span></p>
+
+            <flag-button ng-if="!(AuthService.getUser().role == 'moderator' || AuthService.getUser().id == nested_comment.user.id)" type="comment" flaggable="nested_comment" size="btn-xs"></flag-button>
+            <div class="clearfix"></div>
+            <alert ng-repeat="alert in nested_comment.alerts" type="{{ alert.type }}" close="nested_comment.alerts=[]">{{ alert.msg }}</alert>
 
             <markdown content="nested_comment.content"></markdown>
             <small>
