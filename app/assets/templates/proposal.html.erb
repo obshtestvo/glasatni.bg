@@ -113,7 +113,7 @@
             <voting-buttons votable="nested_comment" votable-type="comment"></voting-buttons>
             <p class="text-muted text-center rating">{{ nested_comment.hotness }}</p>
           </td>
-          <td class="col-md-12">
+          <td class="col-md-12 col-xs-12 col-sm-12">
             <strong><a href="/users/{{ nested_comment.user.id }}">{{ nested_comment.user.name }}</a></strong>
             (
             <i class="fa fa-binoculars" ng-show="nested_comment.user.comments_rank == 'observer'"></i>
@@ -127,6 +127,9 @@
             | <span class="text-muted">{{ nested_comment.time_ago }}</span></p>
 
             <markdown content="nested_comment.content"></markdown>
+            <small>
+              <a href="#" ng-if="AuthService.getUser().role == 'moderator' || AuthService.getUser().id == nested_comment.user.id" ng-click="destroyComment(nested_comment)" rel="nofollow">Изтрий</a>
+            </small>
           </td>
         </tr>
       </table>

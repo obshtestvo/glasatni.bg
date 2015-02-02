@@ -114,8 +114,6 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
 
       }
 
-
-
     }, function() { Modal.open('unknownError') });
   };
 
