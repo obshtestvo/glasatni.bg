@@ -1,7 +1,7 @@
 glasatni.factory('Comment', ['$resource', function($resource) {
   return $resource('/api/v1/comments/:id', null, {
     'query': {
-      method:'GET',
+      method: "GET",
       isArray: false,
 
       // transformResponse is needed to:
@@ -96,11 +96,13 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
 
     Comment.save(params).$promise.then(function(comment) {
 
+      // there is different business logic for top/nested comments
       // top comment:
-      if(params.commentable_type === "proposal") {
+      if (params.commentable_type === "proposal") {
         $("#warning-box").slideUp();
         $("#comment-box").attr("rows", 3);
         $scope.newComment = { content: "" };
+        angular.extend(comment, { timeAgo: comment.time_ago });
         $scope.comments.push(comment);
 
       // nested comment:
@@ -110,6 +112,8 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
           content: "",
           showBox: false
         };
+
+
         parentComment.comments.unshift(comment);
 
       }
