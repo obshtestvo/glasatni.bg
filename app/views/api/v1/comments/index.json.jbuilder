@@ -29,7 +29,7 @@ json.comments @comments do |c|
     json.voted values[idx]
   end
 
-  json.comments c.comments do |nc|
+  json.comments c.comments.order(:created_at) do |nc|
 
     json.id nc.id
     json.content nc.content
