@@ -113,7 +113,14 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
           showBox: false
         };
 
+        // edge case: if the parent comment is just created and the user
+        // replies to it's own comment without refreshing/changing the page or change
+        // the sorting of the comments before that.
+        if (typeof parentComment.comments === "undefined") { parentComment.comments = []; }
 
+        // we will append the newly created comment to the top of the list, because
+        // it is closer to the 'reply box'. This way we do not need to scroll the page
+        // to the answer.
         parentComment.comments.unshift(comment);
 
       }
