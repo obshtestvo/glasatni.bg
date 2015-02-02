@@ -96,29 +96,32 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
 
     Comment.save(params).$promise.then(function(comment) {
 
-      // there is different business logic for top/nested comments
-      // top comment:
+      // There is different business logic for top/nested comments
+      // Top comment:
       if (params.commentable_type === "proposal") {
         $("#warning-box").slideUp();
         $("#comment-box").attr("rows", 3);
         $scope.newComment = { content: "" };
+
+        // Our App is camelCase, our API is snake_case
         angular.extend(comment, { timeAgo: comment.time_ago });
+
+        // Top comments are appended to the bottom as the 'new comment' box is at the bottom.
+        // This way we do not need to scroll the page to the newly created comment.
         $scope.comments.push(comment);
 
       // nested comment:
       } else {
 
-        parentComment.reply = {
-          content: "",
-          showBox: false
-        };
+        // reset reply box
+        $scope.cancelReply(parentComment);
 
-        // edge case: if the parent comment is just created and the user
+        // Edge case: if the parent comment is just created and the user
         // replies to it's own comment without refreshing/changing the page or change
         // the sorting of the comments before that.
         if (typeof parentComment.comments === "undefined") { parentComment.comments = []; }
 
-        // we will append the newly created comment to the top of the list, because
+        // We will append the newly created comment to the top of the list, because
         // it is closer to the 'reply box'. This way we do not need to scroll the page
         // to the answer.
         parentComment.comments.unshift(comment);
