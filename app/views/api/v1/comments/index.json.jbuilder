@@ -1,6 +1,7 @@
 if @voter_id.present?
   voter = User.find(@voter_id)
-  votings = Voting.where(user: voter, votable: @comments).pluck(:votable_id, :value)
+  nested_comments = Comment.where(commentable: @comments)
+  votings = Voting.where(user: voter, votable: nested_comments.concat(@comments)).pluck(:votable_id, :value)
 else
   votings = []
 end
@@ -43,7 +44,10 @@ json.comments @comments do |c|
       json.moderator nc.user.moderator?
     end
 
-    # TODO 'voted'
+    idx = ids.index(nc.id)
+    unless idx.nil?
+      json.voted values[idx]
+    end
 
   end
 end
