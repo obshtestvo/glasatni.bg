@@ -11,7 +11,6 @@ values = votings.to_h.values
 json.comments @comments do |c|
   json.id c.id
   json.content c.content
-  json.created_at c.created_at
   json.time_ago pretty_date(c.created_at)
   json.updated_at c.updated_at
   json.commentable c.commentable.id
@@ -26,9 +25,16 @@ json.comments @comments do |c|
   json.hotness c.hotness
 
   idx = ids.index(c.id)
-
   unless idx.nil?
     json.voted values[idx]
+  end
+
+  json.comments c.comments do |nc|
+
+    json.id nc.id
+    json.content nc.content
+    json.time_ago pretty_date(nc.created_at)
+
   end
 end
 

@@ -19,6 +19,7 @@ glasatni.factory('Comment', ['$resource', function($resource) {
             user: c.user,
             voted: c.voted,
             commentsCount: c.comments_count,
+            comments: c.comments,
             reply: {
               content: "",
               showBox: false
@@ -105,7 +106,7 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
     comment.reply = {
       content: "",
       showBox: false
-    }
+    };
   };
 
 }]);

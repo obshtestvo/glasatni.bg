@@ -99,13 +99,17 @@
         <a href="#" ng-if="AuthService.getUser().role == 'moderator' || AuthService.getUser().id == comment.user.id" ng-click="destroyComment(comment)" rel="nofollow">Изтрий</a>
       </small>
 
-      <table class="table" ng-show="comment.reply.showBox">
-        <tr>
+      <div ng-show="comment.reply.showBox">
+        <textarea name="" id="" cols="3" rows="3" class="form-control" ng-model="comment.reply.content" placeholder="Напиши твоя отговор тук."></textarea>
+        <br/>
+        <button class="btn btn-success btn-xs" ng-disabled="comment.reply.content == ''" ng-click="createNewComment(comment)"><i class="fa fa-comment fa-xs"></i>&nbsp; Коментирай</button>
+        <button class="btn btn-default btn-xs" ng-click="cancelReply(comment)"><i class="fa fa-close fa-xs"></i> Отказах се да пиша</button>
+      </div>
+
+      <table class="table">
+        <tr ng-repeat="nested_comment in comment.comments">
           <td>
-            <textarea name="" id="" cols="3" rows="3" class="form-control" placeholder="Напиши твоя отговор тук."></textarea>
-            <br/>
-            <button class="btn btn-success btn-xs" ng-disabled="comment.reply.content == ''" ng-click="createNewComment(comment)"><i class="fa fa-comment fa-xs"></i>&nbsp; Коментирай</button>
-            <button class="btn btn-default btn-xs" ng-click="cancelReply(comment)"><i class="fa fa-close fa-xs"></i> Отказах се да пиша</button>
+            <markdown content="nested_comment.content"></markdown>
           </td>
         </tr>
       </table>
