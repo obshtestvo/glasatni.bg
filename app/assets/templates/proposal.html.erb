@@ -93,22 +93,39 @@
       <div class="clearfix"></div>
       <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="comment.alerts=[]">{{alert.msg}}</alert>
       <markdown content="comment.content"></markdown>
-
       <small>
         <a href="#" ng-click="comment.reply.showBox = true" rel="nofollow">Отговори</a> |
         <a href="#" ng-if="AuthService.getUser().role == 'moderator' || AuthService.getUser().id == comment.user.id" ng-click="destroyComment(comment)" rel="nofollow">Изтрий</a>
       </small>
 
       <div ng-show="comment.reply.showBox">
+        <br/>
         <textarea name="" id="" cols="3" rows="3" class="form-control" ng-model="comment.reply.content" placeholder="Напиши твоя отговор тук."></textarea>
         <br/>
         <button class="btn btn-success btn-xs" ng-disabled="comment.reply.content == ''" ng-click="createNewComment(comment)"><i class="fa fa-comment fa-xs"></i>&nbsp; Коментирай</button>
         <button class="btn btn-default btn-xs" ng-click="cancelReply(comment)"><i class="fa fa-close fa-xs"></i> Отказах се да пиша</button>
       </div>
-
-      <table class="table">
+      <br ng-if="comment.comments.length" />
+      <br ng-if="comment.comments.length" />
+      <table class="table" ng-if="comment.comments.length">
         <tr ng-repeat="nested_comment in comment.comments">
           <td>
+            <voting-buttons votable="nested_comment" votable-type="comment"></voting-buttons>
+            <p class="text-muted text-center rating">{{ nested_comment.hotness }}</p>
+          </td>
+          <td class="col-md-12">
+            <strong><a href="/users/{{ nested_comment.user.id }}">{{ nested_comment.user.name }}</a></strong>
+            (
+            <i class="fa fa-binoculars" ng-show="nested_comment.user.comments_rank == 'observer'"></i>
+            <i class="fa fa-bullhorn" ng-show="nested_comment.user.comments_rank == 'speaker'"></i>
+            <i class="fa fa-microphone" ng-show="nested_comment.user.comments_rank == 'orator'"></i>
+
+            <i class="fa fa-eye" ng-show="nested_comment.user.proposals_rank == 'enthusiast'"></i>
+            <i class="fa fa-gavel" ng-show="nested_comment.user.proposals_rank == 'activist'"></i>
+            <i class="fa fa-institution" ng-show="nested_comment.user.proposals_rank == 'policy_maker'"></i>
+            )
+            | <span class="text-muted">{{ nested_comment.time_ago }}</span></p>
+
             <markdown content="nested_comment.content"></markdown>
           </td>
         </tr>

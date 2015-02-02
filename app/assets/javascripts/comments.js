@@ -95,10 +95,27 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
     }
 
     Comment.save(params).$promise.then(function(comment) {
-      $("#warning-box").slideUp();
-      $("#comment-box").attr("rows", 3);
-      $scope.newComment = { content: "" };
-      $scope.comments.push(comment);
+
+      // top comment:
+      if(params.commentable_type === "proposal") {
+        $("#warning-box").slideUp();
+        $("#comment-box").attr("rows", 3);
+        $scope.newComment = { content: "" };
+        $scope.comments.push(comment);
+
+      // nested comment:
+      } else {
+
+        parentComment.reply = {
+          content: "",
+          showBox: false
+        };
+        parentComment.comments.unshift(comment);
+
+      }
+
+
+
     }, function() { Modal.open('unknownError') });
   };
 

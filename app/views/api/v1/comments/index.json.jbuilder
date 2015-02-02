@@ -34,6 +34,16 @@ json.comments @comments do |c|
     json.id nc.id
     json.content nc.content
     json.time_ago pretty_date(nc.created_at)
+    json.hotness nc.hotness
+    json.user do
+      json.id nc.user.id
+      json.name nc.user.name
+      json.comments_rank nc.user.comments_rank
+      json.proposals_rank nc.user.proposals_rank
+      json.moderator nc.user.moderator?
+    end
+
+    # TODO 'voted'
 
   end
 end
