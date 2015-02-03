@@ -94,9 +94,9 @@
       <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="comment.alerts=[]">{{alert.msg}}</alert>
       <markdown content="comment.content"></markdown>
       <small>
-        <a href="#" ng-click="comment.reply.showBox = true" rel="nofollow">Отговори</a>
+        <button class="btn btn-link nested-comments-command" ng-click="comment.reply.showBox = true" rel="nofollow">Отговори</button>
         <span ng-if="AuthService.getUser().role == 'moderator' || AuthService.getUser().id == comment.user.id"> |
-          <a href="#" ng-click="destroyComment(comment)" rel="nofollow">Изтрий</a>
+          <button class="btn btn-link nested-comments-command" ng-click="destroyComment(comment)" rel="nofollow">Изтрий</button>
         </span>
       </small>
 
@@ -130,7 +130,7 @@
 
             <markdown content="nested_comment.content"></markdown>
             <small>
-              <a href="#" ng-if="AuthService.getUser().role == 'moderator' || AuthService.getUser().id == nested_comment.user.id" ng-click="destroyComment(nested_comment)" rel="nofollow">Изтрий</a>
+              <button class="btn btn-link nested-comments-command" ng-if="AuthService.getUser().role == 'moderator' || AuthService.getUser().id == nested_comment.user.id" ng-click="destroyComment(nested_comment)" rel="nofollow">Изтрий</button>
             </small>
           </td>
         </tr>
