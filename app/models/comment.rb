@@ -20,6 +20,10 @@ class Comment < ActiveRecord::Base
     where(commentable: parent)
   end
 
+  def is_nested?
+    self.commentable_type == "Comment"
+  end
+
   private
 
   def after_create_callbacks
