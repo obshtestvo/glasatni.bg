@@ -12,7 +12,7 @@ class Comment < ActiveRecord::Base
   has_many :flags, as: :flaggable, dependent: :destroy
 
   after_create  :after_create_callbacks
-  after_destroy :update_user_rank
+  after_destroy :after_destroy_callbacks
 
   paginates_per 25
 
@@ -28,7 +28,26 @@ class Comment < ActiveRecord::Base
 
   def after_create_callbacks
     update_user_rank
-    # create_notification :comment_created
+
+    if self.is_nested?
+
+      parent_proposal = self.commentable.commentable
+      parent_proposal.comments_count += 1
+      parent_proposal.save!
+
+    end
+
+  end
+
+  def after_destroy_callbacks
+    update_user_rank
+    if self.is_nested?
+
+      parent_proposal = self.commentable.commentable
+      parent_proposal.comments_count -= 1
+      parent_proposal.save!
+
+    end
   end
 
   def update_user_rank
