@@ -70,7 +70,7 @@
     Бързо напиши един, за да изпревариш останалите!
   </div>
 
-  <table class="table">
+  <table class="table nestedTable">
     <tr ng-repeat="comment in comments" ng-class="{warning: comment.user.moderator}" class="active">
     <td>
       <voting-buttons votable="comment" votable-type="comment"></voting-buttons>
@@ -101,15 +101,11 @@
       </small>
 
       <div ng-show="comment.reply.showBox">
-        <br/>
-        <textarea name="" id="" cols="3" rows="3" class="form-control" ng-model="comment.reply.content" placeholder="Напиши твоя отговор тук."></textarea>
-        <br/>
+        <textarea name="" id="" cols="3" rows="3" class="form-control replyBox" ng-model="comment.reply.content" placeholder="Напиши твоя отговор тук."></textarea>
         <button class="btn btn-success btn-xs" ng-disabled="comment.reply.content == ''" ng-click="createNewComment(comment)"><i class="fa fa-comment fa-xs"></i>&nbsp; Коментирай</button>
         <button class="btn btn-default btn-xs" ng-click="cancelReply(comment)"><i class="fa fa-close fa-xs"></i> Отказах се да пиша</button>
       </div>
-      <br ng-if="comment.comments.length" />
-      <br ng-if="comment.comments.length" />
-      <table class="table" ng-if="comment.comments.length">
+      <table class="table nested-comments-list" ng-if="comment.comments.length">
         <tr ng-repeat="nested_comment in comment.comments" ng-class="{warning: nested_comment.user.moderator}" class="active">
           <td>
             <voting-buttons votable="nested_comment" votable-type="comment"></voting-buttons>
