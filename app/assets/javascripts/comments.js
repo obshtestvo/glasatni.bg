@@ -51,10 +51,6 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
     commentable_id: $routeParams.id
   };
 
-  if (AuthService.getUser()) {
-    $scope.params.voter_id = AuthService.getUser().id;
-  }
-
   $scope.$watchCollection("[params.order, params.page]", function(newValue, oldValue) {
     if (newValue === oldValue) return;
     getCommentsData();
@@ -68,7 +64,14 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
     });
   };
 
-  getCommentsData();
+  AuthService.userIsFetchedFromServer.then(function() {
+
+    if (AuthService.getUser()) {
+      $scope.params.voter_id = AuthService.getUser().id;
+    }
+    getCommentsData();
+
+  });
 
   $scope.showWarning = function() {
     $("#warning-box").slideDown();
