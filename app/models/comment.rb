@@ -17,7 +17,7 @@ class Comment < ActiveRecord::Base
   paginates_per 25
 
   def self.find_by_parent(parent)
-    where(:commentable_id => parent.id, :commentable_type => parent.class.name)
+    where(commentable: parent)
   end
 
   private
