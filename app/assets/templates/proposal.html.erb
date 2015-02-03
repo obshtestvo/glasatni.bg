@@ -94,7 +94,10 @@
       <alert ng-repeat="alert in comment.alerts" type="{{ alert.type }}" close="comment.alerts=[]">{{alert.msg}}</alert>
       <markdown content="comment.content"></markdown>
       <small>
-        <button class="btn btn-link nested-comments-command" ng-click="comment.reply.showBox = true" rel="nofollow">Отговори</button>
+        <span ng-if="AuthService.getUser()">
+          <button class="btn btn-link nested-comments-command" ng-click="comment.reply.showBox = true" rel="nofollow">Отговори</button>
+        </span>
+        <span ng-hide="AuthService.getUser()" class="text-muted">Само регистрирани потребители могат да отговарят на коментари</span>
         <span ng-if="AuthService.getUser().role == 'moderator' || AuthService.getUser().id == comment.user.id"> |
           <button class="btn btn-link nested-comments-command" ng-click="destroyComment(comment)" rel="nofollow">Изтрий</button>
         </span>
