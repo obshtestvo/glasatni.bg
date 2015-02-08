@@ -15,7 +15,7 @@ module Api
         elsif commentable_type == "proposal"
           commentable = Proposal.find(comment_params[:commentable_id])
         else
-
+          # no commentable fetched, none needed
         end
 
         order = comment_params[:order].present? ? comment_params[:order] : "relevance"

@@ -140,6 +140,8 @@ glasatni.controller("ProposalEditController", ["$scope", "$routeParams", "$locat
 
 glasatni.controller("ProposalCreateController", ["$scope", "$location", "$http", "Proposal", "Modal", "AuthService", function($scope, $location, $http, Proposal, Modal, AuthService) {
 
+  // only logged in users can create new proposals
+  // otherwise -> redirect to /proposals
   if (!AuthService.getUser()) {
     var params = typeof $scope.$root.params === "undefined" ? { theme: "all", order: "relevance" } : $scope.$root.params;
     var fn = function() { $location.path("/proposals/theme/" + params.theme + "/" + params.order) };
