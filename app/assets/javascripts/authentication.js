@@ -205,7 +205,7 @@ var OptionsController = glasatni.controller("OptionsController", ["$scope", "$lo
   // only logged in users can create new proposals
   // otherwise -> redirect to /proposals
   if (!AuthService.getUser()) {
-    var params = typeof $scope.$root.params === "undefined" ? { theme: "all", order: "relevance" } : $scope.$root.params;
+    var params = typeof $scope.$root.params === "undefined" ? { theme: "all", order: "newest" } : $scope.$root.params;
     var fn = function() { $location.path("/proposals/theme/" + params.theme + "/" + params.order) };
     Modal.open("unregisteredCreateProposal").then(fn, fn);
   }

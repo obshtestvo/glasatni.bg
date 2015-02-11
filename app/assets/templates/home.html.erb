@@ -7,7 +7,7 @@
       <img alt="{{ theme.name }}" ng-src="{{ theme.image_url }}" width="100%">
     </a>
     <p>{{ theme.info | limitTo:200 }}...</p>
-    <p><a class="btn btn-default" href="/proposals/theme/{{ theme.en_name }}/relevance">Виж всички предложения »</a></p>
+    <p><a class="btn btn-default" href="/proposals/theme/{{ theme.en_name }}/newest">Виж всички предложения »</a></p>
     <p class="text-muted">Модератор: <a href="/users/{{ theme.moderator.id }}">{{ theme.moderator.name }}</a></p>
   </div>
 </div>
@@ -21,7 +21,7 @@
   <div class="col-md-3 col-sm-6 col-xs-12">
     <h3 class="meta"><a href="/themes/{{ meta.id }}">{{ meta.name }}</a></h3>
     <p>{{ meta.info | limitTo:200 }}...</p>
-    <p><a class="btn btn-default" href="/proposals/theme/{{ meta.en_name }}/relevance">Виж всички предложения »</a></p>
+    <p><a class="btn btn-default" href="/proposals/theme/{{ meta.en_name }}/newest">Виж всички предложения »</a></p>
     <p class="text-muted">Модератор: <a href="/users/{{ meta.moderator.id }}">{{ meta.moderator.name }}</a></p>
   </div>
 

@@ -4,7 +4,7 @@ glasatni.controller("ThemeShowController", ["$scope", "$routeParams", "$http", f
     $scope.theme = theme;
   });
 
-  $scope.order = typeof $scope.$root.order === "undefined" ? "relevance" : $scope.$root.order;
+  $scope.order = typeof $scope.$root.order === "undefined" ? "newest" : $scope.$root.order;
   $scope.proposal = [];
 
 }]);

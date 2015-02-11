@@ -59,7 +59,7 @@ ProposalIndexController.loadProposals = ["$rootScope", "$route", "AuthService", 
   // perhaps a ParamsService is needed
   $rootScope.params = {
     theme: ($route.current.params.theme || "all"),
-    order: ($route.current.params.order || "relevance"),
+    order: ($route.current.params.order || "newest"),
     page: ($route.current.params.page || 1)
   };
 
@@ -143,7 +143,7 @@ glasatni.controller("ProposalCreateController", ["$scope", "$location", "$http",
   // only logged in users can create new proposals
   // otherwise -> redirect to /proposals
   if (!AuthService.getUser()) {
-    var params = typeof $scope.$root.params === "undefined" ? { theme: "all", order: "relevance" } : $scope.$root.params;
+    var params = typeof $scope.$root.params === "undefined" ? { theme: "all", order: "newest" } : $scope.$root.params;
     var fn = function() { $location.path("/proposals/theme/" + params.theme + "/" + params.order) };
     Modal.open("unregisteredCreateProposal").then(fn, fn);
   }
