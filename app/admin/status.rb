@@ -4,10 +4,21 @@ ActiveAdmin.register Status do
   config.per_page = 20
 
   index do
-    column(:kind)
+    column(:kind) { |s| Status.kinds.key(s.kind) }
     column(:notes)
-    column(:proposal_id) { |p_id| link_to Proposal.find(p_id).title, admin_proposal_path(p_id) }
+    column(:proposal)
     actions
+  end
+
+  show do
+    attributes_table do
+      row :kind do |s|
+        Status.kinds.key(s.kind)
+      end
+      row :notes
+      row :proposal
+    end
+
   end
 
   form do |f|
