@@ -7,6 +7,7 @@ class Proposal < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :votings, as: :votable, dependent: :destroy
   has_many :flags, as: :flaggable, dependent: :destroy
+  has_many :statuses
 
   validates :title, presence: true
 

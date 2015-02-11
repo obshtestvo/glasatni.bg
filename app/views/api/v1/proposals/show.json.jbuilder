@@ -19,7 +19,14 @@ json.user do
   json.moderator @proposal.user.moderator?
 end
 
+json.statuses @proposal.statuses do |s|
+  json.kind Status.kinds.key(s.kind)
+  json.time_ago pretty_date(s.created_at)
+  json.notes s.notes
+end
+
 json.approved @proposal.approved
+json.time_ago pretty_date(@proposal.created_at)
 
 if @voter_id.present?
   voter = User.find(@voter_id)
