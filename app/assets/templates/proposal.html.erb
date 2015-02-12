@@ -45,17 +45,7 @@
 
 <h4>Статус</h4>
 
-  <div class="progress">
-    <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
-      <span class="sr-only">10% Complete</span>
-    </div>
-  </div>
-
-  <h5 class="text-primary"><i class="fa fa-heartbeat fa-lg"></i>&nbsp;&nbsp;&nbsp; Предложението е създадено <span class="text-muted pull-right">{{ proposal.time_ago }}</span></h5>
-
-  <div ng-repeat="status in proposal.statuses">
-    <h5 class="text-primary" ng-if="status.kind == 'discussion'"><i class="fa fa-plane fa-lg"></i>&nbsp;&nbsp;&nbsp; Предложението е в процес на обсъждане. Можеш да го подкрепиш, да не го харесаш или да го коментираш. <span class="text-muted pull-right">{{ status.time_ago }}</span></h5>
-  </div>
+  <proposal-statuses proposal="proposal"></proposal-statuses>
 
 <hr />
 

@@ -438,3 +438,13 @@ glasatni.directive("displayMessages", ["messageService", function(messageService
   };
 
 }]);
+
+glasatni.directive("proposalStatuses", [function() {
+  return {
+    restrict: "E",
+    templateUrl: "<%= asset_path('statuses.html') %>",
+    scope: {
+      proposal: "="
+    }
+  }
+}]);
