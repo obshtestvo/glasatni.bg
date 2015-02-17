@@ -44,6 +44,7 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
     });
   };
 
+  // set the default params for comments
   $scope.params = {
     order: "oldest",
     page: 1,
@@ -51,11 +52,13 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
     commentable_id: $routeParams.id
   };
 
+  // if the params change -> get the new comments.
   $scope.$watchCollection("[params.order, params.page]", function(newValue, oldValue) {
     if (newValue === oldValue) return;
     getCommentsData();
   });
 
+  // destroy comment
   $scope.destroyComment = function(comment) {
     Modal.open('destroyComment').then(function() {
       Comment.delete({ id: comment.id }).$promise.then(function() {
@@ -64,6 +67,8 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
     });
   };
 
+  // we need to fetch the comments from server after the user is fetched, because
+  // if a user is logged in, we send voter_id and display the votings.
   AuthService.userIsFetchedFromServer.then(function() {
 
     if (AuthService.getUser()) {
@@ -83,12 +88,15 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
   $scope.createNewComment = function(parentComment) {
     var params;
 
+    // There are different params for top/nested comments
+    // Top comment:
     if (typeof parentComment === "undefined") {
       params = {
         commentable_id: $scope.proposal.id,
         commentable_type: "proposal",
         content: $scope.newComment.content
       };
+    // nested comment
     } else {
       params = {
         commentable_id: parentComment.id,
@@ -101,7 +109,7 @@ glasatni.controller('CommentController', ["$scope", "$routeParams", "Comment", "
 
       // There is different business logic for top/nested comments
       // Top comment:
-      if (params.commentable_type === "proposal") {
+      if (typeof parentComment === "undefined") {
         $("#warning-box").slideUp();
         $("#comment-box").attr("rows", 3);
         $scope.newComment = { content: "" };
