@@ -439,12 +439,29 @@ glasatni.directive("displayMessages", ["messageService", function(messageService
 
 }]);
 
+// This directive handles business logic for the statuses
 glasatni.directive("proposalStatuses", [function() {
   return {
     restrict: "E",
     templateUrl: "<%= asset_path('statuses.html') %>",
     scope: {
       proposal: "="
+    },
+    controller: function($scope) {
+      var progressValues = {
+        created: { percentage: 20, style: 'primary' },
+        approved: { percentage: 30, style: 'primary' },
+        rejected_no_reason: { percentage: 30, style: 'danger' },
+        rejected_with_reason: { percentage: 40, style: 'danger'},
+        accepted: { percentage: 90, style: 'success' },
+        in_force: { percentage: 100, style: 'success' }
+      }
+//     var lastStatus = $scope.proposal.statuses.unshift();
+
+      $scope.progress = {
+        percentage: progressValues['approved']['percentage'],
+        style: progressValues['approved']['style']
+      }
     }
   }
 }]);
