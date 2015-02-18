@@ -23,7 +23,7 @@ ActiveAdmin.register Status do
 
   form do |f|
     f.inputs "Промени статус" do
-      f.input :kind, as: :select, collection: Status.kinds.keys
+      f.input :kind, as: :select, collection: Status.kinds.to_a
       f.input :notes
       f.input :proposal_id
     end
