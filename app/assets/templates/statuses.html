@@ -4,10 +4,9 @@
   </div>
 </div>
 
-{{ proposal.statuses }}
-
 <h5 class="text-primary"><i class="fa fa-heartbeat fa-lg"></i>&nbsp;&nbsp;&nbsp; Предложението е създадено и чака одобрение от модератор.<span class="text-muted pull-right">{{ proposal.time_ago }}</span></h5>
 
 <div ng-repeat="status in proposal.statuses">
-  <h5 class="text-primary" ng-if="status.kind == 'approved'"><i class="fa fa-plane fa-lg"></i>&nbsp;&nbsp;&nbsp; Предложението е в процес на обсъждане. Можеш да го подкрепиш, да не го харесаш или да го коментираш. <span class="text-muted pull-right">{{ status.time_ago }}</span></h5>
+  <h5 class="text-{{ status.style }}"><i class="fa fa-{{ status.icon }} fa-lg"></i>&nbsp;&nbsp;&nbsp; {{ status.message }}<span class="text-muted pull-right">{{ status.time_ago }}</span></h5>
+  <p ng-if="status.notes" class="text-muted">{{ status.notes }}</p>
 </div>

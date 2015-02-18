@@ -441,13 +441,14 @@ glasatni.directive("displayMessages", ["messageService", function(messageService
 
 // This directive handles business logic for the statuses
 glasatni.directive("proposalStatuses", [function() {
+
   return {
     restrict: "E",
     templateUrl: "<%= asset_path('statuses.html') %>",
     scope: {
       proposal: "="
     },
-    controller: function($scope) {
+    link: function(scope) {
       var progressValues = {
         created: { percentage: 20, style: 'primary' },
         approved: { percentage: 30, style: 'primary' },
@@ -456,12 +457,51 @@ glasatni.directive("proposalStatuses", [function() {
         accepted: { percentage: 90, style: 'success' },
         in_force: { percentage: 100, style: 'success' }
       }
-//     var lastStatus = $scope.proposal.statuses.unshift();
-
-      $scope.progress = {
-        percentage: progressValues['approved']['percentage'],
-        style: progressValues['approved']['style']
+      var statusValues = {
+        approved: {
+          message: "Предложението е в процес на обсъждане. Можеш да го подкрепиш, да не го харесаш или да го коментираш.",
+          icon: "plane",
+          style: "primary"
+        },
+        rejected_no_reason: {
+          message: "Предложението беше отхвърлено без да е дадена причина.",
+          icon: "times-circle",
+          style: "danger"
+        },
+        rejected_with_reason: {
+          message: "Предложението беше отхвърлено поради следната причина: ",
+          icon: "times-circle",
+          style: "danger"
+        },
+        accepted: {
+          message: "Предложението беше прието.",
+          icon: "check-square",
+          style: "success"
+        },
+        in_force: {
+          message: "Предложението е влязло в сила",
+          icon: "magic",
+          style: "success"
+        }
       }
+      var lastStatus;
+
+      // fire up only when proposal is loaded
+      scope.$watch("proposal", function(newValue, oldValue) {
+        if (newValue) {
+
+          // assign the corresponding values for the progress bar
+          var lastStatus = scope.proposal.statuses[scope.proposal.statuses.length-1];
+          scope.progress = {
+            percentage: progressValues[lastStatus.kind]['percentage'],
+            style: progressValues[lastStatus.kind]['style']
+          }
+
+          // assign the corresponding values for the statuses
+          scope.proposal.statuses.map(function(s) { return angular.extend(s, statusValues[s.kind] ) });
+        }
+      });
+
     }
   }
 }]);
