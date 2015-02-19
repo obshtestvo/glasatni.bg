@@ -79,6 +79,7 @@ module Api
       def approve
         @proposal.approved = proposal_params[:approved]
         @proposal.save
+        Status.create(kind: 0, proposal: @proposal)
         render :show
       end
 
