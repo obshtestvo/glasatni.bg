@@ -450,7 +450,7 @@ glasatni.directive("proposalStatuses", [function() {
     },
     link: function(scope) {
       var progressValues = {
-        created: { percentage: 20, style: 'primary' },
+        created: { percentage: 15, style: 'primary' },
         approved: { percentage: 30, style: 'primary' },
         rejected_no_reason: { percentage: 30, style: 'danger' },
         rejected_with_reason: { percentage: 40, style: 'danger'},
@@ -484,21 +484,31 @@ glasatni.directive("proposalStatuses", [function() {
           style: "success"
         }
       }
-      var lastStatus;
 
       // fire up only when proposal is loaded
       scope.$watch("proposal", function(newValue, oldValue) {
+        var lastStatus;
         if (newValue) {
 
-          // assign the corresponding values for the progress bar
-          var lastStatus = scope.proposal.statuses[scope.proposal.statuses.length-1];
+          if (scope.proposal.statuses.length === 0) {
+
+            lastStatus = { kind: 'created' }
+
+          } else {
+
+            // assign the corresponding values for the progress bar
+            lastStatus = scope.proposal.statuses[scope.proposal.statuses.length-1];
+
+            // assign the corresponding values for the statuses
+            scope.proposal.statuses.map(function(s) { return angular.extend(s, statusValues[s.kind] ) });
+
+          }
+
           scope.progress = {
             percentage: progressValues[lastStatus.kind]['percentage'],
             style: progressValues[lastStatus.kind]['style']
           }
-
-          // assign the corresponding values for the statuses
-          scope.proposal.statuses.map(function(s) { return angular.extend(s, statusValues[s.kind] ) });
+          
         }
       });
 
