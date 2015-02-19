@@ -79,7 +79,14 @@ module Api
       def approve
         @proposal.approved = proposal_params[:approved]
         @proposal.save
-        Status.create(kind: 0, proposal: @proposal)
+
+        # create/delete 'approved' status
+        if @proposal.approved == true
+          Status.create(kind: 0, proposal: @proposal)
+        else
+          Status.find_by(kind: 0, proposal: @proposal).delete
+        end
+
         render :show
       end
 
