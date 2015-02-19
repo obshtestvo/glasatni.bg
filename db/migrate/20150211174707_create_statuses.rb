@@ -9,7 +9,7 @@ class CreateStatuses < ActiveRecord::Migration
     end
 
     Proposal.approved.each do |p|
-      Status.create(kind: 0, proposal: p)
+      Status.create!(kind: 0, proposal: p)
     end
   end
 
