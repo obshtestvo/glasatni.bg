@@ -452,8 +452,10 @@ glasatni.directive("proposalStatuses", [function() {
       var progressValues = {
         created: { percentage: 15, style: 'primary' },
         approved: { percentage: 30, style: 'primary' },
-        rejected_no_reason: { percentage: 30, style: 'danger' },
-        rejected_with_reason: { percentage: 40, style: 'danger'},
+        submitted: { percentage: 50, style: 'success' },
+        not_submitted: { percentage: 30, style: 'danger' },
+        rejected_no_reason: { percentage: 60, style: 'danger' },
+        rejected_with_reason: { percentage: 70, style: 'danger'},
         accepted: { percentage: 90, style: 'success' },
         in_force: { percentage: 100, style: 'success' }
       }
@@ -462,6 +464,16 @@ glasatni.directive("proposalStatuses", [function() {
           message: "Предложението е в процес на обсъждане. Можеш да го подкрепиш, да не го харесаш или да го коментираш.",
           icon: "plane",
           style: "primary"
+        },
+        submitted: {
+          message: "Предложението е внесено за обсъждане.",
+          icon: "book",
+          style: "success"
+        },
+        not_submitted: {
+          message: "Предложението не e внесено за обсъждане поради следната причина:",
+          icon: "question",
+          style: "danger"
         },
         rejected_no_reason: {
           message: "Предложението беше отхвърлено без да е дадена причина.",
@@ -479,7 +491,7 @@ glasatni.directive("proposalStatuses", [function() {
           style: "success"
         },
         in_force: {
-          message: "Предложението е влязло в сила",
+          message: "Предложението е влязло в сила.",
           icon: "magic",
           style: "success"
         }
@@ -491,24 +503,20 @@ glasatni.directive("proposalStatuses", [function() {
         if (newValue) {
 
           if (scope.proposal.statuses.length === 0) {
-
             lastStatus = { kind: 'created' }
-
           } else {
-
             // assign the corresponding values for the progress bar
             lastStatus = scope.proposal.statuses[scope.proposal.statuses.length-1];
 
             // assign the corresponding values for the statuses
             scope.proposal.statuses.map(function(s) { return angular.extend(s, statusValues[s.kind] ) });
-
           }
 
           scope.progress = {
             percentage: progressValues[lastStatus.kind]['percentage'],
             style: progressValues[lastStatus.kind]['style']
           }
-          
+
         }
       });
 
