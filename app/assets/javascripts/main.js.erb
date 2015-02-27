@@ -449,53 +449,58 @@ glasatni.directive("proposalStatuses", [function() {
       proposal: "="
     },
     link: function(scope) {
-      var progressValues = {
-        created: { percentage: 15, style: 'primary' },
-        approved: { percentage: 30, style: 'primary' },
-        submitted: { percentage: 50, style: 'success' },
-        not_submitted: { percentage: 30, style: 'danger' },
-        rejected_no_reason: { percentage: 60, style: 'danger' },
-        rejected_with_reason: { percentage: 70, style: 'danger'},
-        accepted: { percentage: 90, style: 'success' },
-        in_force: { percentage: 100, style: 'success' }
-      }
+
+      // Let's store the data for the visualization of the proposals in this variable:
       var statusValues = {
+        created: {
+          message: "Предложението е създадено",
+          icon: "heartbeat",
+          style: "primary",
+          percentage: 15
+        },
         approved: {
           message: "Предложението е в процес на обсъждане. Можеш да го подкрепиш, да не го харесаш или да го коментираш.",
           icon: "plane",
-          style: "primary"
+          style: "primary",
+          percentage: 30
         },
         submitted: {
           message: "Предложението е внесено за обсъждане.",
           icon: "book",
-          style: "success"
+          style: "success",
+          percentage: 50
         },
         not_submitted: {
           message: "Предложението не e внесено за обсъждане поради следната причина:",
           icon: "question",
-          style: "danger"
+          style: "danger",
+          percentage: 30
         },
         rejected_no_reason: {
           message: "Предложението беше отхвърлено без да е дадена причина.",
           icon: "times-circle",
-          style: "danger"
+          style: "danger",
+          percentage: 60
         },
         rejected_with_reason: {
           message: "Предложението беше отхвърлено поради следната причина: ",
           icon: "times-circle",
-          style: "danger"
+          style: "danger",
+          percentage: 70
         },
         accepted: {
           message: "Предложението беше прието.",
           icon: "check-square",
-          style: "success"
+          style: "success",
+          percentage: 90
         },
         in_force: {
           message: "Предложението е влязло в сила.",
           icon: "magic",
-          style: "success"
+          style: "success",
+          percentage: 100
         }
-      }
+      };
 
       // fire up only when proposal is loaded
       scope.$watch("proposal", function(newValue, oldValue) {
@@ -512,10 +517,11 @@ glasatni.directive("proposalStatuses", [function() {
             scope.proposal.statuses.map(function(s) { return angular.extend(s, statusValues[s.kind] ) });
           }
 
+          // Assign the corresponding values for the progress bar.
           scope.progress = {
-            percentage: progressValues[lastStatus.kind]['percentage'],
-            style: progressValues[lastStatus.kind]['style']
-          }
+            percentage: statusValues[lastStatus.kind]['percentage'],
+            style: statusValues[lastStatus.kind]['style']
+          };
 
         }
       });
