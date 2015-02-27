@@ -4,9 +4,7 @@
   </div>
 </div>
 
-<h5 class="text-primary"><i class="fa fa-heartbeat fa-lg"></i>&nbsp;&nbsp;&nbsp; Предложението е създадено.<span class="text-muted pull-right">{{ proposal.time_ago }}</span></h5>
-
 <div ng-repeat="status in proposal.statuses">
-  <h5 class="text-{{ status.style }}"><i class="fa fa-{{ status.icon }} fa-lg"></i>&nbsp;&nbsp;&nbsp; {{ status.message }}<span class="text-muted pull-right">{{ status.time_ago }}</span></h5>
-  <p ng-if="status.notes" class="text-muted">{{ status.notes }}</p>
+  <h5 ng-show="status.show" class="text-{{ status.style }}"><i class="fa fa-{{ status.icon }} fa-lg"></i>&nbsp;&nbsp;&nbsp; {{ status.message }}<span class="text-muted pull-right">{{ status.time_ago }}</span></h5>
+  <p ng-if="status.notes || status.show" class="text-muted">{{ status.notes }}</p>
 </div>

@@ -502,20 +502,31 @@ glasatni.directive("proposalStatuses", [function() {
         }
       };
 
-      // fire up only when proposal is loaded
+      // Fire up only when proposal is loaded. This is needed, because otherwise
+      // a race condition occurs where angular attempts to render the element before
+      // the proposal's statuses are loaded.
       scope.$watch("proposal", function(newValue, oldValue) {
         var lastStatus;
+
+        // Evaluate the bussiness logic only on initialization, not every time the proposal
+        // object has changed.
         if (newValue) {
 
-          if (scope.proposal.statuses.length === 0) {
-            lastStatus = { kind: 'created' }
-          } else {
-            // assign the corresponding values for the progress bar
-            lastStatus = scope.proposal.statuses[scope.proposal.statuses.length-1];
+          // Assign the first status. This is not a real status, because we don't store it as
+          // such in the database. It is just a status for the UI.
+          scope.proposal.statuses.unshift({
+            kind: "created",
+            time_ago: scope.proposal.time_ago
+          });
 
-            // assign the corresponding values for the statuses
-            scope.proposal.statuses.map(function(s) { return angular.extend(s, statusValues[s.kind] ) });
-          }
+          // Assign the corresponding values for the statuses
+          scope.proposal.statuses.map(function(s) {
+            return angular.extend(s, statusValues[s.kind], { show: false });
+          });
+
+          // Get the last status and mark it for showing.
+          lastStatus = scope.proposal.statuses[scope.proposal.statuses.length - 1];
+          lastStatus.show = true;
 
           // Assign the corresponding values for the progress bar.
           scope.progress = {
