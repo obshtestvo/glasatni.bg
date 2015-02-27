@@ -502,6 +502,15 @@ glasatni.directive("proposalStatuses", [function() {
         }
       };
 
+      scope.showAllStatuses = function() {
+        scope.proposal.statuses.map(function(s) { return s.show = true });
+      };
+
+      scope.hideAllButLastStatuses = function() {
+        scope.proposal.statuses.map(function(s) { return s.show = false });
+        scope.proposal.statuses[scope.proposal.statuses.length - 1].show = true;
+      }
+
       // Fire up only when proposal is loaded. This is needed, because otherwise
       // a race condition occurs where angular attempts to render the element before
       // the proposal's statuses are loaded.

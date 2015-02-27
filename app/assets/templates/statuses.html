@@ -4,6 +4,9 @@
   </div>
 </div>
 
+<a href="" class="text-muted" ng-hide="proposal.statuses[0].show" ng-click="showAllStatuses()">Покажи историята на статуса &nbsp;<i class="fa fa-caret-down fa-lg"></i></a>
+<a href="" class="text-muted" ng-show="proposal.statuses[0].show" ng-click="hideAllButLastStatuses()">Скрий историята на статуса &nbsp;<i class="fa fa-caret-up fa-lg"></i></a>
+
 <div ng-repeat="status in proposal.statuses">
   <h5 ng-show="status.show" class="text-{{ status.style }}"><i class="fa fa-{{ status.icon }} fa-lg"></i>&nbsp;&nbsp;&nbsp; {{ status.message }}<span class="text-muted pull-right">{{ status.time_ago }}</span></h5>
   <p ng-if="status.notes || status.show" class="text-muted">{{ status.notes }}</p>
