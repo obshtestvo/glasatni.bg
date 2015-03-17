@@ -9,5 +9,5 @@
 
 <div ng-repeat="status in proposal.statuses">
   <h5 ng-show="status.show" class="text-{{ status.style }}"><i class="fa fa-{{ status.icon }} fa-lg"></i>&nbsp;&nbsp;&nbsp; {{ status.message }}<span class="text-muted pull-right">{{ status.time_ago }}</span></h5>
-  <p ng-if="status.notes || status.show" class="text-muted">{{ status.notes }}</p>
+  <p ng-if="status.notes && status.show" class="text-muted">{{ status.notes }}</p>
 </div>
