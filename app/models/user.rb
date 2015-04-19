@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :flags
   has_one :theme
 
-  paginates_per 3
+  paginates_per 25
 
   scope :subscribed, -> { where(subscribed: true) }
 
