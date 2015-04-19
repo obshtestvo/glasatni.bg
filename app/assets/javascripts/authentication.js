@@ -5,14 +5,14 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
 
   this.login = function(email, password, rememberMe, redirectTo) {
 
-    messageService.removeByLocation('login');
+    messageService.removeByLocation("login");
 
     $http.post("/users/sign_in.json", {
       user: { email: email, password: password, remember_me: rememberMe }
     }).then(function (res) {
       _user = res.data;
 
-      messageService.removeByLocation('top message');
+      messageService.removeByLocation("top message");
       messageService.push({
         msg: "Успешно влязохте в своя профил.",
         type: "success",
@@ -28,7 +28,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
       // change the error message if it is too ambiguous
       msg = error.status === 401 ? "Невалидна поща или парола." : error.data.error;
 
-      messageService.removeByLocation('login');
+      messageService.removeByLocation("login");
       messageService.push({
         msg: msg,
         type: "danger",
@@ -40,7 +40,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
 
   this.register = function(email, name, password, passwordConfirmation, bio, subscribed, redirectTo) {
 
-    messageService.removeByLocation('register');
+    messageService.removeByLocation("register");
 
     $http.post("/users.json", {
       user: {
@@ -53,7 +53,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
       }
     }).then(function(res) { // on success
 
-      messageService.removeByLocation('top message');
+      messageService.removeByLocation("top message");
       messageService.push({
         msg: "Регистрацията приключи успешно",
         type: "success",
@@ -68,7 +68,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
 
     }, function(response) { // on error
 
-      messageService.removeByLocation('register');
+      messageService.removeByLocation("register");
       for(wrongField in response.data.errors) {
 
         messageService.push({
@@ -99,7 +99,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
       url: "/users.json"
     }).then(function(res) {
 
-      messageService.removeByLocation('top message');
+      messageService.removeByLocation("top message");
       messageService.push({
         msg: "Промените са направени успешно",
         type: "success",
@@ -114,7 +114,7 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
 
     }, function(response) {
 
-      messageService.removeByLocation('register');
+      messageService.removeByLocation("register");
       for(wrongField in response.data.errors) {
 
         messageService.push({
@@ -134,14 +134,14 @@ glasatni.service("AuthService", ["$http", "$q", "$location", "messageService", f
   };
 
   this.logout = function(redirectTo) {
-    $http({ method: 'DELETE', url: "/users/sign_out.json", data: {} }).then(function() {
+    $http({ method: "DELETE", url: "/users/sign_out.json", data: {} }).then(function() {
       _user = null;
 
       if(redirectTo) {
         $location.path(redirectTo);
       }
 
-      messageService.removeByLocation('top message');
+      messageService.removeByLocation("top message");
       messageService.push({
         msg: "Успешно излязохте от своя профил.",
         type: "success",
@@ -195,7 +195,7 @@ glasatni.controller("RegisterController", ["$scope", "AuthService", function($sc
       $scope.user.passwordConfirmation,
       $scope.user.bio,
       $scope.user.subscribed,
-      '/proposals');
+      "/proposals");
   };
 
 }]);
@@ -210,7 +210,7 @@ var OptionsController = glasatni.controller("OptionsController", ["$scope", "$lo
     Modal.open("unregisteredCreateProposal").then(fn, fn);
   }
 
-  messageService.removeByLocation('register');
+  messageService.removeByLocation("register");
 
   $scope.AuthService = AuthService;
   $scope.user = angular.extend(user, { passwordConfirmation: "" });
@@ -230,7 +230,7 @@ var OptionsController = glasatni.controller("OptionsController", ["$scope", "$lo
       $scope.user.bio,
       $scope.user.subscribed,
       $scope.user.currentPassword,
-      '/proposals');
+      "/proposals");
   };
 
 }]);

@@ -56,7 +56,6 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
     // function. It simply gets the string (if present) and redirects
     // to the new address.
     redirectTo: function(current, path, search) {
-      //return search.goto ? "/" + search.goto : "/";
       return "/" + search.goto ? search.goto : "";
     }
   })
@@ -450,7 +449,7 @@ glasatni.directive("proposalStatuses", [function() {
     },
     link: function(scope) {
 
-      // Let's store the data for the visualization of the proposals in this variable:
+      // Let's store the data for the visualization of the statuses in this variable:
       var statusValues = {
         created: {
           message: "Предложението е създадено",
