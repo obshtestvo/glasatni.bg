@@ -18,14 +18,14 @@
       <img alt="{{ meta.name }}" ng-src="{{ meta.image_url }}" width="100%">
     </a>
   </div>
-  <div class="col-md-6 col-sm-6 col-xs-12">
+  <div class="col-md-3 col-sm-6 col-xs-12">
     <h3 class="meta"><a href="/themes/{{ meta.id }}">{{ meta.name }}</a></h3>
     <p>{{ meta.info | limitTo:200 }}...</p>
     <p><a class="btn btn-default" href="/proposals/theme/{{ meta.en_name }}/newest">Виж всички предложения »</a></p>
     <p class="text-muted">Модератор: <a href="/users/{{ meta.moderator.id }}">{{ meta.moderator.name }}</a></p>
   </div>
 
-  <div class="col-md-3">
+  <div class="col-md-6">
 
     <fb-social-box></fb-social-box>
 
@@ -38,6 +38,4 @@
 <div class="embed-responsive embed-responsive-16by9">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/G6uOEXZ8UCs" frameborder="0" allowfullscreen></iframe>
 </div>
-
-
 
