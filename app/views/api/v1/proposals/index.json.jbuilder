@@ -7,7 +7,6 @@ json.proposals @proposals do |p|
   end
 
   json.title p.title
-  json.content p.content
 
   json.voted @votings[p.id]
 
