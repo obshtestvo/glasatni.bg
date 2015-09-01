@@ -1,11 +1,7 @@
-- login dropdown
 - token based auth
-- да се пипне дизайна
 - статус на предложението
-- списък с рангове
 - page not found
 - N comments -> link to comment section
-- nested comments
 - style all devise views
 - style mails
 - loading при смяна на страницата
@@ -14,7 +10,5 @@
 - edit comments
 - notifications
 - времето да се update-ва автоматично
-- google analytics
-- да сложа FB "social box" до мета темата след като пуснем фб страницата
 - notification system
 - messages system
