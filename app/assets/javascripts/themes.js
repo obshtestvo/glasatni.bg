@@ -9,7 +9,7 @@ glasatni.controller("ThemeShowController", ["$scope", "$routeParams", "$http", f
 
 }]);
 
-glasatni.controller("ThemeIndexController", ["$scope", "$http", function($scope, $http) {
+glasatni.controller("ThemeIndexController", ["$scope", "$http", "data", function($scope, $http, data) {
 
   // Fisher–Yates Shuffle http://bost.ocks.org/mike/shuffle/
   var shuffle = function(array) {
@@ -23,9 +23,13 @@ glasatni.controller("ThemeIndexController", ["$scope", "$http", function($scope,
     return array;
   };
 
+  $scope.proposals = data.proposals;
+
   $http.get("/api/v1/themes").success(function(themes) {
+    //$scope.referendum = themes.filter(function(t) { return t.en_name === "referendum" })[0];
     $scope.meta = themes.filter(function(t) { return t.en_name === "meta" })[0];
-    $scope.themes = shuffle(themes.filter(function(t) { return t.en_name !== "meta" }));
+    $scope.themes = shuffle(themes.filter(function(t) { return t.en_name !== "meta" && t.en_name !== "referendum" }));
   });
 
 }]);
+

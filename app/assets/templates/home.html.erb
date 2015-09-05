@@ -1,4 +1,52 @@
+<div class="row">
+  <div class="col-md-3 col-sm-6 col-xs-6">
 
+    <filter order="$root.params.order">
+      <li><a href="/referendum/newest" ng-show="$root.params.order != 'newest'"><i class="fa fa-calendar fa-lg"></i>&nbsp; Най-нови</a></li>
+      <li><a href="/referendum/oldest" ng-show="$root.params.order != 'oldest'"><i class="fa fa-calendar-o fa-lg"></i>&nbsp; Най-стари</a></li>
+      <li><a href="/referendum/relevance" ng-show="$root.params.order != 'relevance'"><i class="fa fa-trophy fa-lg"></i>&nbsp; Най-подкрепени</a></li>
+      <li><a href="/referendum/most-comments" ng-show="$root.params.order != 'most-comments'"><i class="fa fa-comments fa-lg"></i>&nbsp; Коментирани</a></li>
+      <li><a href="/referendum/least-comments" ng-show="$root.params.order != 'least-comments'"><i class="fa fa-comments-o fa-lg"></i>&nbsp; Некоментирани</a></li>
+    </filter>
+
+  </div>
+
+  <div class="col-md-9 col-lg-9 hidden-xs hidden-sm">
+    <pagination ng-model="$root.params.page" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="5" class="pull-right" boundary-links="true"
+    rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
+  </div>
+
+  <div class="col-sm-6 col-xs-6 hidden-lg hidden-md hidden-xs">
+    <pagination ng-model="$root.params.page" ng-change="pageChanged()" total-items="proposalsCount" items-per-page="<%= Proposal.default_per_page %>" max-size="0" class="pull-right"
+                rotate="false" previous-text="Предишна" next-text="Следваща" first-text="Първа" last-text="Последна"></pagination>
+  </div>
+
+</div>
+
+<br />
+<div class="row row-no-gutter" ng-repeat="proposal in proposals">
+  <div class="col-md-1 col-sm-1 text-center">
+    <voting-buttons votable="proposal" votable-type="proposal"></voting-buttons>
+  </div>
+  <div class="col-md-11 col-sm-11">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><a href="/proposals/{{ proposal.id }}#title">{{ proposal.title }}</a>
+        <span ng-if="AuthService.getUser().role == 'moderator'" class="label" ng-class="{'label-success': proposal.approved, 'label-danger': !proposal.approved }">{{ proposal.approved ? "Одобрено" : "Неодобрено" }}</span>
+        <br />
+        <small>
+          в <a href="/themes/{{ proposal.theme.id }}">{{ proposal.theme.name }}</a> |
+          {{ proposal.commentsCount }} коментара |
+          автор: <a href="/users/{{ proposal.user.id }}">{{ proposal.user.name }}</a> |
+          модератор: <a href="/users/{{ proposal.theme.moderator.id }}">{{ proposal.theme.moderator.name }}</a> |
+          създадено {{ proposal.timeAgo }} |
+          гласували за: {{ proposal.up }} против: {{ proposal.down }}
+        </small>
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12" ng-repeat="theme in themes">
@@ -18,14 +66,14 @@
       <img alt="{{ meta.name }}" ng-src="{{ meta.image_url }}" width="100%">
     </a>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-12">
+  <div class="col-md-6 col-sm-6 col-xs-12">
     <h3 class="meta"><a href="/themes/{{ meta.id }}">{{ meta.name }}</a></h3>
     <p>{{ meta.info | limitTo:200 }}...</p>
     <p><a class="btn btn-default" href="/proposals/theme/{{ meta.en_name }}/newest">Виж всички предложения »</a></p>
     <p class="text-muted">Модератор: <a href="/users/{{ meta.moderator.id }}">{{ meta.moderator.name }}</a></p>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-3">
 
     <fb-social-box></fb-social-box>
 

@@ -10,6 +10,7 @@ class Theme < ActiveRecord::Base
       ngo: "Неправителствени организации",
       participation: "Гражданско участие",
       education: "Гражданско образование",
+      referendum: "Референдум",
       meta: "Как да подобрим платформата"
     }
   end
