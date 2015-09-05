@@ -36,7 +36,7 @@ glasatni.factory('Proposal', ["$resource", function($resource) {
   });
 }]);
 
-var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$scope", "$routeParams", "$http", "$location", "data", "AuthService", function($scope, $routeParams, $http, $location, data, AuthService) {
+var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$scope", "$http", "$location", "data", "AuthService", function($scope, $http, $location, data, AuthService) {
 
   $scope.proposals = data.proposals;
   $scope.proposalsCount = data.proposals_count;
