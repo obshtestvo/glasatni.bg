@@ -47,8 +47,8 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
       // perhaps a ParamsService is needed
       $rootScope.params = {
         theme: "referendum",
-        order: "newest",
-        page: 1
+        order: ($route.current.params.order || "newest"),
+        page: ($route.current.params.page || 1)
       };
 
       // Only fetch proposals when we know whether or not the user is authorized on the server.
