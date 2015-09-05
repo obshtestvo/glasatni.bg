@@ -120,7 +120,7 @@ glasatni.controller("ProposalCreateController", ["$scope", "$location", "$http",
   }
 
   $http.get("/api/v1/themes").then(function(res) {
-    $scope.themes = res.data;
+    $scope.themes = res.data.filter(function(t) { return t.en_name === "referendum" });
 
     $scope.proposal = {
       title: "",
