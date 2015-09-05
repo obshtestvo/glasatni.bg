@@ -48,6 +48,12 @@
   </div>
 </div>
 
+<div class="row" ng-hide="proposals.length">
+  <div class="alert alert-info" role="alert">
+    Няма намерени предложения по зададените критерии.
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-3 col-sm-6 col-xs-12" ng-repeat="theme in themes">
     <h3 class="text-center {{ theme.en_name }}"><a href="/themes/{{ theme.id }}">{{ theme.name }}</a></h3>
