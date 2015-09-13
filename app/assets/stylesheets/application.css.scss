@@ -99,6 +99,11 @@ div.container {
   max-width: 930px;
 }
 
+div.bigger-container {
+  @extend .container;
+  max-width: 1050px;
+}
+
 .themes-navigation, .themes-info {
   margin-bottom: 15px;
 }
