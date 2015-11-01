@@ -18,8 +18,6 @@ module Api
         # filter by theme if present
         if theme_name.present? and theme_name != "all"
           query = query.joins(:theme).where(themes: { name: Theme.en_names[theme_name.to_sym] })
-        else
-          query = query.joins(:theme).where.not(themes: { name: Theme.en_names[:referendum] })
         end
 
         # this is needed for user's profile page

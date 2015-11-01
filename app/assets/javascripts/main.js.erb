@@ -36,47 +36,20 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
   var proposalsOptions = {
     controller: "ProposalIndexController",
     templateUrl: "<%= asset_path('proposals.html') %>",
-    resolve: { data: ProposalIndexController.loadProposals }
+    resolve: {
+      data: ProposalIndexController.loadProposals
+    }
   };
-
-  var referendumOptions = {
-    controller: "ThemeIndexController",
-    templateUrl: "<%= asset_path('home.html') %>",
-    resolve: { data: ["$rootScope", "$route", "AuthService", "Proposal", function($rootScope, $route, AuthService, Proposal) {
-
-      // perhaps a ParamsService is needed
-      $rootScope.params = {
-        theme: "referendum",
-        order: ($route.current.params.order || "newest"),
-        page: ($route.current.params.page || 1)
-      };
-
-      // Only fetch proposals when we know whether or not the user is authorized on the server.
-      // Otherwise a race condition is happening on page reload: the proposals can be fetched before we have information
-      // about the user (All this is needed, because moderators and regulars have different proposal listings. ;_;)
-      return AuthService.userIsFetchedFromServer.then(function() {
-
-        // check if user is logged in and fetch id if so.
-        if (AuthService.getUser()) {
-          $rootScope.params.voter_id = AuthService.getUser().id;
-        }
-
-        // fetch proposals
-        return Proposal.query($rootScope.params).$promise.then(function(data) {
-          return data;
-        });
-
-      });
-
-    }]}
-  }
 
   $locationProvider.html5Mode(true);
 
   $routeProvider
 
   // home
-  .when("/", $.extend(referendumOptions, {
+  .when("/", {
+    controller: "ThemeIndexController",
+    templateUrl: "<%= asset_path('home.html') %>",
+
     // This redirection is needed to switch from rails to angular.
     // In rails' routes we catch all angular routes and pass them
     // with the 'goto' parameter. Then, the string is handled by this
@@ -85,9 +58,7 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
     redirectTo: function(current, path, search) {
       return "/" + search.goto ? search.goto : "";
     }
-  }))
-  .when("/referendum/:order", referendumOptions)
-  .when("/referendum/:order/:page", referendumOptions)
+  })
 
   // proposals
   .when("/proposals", proposalsOptions)
@@ -577,4 +548,3 @@ glasatni.directive("proposalStatuses", [function() {
     }
   }
 }]);
-

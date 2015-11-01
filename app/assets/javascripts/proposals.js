@@ -53,33 +53,34 @@ var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$
 
 }]);
 
+// this is a function returning promise that will be evaluated before every request for proposals listings.
 ProposalIndexController.loadProposals = ["$rootScope", "$route", "AuthService", "Proposal", function($rootScope, $route, AuthService, Proposal) {
 
-      // perhaps a ParamsService is needed
-      $rootScope.params = {
-        theme: ($route.current.params.theme || "all"),
-        order: ($route.current.params.order || "newest"),
-        page: ($route.current.params.page || 1)
-      };
+  // perhaps a ParamsService is needed
+  $rootScope.params = {
+    theme: ($route.current.params.theme || "all"),
+    order: ($route.current.params.order || "newest"),
+    page: ($route.current.params.page || 1)
+  };
 
-      // Only fetch proposals when we know whether or not the user is authorized on the server.
-      // Otherwise a race condition is happening on page reload: the proposals can be fetched before we have information
-      // about the user (All this is needed, because moderators and regulars have different proposal listings. ;_;)
-      return AuthService.userIsFetchedFromServer.then(function() {
+  // Only fetch proposals when we know whether or not the user is authorized on the server.
+  // Otherwise a race condition is happening on page reload: the proposals can be fetched before we have information
+  // about the user (All this is needed, because moderators and regulars have different proposal listings. ;_;)
+  return AuthService.userIsFetchedFromServer.then(function() {
 
-        // check if user is logged in and fetch id if so.
-        if (AuthService.getUser()) {
-          $rootScope.params.voter_id = AuthService.getUser().id;
-        }
+    // check if user is logged in and fetch id if so.
+    if (AuthService.getUser()) {
+      $rootScope.params.voter_id = AuthService.getUser().id;
+    }
 
-        // fetch proposals
-        return Proposal.query($rootScope.params).$promise.then(function(data) {
-          return data;
-        });
+    // fetch proposals
+    return Proposal.query($rootScope.params).$promise.then(function(data) {
+      return data;
+    });
 
-      });
+  });
 
-    }];
+}];
 
 glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "$anchorScroll", "$timeout", "AuthService", "Proposal", "Modal", function($scope, $rootScope, $routeParams, $location, $anchorScroll, $timeout, AuthService, Proposal, Modal) {
   var params = {
@@ -148,7 +149,7 @@ glasatni.controller("ProposalCreateController", ["$scope", "$location", "$http",
   }
 
   $http.get("/api/v1/themes").then(function(res) {
-    $scope.themes = res.data.filter(function(t) { return t.en_name === "referendum" });
+    $scope.themes = res.data;
 
     $scope.proposal = {
       title: "",
