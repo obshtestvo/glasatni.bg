@@ -49,16 +49,6 @@ ActiveRecord::Schema.define(version: 20150211174707) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "awards", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "badge_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "awards", ["badge_id"], name: "index_awards_on_badge_id", using: :btree
-  add_index "awards", ["user_id"], name: "index_awards_on_user_id", using: :btree
-
   create_table "comments", force: true do |t|
     t.integer  "commentable_id"
     t.string   "commentable_type"
