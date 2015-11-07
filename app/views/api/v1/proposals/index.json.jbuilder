@@ -8,7 +8,7 @@ json.proposals @proposals do |p|
 
   json.title p.title
 
-  json.voted @votings[p.id]
+  json.voted @votings[p.id] unless @votings.nil?
 
   json.theme do
     json.id p.theme_id
