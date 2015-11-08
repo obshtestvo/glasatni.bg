@@ -1,33 +1,41 @@
 glasatni.factory('Proposal', ["$resource", function($resource) {
+
+  var switchCase = function(data) {
+    data = JSON.parse(data);
+
+    data.proposals = data.proposals.map(function(p) {
+      return {
+        id: p.id,
+        title: p.title,
+        content: p.content,
+        theme: p.theme,
+        // the switch happens here:
+        commentsCount: p.comments_count,
+        user: p.user,
+        approved: p.approved,
+        voted: p.voted,
+        hotness: p.hotness,
+        up: p.up,
+        down: p.down,
+        // and here:
+        timeAgo: p.time_ago
+      }
+    });
+
+    return data;
+  }
+
   return $resource('/api/v1/proposals/:id', null, {
     'query': {
       method:'GET',
       isArray: false,
-      // I need this tiny layer to switch form the snake_case API, to the camelCase used in js variables. (Sorry)
-      transformResponse: function(data) {
-        data = JSON.parse(data);
-
-        data.proposals = data.proposals.map(function(p) {
-          return {
-            id: p.id,
-            title: p.title,
-            content: p.content,
-            theme: p.theme,
-            // the switch happens here:
-            commentsCount: p.comments_count,
-            user: p.user,
-            approved: p.approved,
-            voted: p.voted,
-            hotness: p.hotness,
-            up: p.up,
-            down: p.down,
-            // and here:
-            timeAgo: p.time_ago
-          }
-        });
-
-        return data;
-      }
+      transformResponse: switchCase
+    },
+    'archived': {
+      method: "GET",
+      url: "/api/v1/archived",
+      isArray: false,
+      transformResponse: switchCase
     },
     'vote': { method: "POST", url: "/vote" },
     'update': { method: 'PUT' },
@@ -54,33 +62,39 @@ var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$
 }]);
 
 // this is a function returning promise that will be evaluated before every request for proposals listings.
-ProposalIndexController.loadProposals = ["$rootScope", "$route", "AuthService", "Proposal", function($rootScope, $route, AuthService, Proposal) {
+ProposalIndexController.loadProposals = function(queryMethod) {
 
-  // perhaps a ParamsService is needed
-  $rootScope.params = {
-    theme: ($route.current.params.theme || "all"),
-    order: ($route.current.params.order || "newest"),
-    page: ($route.current.params.page || 1)
-  };
+  return ["$rootScope", "$route", "AuthService", "Proposal", function($rootScope, $route, AuthService, Proposal) {
 
-  // Only fetch proposals when we know whether or not the user is authorized on the server.
-  // Otherwise a race condition is happening on page reload: the proposals can be fetched before we have information
-  // about the user (All this is needed, because moderators and regulars have different proposal listings. ;_;)
-  return AuthService.userIsFetchedFromServer.then(function() {
+    // perhaps a ParamsService is needed
+    $rootScope.params = {
+      theme: ($route.current.params.theme || "all"),
+      order: ($route.current.params.order || "newest"),
+      page: ($route.current.params.page || 1)
+    };
 
-    // check if user is logged in and fetch id if so.
-    if (AuthService.getUser()) {
-      $rootScope.params.voter_id = AuthService.getUser().id;
-    }
+    // Only fetch proposals when we know whether or not the user is authorized on the server.
+    // Otherwise a race condition is happening on page reload: the proposals can be fetched before we have information
+    // about the user (All this is needed, because moderators and regulars have different proposal listings. ;_;)
+    return AuthService.userIsFetchedFromServer.then(function() {
 
-    // fetch proposals
-    return Proposal.query($rootScope.params).$promise.then(function(data) {
-      return data;
+      var method = queryMethod == "query" ? Proposal.query : Proposal.archived;
+
+      // check if user is logged in and fetch id if so.
+      if (AuthService.getUser()) {
+        $rootScope.params.voter_id = AuthService.getUser().id;
+      }
+
+      // fetch proposals
+      return method($rootScope.params).$promise.then(function(data) {
+        return data;
+      });
+
     });
 
-  });
+  }];
 
-}];
+}
 
 glasatni.controller("ProposalShowController", ["$scope", "$rootScope", "$routeParams", "$location", "$anchorScroll", "$timeout", "AuthService", "Proposal", "Modal", function($scope, $rootScope, $routeParams, $location, $anchorScroll, $timeout, AuthService, Proposal, Modal) {
   var params = {

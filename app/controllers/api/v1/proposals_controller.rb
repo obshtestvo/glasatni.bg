@@ -16,13 +16,15 @@ module Api
       end
 
       def archived
-        pqs = ProposalQueryService.new(proposal_params, archived: false)
+        pqs = ProposalQueryService.new(proposal_params, archived: true)
         @query = pqs.construct_query
 
         # some meta data about the result of the query, needed for UI purposes
         @proposals_count = @query.count
         @page = pqs.page
         @proposals = pqs.proposals
+
+        render :index
       end
 
       def show

@@ -30,16 +30,18 @@ glasatni.run(["$rootScope", "$window", "$location", "AuthService", function($roo
 // configuration for the application
 glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider, $locationProvider) {
 
-  // We use the angular core's routes (not the ui.routes module) and
-  // they don't support states. This is the reason we define options for
-  // different proposals-related routes here and reuse them 3 time later on.
-  var proposalsOptions = {
-    controller: "ProposalIndexController",
-    templateUrl: "<%= asset_path('proposals.html') %>",
-    resolve: {
-      data: ProposalIndexController.loadProposals
-    }
-  };
+  var proposalsOptions = function(queryMethod) {
+    // We use the angular core's routes (not the ui.routes module) and
+    // they don't support states. This is the reason we define options for
+    // different proposals-related routes here and reuse them 3 time later on.
+    return {
+      controller: "ProposalIndexController",
+      templateUrl: "<%= asset_path('proposals.html') %>",
+      resolve: {
+        data: ProposalIndexController.loadProposals(queryMethod)
+      }
+    };
+  }
 
   $locationProvider.html5Mode(true);
 
@@ -61,9 +63,12 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
   })
 
   // proposals
-  .when("/proposals", proposalsOptions)
-  .when("/proposals/theme/:theme/:order", proposalsOptions)
-  .when("/proposals/theme/:theme/:order/:page", proposalsOptions)
+  .when("/archived", proposalsOptions("archived"))
+  //.when("/archived/theme/:theme/:order", proposalsOptions("archived"))
+  //.when("/archived/theme/:theme/:order/:page", proposalsOptions("archived"))
+  .when("/proposals", proposalsOptions("query"))
+  .when("/proposals/theme/:theme/:order", proposalsOptions("query"))
+  .when("/proposals/theme/:theme/:order/:page", proposalsOptions("query"))
   .when("/proposals/new", {
     controller: "ProposalCreateController",
     templateUrl: "<%= asset_path('proposal_form.html') %>" })

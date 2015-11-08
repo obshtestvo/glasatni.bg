@@ -22,6 +22,7 @@ Rails.application.routes.draw do
           post "approve"
         end
       end
+      get "archived" => "proposals#archived"
       resources :comments, only: [:index, :create, :destroy]
       resources :themes, only: [:index, :show]
       resources :users, only: [:index, :show]
