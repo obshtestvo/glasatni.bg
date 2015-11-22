@@ -173,6 +173,14 @@
     </div>
 
   </div>
+  <div ng-show="proposal.theme.archived">
+
+    <div class="bs-callout bs-callout-danger">
+      <h4>Тази тема е архивирана</h4>
+      По тази темя нама да може да се публикуват повече коментари.
+    </div>
+
+  </div>
   <div ng-hide="AuthService.getUser()">
 
     <div class="bs-callout bs-callout-danger">

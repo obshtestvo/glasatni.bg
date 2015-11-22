@@ -6,6 +6,7 @@ json.content @proposal.content
 json.theme do
   json.id @proposal.theme.id
   json.name @proposal.theme.name
+  json.archived @proposal.theme.archived
   json.en_name Theme.en_names.key(@proposal.theme.name)
 end
 
