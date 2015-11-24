@@ -16,7 +16,7 @@ class Theme < ActiveRecord::Base
       referendum: "Референдум",
       meta: "Как да подобрим платформата",
       social: "Социално предприемачество",
-      choose_theme: "Избери тема"
+      choose_theme: "Предложи тема"
     }
   end
 end
