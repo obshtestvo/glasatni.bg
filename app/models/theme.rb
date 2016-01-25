@@ -16,7 +16,7 @@ class Theme < ActiveRecord::Base
       referendum: "Референдум",
       meta: "Как да подобрим платформата",
       social: "Социално предприемачество",
-      choose_theme: "Предложи тема"
+      ngo_management: "Принципи за финансово управление на НПО"
     }
   end
 end
