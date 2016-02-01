@@ -37,7 +37,7 @@ group :development do
   gem 'letter_opener'
   gem 'spring'
   gem 'capistrano'
-  gem 'capistrano-rails'
+  gem 'capistrano-rails', '~> 1.1.3'
   gem 'capistrano-bundler'
   gem 'capistrano3-puma'
 end
