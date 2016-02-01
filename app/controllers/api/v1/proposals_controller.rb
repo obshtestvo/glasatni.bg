@@ -8,6 +8,7 @@ module Api
       def index
         pqs = ProposalQueryService.new(proposal_params)
         @query = pqs.construct_query
+        @votings = pqs.votings
 
         # some meta data about the result of the query, needed for UI purposes
         @proposals_count = @query.count

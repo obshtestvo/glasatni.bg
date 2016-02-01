@@ -1,4 +1,6 @@
 class ProposalQueryService
+  attr_accessor :votings
+
   def initialize(proposal_params, archived: false)
     @archived = archived
     @order = proposal_params[:order]
@@ -32,6 +34,7 @@ class ProposalQueryService
   def proposals
     @query.page(page)
   end
+
 
   private
 
