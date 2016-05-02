@@ -56,7 +56,11 @@ var ProposalIndexController = glasatni.controller("ProposalIndexController", ["$
   $scope.AuthService = AuthService;
 
   $scope.pageChanged = function() {
-    $location.path("/proposals/theme/" + $scope.$root.params.theme + "/" + $scope.$root.params.order + "/" + $scope.$root.params.page);
+    $location.path(
+      $location.path().match(/^\/\w+/)[0] +
+      "/theme/" + $scope.$root.params.theme + "/"
+      + $scope.$root.params.order + "/" +
+      $scope.$root.params.page);
   }
 
 }]);
