@@ -2,6 +2,7 @@ glasatni.controller("ThemeShowController", ["$scope", "$routeParams", "$http", f
 
   $http.get("/api/v1/themes/" + $routeParams.id).success(function(theme) {
     $scope.theme = theme;
+    $scope.section = theme.archived ? "archived" : "proposals"
   });
 
   $scope.order = typeof $scope.$root.order === "undefined" ? "newest" : $scope.$root.order;
