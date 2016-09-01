@@ -23,3 +23,5 @@ public/system
 
 # Ignore application configuration
 /config/application.yml
+
+/vendor/bundle/
