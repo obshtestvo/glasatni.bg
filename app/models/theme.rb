@@ -16,7 +16,8 @@ class Theme < ActiveRecord::Base
       referendum: "Референдум",
       meta: "Как да подобрим платформата",
       social: "Социално предприемачество",
-      ngo_management: "Принципи за финансово управление на НПО"
+      ngo_management: "Принципи за финансово управление на НПО",
+      participation_sofia: "Гражданско участие в София"
     }
   end
 end
