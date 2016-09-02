@@ -3,17 +3,15 @@
 <div class="row">
   <!-- participation sofia -->
   <div class="col-md-6 col-sm-6 col-xs-12">
-    <a href="/themes/{{ participation_sofia.id }}">
-      <img alt="{{ participation_sofia.name }}" ng-src="{{ participation_sofia.image_url }}" width="100%">
-    </a>
-  </div>
-
-  <div class="col-md-6 col-sm-6 col-xs-12">
     <h3 class="text-center {{ participation_sofia.en_name }}"><a href="/themes/{{ participation_sofia.id }}">{{ participation_sofia.name }}</a></h3>
     <p>{{ participation_sofia.info | limitTo:200 }}...</p>
     <p><a class="btn btn-default" href="/proposals/theme/{{ participation_sofia.en_name }}/newest">Виж всички предложения »</a></p>
     <p class="text-muted">Модератор: <a href="/users/{{ participation_sofia.moderator.id }}">{{ participation_sofia.moderator.name }}</a></p>
   </div>
+  <div class="col-md-6 col-sm-6 col-xs-12">
+    <a href="/themes/{{ participation_sofia.id }}">
+      <img alt="{{ participation_sofia.name }}" ng-src="{{ participation_sofia.image_url }}" width="100%">
+    </a>
   </div>
 
   <!-- other themes -->
