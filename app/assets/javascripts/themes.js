@@ -25,8 +25,7 @@ glasatni.controller("ThemeIndexController", ["$scope", "$http", function($scope,
   };
 
   $http.get("/api/v1/themes").success(function(themes) {
-    $scope.meta = themes.filter(function(t) { return t.en_name === "meta" })[0];
-    $scope.themes = shuffle(themes.filter(function(t) { return ["meta", "referendum"].indexOf(t.en_name) === -1 }));
+    $scope.themes = shuffle(themes);
   });
 
 }]);
