@@ -124,7 +124,11 @@ glasatni.config(['$routeProvider', "$locationProvider", function($routeProvider,
   .when("/about", {
     templateUrl: "<%= asset_path('about.html') %>" })
 
-  // about
+  // goals
+  .when("/goals", {
+    templateUrl: "<%= asset_path('goals.html') %>" })
+
+  // legal
   .when("/legal", {
     templateUrl: "<%= asset_path('legal.html') %>" })
 
