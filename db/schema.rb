@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101205334) do
+ActiveRecord::Schema.define(version: 20160902065949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "active_admin_comments", force: true do |t|
+  create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
     t.string   "resource_id",   null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20151101205334) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
-  create_table "admin_users", force: true do |t|
+  create_table "admin_users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20151101205334) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "comments", force: true do |t|
+  create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "user_id"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20151101205334) do
 
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  create_table "flags", force: true do |t|
+  create_table "flags", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "flaggable_id"
     t.string   "flaggable_type"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20151101205334) do
   add_index "flags", ["flaggable_id", "flaggable_type"], name: "index_flags_on_flaggable_id_and_flaggable_type", using: :btree
   add_index "flags", ["user_id"], name: "index_flags_on_user_id", using: :btree
 
-  create_table "notifications", force: true do |t|
+  create_table "notifications", force: :cascade do |t|
     t.integer  "proposal_id"
     t.integer  "action"
     t.integer  "recipient_id"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 20151101205334) do
     t.datetime "updated_at"
   end
 
-  create_table "proposals", force: true do |t|
+  create_table "proposals", force: :cascade do |t|
     t.integer  "theme_id"
     t.integer  "user_id"
     t.string   "title"
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 20151101205334) do
   add_index "proposals", ["theme_id"], name: "index_proposals_on_theme_id", using: :btree
   add_index "proposals", ["user_id"], name: "index_proposals_on_user_id", using: :btree
 
-  create_table "statuses", force: true do |t|
+  create_table "statuses", force: :cascade do |t|
     t.integer  "proposal_id"
     t.integer  "kind"
     t.text     "notes"
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 20151101205334) do
 
   add_index "statuses", ["proposal_id"], name: "index_statuses_on_proposal_id", using: :btree
 
-  create_table "themes", force: true do |t|
+  create_table "themes", force: :cascade do |t|
     t.string   "name"
     t.text     "info"
     t.integer  "user_id"
@@ -121,9 +121,10 @@ ActiveRecord::Schema.define(version: 20151101205334) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "archived",        default: false
+    t.text     "long_info"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
@@ -152,7 +153,7 @@ ActiveRecord::Schema.define(version: 20151101205334) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "votings", force: true do |t|
+  create_table "votings", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "votable_id"
     t.string   "votable_type"

@@ -1,5 +1,5 @@
 ActiveAdmin.register Theme do
-  permit_params :name, :info, :user_id, :archived
+  permit_params :name, :info, :long_info, :user_id, :archived
 
   index do
     column :name
