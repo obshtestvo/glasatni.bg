@@ -24,8 +24,17 @@ glasatni.controller("ThemeIndexController", ["$scope", "$http", function($scope,
     return array;
   };
 
+  var select_theme_by_en_name = function(themes, en_name) {
+    return themes.filter(function(t) { return t.en_name === en_name })[0];
+  }
+
+  var filter_themes_with_en_name = function(themes, en_name) {
+    return themes.filter(function(t) { return t.en_name !== en_name })
+  }
+
   $http.get("/api/v1/themes").success(function(themes) {
-    $scope.themes = shuffle(themes);
+    $scope.participation_sofia = select_theme_by_en_name(themes, "participation_sofia")
+    $scope.themes = shuffle(filter_themes_with_en_name(themes, "participation_sofia"));
   });
 
 }]);
