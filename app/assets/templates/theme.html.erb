@@ -15,5 +15,21 @@
 </div>
 
 <br />
+
 <a href="/{{ section }}/theme/{{ theme.en_name }}/{{ order }}" class="btn btn-success btn-lg">Виж всички предложения относно {{ theme.name }}</a>
 
+<!-- this logos should only appear in one particular theme -->
+<div class="row" ng-if="theme.en_name == 'participation_sofia'">
+
+  <br />
+
+  <div class="col-md-3 col-sm-3 col-xs-6 vcenter">
+    <%= image_tag "bcnl_logo", class: "center-block", width: "70%" %>
+  </div><div class="col-md-3 col-sm-3 col-xs-6 vcenter">
+    <%= image_tag "ngobg_logo", class: "center-block", width: "70%" %>
+  </div><div class="col-md-3 col-sm-3 col-xs-6 vcenter">
+    <%= image_tag "sofia_municipality", class: "center-block", width: "70%" %>
+  </div><div class="col-md-3 col-sm-3 col-xs-6 vcenter">
+    <%= image_tag "eu_programme", class: "center-block", width: "70%" %>
+  </div>
+</div>
