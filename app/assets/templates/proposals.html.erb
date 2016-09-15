@@ -2,13 +2,11 @@
   <div class="col-md-6 col-sm-6 col-xs-6 text-center">
     <ul class="nav nav-pills nav-stacked" role="tablist">
       <li ng-class="{active: $root.params.theme=='all'}"><a href="/proposals/theme/all/{{ $root.params.order }}">Всички теми &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='all'">{{ proposalsCount }}</span></a></li>
-      <li ng-class="{active: $root.params.theme=='participation_sofia'}"><a href="/proposals/theme/participation_sofia/{{ $root.params.order }}">Гражданско участие за София &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='participation_sofia'">{{ proposalsCount }}</span></a></li>
     </ul>
   </div>
   <div class="col-md-6 col-sm-6 col-xs-6 text-center">
     <ul class="nav nav-pills nav-stacked" role="tablist">
-      <li ng-class="{active: $root.params.theme=='social'}"><a href="/proposals/theme/social/{{ $root.params.order }}">Социално предприемачество &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='social'">{{ proposalsCount }}</span></a></li>
-      <li ng-class="{active: $root.params.theme=='ngo_management'}"><a href="/proposals/theme/ngo_management/{{ $root.params.order }}">Принципи за финансово управление на НПО &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='ngo_management'">{{ proposalsCount }}</span></a></li>
+      <li ng-class="{active: $root.params.theme=='participation_sofia'}"><a href="/proposals/theme/participation_sofia/{{ $root.params.order }}">Гражданско участие за София &nbsp;<span class="label label-primary" ng-show="$root.params.theme=='participation_sofia'">{{ proposalsCount }}</span></a></li>
     </ul>
   </div>
 </div>
