@@ -2,13 +2,13 @@
 
 <div class="row">
   <!-- participation sofia -->
-  <div class="col-md-6 col-sm-6 col-xs-12">
+  <div class="col-md-9 col-sm-8 col-xs-12">
     <h3 class="text-center {{ participation_sofia.en_name }}"><a href="/themes/{{ participation_sofia.id }}">{{ participation_sofia.name }}</a></h3>
     <p>{{ participation_sofia.info | limitTo:200 }}...</p>
     <p><a class="btn btn-default" href="/themes/{{ participation_sofia.id }}">Прочети още »</a></p>
     <p class="text-muted">Модератор: <a href="/users/{{ participation_sofia.moderator.id }}">{{ participation_sofia.moderator.name }}</a></p>
   </div>
-  <div class="col-md-6 col-sm-6 col-xs-12">
+  <div class="col-md-3 col-sm-4 col-xs-12">
     <a href="/themes/{{ participation_sofia.id }}">
       <img alt="{{ participation_sofia.name }}" ng-src="{{ participation_sofia.image_url }}" width="100%">
     </a>
