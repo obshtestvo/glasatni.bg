@@ -26,6 +26,7 @@ gem 'figaro'
 gem 'showdown-rails'
 gem 'puma'
 gem 'exception_notification'
+gem 'nokogiri', '1.6.7.2'
 
 group :development do
   gem 'quiet_assets'
