@@ -1,5 +1,3 @@
-lock '3.4.0'
-
 set :application,     'glasatni'
 set :repo_url,        'https://github.com/obshtestvo/glasatni.bg.git'
 set :linked_files,    %w(config/database.yml config/secrets.yml config/application.yml)

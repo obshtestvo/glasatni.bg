@@ -1,10 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
-
-gem 'rails', '4.2.5.2'
+gem 'rails', '~> 4.2.5.2'
 gem 'rails-i18n', '~> 4.0.0'
-gem 'pg'
+gem 'pg', '~> 0.18'
 gem 'sass-rails', '~> 5.0.4'
 gem 'uglifier', '>= 1.3.0'
 
@@ -27,7 +25,6 @@ gem 'angular-ui-bootstrap-rails'
 gem 'figaro'
 gem 'showdown-rails'
 gem 'puma'
-gem 'therubyracer'
 gem 'exception_notification'
 
 group :development do
